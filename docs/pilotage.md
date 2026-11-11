@@ -18,10 +18,11 @@ Apprendre une langue avec des phrases qui servent dans la vraie vie, n'importe o
 | D5 | 4 modes de contexte : Silence, Écouteurs, Je peux parler, Voiture | C'est le pilier « le contexte d'abord ». |
 | D6 | Répétition espacée intégrée par défaut | Max veut beaucoup de répétition, et c'est ce qui fait retenir. |
 | D7 | Niveaux exprimés en situations maîtrisées, alignés en coulisse sur le CECRL (A1 à B2) | Plus motivant qu'une étiquette « A2 ». |
-| D8 | Audio : synthèse vocale de l'appareil pour le prototype, voix natives avant le lancement | La synthèse est gratuite et marche hors ligne sur la plupart des téléphones. La qualité native est indispensable pour la compréhension orale. |
+| D8 | Audio en 3 étapes : voix de l'appareil (phase 0), voix neuronales pré-générées en fichiers audio, via l'offre gratuite d'Azure ou des voix libres (phases 1 et 2), enregistrements d'un natif humain pour les phrases clés (phase 3). Pas de Higgsfield (pas de crédits). | Zéro coût au départ, une qualité qui monte à chaque phase, et des fichiers audio intégrés à l'app, donc identiques sur tous les téléphones et disponibles hors ligne. |
 | D9 | Garde-fou : les dépenses et la mise en ligne publique sont validées par Max | |
 | D10 | Équipe de 6 agents spécialisés dans Claude Code, le CEO orchestre | Chaque rôle a ses règles et son couloir. Le CEO tranche. |
 | D11 | Backlog dans les Issues GitHub, hébergement sur Netlify | Un minimum d'outils, pas de bruit. |
+| D12 | Pas d'agent « veilleur d'outils ». Revue des outils par le CEO à chaque changement de phase | Un agent dédié pousserait à empiler des outils. On part du besoin, pas de l'outil. |
 
 ## Feuille de route
 
