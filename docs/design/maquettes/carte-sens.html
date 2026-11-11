@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vécu, maquette : carte Sens</title>
+<style>
+/* ===== Tokens (systeme-visuel.md, section 1) ===== */
+:root {
+  color-scheme: light;
+  --bg: #FAF7F2; --surface: #FFFFFF; --text: #1C1B1A; --text-muted: #5C5750;
+  --border: #8A847B; --border-subtle: #E4DED4;
+  --accent: #1F4E8C; --on-accent: #FFFFFF; --accent-soft: #E3ECF8;
+  --success: #1E6B3A; --success-soft: #E4F2E8;
+  --danger: #A3302A; --danger-soft: #FBE9E7;
+  --focus: #1F4E8C; --overlay: rgba(20,19,18,0.5);
+
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  --fs-ru-hero: 1.875rem; --fs-ru-answer: 1.375rem; --fs-translit: 1rem;
+  --fs-body: 1.0625rem; --fs-option: 1.125rem; --fs-button: 1.125rem; --fs-small: 0.9375rem;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px;
+  --radius-s: 8px; --radius-m: 12px; --radius-l: 20px; --radius-pill: 999px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #141312; --surface: #201E1C; --text: #F2EEE8; --text-muted: #ADA79E;
+    --border: #7A746C; --border-subtle: #34312D;
+    --accent: #8FB4F0; --on-accent: #141312; --accent-soft: #1E2D45;
+    --success: #7FD19B; --success-soft: #17301F;
+    --danger: #F2A39B; --danger-soft: #3A1D1A;
+    --focus: #8FB4F0; --overlay: rgba(0,0,0,0.6);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #141312; --surface: #201E1C; --text: #F2EEE8; --text-muted: #ADA79E;
+  --border: #7A746C; --border-subtle: #34312D;
+  --accent: #8FB4F0; --on-accent: #141312; --accent-soft: #1E2D45;
+  --success: #7FD19B; --success-soft: #17301F;
+  --danger: #F2A39B; --danger-soft: #3A1D1A;
+  --focus: #8FB4F0; --overlay: rgba(0,0,0,0.6);
+}
+
+/* ===== Base ===== */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--font); font-size: var(--fs-body); line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+}
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+svg.icon { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ===== Barre de démonstration (hors app) ===== */
+.demo {
+  max-width: 480px; margin: 0 auto; padding: var(--space-2) var(--space-4);
+  font-size: var(--fs-small); color: var(--text-muted);
+  display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center;
+  border-bottom: 1px dashed var(--border-subtle);
+}
+.demo button, .demo a {
+  min-height: 36px; padding: 0 10px; border-radius: var(--radius-s);
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  font-size: var(--fs-small); cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center;
+}
+
+/* ===== Écran ===== */
+.app {
+  max-width: 480px; margin: 0 auto;
+  min-height: calc(100vh - 54px); min-height: calc(100dvh - 54px);
+  display: flex; flex-direction: column;
+}
+
+/* En-tête de session */
+.s-header {
+  height: 56px; padding: 0 var(--space-4) 0 var(--space-1);
+  display: flex; align-items: center; gap: var(--space-3);
+}
+.icon-btn {
+  width: 48px; height: 48px; flex: none; display: inline-flex; align-items: center; justify-content: center;
+  background: none; border: 0; border-radius: var(--radius-m); cursor: pointer;
+}
+.progress { flex: 1; display: flex; align-items: center; gap: var(--space-2); min-width: 0; }
+.bar { flex: 1; height: 6px; border-radius: var(--radius-pill); background: var(--border-subtle); overflow: hidden; }
+.bar > span { display: block; height: 100%; width: 25%; background: var(--accent); border-radius: inherit; transition: width 300ms; }
+.count { font-size: var(--fs-small); color: var(--text-muted); white-space: nowrap; }
+.badge {
+  min-height: 32px; padding: 0 12px; flex: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1.5px solid var(--border); border-radius: var(--radius-pill);
+  background: transparent; font-size: var(--fs-small); font-weight: 600;
+}
+.badge svg.icon { width: 16px; height: 16px; }
+button.badge { min-height: 44px; cursor: pointer; }
+
+/* Contenu de la carte */
+.content {
+  flex: 1; padding: var(--space-4) var(--space-4) var(--space-5);
+  display: flex; flex-direction: column;
+}
+.card { display: flex; flex-direction: column; flex: 1; animation: arrive 200ms ease-out; }
+@keyframes arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.consigne { margin: 0; font-size: var(--fs-small); font-weight: 600; color: var(--text-muted); }
+.consigne:focus { outline: none; }
+.phrase-zone { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: var(--space-6) 0; gap: var(--space-2); }
+.ru-hero {
+  margin: 0; font-size: var(--fs-ru-hero); font-weight: 600; line-height: 1.35;
+  hyphens: none; overflow-wrap: break-word;
+}
+.translit { margin: 0; font-size: var(--fs-translit); font-style: italic; color: var(--text-muted); }
+.btn-listen {
+  margin-top: var(--space-3); min-height: 44px; padding: 0 var(--space-4);
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius-m);
+  font-size: var(--fs-small); font-weight: 600; cursor: pointer;
+}
+
+/* Choix de QCM */
+.options { display: flex; flex-direction: column; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+.option {
+  width: 100%; min-height: 64px; padding: var(--space-3) var(--space-4);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  text-align: left; font-size: var(--fs-option); font-weight: 500; line-height: 1.35;
+  background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius-m);
+  cursor: pointer; transition: background-color 150ms, border-color 150ms;
+  -webkit-tap-highlight-color: transparent;
+}
+.option:not([aria-disabled="true"]):hover { border-color: var(--accent); }
+.option:not([aria-disabled="true"]):active { background: var(--accent-soft); border-color: var(--accent); }
+.option .state { width: 24px; height: 24px; flex: none; display: inline-flex; }
+.option[aria-disabled="true"] { cursor: default; }
+.option.is-right { background: var(--success-soft); border-color: var(--success); }
+.option.is-right .state { color: var(--success); }
+.option.is-wrong { background: var(--danger-soft); border-color: var(--danger); }
+.option.is-wrong .state { color: var(--danger); }
+.option.is-answer { border-color: var(--success); }
+.option.is-answer .state { color: var(--success); }
+.option.is-other { border-color: var(--border-subtle); color: var(--text-muted); }
+
+/* Zone d'action et panneau de retour */
+.action {
+  position: sticky; bottom: 0; background: var(--bg);
+  padding: var(--space-3) var(--space-4) max(var(--space-4), env(safe-area-inset-bottom));
+}
+.feedback {
+  position: sticky; bottom: 0; background: var(--surface);
+  border-top: 1px solid var(--border-subtle); border-radius: var(--radius-l) var(--radius-l) 0 0;
+  padding: var(--space-4) var(--space-4) max(var(--space-4), env(safe-area-inset-bottom));
+  animation: monte 180ms ease-out;
+}
+@keyframes monte { from { transform: translateY(100%); } to { transform: none; } }
+.verdict { margin: 0 0 var(--space-3); display: flex; align-items: center; gap: var(--space-2);
+  font-weight: 700; font-size: var(--fs-body); }
+.verdict.ok { color: var(--success); }
+.verdict.ko { color: var(--danger); }
+.answer-label { margin: 0; font-size: var(--fs-small); color: var(--text-muted); }
+.answer { margin: var(--space-1) 0 var(--space-3); font-size: var(--fs-option); font-weight: 600; }
+.tip {
+  margin: 0 0 var(--space-3); padding: var(--space-3) var(--space-4);
+  background: var(--bg); border-left: 4px solid var(--accent); border-radius: var(--radius-s);
+}
+.tip strong { display: block; font-size: var(--fs-small); color: var(--accent); }
+.again { margin: 0 0 var(--space-3); font-size: var(--fs-small); color: var(--text-muted); }
+.btn-primary {
+  width: 100%; min-height: 56px; padding: 0 var(--space-4);
+  background: var(--accent); color: var(--on-accent);
+  border: 2px solid var(--accent); border-radius: var(--radius-m);
+  font-size: var(--fs-button); font-weight: 600; cursor: pointer;
+  transition: transform 100ms, filter 100ms;
+}
+.btn-primary:active { transform: scale(0.98); filter: brightness(0.92); }
+.btn-secondary {
+  width: 100%; min-height: 52px; padding: 0 var(--space-4);
+  background: var(--surface); color: var(--text);
+  border: 2px solid var(--border); border-radius: var(--radius-m);
+  font-size: var(--fs-button); font-weight: 600; cursor: pointer;
+}
+
+/* Feuille du bas « On s'arrête là ? » */
+.overlay { position: fixed; inset: 0; background: var(--overlay); display: flex; align-items: flex-end;
+  justify-content: center; animation: fondu 200ms; }
+.overlay[hidden] { display: none; }
+@keyframes fondu { from { opacity: 0; } to { opacity: 1; } }
+.sheet {
+  width: 100%; max-width: 480px; background: var(--surface);
+  border-radius: var(--radius-l) var(--radius-l) 0 0;
+  padding: var(--space-5) var(--space-4) max(var(--space-4), env(safe-area-inset-bottom));
+  display: flex; flex-direction: column; gap: var(--space-2);
+  animation: monte 200ms ease-out;
+}
+.sheet h2 { margin: 0; font-size: 1.25rem; }
+.sheet p { margin: 0 0 var(--space-3); color: var(--text-muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important; scroll-behavior: auto !important;
+  }
+  .btn-primary:active { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Barre de démonstration : ne fait pas partie de l'app -->
+<div class="demo" aria-label="Commandes de la maquette">
+  <span>Maquette.</span>
+  <a href="?mode=silence">Silence</a>
+  <a href="?mode=ecouteurs">Écouteurs</a>
+  <button type="button" data-theme-set="auto">Auto</button>
+  <button type="button" data-theme-set="light">Clair</button>
+  <button type="button" data-theme-set="dark">Sombre</button>
+  <a href="accueil.html">Accueil</a>
+</div>
+
+<div class="app">
+  <header class="s-header">
+    <button type="button" class="icon-btn" id="quit" aria-label="Arrêter la session">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="progress">
+      <div class="bar" aria-hidden="true"><span id="bar"></span></div>
+      <span class="count" id="count">3 sur 12</span>
+    </div>
+    <span id="badge-slot"></span>
+  </header>
+
+  <main class="content" id="content"></main>
+  <div id="bottom"></div>
+</div>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <h2 id="sheet-title">On s’arrête là&nbsp;?</h2>
+    <p>Ce que tu as déjà fait est gardé.</p>
+    <button type="button" class="btn-primary" id="sheet-continue">Je continue</button>
+    <button type="button" class="btn-secondary" id="sheet-stop">Arrêter</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var NBSP = " ";
+  var mode = (new URLSearchParams(location.search).get("mode")) || "silence";
+  var sonore = mode === "ecouteurs" || mode === "parler";
+  if (mode === "voiture") mode = "silence"; // la maquette ne montre pas la voiture
+
+  // Exemple de contenu, à titre d'illustration seulement : le vrai contenu vient de content/ru/.
+  var carte = {
+    accent: "Ско́лько э́то сто́ит?",
+    translit: "skól'ko éto stóit?",
+    choix: [
+      { fr: "Combien ça coûte" + NBSP + "?", juste: true },
+      { fr: "Où est-ce que je paie" + NBSP + "?", juste: false },
+      { fr: "C’est trop cher.", juste: false }
+    ],
+    astuce: null
+  };
+  var translitVisible = true;
+  var n = 3, total = 12;
+
+  var ICON = {
+    check: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>',
+    cross: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+    mute: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg>',
+    speaker: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>'
+  };
+
+  var content = document.getElementById("content");
+  var bottom = document.getElementById("bottom");
+  var badgeSlot = document.getElementById("badge-slot");
+  var timer = null;
+
+  // Seule porte vers la synthèse vocale : ne fait rien en Silence.
+  function parler(texte) {
+    if (mode === "silence") return;
+    try {
+      if (!("speechSynthesis" in window)) return;
+      var u = new SpeechSynthesisUtterance(texte);
+      u.lang = "ru-RU";
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    } catch (e) { /* maquette : on ignore */ }
+  }
+  function couper() { try { if ("speechSynthesis" in window) speechSynthesis.cancel(); } catch (e) {} }
+
+  function badge() {
+    if (mode === "silence") {
+      badgeSlot.innerHTML = '<span class="badge">' + ICON.mute + 'Silence</span>';
+    } else {
+      badgeSlot.innerHTML = '<button type="button" class="badge" id="mute">' + ICON.mute + 'Couper le son</button>';
+      document.getElementById("mute").addEventListener("click", function () {
+        couper();
+        mode = "silence";
+        badge();
+        var b = document.querySelector(".btn-listen"); if (b) b.remove();
+        annoncer("Son coupé. On continue en silence.");
+      });
+    }
+  }
+  function annoncer(t) {
+    var s = document.getElementById("annonce");
+    if (!s) { s = document.createElement("p"); s.id = "annonce"; s.className = "sr-only"; s.setAttribute("role", "status"); document.body.appendChild(s); }
+    s.textContent = ""; setTimeout(function () { s.textContent = t; }, 50);
+  }
+  function melanger(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+  function afficherCarte() {
+    clearTimeout(timer);
+    document.getElementById("count").textContent = n + " sur " + total;
+    document.getElementById("bar").style.width = Math.round(n / total * 100) + "%";
+    bottom.innerHTML = "";
+    var html = '<section class="card">' +
+      '<h1 class="consigne" tabindex="-1">Ça veut dire quoi' + NBSP + '?</h1>' +
+      '<div class="phrase-zone">' +
+        '<p class="ru-hero" lang="ru">' + carte.accent + '</p>' +
+        (translitVisible ? '<p class="translit" lang="ru-Latn">' + carte.translit + '</p>' : '') +
+        // En Silence, le bouton Écouter n'est pas masqué : il n'est pas créé.
+        (mode !== "silence" ? '<button type="button" class="btn-listen">' + ICON.speaker + 'Écouter</button>' : '') +
+      '</div>' +
+      '<ul class="options">' + melanger(carte.choix).map(function (c) {
+        return '<li><button type="button" class="option" data-juste="' + c.juste + '">' +
+          '<span>' + c.fr + '</span><span class="state"></span><span class="sr-only sr-state"></span></button></li>';
+      }).join("") + '</ul></section>';
+    content.innerHTML = html;
+    content.querySelector(".consigne").focus();
+    var ecouter = content.querySelector(".btn-listen");
+    if (ecouter) ecouter.addEventListener("click", function () { parler(carte.accent.replace(/́/g, "")); });
+    content.querySelectorAll(".option").forEach(function (b) { b.addEventListener("click", function () { repondre(b); }); });
+  }
+
+  function repondre(choisi) {
+    if (choisi.getAttribute("aria-disabled") === "true") return;
+    var juste = choisi.dataset.juste === "true";
+    var bonne = null;
+    content.querySelectorAll(".option").forEach(function (b) {
+      b.setAttribute("aria-disabled", "true");
+      var estBonne = b.dataset.juste === "true";
+      if (estBonne) bonne = b;
+      if (b === choisi && juste) { b.classList.add("is-right"); b.querySelector(".state").innerHTML = ICON.check; b.querySelector(".sr-state").textContent = ", bonne réponse"; }
+      else if (b === choisi) { b.classList.add("is-wrong"); b.querySelector(".state").innerHTML = ICON.cross; b.querySelector(".sr-state").textContent = ", ton choix, faux"; }
+      else if (estBonne) { b.classList.add("is-answer"); b.querySelector(".state").innerHTML = ICON.check; b.querySelector(".sr-state").textContent = ", bonne réponse"; }
+      else b.classList.add("is-other");
+    });
+
+    var p = '<div class="feedback">';
+    if (juste) {
+      p += '<p class="verdict ok" role="status">' + ICON.check + 'C’est ça.</p>';
+    } else {
+      p += '<p class="verdict ko" role="status">' + ICON.cross + 'Pas tout à fait.</p>' +
+        '<p class="answer-label">La bonne réponse' + NBSP + ':</p>' +
+        '<p class="answer">' + bonne.querySelector("span").textContent + '</p>' +
+        (carte.astuce ? '<div class="tip"><strong>Astuce</strong>' + carte.astuce + '</div>' : '') +
+        '<p class="again">On la reverra bientôt.</p>';
+    }
+    p += '<button type="button" class="btn-primary" id="next">Suivant</button></div>';
+    bottom.innerHTML = p;
+    var next = document.getElementById("next");
+    next.addEventListener("click", suivant);
+    next.focus({ preventScroll: true });
+    parler(carte.accent.replace(/́/g, ""));
+    if (juste) timer = setTimeout(suivant, 1200);
+  }
+
+  function suivant() { couper(); n = Math.min(n + 1, total); afficherCarte(); }
+
+  // Feuille du bas (remplace confirm)
+  var overlay = document.getElementById("overlay");
+  var quit = document.getElementById("quit");
+  function ouvrirFeuille() { couper(); clearTimeout(timer); overlay.hidden = false; document.getElementById("sheet-continue").focus(); }
+  function fermerFeuille() {
+    overlay.hidden = true; quit.focus();
+    // Si la réponse était juste, l'avance automatique reprend.
+    if (bottom.querySelector(".verdict.ok")) timer = setTimeout(suivant, 1200);
+  }
+  quit.addEventListener("click", ouvrirFeuille);
+  document.getElementById("sheet-continue").addEventListener("click", fermerFeuille);
+  document.getElementById("sheet-stop").addEventListener("click", function () { location.href = "accueil.html"; });
+  overlay.addEventListener("click", function (e) { if (e.target === overlay) fermerFeuille(); });
+  document.addEventListener("keydown", function (e) {
+    if (!overlay.hidden) {
+      if (e.key === "Escape") fermerFeuille();
+      if (e.key === "Tab") { // piège de focus minimal
+        var f = overlay.querySelectorAll("button"); var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+      return;
+    }
+    var k = parseInt(e.key, 10);
+    if (k >= 1 && k <= 3) { var o = content.querySelectorAll(".option")[k - 1]; if (o) o.click(); }
+  });
+
+  document.querySelectorAll("[data-theme-set]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var t = b.dataset.themeSet;
+      if (t === "auto") document.documentElement.removeAttribute("data-theme");
+      else document.documentElement.setAttribute("data-theme", t);
+    });
+  });
+
+  badge();
+  afficherCarte();
+})();
+</script>
+</body>
+</html>

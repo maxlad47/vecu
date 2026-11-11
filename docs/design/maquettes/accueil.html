@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vécu, maquette : accueil</title>
+<style>
+/* ===== Tokens (systeme-visuel.md, section 1) ===== */
+:root {
+  color-scheme: light;
+  --bg: #FAF7F2; --surface: #FFFFFF; --text: #1C1B1A; --text-muted: #5C5750;
+  --border: #8A847B; --border-subtle: #E4DED4;
+  --accent: #1F4E8C; --on-accent: #FFFFFF; --accent-soft: #E3ECF8;
+  --success: #1E6B3A; --success-soft: #E4F2E8;
+  --danger: #A3302A; --danger-soft: #FBE9E7;
+  --focus: #1F4E8C; --overlay: rgba(20,19,18,0.5);
+
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  --fs-question: 1.125rem; --fs-body: 1.0625rem; --fs-option: 1.125rem;
+  --fs-button: 1.125rem; --fs-small: 0.9375rem;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px;
+  --radius-s: 8px; --radius-m: 12px; --radius-l: 20px; --radius-pill: 999px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #141312; --surface: #201E1C; --text: #F2EEE8; --text-muted: #ADA79E;
+    --border: #7A746C; --border-subtle: #34312D;
+    --accent: #8FB4F0; --on-accent: #141312; --accent-soft: #1E2D45;
+    --success: #7FD19B; --success-soft: #17301F;
+    --danger: #F2A39B; --danger-soft: #3A1D1A;
+    --focus: #8FB4F0; --overlay: rgba(0,0,0,0.6);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #141312; --surface: #201E1C; --text: #F2EEE8; --text-muted: #ADA79E;
+  --border: #7A746C; --border-subtle: #34312D;
+  --accent: #8FB4F0; --on-accent: #141312; --accent-soft: #1E2D45;
+  --success: #7FD19B; --success-soft: #17301F;
+  --danger: #F2A39B; --danger-soft: #3A1D1A;
+  --focus: #8FB4F0; --overlay: rgba(0,0,0,0.6);
+}
+
+/* ===== Base ===== */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--font); font-size: var(--fs-body); line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+}
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+svg.icon { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ===== Barre de démonstration (hors app) ===== */
+.demo {
+  max-width: 480px; margin: 0 auto; padding: var(--space-2) var(--space-4);
+  font-size: var(--fs-small); color: var(--text-muted);
+  display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center;
+  border-bottom: 1px dashed var(--border-subtle);
+}
+.demo button, .demo a {
+  min-height: 36px; padding: 0 10px; border-radius: var(--radius-s);
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  font-size: var(--fs-small); cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center;
+}
+
+/* ===== Écran ===== */
+.app {
+  max-width: 480px; margin: 0 auto;
+  min-height: calc(100vh - 54px); min-height: calc(100dvh - 54px);
+  display: flex; flex-direction: column;
+}
+.header {
+  height: 56px; padding: 0 var(--space-2) 0 var(--space-4);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.wordmark { font-weight: 700; font-size: var(--fs-body); letter-spacing: 0.01em; }
+.header nav { display: flex; gap: var(--space-1); }
+.text-btn {
+  min-height: 48px; min-width: 48px; padding: 0 var(--space-2);
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: 0; border-radius: var(--radius-m);
+  font-size: var(--fs-small); font-weight: 600; cursor: pointer;
+}
+.text-btn svg.icon { width: 20px; height: 20px; }
+
+.content { flex: 1; padding: var(--space-4) var(--space-4) var(--space-5); }
+fieldset { border: 0; margin: 0 0 var(--space-5); padding: 0; min-width: 0; }
+legend {
+  padding: 0; margin-bottom: var(--space-3);
+  font-size: var(--fs-question); font-weight: 700; line-height: 1.3;
+}
+
+/* Radios natifs masqués, labels stylés */
+.choice-input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+.choice {
+  display: flex; cursor: pointer; background: var(--surface);
+  border: 2px solid var(--border); border-radius: var(--radius-m);
+  transition: background-color 150ms, border-color 150ms;
+  -webkit-tap-highlight-color: transparent;
+}
+.choice:hover { border-color: var(--accent); }
+.choice-input:focus-visible + .choice { outline: 3px solid var(--focus); outline-offset: 2px; }
+.choice-input:checked + .choice { background: var(--accent-soft); border-color: var(--accent); }
+.check { display: none; color: var(--accent); }
+.choice-input:checked + .choice .check { display: inline-flex; }
+
+/* Segments de durée */
+.segments { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-2); }
+.segments .choice {
+  min-height: 56px; align-items: center; justify-content: center; gap: 4px;
+  font-size: var(--fs-option); font-weight: 600; white-space: nowrap;
+}
+.segments .choice-input:checked + .choice { font-weight: 700; }
+.segments .check svg { width: 16px; height: 16px; stroke-width: 3; }
+
+/* Cartes de lieu */
+.places { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+.places .choice {
+  position: relative; min-height: 104px; padding: var(--space-3);
+  flex-direction: column; align-items: flex-start; gap: 2px;
+}
+.place-name { margin-top: 6px; font-weight: 600; font-size: var(--fs-body); line-height: 1.25; }
+.place-ex { font-size: var(--fs-small); color: var(--text-muted); line-height: 1.35; }
+.places .check { position: absolute; top: 10px; right: 10px; }
+.places .check svg { width: 20px; height: 20px; stroke-width: 3; }
+
+.hint { margin: var(--space-3) 0 0; font-size: var(--fs-small); color: var(--text-muted); min-height: 1.4em; }
+
+/* Zone d'action */
+.action {
+  position: sticky; bottom: 0; background: var(--bg);
+  padding: var(--space-3) var(--space-4) max(var(--space-4), env(safe-area-inset-bottom));
+}
+.btn-primary {
+  width: 100%; min-height: 64px; padding: var(--space-2) var(--space-4);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  background: var(--accent); color: var(--on-accent);
+  border: 2px solid var(--accent); border-radius: var(--radius-m);
+  cursor: pointer; transition: transform 100ms, filter 100ms;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-primary:active { transform: scale(0.98); filter: brightness(0.92); }
+.btn-label { font-size: var(--fs-button); font-weight: 600; line-height: 1.2; }
+.btn-sub { font-size: var(--fs-small); line-height: 1.2; }
+.btn-primary[aria-disabled="true"] { background: var(--accent-soft); color: var(--accent); }
+.btn-primary[aria-disabled="true"] .btn-sub { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important; scroll-behavior: auto !important;
+  }
+  .btn-primary:active { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Barre de démonstration : ne fait pas partie de l'app -->
+<div class="demo" aria-label="Commandes de la maquette">
+  <span>Maquette.</span>
+  <button type="button" data-demo="first">1er lancement</button>
+  <button type="button" data-demo="second">2e lancement</button>
+  <button type="button" data-theme-set="auto">Auto</button>
+  <button type="button" data-theme-set="light">Clair</button>
+  <button type="button" data-theme-set="dark">Sombre</button>
+  <a href="carte-sens.html">Carte Sens</a>
+</div>
+
+<div class="app">
+  <header class="header">
+    <span class="wordmark">Vécu</span>
+    <nav aria-label="Navigation">
+      <button type="button" class="text-btn">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+        Mes progrès
+      </button>
+      <button type="button" class="text-btn">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        Réglages
+      </button>
+    </nav>
+  </header>
+
+  <main class="content">
+    <fieldset>
+      <legend>J’ai combien de temps&nbsp;?</legend>
+      <div class="segments">
+        <input class="choice-input" type="radio" name="duree" id="d2" value="2">
+        <label class="choice" for="d2"><span class="check" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span><span aria-hidden="true">2 min</span><span class="sr-only">2 minutes</span></label>
+        <input class="choice-input" type="radio" name="duree" id="d5" value="5" checked>
+        <label class="choice" for="d5"><span class="check" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span><span aria-hidden="true">5 min</span><span class="sr-only">5 minutes</span></label>
+        <input class="choice-input" type="radio" name="duree" id="d15" value="15">
+        <label class="choice" for="d15"><span class="check" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span><span aria-hidden="true">15 min</span><span class="sr-only">15 minutes</span></label>
+        <input class="choice-input" type="radio" name="duree" id="d30" value="30">
+        <label class="choice" for="d30"><span class="check" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span><span aria-hidden="true">30 min</span><span class="sr-only">30 minutes</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend id="q-lieu" tabindex="-1">Je suis où&nbsp;?</legend>
+      <div class="places">
+        <input class="choice-input" type="radio" name="lieu" id="l-silence" value="silence">
+        <label class="choice" for="l-silence">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg>
+          <span class="place-name">Silence</span>
+          <span class="place-ex">Salle d’attente, réunion, métro bondé</span>
+          <span class="check" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span>
+        </label>
+        <input class="choice-input" type="radio" name="lieu" id="l-ecouteurs" value="ecouteurs">
+        <label class="choice" for="l-ecouteurs">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3v4zM3 19a2 2 0 0 0 2 2h1v-6H3v4z"/></svg>
+          <span class="place-name">Écouteurs</span>
+          <span class="place-ex">Dans le bus, dans une file d’attente</span>
+          <span class="check" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span>
+        </label>
+        <input class="choice-input" type="radio" name="lieu" id="l-parler" value="parler">
+        <label class="choice" for="l-parler">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.2-4.4A8 8 0 1 1 21 12z"/><path d="M9 11h.01M13 11h.01M17 11h.01"/></svg>
+          <span class="place-name">Je peux parler</span>
+          <span class="place-ex">Chez moi, en promenade</span>
+          <span class="check" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span>
+        </label>
+        <input class="choice-input" type="radio" name="lieu" id="l-voiture" value="voiture">
+        <label class="choice" for="l-voiture">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><path d="M3 12h18"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/><path d="M9.5 17h5"/></svg>
+          <span class="place-name">Voiture</span>
+          <span class="place-ex">Sur la route, sans les mains</span>
+          <span class="check" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span>
+        </label>
+      </div>
+      <p class="hint" id="hint" role="status"></p>
+    </fieldset>
+  </main>
+
+  <div class="action">
+    <button type="button" class="btn-primary" id="go">
+      <span class="btn-label" id="go-label">C’est parti</span>
+      <span class="btn-sub" id="go-sub"></span>
+    </button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var NBSP = " ";
+  var CLAIR = { silence: "en silence", ecouteurs: "avec écouteurs", parler: "à voix haute", voiture: "en voiture" };
+  var go = document.getElementById("go");
+  var label = document.getElementById("go-label");
+  var sub = document.getElementById("go-sub");
+  var hint = document.getElementById("hint");
+
+  function valeur(nom) {
+    var el = document.querySelector('input[name="' + nom + '"]:checked');
+    return el ? el.value : null;
+  }
+  function majBouton() {
+    var d = valeur("duree"), l = valeur("lieu");
+    if (!l) {
+      go.setAttribute("aria-disabled", "true");
+      label.textContent = "Dis-moi où tu es";
+      sub.textContent = "";
+    } else {
+      go.removeAttribute("aria-disabled");
+      label.textContent = "C’est parti";
+      sub.textContent = d + NBSP + "min, " + CLAIR[l];
+      hint.textContent = "";
+    }
+  }
+  document.querySelectorAll(".choice-input").forEach(function (i) { i.addEventListener("change", majBouton); });
+
+  go.addEventListener("click", function () {
+    if (go.getAttribute("aria-disabled") === "true") {
+      hint.textContent = "Choisis l’endroit où tu es, je m’adapte.";
+      var premier = document.getElementById("l-silence");
+      premier.focus();
+      premier.closest("fieldset").scrollIntoView({ block: "nearest" });
+      return;
+    }
+    // Maquette : la vraie app lance la session ici.
+    window.location.href = "carte-sens.html?mode=" + valeur("lieu");
+  });
+
+  // Commandes de démonstration
+  document.querySelectorAll("[data-demo]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll('input[name="lieu"]').forEach(function (i) { i.checked = false; });
+      document.getElementById("d5").checked = true;
+      if (b.dataset.demo === "second") document.getElementById("l-silence").checked = true;
+      hint.textContent = "";
+      majBouton();
+    });
+  });
+  document.querySelectorAll("[data-theme-set]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var t = b.dataset.themeSet;
+      if (t === "auto") document.documentElement.removeAttribute("data-theme");
+      else document.documentElement.setAttribute("data-theme", t);
+    });
+  });
+  majBouton();
+})();
+</script>
+</body>
+</html>
