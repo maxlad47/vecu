@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pilote de test Vécu</title>
+<style>
+  html, body { margin: 0; background: #888; }
+  iframe { display: block; width: 360px; height: 800px; border: 0; }
+  #rapport { font: 12px monospace; white-space: pre-wrap; padding: 8px; }
+</style>
+</head>
+<body>
+<iframe id="app" title="Vécu"></iframe>
+<pre id="rapport">en cours</pre>
+<script>
+// Retarde l'événement load (donc la capture) : voir tests/serveur.rb.
+document.write('<img alt="" width="1" height="1" src="/attendre?ms=' + (new URLSearchParams(location.search).get("attente") || 8000) + '">');
+</script>
+<script>
+// Pilote de test : hors de dist/, jamais livré. Il sert les captures et les vérifications.
+// Usage (serveur lancé à la racine du dépôt) :
+//   tests/pilote.html?s=<scénario>&theme=light|dark
+// Le rapport s'écrit sous l'iframe (lisible avec --dump-dom).
+const params = new URLSearchParams(location.search);
+const scenario = params.get("s") || "accueil";
+const theme = params.get("theme") || "light";
+const iframe = document.getElementById("app");
+const journal = [];
+const rapport = { scenario, erreurs: [], appelsSynthese: 0, acces: 0, parles: [] };
+const pause = (ms) => new Promise((r) => setTimeout(r, ms));
+let win, doc;
+
+function ecrire() { document.getElementById("rapport").textContent = "RAPPORT " + JSON.stringify(rapport, null, 1) + "\n" + journal.join("\n"); }
+function log(m) { journal.push(m); }
+
+// Fausse synthèse vocale : des voix russe et française, onend après 200 ms.
+// retardMs : les voix n'apparaissent qu'après ce délai (cas fréquent sur Android) ; langues : "ru+fr", "fr"…
+function installerSynthese(avecVoix, retardMs, langues) {
+  const t0 = performance.now();
+  const toutes = [{ lang: "ru-RU", name: "Faux russe", localService: true }, { lang: "fr-FR", name: "Faux français", localService: true }];
+  const ecouteurs = [];
+  const faux = {
+    paused: false, speaking: false,
+    getVoices: () => {
+      if (!avecVoix || performance.now() - t0 < (retardMs || 0)) return [];
+      return toutes.filter((v) => (langues || "ru+fr").includes(v.lang.slice(0, 2)));
+    },
+    speak(u) { if (u.text && u.text.trim()) rapport.parles.push(u.text); rapport.appelsSynthese++; log("speak[" + u.lang + "@" + u.rate + "] " + u.text); setTimeout(() => u.onend && u.onend({}), 200); },
+    cancel() {}, resume() {}, addEventListener(n, f) { if (n === "voiceschanged") ecouteurs.push(f); }, removeEventListener() {}
+  };
+  if (retardMs) setTimeout(() => ecouteurs.forEach((f) => f()), retardMs);
+  Object.defineProperty(win, "speechSynthesis", { configurable: true, get() { rapport.acces++; return faux; } });
+  win.SpeechSynthesisUtterance = function (texte) { this.text = texte; };
+}
+// Espion seul (Silence) : compte tout accès à speechSynthesis.
+function installerEspion() {
+  Object.defineProperty(win, "speechSynthesis", { configurable: true, get() { rapport.acces++; return { speak() { rapport.appelsSynthese++; }, cancel() {}, getVoices: () => [], addEventListener() {}, removeEventListener() {} }; } });
+}
+
+function charger() {
+  return new Promise((r) => { iframe.onload = r; iframe.src = "../dist/index.html"; }).then(async () => {
+    win = iframe.contentWindow; doc = iframe.contentDocument;
+    win.addEventListener("error", (e) => rapport.erreurs.push("error: " + e.message));
+    win.addEventListener("unhandledrejection", (e) => rapport.erreurs.push("rejet: " + (e.reason && e.reason.message || e.reason)));
+    const origErr = win.console.error;
+    win.console.error = (...a) => { rapport.erreurs.push("console.error: " + a.join(" ")); origErr.apply(win.console, a); };
+    for (let i = 0; i < 100 && !doc.querySelector(".ecran"); i++) await pause(50);
+    if (!doc.querySelector(".ecran")) rapport.erreurs.push("l'app ne s'affiche pas");
+    if (theme === "dark") doc.documentElement.setAttribute("data-theme", "dark");
+    if (theme === "light") doc.documentElement.setAttribute("data-theme", "light");
+  });
+}
+
+// Pré-remplit la progression (même base que l'app) avant son chargement.
+function semer(fiches) {
+  return new Promise((r) => {
+    const d = indexedDB.open("vecu", 1);
+    d.onupgradeneeded = () => { d.result.createObjectStore("progression", { keyPath: "id" }); d.result.createObjectStore("reglages", { keyPath: "cle" }); };
+    d.onsuccess = () => { const tx = d.result.transaction("progression", "readwrite"); fiches.forEach((f) => tx.objectStore("progression").put(f)); tx.oncomplete = () => { d.result.close(); r(); }; };
+  });
+}
+function lireReglages() { return new Promise((r) => { const d = indexedDB.open("vecu", 1); d.onsuccess = () => { try { const q = d.result.transaction("reglages").objectStore("reglages").getAll(); q.onsuccess = () => { r(q.result); d.result.close(); }; } catch (e) { r("erreur " + e.message); } }; d.onerror = () => r("echec ouverture"); }); }
+function jourDecale(n) { const d = new Date(Date.now() - 4 * 3600e3); d.setDate(d.getDate() + n); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+function fiche(id, boite, echeance) { return { id, boite, echeance, premiereVue: jourDecale(-10), derniereRevue: jourDecale(-1), dernierEchecNonDu: null, nbReussites: 3, nbEchecs: 0, dernierRemplacement: 0, historique: [] }; }
+
+const $ = (s) => doc.querySelector(s);
+const $$ = (s) => [...doc.querySelectorAll(s)];
+const parTexte = (texte) => $$("button").find((b) => b.textContent.includes(texte));
+async function cliquer(el) { if (el) { el.click(); await pause(60); } }
+
+async function demarrer(lieu, duree) {
+  await cliquer($("#duree-" + (duree || 5)));
+  await cliquer($("#lieu-" + lieu));
+  await cliquer($(".zone-action .btn-principal"));
+  await pause(1800);
+}
+function consigne() { const c = $(".consigne"); return c ? c.textContent : ""; }
+
+// Fait avancer d'une carte. choix = index de l'option touchée.
+async function avancer(choix) {
+  const options = $$(".option:not([aria-disabled])");
+  if (options.length) { await cliquer(options[(choix || 0) % options.length]); }
+  else if ($$(".reserve button.tuile").length) {
+    while ($(".reserve button.tuile")) await cliquer($(".reserve button.tuile"));
+    await cliquer(parTexte("Vérifier"));
+  } else if (parTexte("Voir la réponse")) { await cliquer(parTexte("Voir la réponse")); await cliquer(parTexte("Je l")); return; }
+  const suivant = parTexte("Suivant");
+  if (suivant) await cliquer(suivant);
+}
+async function jusqua(texteConsigne, max) {
+  for (let i = 0; i < (max || 200); i++) {
+    if (consigne().startsWith(texteConsigne)) return true;
+    if (!$(".consigne")) return false;
+    await avancer(i);
+  }
+  return false;
+}
+
+const scenarios = {
+  async accueil() { await charger(); },
+  async accueil2() { await charger(); await cliquer($("#lieu-silence")); await cliquer($("#duree-15")); await pause(300); await charger(); rapport.boutonPret = $(".zone-action .btn-principal").textContent; rapport.idb = await lireReglages(); },
+  async decouverte() { await charger(); await demarrer("silence"); },
+  async sens() { await charger(); await demarrer("silence"); await jusqua("Ça veut dire"); },
+  async theme() { await charger(); await demarrer("silence"); await jusqua("Comment on dit"); },
+  async moule() { await charger(); await demarrer("silence"); await jusqua("Même phrase"); },
+  async voixhauteavant() { await charger(); installerSynthese(true); await demarrer("parler"); await jusqua("Dis-le"); await pause(300);
+    rapport.russeVisibleAvant = !!$(".contenu [lang=ru]"); rapport.ecouterAvant = !!$("[data-ecouter]"); rapport.translitAvant = !!$(".translit"); },
+// QA n° 1 : une attente de voix qui se termine après un changement d'écran ne doit rien lancer.
+  async course() {
+  const essai = async (depart, langues) => {
+    await charger(); installerSynthese(true, 1200, langues);
+    await cliquer($("#duree-5")); await cliquer($("#lieu-" + depart)); await cliquer($(".zone-action .btn-principal"));
+    if (depart === "voiture") { await pause(300); await cliquer(parTexte("Démarrer")); await pause(200); await cliquer($("[aria-label=\"Revenir à l’accueil\"]")); }
+    else { await pause(200); await cliquer(parTexte("Réglages")); await pause(200); win.history.back(); }
+    await pause(300);
+    await cliquer($("#lieu-silence")); await cliquer($(".zone-action .btn-principal")); await pause(300);
+    const avant = rapport.parles.length;
+    await pause(2500);
+    const badge = $(".entete-session .badge");
+    return { depart, langues, consigne: consigne(), badge: badge && badge.textContent, sonApresSilence: rapport.parles.slice(avant), ecranVoiture: !!$(".voiture-route"), ecranSansVoix: !!$(".titre-ecran") && $(".titre-ecran").textContent };
+  };
+  rapport.essais = [await essai("ecouteurs", "ru+fr"), await essai("voiture", "ru+fr"), await essai("ecouteurs", "fr")];
+  rapport.ok = rapport.essais.every((e) => e.badge === "Silence" && e.sonApresSilence.length === 0 && !e.ecranVoiture);
+},
+
+  async ordre() {
+    const ids = ["ru-cafe-001","ru-cafe-002","ru-cafe-003","ru-courses-001","ru-courses-002","ru-courses-003","ru-gouts-001","ru-gouts-002","ru-gouts-003","ru-sortir-001","ru-sortir-002","ru-sortir-003"];
+    await semer(ids.map((id) => fiche(id, 2, jourDecale(3))));
+    await charger(); await demarrer("silence", 15); rapport.trouve = await jusqua("Remets");
+    // place deux mots pour montrer la zone réponse
+    await cliquer($(".reserve button.tuile")); await cliquer($(".reserve button.tuile"));
+  },
+  async faux() { await charger(); await demarrer("silence"); for (let i = 0; i < 60; i++) { await jusqua("Ça veut dire"); await cliquer($$(".option")[i % 3]); if ($(".verdict.ko")) return; await cliquer(parTexte("Suivant")); } },
+  async ecoute() { await charger(); installerSynthese(true); await demarrer("parler"); await jusqua("Écoute."); await pause(300); },
+  async voixhaute() { await charger(); installerSynthese(true); await demarrer("parler"); await jusqua("Dis-le"); await cliquer(parTexte("Voir la réponse")); await pause(300); },
+  async sansvoix() { await charger(); installerSynthese(false); await demarrer("ecouteurs"); },
+  async quitter() { await charger(); await demarrer("silence"); await cliquer($(".entete-session .btn-icone")); },
+  async voitureavant() { await charger(); await demarrer("voiture", 15); },
+  async voitureroute() { await charger(); installerSynthese(true); await demarrer("voiture", 2); await cliquer(parTexte("Démarrer")); await pause(2500); rapport.etatVoiture = $(".bouton-pause") && $(".bouton-pause").getAttribute("aria-label"); },
+  async voiturepause() { await scenarios.voitureroute(); await cliquer($(".bouton-pause")); await pause(500); },
+  async voiturefin() {
+    await charger(); installerSynthese(true); await demarrer("voiture", 2);
+    const debut = performance.now();
+    await cliquer(parTexte("Démarrer"));
+    for (let i = 0; i < 600 && !$(".titre-ecran"); i++) await pause(1000);
+    rapport.dureeReelleS = Math.round((performance.now() - debut) / 1000);
+    rapport.titre = $(".titre-ecran") && $(".titre-ecran").textContent;
+  },
+  async fin() {
+    // Session complète de 2 min en Silence, en touchant partout : sert aussi d'espion.
+    await charger(); installerEspion();
+    const debut = performance.now();
+    await demarrer("silence", 2);
+    let cartes = 0;
+    for (let i = 0; i < 3000 && $(".consigne"); i++) { await avancer(i); cartes++; await pause(2500); }
+    rapport.dureeReelleS = Math.round((performance.now() - debut) / 1000);
+    rapport.cartes = cartes;
+    rapport.titre = $(".titre-ecran") && $(".titre-ecran").textContent;
+    rapport.boutonsEcouterVus = $$("[data-ecouter]").length;
+  },
+  async progres() {
+    await semer([fiche("ru-cafe-001", 4, jourDecale(5)), fiche("ru-cafe-002", 5, jourDecale(9)), fiche("ru-cafe-003", 4, jourDecale(2)), fiche("ru-courses-001", 4, jourDecale(2)), fiche("ru-courses-002", 2, jourDecale(1))]);
+    await charger(); await cliquer(parTexte("Mes progrès"));
+  },
+  async progresvide() { await charger(); await cliquer(parTexte("Mes progrès")); },
+  async reglages() { await charger(); await cliquer(parTexte("Réglages")); },
+  async retour() { await charger(); await demarrer("silence"); win.history.back(); await pause(400); rapport.feuilleOuverte = !!$("[role=dialog]"); }
+};
+
+(async () => {
+  try { await scenarios[scenario](); } catch (e) { rapport.erreurs.push("pilote: " + e.message); }
+  rapport.ecran = doc && doc.querySelector("h1, .consigne, .titre-ecran") ? doc.querySelector(".consigne, .titre-ecran, h1").textContent : null;
+  ecrire();
+})();
+</script>
+</body>
+</html>
