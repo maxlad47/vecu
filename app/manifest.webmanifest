@@ -1,0 +1,17 @@
+{
+  "name": "Vécu",
+  "short_name": "Vécu",
+  "description": "Des phrases russes qui servent dans la vraie vie, au rythme du temps que tu as.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FAF7F2",
+  "theme_color": "#1F4E8C",
+  "icons": [
+    { "src": "icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" },
+    { "src": "icone-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}

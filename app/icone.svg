@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Vécu">
+  <rect width="512" height="512" fill="#1F4E8C"/>
+  <path d="M120 150 h272 a40 40 0 0 1 40 40 v120 a40 40 0 0 1 -40 40 h-150 l-70 60 v-60 h-52 a40 40 0 0 1 -40 -40 v-120 a40 40 0 0 1 40 -40 z" fill="#FAF7F2"/>
+  <path d="M190 215 l66 90 l66 -90" fill="none" stroke="#1F4E8C" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
