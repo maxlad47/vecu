@@ -1,6 +1,6 @@
 # Vécu : document de pilotage
 
-Dernière mise à jour : 11/11/2026, par le CEO
+Dernière mise à jour : 11/11/2026, par le CEO (mission 1 livrée)
 
 ## Vision
 Apprendre une langue avec des phrases qui servent dans la vraie vie, n'importe où, n'importe quand, au rythme et selon les contraintes de chacun.
@@ -43,3 +43,14 @@ Apprendre une langue avec des phrases qui servent dans la vraie vie, n'importe o
 ## Questions ouvertes (non bloquantes)
 - Nom définitif. « Vécu » est un nom de code : il faudra vérifier les marques déposées et les noms de domaine.
 - Modèle économique (gratuit, freemium, abonnement) : à trancher en phase 2.
+
+## État d'avancement
+- **11/11/2026 : mission 1 livrée** (prototype de la phase 0). Lien de test privé pour Max. Le test de 2 semaines commence.
+- **Backlog de la phase 1, issu de la mission 1** :
+  - situations « métro et directions », « pharmacie et santé », « se présenter » (avec son métier et son prénom) ;
+  - fichiers audio pré-générés, pour que la Voiture marche écran verrouillé ;
+  - textes d'interface qui ne disent plus « russe » en dur ;
+  - relecture du contenu par un natif (`docs/pedagogie/notes-linguiste-ru.md`) ;
+  - recalage des durées des cartes d'après les sessions réelles de Max.
+  - exercice « écrire la réponse » (translittération ou clavier russe, tolérant aux petites fautes), pour les phrases déjà bien installées ;
+  - essai de « scènes » : 4 à 6 phrases d'une situation enchaînées comme un petit dialogue (sessions de 15 et 30 min). Le vrai « mode histoire » avec un personnage viendra en phase 2.

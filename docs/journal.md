@@ -3,6 +3,62 @@
 Format : date — décision — raison. Les plus récentes en haut.
 
 ## 11/11/2026
+- **Max valide une adresse de test sur Netlify** (projet `vecu-test`, offre gratuite, aucune dépense), pour faire tester sa mère, parce que le lien claude.ai ne marche pas pour elle. Ce n'est pas un lancement public : l'adresse est non référencée (`noindex` et `robots.txt`) et on ne la diffuse qu'à l'entourage. La relecture par un natif reste obligatoire avant tout lancement public. Max a installé Node. `scripts/build.mjs` tourne enfin et produit un `dist/` identique à `build.sh`, octet pour octet. Le `netlify.toml` (build avec `build.mjs`, publication de `dist/`, en-tête `X-Robots-Tag: noindex`) est en place et le déploiement a été fait par le CEO. Max a levé la connexion obligatoire à l'équipe Netlify. **https://vecu-test.netlify.app est en ligne et confirmé par Max.** Point noté pour le lancement : le compte gratuit fait injecter par Netlify un badge et un script (`/.netlify/scripts/hud`) dans la page. Ce n'est pas bloquant pour un test en famille, mais il faudra le traiter avant tout lancement public (réglage ou offre payante, à valider par Max).
+- **Retours de Max sur le prototype (Chrome, Mac)** : l’interface est jugée limpide, mais la voix française de la Voiture est mauvaise. Décisions du CEO :
+  - **Voix** : l’app classe maintenant les voix par qualité. Elle exclut les voix fantaisie et Eloquence d’Apple (Grandma, Eddy, Flo, Jacques…) et préfère les voix Google, Premium, améliorées ou Natural, dans la langue exacte. Corrigé, testé et republié (version 2 du lien privé). La vraie solution reste les fichiers audio pré-générés de la phase 1 (D8).
+  - **Idée « écrire la réponse »** (plus difficile que le choix parmi 3) : retenue pour la **phase 1**, c’est la « saisie en cyrillique » déjà prévue dans la feuille de route. Elle acceptera la saisie en translittération ou au clavier russe, et tolérera les accents, la casse, la ponctuation, ё/е et une faute de frappe. Elle sera réservée aux phrases en boîte 3 ou plus, pour ne pas décourager un débutant.
+  - **Idée « mode histoire »** (un personnage personnalisable, des lieux comme le café, l’aéroport ou la gare) : retenue pour la **phase 2**, parce que c’est un gros chantier de contenu et qu’une histoire se coupe mal à 2 min. Une version légère pourra être testée en phase 1 : des « scènes » qui enchaînent 4 à 6 phrases d’une même situation comme un petit dialogue, dans les sessions de 15 et 30 min. Le pédagogue fera une proposition.
+- **Mission 1 validée par le CEO.** La contre-vérification de la QA donne « Livrable avec réserves », sans rien de bloquant. Le CEO a relu tout `dist/` avant de le publier. Le lien de test privé envoyé à Max est un artefact claude.ai, visible par lui seul. Ce n'est pas une mise en ligne publique : Netlify attend la validation de Max. Réserves acceptées :
+  - les sessions peuvent finir à −20 % (le cas limite se mesurera sur les vraies sessions de Max) ;
+  - sur iPhone, l'écran verrouillé coupe la Voiture (réglé en phase 1 avec des fichiers audio) ;
+  - 16 points de contenu restent à faire valider par un natif ;
+  - `build.mjs` n'a jamais tourné, faute de Node sur la machine.
+
+  Prochaine étape : les 2 semaines de test de Max (critère de passage de la phase 0).
+- **Mission 1 lancée** (prototype de la phase 0). Ordre de passage du brief : pédagogue et designer en parallèle, puis linguiste, dev, QA et utilisateur témoin.
+- **Lot de corrections livré par le dev** : la faille du Silence est fermée (jeton de navigation), la Voiture reprend seule, les fiches corrompues sont réparées, le compteur est remplacé par le temps, le mot « moule » est retiré de l'écran et les nouvelles règles de session sont appliquées. Retouche du CEO : tant qu'aucune phrase n'est acquise, l'écran de fin dit « Tes phrases s'installent… » au lieu de « Tu sais dire 0 phrase ». Une contre-vérification de la QA est demandée avant d'envoyer le lien à Max.
+- **QA du prototype : « Livrable avec réserves »** (`docs/qa/2026-11-11-prototype.md`). Décisions du CEO :
+  - **La faille du Silence est bloquante** (une attente de voix peut ouvrir une session qui parle). Elle se corrige par un jeton de navigation, et le lien ne part pas à Max avant que la faille soit corrigée et vérifiée.
+  - **Voiture et « mains libres »** : après une pause que l'utilisateur n'a pas demandée (onglet masqué, interruption), la boucle reprend seule quand la page redevient visible. Une erreur de synthèse ne met jamais en pause. La limite d'iOS (l'écran verrouillé coupe la synthèse) est acceptée en phase 0. Elle sera réglée en phase 1 avec des fichiers audio pré-générés (D8).
+  - **« 2 lignes maximum » pour une astuce** veut dire désormais 2 phrases courtes au plus et 110 caractères au plus. Le linguiste a raccourci 8 astuces et complété les accents de 9 autres. La plus longue fait 99 caractères, soit 3 lignes au plus à 360 px, ce qui est accepté. Les remarques sur le choix des phrases (rencontrer-007, courses-002) iront au pédagogue en phase 1.
+  - **Fiches de stockage corrompues** : elles sont validées et réparées, sans jamais planter.
+- **Retour de l'utilisateur témoin (7,5/10, reviendrait demain).** Décisions du CEO :
+  - **Compteur de session** : on retire « n sur total », dont le total grossit et donne l'impression de reculer. On le remplace par une barre de temps et « encore X min », un repère qui ne recule jamais.
+  - **Le mot « moule »** disparaît de l'interface, qui dit « Même phrase, autre mot ». Le terme reste en interne.
+  - **Répétition au premier lancement** : au plus 7 cartes par phrase dans une session. Si le temps ne peut pas être rempli, on ajoute des nouveautés en bonus, selon la durée : +1 en 2 min, +2 en 5 min, +4 en 15 min, +6 en 30 min. Quand la session ne peut pas atteindre 80 % de sa durée, c'est la durée qui l'emporte sur le plafond. Cas limite accepté : 30 min en Silence au premier lancement, où environ la moitié des phrases passent 9 fois. Raison : ce cas est rare, et la durée annoncée est une règle de la constitution.
+  - **Fin de session** : on ajoute « Tu sais dire N phrases » (les phrases acquises), comme dans Mes progrès.
+  - **À voix haute** : il faut vérifier que la phrase russe est bien cachée avant « Voir la réponse ». Le témoin n'a vu qu'une capture de l'état révélé.
+  - **Genre** : on ne change rien, puisqu'aucune phrase actuelle n'en dépend. La question viendra à la première phrase concernée.
+  - **Situations manquantes** (métro et directions, pharmacie et santé, se présenter avec son métier) : à mettre au backlog de la phase 1, et à faire passer avant « sortir » dans les priorités du pédagogue.
+- **Prototype livré par le dev** (`app/`, `scripts/`, `tests/`). Écarts validés par le CEO :
+  - Les annonces vocales en Voiture sont celles du designer.
+  - La vitesse « Lente » des boutons Écouter est de 0,7.
+  - Le temps de session s'arrête quand la feuille « On s'arrête là ? » est ouverte.
+  - Le total du compteur de cartes ne baisse jamais.
+  - Le Leitner ne note qu'une fois par session une phrase due.
+  - Le message « Réessayer » quand le contenu ne se charge pas est accepté à titre provisoire.
+  - Dette notée pour la 2e langue : les textes de l'interface qui disent « russe » devront venir du contenu (`index.json`), et non de `textes.js`.
+- **Contenu russe de la phase 0 validé par le CEO pour le prototype** (`content/ru/`, 47 éléments). Il n'y a aucune variante m/f : le linguiste a trouvé une forme neutre partout, et le réglage du genre reste dans l'app pour les situations à venir. 15 points sont à faire valider par un natif (`docs/pedagogie/notes-linguiste-ru.md`), ce qui ne bloque pas le prototype privé mais bloque toute mise en ligne publique. Le dev est lancé.
+- **Arbitrages sur la pédagogie de la mission 1** (`docs/pedagogie/`), validés par le CEO :
+  - Les 47 éléments de la liste sont validés, avec 10 moules. On introduit les phrases par vagues sur les situations. « Au foot » veut dire aller voir un match.
+  - Dans un moule, les remplacements passent à tour de rôle plutôt qu'au hasard : c'est un écart accepté par rapport au brief, parce qu'ainsi tous sont vus.
+  - Le premier lancement est très répétitif (environ 10 passages par phrase en 5 min) : on le garde pour le prototype, puisque Max veut beaucoup de répétition, et l'utilisateur témoin jugera. S'il décroche, on passera à 4 nouveautés au démarrage.
+  - « J'aime ton chien » reste au tu, comme Max l'a formulé (le chien d'un ami). Pas de version au vous en phase 0.
+  - « Je m'appelle ___ » et le réglage « mon prénom » passent en phase 1.
+  - **Nouveau champ facultatif `ordre_libre`** dans le format v0 (ajouté à `CLAUDE.md`). Le linguiste le met à `true` quand l'ordre des mots russes est libre, et l'exercice Ordre saute alors la phrase. Raison : ne pas compter faux une réponse juste.
+  - Le genre de la personne à qui l'on parle n'est pas géré en phase 0 : on écarte les phrases concernées, comme l'a fait le pédagogue.
+- **Arbitrages sur le design de la mission 1** (`docs/design/`), validés par le CEO :
+  - L'interface tutoie : c'est cohérent avec « J'ai 5 min » et avec le ton d'une personne.
+  - Après une bonne réponse, la carte suivante arrive seule après 1,2 s. On le gardera ou non selon les tests de Max.
+  - Les tuiles de l'exercice Ordre sont toutes en minuscules et sans ponctuation finale, pour ne pas trahir le premier mot. La phrase complète s'affiche après la réponse.
+  - Ajouts acceptés : le réglage Apparence (Auto, Clair, Sombre) et le bouton « Couper le son ». Le bouton retour du téléphone passe par `history.pushState` sans changer l'URL, ce qui reste conforme à « pas de routage par URL ». Le wake lock en Voiture est accepté, entouré d'un try/catch.
+  - Après « Couper le son », Écoute devient Sens et À voix haute devient Thème.
+  - Le genre est demandé à la première phrase qui en dépend, sur sa carte Découverte. Tant qu'il n'est pas réglé, les exercices utilisent le masculin, mais en pratique la question arrive toujours avant.
+  - Moule : la Découverte montre le modèle et 2 ou 3 autres remplacements possibles, pour faire voir que la phrase se multiplie.
+  - En Voiture, la voix n'annonce pas le registre tu ou vous pour la phase 0.
+  - Pas de bouton « Effacer ma progression » en phase 0.
+  - Sans voix russe en Voiture, l'app ne propose pas le mode Silence (on ne pousse pas à lire au volant).
+- **Environnement de la machine de Max : ni Node, ni git utilisable** (les outils développeur Xcode manquent). On garde `scripts/build.mjs`, prévu par le brief et requis plus tard pour Netlify, et le dev ajoute `scripts/build.sh`, son équivalent en shell, pour assembler `dist/` en local. Les tests locaux passent par `ruby -run -e httpd` et Chrome en mode headless. Les commits attendent que Max installe les outils (`xcode-select --install`, gratuit). Raison : ne rien installer sur la machine de Max sans lui demander, et ne pas bloquer la mission pour autant.
 - **Lancement du projet.** Max fixe la vision et les 3 piliers : le contexte d'abord, pour tout le monde et hors ligne, du vécu pas du scolaire. Claude est nommé CEO, avec délégation de décision sauf pour les dépenses et la mise en ligne publique.
 - **Décisions D1 à D11** consignées dans `pilotage.md` : PWA, français → russe d'abord, phrases par situation, phrases-moules, 4 modes de contexte, répétition espacée, niveaux en situations, synthèse vocale pour le prototype, garde-fous, équipe d'agents, GitHub et Netlify.
 - **Équipe constituée** : pédagogue, linguiste russe, designer UX, développeur PWA, testeur QA, utilisateur témoin. Growth/marketing est reporté à la phase 2.
