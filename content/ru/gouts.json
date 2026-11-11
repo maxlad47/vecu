@@ -1,0 +1,220 @@
+{
+  "langue": "ru",
+  "situation": "gouts",
+  "titre": "Ce que j'aime",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-gouts-001",
+      "fr": "C'est très bon !",
+      "cible": "Очень вкусно!",
+      "accent": "О́чень вку́сно!",
+      "translit": "ótchin fkoúsna!",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Вку́сно = bon au goût, seulement pour ce qui se mange ou se boit.",
+      "moule": null
+    },
+    {
+      "id": "ru-gouts-002",
+      "fr": "J'aime cette ville.",
+      "cible": "Мне нравится этот город.",
+      "accent": "Мне нра́вится э́тот го́род.",
+      "translit": "mnie nrávitsa état górat",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Mot à mot « ça me plaît » : Мне нра́вится + la chose. Au pluriel : нра́вятся.",
+      "moule": {
+        "modele": "Мне нравится ___.",
+        "fr": "J'aime ___ (une chose).",
+        "remplacements": [
+          {
+            "fr": "cette ville",
+            "cible": "этот город",
+            "accent": "э́тот го́род",
+            "translit": "état górat",
+            "phrase_fr": "J'aime cette ville.",
+            "phrase_cible": "Мне нравится этот город.",
+            "phrase_accent": "Мне нра́вится э́тот го́род.",
+            "phrase_translit": "mnie nrávitsa état górat"
+          },
+          {
+            "fr": "ce quartier",
+            "cible": "этот район",
+            "accent": "э́тот райо́н",
+            "translit": "état raïón",
+            "phrase_fr": "J'aime ce quartier.",
+            "phrase_cible": "Мне нравится этот район.",
+            "phrase_accent": "Мне нра́вится э́тот райо́н.",
+            "phrase_translit": "mnie nrávitsa état raïón"
+          },
+          {
+            "fr": "la cuisine russe",
+            "cible": "русская кухня",
+            "accent": "ру́сская ку́хня",
+            "translit": "roússkaia koúkhnia",
+            "phrase_fr": "J'aime la cuisine russe.",
+            "phrase_cible": "Мне нравится русская кухня.",
+            "phrase_accent": "Мне нра́вится ру́сская ку́хня.",
+            "phrase_translit": "mnie nrávitsa roússkaia koúkhnia"
+          },
+          {
+            "fr": "le métro",
+            "cible": "метро",
+            "accent": "метро́",
+            "translit": "mitró",
+            "phrase_fr": "J'aime le métro.",
+            "phrase_cible": "Мне нравится метро.",
+            "phrase_accent": "Мне нра́вится метро́.",
+            "phrase_translit": "mnie nrávitsa mitró"
+          },
+          {
+            "fr": "ce café",
+            "cible": "это кафе",
+            "accent": "э́то кафе́",
+            "translit": "éta kafé",
+            "phrase_fr": "J'aime ce café.",
+            "phrase_cible": "Мне нравится это кафе.",
+            "phrase_accent": "Мне нра́вится э́то кафе́.",
+            "phrase_translit": "mnie nrávitsa éta kafé"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-gouts-003",
+      "fr": "Et toi ?",
+      "cible": "А ты?",
+      "accent": "А ты?",
+      "translit": "a ty?",
+      "registre": "tu",
+      "variantes": null,
+      "astuce": "Ты pour un ami. Pour un inconnu ou plusieurs personnes : А вы?",
+      "moule": null
+    },
+    {
+      "id": "ru-gouts-004",
+      "fr": "J'aime voyager.",
+      "cible": "Я люблю путешествовать.",
+      "accent": "Я люблю́ путеше́ствовать.",
+      "translit": "ia lioublioú poutichéstvavat",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Aimer faire : Я люблю́ + infinitif. Aimer une chose : Мне нра́вится.",
+      "moule": {
+        "modele": "Я люблю ___.",
+        "fr": "J'aime ___ (faire).",
+        "remplacements": [
+          {
+            "fr": "voyager",
+            "cible": "путешествовать",
+            "accent": "путеше́ствовать",
+            "translit": "poutichéstvavat",
+            "phrase_fr": "J'aime voyager.",
+            "phrase_cible": "Я люблю путешествовать.",
+            "phrase_accent": "Я люблю́ путеше́ствовать.",
+            "phrase_translit": "ia lioublioú poutichéstvavat"
+          },
+          {
+            "fr": "lire",
+            "cible": "читать",
+            "accent": "чита́ть",
+            "translit": "tchitát",
+            "phrase_fr": "J'aime lire.",
+            "phrase_cible": "Я люблю читать.",
+            "phrase_accent": "Я люблю́ чита́ть.",
+            "phrase_translit": "ia lioublioú tchitát"
+          },
+          {
+            "fr": "cuisiner",
+            "cible": "готовить",
+            "accent": "гото́вить",
+            "translit": "gatóvit",
+            "phrase_fr": "J'aime cuisiner.",
+            "phrase_cible": "Я люблю готовить.",
+            "phrase_accent": "Я люблю́ гото́вить.",
+            "phrase_translit": "ia lioublioú gatóvit"
+          },
+          {
+            "fr": "faire du sport",
+            "cible": "заниматься спортом",
+            "accent": "занима́ться спо́ртом",
+            "translit": "zanimátsa spórtam",
+            "phrase_fr": "J'aime faire du sport.",
+            "phrase_cible": "Я люблю заниматься спортом.",
+            "phrase_accent": "Я люблю́ занима́ться спо́ртом.",
+            "phrase_translit": "ia lioublioú zanimátsa spórtam"
+          },
+          {
+            "fr": "regarder des films",
+            "cible": "смотреть фильмы",
+            "accent": "смотре́ть фи́льмы",
+            "translit": "smatriét fílmy",
+            "phrase_fr": "J'aime regarder des films.",
+            "phrase_cible": "Я люблю смотреть фильмы.",
+            "phrase_accent": "Я люблю́ смотре́ть фи́льмы.",
+            "phrase_translit": "ia lioublioú smatriét fílmy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-gouts-005",
+      "fr": "J'aime me promener le soir.",
+      "cible": "Я люблю гулять вечером.",
+      "accent": "Я люблю́ гуля́ть ве́чером.",
+      "translit": "ia lioublioú gouliát viétchiram",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Люблю́ pour une activité qu'on aime en général. Гуля́ть = se promener, prendre l'air.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-gouts-006",
+      "fr": "J'aime ton chien.",
+      "cible": "Мне нравится твоя собака.",
+      "accent": "Мне нра́вится твоя́ соба́ка.",
+      "translit": "mnie nrávitsa tvaiá sabáka",
+      "registre": "tu",
+      "variantes": null,
+      "astuce": "Pas люблю́ : « Я люблю́ твою́ соба́ку » sonne trop fort, comme pour un proche.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-gouts-007",
+      "fr": "Je n'aime pas ça.",
+      "cible": "Мне это не нравится.",
+      "accent": "Мне э́то не нра́вится.",
+      "translit": "mnie éta ni nrávitsa",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Plus poli à table, face à la personne qui a cuisiné : Мне не о́чень (pas trop).",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-gouts-008",
+      "fr": "Qu'est-ce que tu aimes faire ?",
+      "cible": "Что ты любишь делать?",
+      "accent": "Что ты лю́бишь де́лать?",
+      "translit": "chto ty lioúbich diélat?",
+      "registre": "tu",
+      "variantes": null,
+      "astuce": "Что (quoi) se prononce « chto ». Pour répondre : Я люблю́ + infinitif.",
+      "moule": null
+    },
+    {
+      "id": "ru-gouts-009",
+      "fr": "C'est très beau !",
+      "cible": "Очень красиво!",
+      "accent": "О́чень краси́во!",
+      "translit": "ótchin krassíva!",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Devant une vue, on s'exclame aussi : Как краси́во! (que c'est beau !).",
+      "moule": null
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "langue": "ru",
+  "situation": "rencontrer",
+  "titre": "Rencontrer quelqu'un",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-rencontrer-001",
+      "fr": "Je ne comprends pas.",
+      "cible": "Я не понимаю.",
+      "accent": "Я не понима́ю.",
+      "translit": "ia ni panimáiou",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    },
+    {
+      "id": "ru-rencontrer-002",
+      "fr": "Vous pouvez répéter, s'il vous plaît ?",
+      "cible": "Повторите, пожалуйста.",
+      "accent": "Повтори́те, пожа́луйста.",
+      "translit": "paftaríti, pajálsta",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Mot à mot « répétez » : avec пожа́луйста, c'est poli et naturel.",
+      "moule": null
+    },
+    {
+      "id": "ru-rencontrer-003",
+      "fr": "Plus lentement, s'il vous plaît.",
+      "cible": "Помедленнее, пожалуйста.",
+      "accent": "Поме́дленнее, пожа́луйста.",
+      "translit": "pamiédlinieie, pajálsta",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Поме́дленнее = « un peu plus lentement » : c'est la forme qui vient spontanément.",
+      "moule": null
+    },
+    {
+      "id": "ru-rencontrer-004",
+      "fr": "Comment vous appelez-vous ?",
+      "cible": "Как вас зовут?",
+      "accent": "Как вас зову́т?",
+      "translit": "kak vas zavoút?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Mot à mot « comment vous appelle-t-on ? ». Pour répondre : Меня́ зову́т + ton prénom.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-rencontrer-005",
+      "fr": "Enchanté.",
+      "cible": "Очень приятно.",
+      "accent": "О́чень прия́тно.",
+      "translit": "ótchin priiátna",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Mot à mot « très agréable » : la même forme pour un homme et pour une femme.",
+      "moule": null
+    },
+    {
+      "id": "ru-rencontrer-006",
+      "fr": "Je viens de France.",
+      "cible": "Я из Франции.",
+      "accent": "Я из Фра́нции.",
+      "translit": "ia is frántsii",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Après из (de), le nom du pays change de terminaison : apprends-le en bloc.",
+      "moule": {
+        "modele": "Я из ___.",
+        "fr": "Je viens ___.",
+        "remplacements": [
+          {
+            "fr": "de France",
+            "cible": "Франции",
+            "accent": "Фра́нции",
+            "translit": "frántsii",
+            "phrase_fr": "Je viens de France.",
+            "phrase_cible": "Я из Франции.",
+            "phrase_accent": "Я из Фра́нции.",
+            "phrase_translit": "ia is frántsii"
+          },
+          {
+            "fr": "de Paris",
+            "cible": "Парижа",
+            "accent": "Пари́жа",
+            "translit": "paríja",
+            "phrase_fr": "Je viens de Paris.",
+            "phrase_cible": "Я из Парижа.",
+            "phrase_accent": "Я из Пари́жа.",
+            "phrase_translit": "ia is paríja"
+          },
+          {
+            "fr": "de Belgique",
+            "cible": "Бельгии",
+            "accent": "Бе́льгии",
+            "translit": "biélguii",
+            "phrase_fr": "Je viens de Belgique.",
+            "phrase_cible": "Я из Бельгии.",
+            "phrase_accent": "Я из Бе́льгии.",
+            "phrase_translit": "ia iz biélguii"
+          },
+          {
+            "fr": "de Suisse",
+            "cible": "Швейцарии",
+            "accent": "Швейца́рии",
+            "translit": "chviïtsárii",
+            "phrase_fr": "Je viens de Suisse.",
+            "phrase_cible": "Я из Швейцарии.",
+            "phrase_accent": "Я из Швейца́рии.",
+            "phrase_translit": "ia is chviïtsárii"
+          },
+          {
+            "fr": "du Canada",
+            "cible": "Канады",
+            "accent": "Кана́ды",
+            "translit": "kanády",
+            "phrase_fr": "Je viens du Canada.",
+            "phrase_cible": "Я из Канады.",
+            "phrase_accent": "Я из Кана́ды.",
+            "phrase_translit": "ia is kanády"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-rencontrer-007",
+      "fr": "Vous parlez anglais ?",
+      "cible": "Вы говорите по-английски?",
+      "accent": "Вы говори́те по-англи́йски?",
+      "translit": "vy gavaríti pa-anglíïski?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Parler une langue : говори́ть по-... (mot à mot « à l'anglaise »). À un ami : Ты говори́шь по-...?",
+      "moule": {
+        "modele": "Вы говорите ___?",
+        "fr": "Vous parlez ___ ?",
+        "remplacements": [
+          {
+            "fr": "anglais",
+            "cible": "по-английски",
+            "accent": "по-англи́йски",
+            "translit": "pa-anglíïski",
+            "phrase_fr": "Vous parlez anglais ?",
+            "phrase_cible": "Вы говорите по-английски?",
+            "phrase_accent": "Вы говори́те по-англи́йски?",
+            "phrase_translit": "vy gavaríti pa-anglíïski?"
+          },
+          {
+            "fr": "français",
+            "cible": "по-французски",
+            "accent": "по-францу́зски",
+            "translit": "pa-frantsoúski",
+            "phrase_fr": "Vous parlez français ?",
+            "phrase_cible": "Вы говорите по-французски?",
+            "phrase_accent": "Вы говори́те по-францу́зски?",
+            "phrase_translit": "vy gavaríti pa-frantsoúski?"
+          },
+          {
+            "fr": "espagnol",
+            "cible": "по-испански",
+            "accent": "по-испа́нски",
+            "translit": "pa-ispánski",
+            "phrase_fr": "Vous parlez espagnol ?",
+            "phrase_cible": "Вы говорите по-испански?",
+            "phrase_accent": "Вы говори́те по-испа́нски?",
+            "phrase_translit": "vy gavaríti pa-ispánski?"
+          },
+          {
+            "fr": "allemand",
+            "cible": "по-немецки",
+            "accent": "по-неме́цки",
+            "translit": "pa-nimiétski",
+            "phrase_fr": "Vous parlez allemand ?",
+            "phrase_cible": "Вы говорите по-немецки?",
+            "phrase_accent": "Вы говори́те по-неме́цки?",
+            "phrase_translit": "vy gavaríti pa-nimiétski?"
+          },
+          {
+            "fr": "italien",
+            "cible": "по-итальянски",
+            "accent": "по-италья́нски",
+            "translit": "pa-italiánski",
+            "phrase_fr": "Vous parlez italien ?",
+            "phrase_cible": "Вы говорите по-итальянски?",
+            "phrase_accent": "Вы говори́те по-италья́нски?",
+            "phrase_translit": "vy gavaríti pa-italiánski?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-rencontrer-008",
+      "fr": "Je parle un peu russe.",
+      "cible": "Я немного говорю по-русски.",
+      "accent": "Я немно́го говорю́ по-ру́сски.",
+      "translit": "ia nimnóga gavarioú pa-roússki",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": null,
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-rencontrer-009",
+      "fr": "Et vous ?",
+      "cible": "А вы?",
+      "accent": "А вы?",
+      "translit": "a vy?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    }
+  ]
+}

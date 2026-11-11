@@ -1,0 +1,231 @@
+{
+  "langue": "ru",
+  "situation": "sortir",
+  "titre": "Sortir",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-sortir-001",
+      "fr": "D'accord !",
+      "cible": "Давай!",
+      "accent": "Дава́й!",
+      "translit": "daváï!",
+      "registre": "tu",
+      "variantes": null,
+      "astuce": "La réponse spontanée à une proposition entre amis. Plus neutre, avec tout le monde : Хорошо́.",
+      "moule": null
+    },
+    {
+      "id": "ru-sortir-002",
+      "fr": "On va au cinéma ?",
+      "cible": "Пойдём в кино?",
+      "accent": "Пойдём в кино́?",
+      "translit": "païdióm f kinó?",
+      "registre": "tu",
+      "variantes": null,
+      "astuce": "Пойдём в + le lieu ? sert pour tous ces lieux. Dit seul, Пойдём! veut dire « on y va ! ».",
+      "moule": {
+        "modele": "Пойдём ___?",
+        "fr": "On va ___ ?",
+        "remplacements": [
+          {
+            "fr": "au cinéma",
+            "cible": "в кино",
+            "accent": "в кино́",
+            "translit": "f kinó",
+            "phrase_fr": "On va au cinéma ?",
+            "phrase_cible": "Пойдём в кино?",
+            "phrase_accent": "Пойдём в кино́?",
+            "phrase_translit": "païdióm f kinó?"
+          },
+          {
+            "fr": "au restaurant",
+            "cible": "в ресторан",
+            "accent": "в рестора́н",
+            "translit": "v ristarán",
+            "phrase_fr": "On va au restaurant ?",
+            "phrase_cible": "Пойдём в ресторан?",
+            "phrase_accent": "Пойдём в рестора́н?",
+            "phrase_translit": "païdióm v ristarán?"
+          },
+          {
+            "fr": "au bar",
+            "cible": "в бар",
+            "accent": "в бар",
+            "translit": "v bar",
+            "phrase_fr": "On va au bar ?",
+            "phrase_cible": "Пойдём в бар?",
+            "phrase_accent": "Пойдём в бар?",
+            "phrase_translit": "païdióm v bar?"
+          },
+          {
+            "fr": "au parc",
+            "cible": "в парк",
+            "accent": "в парк",
+            "translit": "f park",
+            "phrase_fr": "On va au parc ?",
+            "phrase_cible": "Пойдём в парк?",
+            "phrase_accent": "Пойдём в парк?",
+            "phrase_translit": "païdióm f park?"
+          },
+          {
+            "fr": "au musée",
+            "cible": "в музей",
+            "accent": "в музе́й",
+            "translit": "v mouziéï",
+            "phrase_fr": "On va au musée ?",
+            "phrase_cible": "Пойдём в музей?",
+            "phrase_accent": "Пойдём в музе́й?",
+            "phrase_translit": "païdióm v mouziéï?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-sortir-003",
+      "fr": "À quelle heure ?",
+      "cible": "Во сколько?",
+      "accent": "Во ско́лько?",
+      "translit": "va skólka?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Mot à mot « à combien ? » : c'est la façon courante de demander l'heure d'un rendez-vous.",
+      "moule": null
+    },
+    {
+      "id": "ru-sortir-004",
+      "fr": "Avec plaisir !",
+      "cible": "С удовольствием!",
+      "accent": "С удово́льствием!",
+      "translit": "s oudavólstviim!",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    },
+    {
+      "id": "ru-sortir-005",
+      "fr": "Tu fais quoi ce soir ?",
+      "cible": "Что ты делаешь вечером?",
+      "accent": "Что ты де́лаешь ве́чером?",
+      "translit": "chto ty diélaïch viétchiram?",
+      "registre": "tu",
+      "variantes": null,
+      "astuce": "Ве́чером (le soir) suffit : au présent, on comprend « ce soir ».",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-sortir-006",
+      "fr": "Je vais aller au foot.",
+      "cible": "Я пойду на футбол.",
+      "accent": "Я пойду́ на футбо́л.",
+      "translit": "ia païdoú na foudból",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "На футбо́л = aller voir un match. Y jouer, c'est игра́ть в футбо́л.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-sortir-007",
+      "fr": "On se voit ce soir ?",
+      "cible": "Увидимся сегодня вечером?",
+      "accent": "Уви́димся сего́дня ве́чером?",
+      "translit": "ouvídimsia sivódnia viétchiram?",
+      "registre": "tu",
+      "variantes": null,
+      "astuce": null,
+      "moule": {
+        "modele": "Увидимся ___?",
+        "fr": "On se voit ___ ?",
+        "remplacements": [
+          {
+            "fr": "ce soir",
+            "cible": "сегодня вечером",
+            "accent": "сего́дня ве́чером",
+            "translit": "sivódnia viétchiram",
+            "phrase_fr": "On se voit ce soir ?",
+            "phrase_cible": "Увидимся сегодня вечером?",
+            "phrase_accent": "Уви́димся сего́дня ве́чером?",
+            "phrase_translit": "ouvídimsia sivódnia viétchiram?"
+          },
+          {
+            "fr": "demain",
+            "cible": "завтра",
+            "accent": "за́втра",
+            "translit": "záftra",
+            "phrase_fr": "On se voit demain ?",
+            "phrase_cible": "Увидимся завтра?",
+            "phrase_accent": "Уви́димся за́втра?",
+            "phrase_translit": "ouvídimsia záftra?"
+          },
+          {
+            "fr": "samedi",
+            "cible": "в субботу",
+            "accent": "в суббо́ту",
+            "translit": "f soubbótou",
+            "phrase_fr": "On se voit samedi ?",
+            "phrase_cible": "Увидимся в субботу?",
+            "phrase_accent": "Уви́димся в суббо́ту?",
+            "phrase_translit": "ouvídimsia f soubbótou?"
+          },
+          {
+            "fr": "ce week-end",
+            "cible": "на выходных",
+            "accent": "на выходны́х",
+            "translit": "na vykhadnýkh",
+            "phrase_fr": "On se voit ce week-end ?",
+            "phrase_cible": "Увидимся на выходных?",
+            "phrase_accent": "Уви́димся на выходны́х?",
+            "phrase_translit": "ouvídimsia na vykhadnýkh?"
+          },
+          {
+            "fr": "après le travail",
+            "cible": "после работы",
+            "accent": "по́сле рабо́ты",
+            "translit": "pósli rabóty",
+            "phrase_fr": "On se voit après le travail ?",
+            "phrase_cible": "Увидимся после работы?",
+            "phrase_accent": "Уви́димся по́сле рабо́ты?",
+            "phrase_translit": "ouvídimsia pósli rabóty?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-sortir-008",
+      "fr": "Désolé, je ne peux pas.",
+      "cible": "Извини, не могу.",
+      "accent": "Извини́, не могу́.",
+      "translit": "izviní, ni magoú",
+      "registre": "tu",
+      "variantes": null,
+      "astuce": "Извини́ (excuse-moi) se dit pareil au masculin et au féminin. À un inconnu : Извини́те.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-sortir-009",
+      "fr": "On se retrouve où ?",
+      "cible": "Где встретимся?",
+      "accent": "Где встре́тимся?",
+      "translit": "gdie fstriétimsia?",
+      "registre": "tu",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    },
+    {
+      "id": "ru-sortir-010",
+      "fr": "Je suis en retard.",
+      "cible": "Я опаздываю.",
+      "accent": "Я опа́здываю.",
+      "translit": "ia apázdyvaiou",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Au présent, même forme pour lui et elle. Pour prévenir : Извини́, я опа́здываю.",
+      "moule": null
+    }
+  ]
+}

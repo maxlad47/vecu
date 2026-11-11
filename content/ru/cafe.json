@@ -1,0 +1,239 @@
+{
+  "langue": "ru",
+  "situation": "cafe",
+  "titre": "Au café",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-cafe-001",
+      "fr": "Bonjour.",
+      "cible": "Здравствуйте.",
+      "accent": "Здра́вствуйте.",
+      "translit": "zdrástvouïti",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Le premier в ne se prononce pas. Entre amis, on dit Приве́т (salut).",
+      "moule": null
+    },
+    {
+      "id": "ru-cafe-002",
+      "fr": "Un café, s'il vous plaît.",
+      "cible": "Кофе, пожалуйста.",
+      "accent": "Ко́фе, пожа́луйста.",
+      "translit": "kófi, pajálsta",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Pour commander, dis juste la chose + пожа́луйста, sans verbe. On prononce « pajálsta ».",
+      "moule": {
+        "modele": "___, пожалуйста.",
+        "fr": "___, s'il vous plaît.",
+        "remplacements": [
+          {
+            "fr": "Un café",
+            "cible": "Кофе",
+            "accent": "Ко́фе",
+            "translit": "kófi",
+            "phrase_fr": "Un café, s'il vous plaît.",
+            "phrase_cible": "Кофе, пожалуйста.",
+            "phrase_accent": "Ко́фе, пожа́луйста.",
+            "phrase_translit": "kófi, pajálsta"
+          },
+          {
+            "fr": "Un thé",
+            "cible": "Чай",
+            "accent": "Чай",
+            "translit": "tchaï",
+            "phrase_fr": "Un thé, s'il vous plaît.",
+            "phrase_cible": "Чай, пожалуйста.",
+            "phrase_accent": "Чай, пожа́луйста.",
+            "phrase_translit": "tchaï, pajálsta"
+          },
+          {
+            "fr": "Un cappuccino",
+            "cible": "Капучино",
+            "accent": "Капучи́но",
+            "translit": "kapoutchína",
+            "phrase_fr": "Un cappuccino, s'il vous plaît.",
+            "phrase_cible": "Капучино, пожалуйста.",
+            "phrase_accent": "Капучи́но, пожа́луйста.",
+            "phrase_translit": "kapoutchína, pajálsta"
+          },
+          {
+            "fr": "Une bouteille d'eau",
+            "cible": "Бутылку воды",
+            "accent": "Буты́лку воды́",
+            "translit": "boutýlkou vadý",
+            "phrase_fr": "Une bouteille d'eau, s'il vous plaît.",
+            "phrase_cible": "Бутылку воды, пожалуйста.",
+            "phrase_accent": "Буты́лку воды́, пожа́луйста.",
+            "phrase_translit": "boutýlkou vadý, pajálsta"
+          },
+          {
+            "fr": "Une bière",
+            "cible": "Пиво",
+            "accent": "Пи́во",
+            "translit": "píva",
+            "phrase_fr": "Une bière, s'il vous plaît.",
+            "phrase_cible": "Пиво, пожалуйста.",
+            "phrase_accent": "Пи́во, пожа́луйста.",
+            "phrase_translit": "píva, pajálsta"
+          },
+          {
+            "fr": "Un jus d'orange",
+            "cible": "Апельсиновый сок",
+            "accent": "Апельси́новый сок",
+            "translit": "apilsínavyï sok",
+            "phrase_fr": "Un jus d'orange, s'il vous plaît.",
+            "phrase_cible": "Апельсиновый сок, пожалуйста.",
+            "phrase_accent": "Апельси́новый сок, пожа́луйста.",
+            "phrase_translit": "apilsínavyï sok, pajálsta"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-cafe-003",
+      "fr": "Merci.",
+      "cible": "Спасибо.",
+      "accent": "Спаси́бо.",
+      "translit": "spassíba",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    },
+    {
+      "id": "ru-cafe-004",
+      "fr": "L'addition, s'il vous plaît.",
+      "cible": "Счёт, пожалуйста.",
+      "accent": "Счёт, пожа́луйста.",
+      "translit": "chtchot, pajálsta",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    },
+    {
+      "id": "ru-cafe-005",
+      "fr": "Je peux payer par carte ?",
+      "cible": "Можно картой?",
+      "accent": "Мо́жно ка́ртой?",
+      "translit": "mójna kártaï?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Мо́жно = « on peut ? », il sert partout. Seul, Мо́жно? demande la permission.",
+      "moule": null
+    },
+    {
+      "id": "ru-cafe-006",
+      "fr": "Où sont les toilettes ?",
+      "cible": "Где туалет?",
+      "accent": "Где туале́т?",
+      "translit": "gdie toualiét?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "En russe, « toilettes » se dit au singulier : туале́т.",
+      "moule": null
+    },
+    {
+      "id": "ru-cafe-007",
+      "fr": "Vous avez du lait ?",
+      "cible": "У вас есть молоко?",
+      "accent": "У вас есть молоко́?",
+      "translit": "ou vas iest malakó?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Mot à mot « chez vous, il y a ___ ? ». À un ami : У тебя́ есть ___?",
+      "moule": {
+        "modele": "У вас есть ___?",
+        "fr": "Vous avez ___ ?",
+        "remplacements": [
+          {
+            "fr": "du lait",
+            "cible": "молоко",
+            "accent": "молоко́",
+            "translit": "malakó",
+            "phrase_fr": "Vous avez du lait ?",
+            "phrase_cible": "У вас есть молоко?",
+            "phrase_accent": "У вас есть молоко́?",
+            "phrase_translit": "ou vas iest malakó?"
+          },
+          {
+            "fr": "du sucre",
+            "cible": "сахар",
+            "accent": "са́хар",
+            "translit": "sákhar",
+            "phrase_fr": "Vous avez du sucre ?",
+            "phrase_cible": "У вас есть сахар?",
+            "phrase_accent": "У вас есть са́хар?",
+            "phrase_translit": "ou vas iest sákhar?"
+          },
+          {
+            "fr": "le wifi",
+            "cible": "вайфай",
+            "accent": "вайфа́й",
+            "translit": "vaïfáï",
+            "phrase_fr": "Vous avez le wifi ?",
+            "phrase_cible": "У вас есть вайфай?",
+            "phrase_accent": "У вас есть вайфа́й?",
+            "phrase_translit": "ou vas iest vaïfáï?"
+          },
+          {
+            "fr": "un menu en anglais",
+            "cible": "меню на английском",
+            "accent": "меню́ на англи́йском",
+            "translit": "minioú na anglíïskam",
+            "phrase_fr": "Vous avez un menu en anglais ?",
+            "phrase_cible": "У вас есть меню на английском?",
+            "phrase_accent": "У вас есть меню́ на англи́йском?",
+            "phrase_translit": "ou vas iest minioú na anglíïskam?"
+          },
+          {
+            "fr": "des desserts",
+            "cible": "десерты",
+            "accent": "десе́рты",
+            "translit": "dissiérty",
+            "phrase_fr": "Vous avez des desserts ?",
+            "phrase_cible": "У вас есть десерты?",
+            "phrase_accent": "У вас есть десе́рты?",
+            "phrase_translit": "ou vas iest dissiérty?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-cafe-008",
+      "fr": "À emporter, s'il vous plaît.",
+      "cible": "С собой, пожалуйста.",
+      "accent": "С собо́й, пожа́луйста.",
+      "translit": "s sabóï, pajálsta",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Mot à mot « avec soi ». Sur place : здесь (ici).",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-cafe-009",
+      "fr": "C'est libre ?",
+      "cible": "Здесь свободно?",
+      "accent": "Здесь свобо́дно?",
+      "translit": "zdies svabódna?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Pour une table ou une chaise. Réponses possibles : свобо́дно (c'est libre) ou за́нято (c'est pris).",
+      "moule": null
+    },
+    {
+      "id": "ru-cafe-010",
+      "fr": "Au revoir.",
+      "cible": "До свидания.",
+      "accent": "До свида́ния.",
+      "translit": "da svidánia",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Entre amis, on dit Пока́ (salut, à plus).",
+      "moule": null
+    }
+  ]
+}

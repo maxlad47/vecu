@@ -91,5 +91,6 @@ app/                 le site
 ```
 
 - `variantes` : `{ "m": "...", "f": "..." }` quand la forme dépend du genre de la personne qui parle.
-- `moule` : `{ "modele": "Я люблю ___", "fr": "J'aime ___", "remplacements": [...] }` pour une phrase-moule.
+- `moule` : `{ "modele": "Я люблю ___", "fr": "J'aime ___", "remplacements": [...] }` pour une phrase-moule. `fr` et `cible` portent la phrase avec le premier remplacement. Chaque remplacement est `{ "fr", "cible", "accent", "translit", "phrase_cible", "phrase_accent", "phrase_translit" }` : le morceau qui va dans le trou, puis la phrase complète, déjà accordée. L'app affiche toujours la phrase complète, sans recomposer le texte elle-même.
 - `registre` : `"tu"`, `"vous"` ou `"neutre"`.
+- `ordre_libre` (facultatif, `true`) : l'ordre des mots russes est libre dans cette phrase, donc l'exercice Ordre ne la propose pas. Absent, cela vaut `false`.

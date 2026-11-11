@@ -1,0 +1,218 @@
+{
+  "langue": "ru",
+  "situation": "courses",
+  "titre": "Faire les courses",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-courses-001",
+      "fr": "Combien ça coûte ?",
+      "cible": "Сколько это стоит?",
+      "accent": "Ско́лько э́то сто́ит?",
+      "translit": "skólka éta stóit?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "En montrant l'objet du doigt, « Ско́лько сто́ит? » suffit.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-courses-002",
+      "fr": "Je prends ça.",
+      "cible": "Я возьму это.",
+      "accent": "Я возьму́ э́то.",
+      "translit": "ia vazmoú éta",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "On dit aussi juste Возьму́ ___, sans я.",
+      "moule": {
+        "modele": "Я возьму ___.",
+        "fr": "Je prends ___.",
+        "remplacements": [
+          {
+            "fr": "ça",
+            "cible": "это",
+            "accent": "э́то",
+            "translit": "éta",
+            "phrase_fr": "Je prends ça.",
+            "phrase_cible": "Я возьму это.",
+            "phrase_accent": "Я возьму́ э́то.",
+            "phrase_translit": "ia vazmoú éta"
+          },
+          {
+            "fr": "deux",
+            "cible": "два",
+            "accent": "два",
+            "translit": "dva",
+            "phrase_fr": "Je prends deux.",
+            "phrase_cible": "Я возьму два.",
+            "phrase_accent": "Я возьму́ два.",
+            "phrase_translit": "ia vazmoú dva"
+          },
+          {
+            "fr": "un kilo",
+            "cible": "килограмм",
+            "accent": "килогра́мм",
+            "translit": "kilagrám",
+            "phrase_fr": "Je prends un kilo.",
+            "phrase_cible": "Я возьму килограмм.",
+            "phrase_accent": "Я возьму́ килогра́мм.",
+            "phrase_translit": "ia vazmoú kilagrám"
+          },
+          {
+            "fr": "du pain",
+            "cible": "хлеб",
+            "accent": "хлеб",
+            "translit": "khliep",
+            "phrase_fr": "Je prends du pain.",
+            "phrase_cible": "Я возьму хлеб.",
+            "phrase_accent": "Я возьму́ хлеб.",
+            "phrase_translit": "ia vazmoú khliep"
+          },
+          {
+            "fr": "de l'eau",
+            "cible": "воду",
+            "accent": "во́ду",
+            "translit": "vódou",
+            "phrase_fr": "Je prends de l'eau.",
+            "phrase_cible": "Я возьму воду.",
+            "phrase_accent": "Я возьму́ во́ду.",
+            "phrase_translit": "ia vazmoú vódou"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-courses-003",
+      "fr": "Vous pouvez l'écrire ?",
+      "cible": "Можете написать?",
+      "accent": "Мо́жете написа́ть?",
+      "translit": "mójyti napissát?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Мо́жете = vous pouvez. Tends ton téléphone ou un papier quand le prix va trop vite.",
+      "moule": null
+    },
+    {
+      "id": "ru-courses-004",
+      "fr": "Excusez-moi.",
+      "cible": "Извините.",
+      "accent": "Извини́те.",
+      "translit": "izviníti",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Sert à interpeller quelqu'un et à s'excuser. Avec un ami : Извини́.",
+      "moule": null
+    },
+    {
+      "id": "ru-courses-005",
+      "fr": "Combien coûte le pain ?",
+      "cible": "Сколько стоит хлеб?",
+      "accent": "Ско́лько сто́ит хлеб?",
+      "translit": "skólka stóit khliep?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Avec un pluriel (les pommes), seul le verbe change : сто́ит devient сто́ят.",
+      "moule": {
+        "modele": "Сколько стоит ___?",
+        "fr": "Combien coûte ___ ?",
+        "remplacements": [
+          {
+            "fr": "le pain",
+            "cible": "хлеб",
+            "accent": "хлеб",
+            "translit": "khliep",
+            "phrase_fr": "Combien coûte le pain ?",
+            "phrase_cible": "Сколько стоит хлеб?",
+            "phrase_accent": "Ско́лько сто́ит хлеб?",
+            "phrase_translit": "skólka stóit khliep?"
+          },
+          {
+            "fr": "le lait",
+            "cible": "молоко",
+            "accent": "молоко́",
+            "translit": "malakó",
+            "phrase_fr": "Combien coûte le lait ?",
+            "phrase_cible": "Сколько стоит молоко?",
+            "phrase_accent": "Ско́лько сто́ит молоко́?",
+            "phrase_translit": "skólka stóit malakó?"
+          },
+          {
+            "fr": "l'eau",
+            "cible": "вода",
+            "accent": "вода́",
+            "translit": "vadá",
+            "phrase_fr": "Combien coûte l'eau ?",
+            "phrase_cible": "Сколько стоит вода?",
+            "phrase_accent": "Ско́лько сто́ит вода́?",
+            "phrase_translit": "skólka stóit vadá?"
+          },
+          {
+            "fr": "le fromage",
+            "cible": "сыр",
+            "accent": "сыр",
+            "translit": "syr",
+            "phrase_fr": "Combien coûte le fromage ?",
+            "phrase_cible": "Сколько стоит сыр?",
+            "phrase_accent": "Ско́лько сто́ит сыр?",
+            "phrase_translit": "skólka stóit syr?"
+          },
+          {
+            "fr": "les pommes",
+            "cible": "яблоки",
+            "accent": "я́блоки",
+            "translit": "iáblaki",
+            "phrase_fr": "Combien coûtent les pommes ?",
+            "phrase_cible": "Сколько стоят яблоки?",
+            "phrase_accent": "Ско́лько сто́ят я́блоки?",
+            "phrase_translit": "skólka stóiat iáblaki?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-courses-006",
+      "fr": "Non, merci.",
+      "cible": "Нет, спасибо.",
+      "accent": "Нет, спаси́бо.",
+      "translit": "niet, spassíba",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    },
+    {
+      "id": "ru-courses-007",
+      "fr": "C'est tout, merci.",
+      "cible": "Всё, спасибо.",
+      "accent": "Всё, спаси́бо.",
+      "translit": "fsio, spassíba",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "La réponse type quand on te demande « Что́-нибудь ещё? » (autre chose ?).",
+      "moule": null
+    },
+    {
+      "id": "ru-courses-008",
+      "fr": "Je regarde seulement.",
+      "cible": "Я просто смотрю.",
+      "accent": "Я про́сто смотрю́.",
+      "translit": "ia prósta smatrioú",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    },
+    {
+      "id": "ru-courses-009",
+      "fr": "C'est trop cher.",
+      "cible": "Это слишком дорого.",
+      "accent": "Э́то сли́шком до́рого.",
+      "translit": "éta slíchkam dóraga",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    }
+  ]
+}
