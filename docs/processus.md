@@ -86,6 +86,7 @@ Une mission est terminée quand :
 
 - **Le dépôt GitHub fait foi.** Une session (Mac ou cloud) commence par récupérer la dernière version et finit par l'envoyer sur GitHub. Rien ne reste uniquement sur une machine.
 - Sur le Mac : GitHub Desktop, **Fetch / Pull** avant de lancer Claude Code, **Commit / Push** à la fin.
+- **Envoyer sur `main` publie le site de test** (D14). On n'y envoie donc qu'à la clôture d'une mission, après le verdict de Boris. Un travail en cours va sur une branche à part.
 - Si une mission est interrompue (limite d'utilisation atteinte), Sacha note dans `etat.md` l'étape atteinte, pour que la reprise parte de là et ne recommence rien.
 
 ## 7. Économiser la consommation

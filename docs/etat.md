@@ -10,7 +10,7 @@ Dernière mise à jour : 12/11/2026 (clôture de la mission 002), par Sacha.
 
 - **Phase 0 (prototype)** : mission 1 terminée le 11/11/2026. En ligne pour test sur https://vecu-test.netlify.app (non référencé).
 - **En cours** : 2 semaines de test par Max (critère de passage de la phase 0).
-- **Mission en cours** : aucune. Dernière mission : 002, 5 nouvelles situations (terminée le 12/11). Mise à jour de vecu-test.netlify.app : en attente de l'accord de Max.
+- **Mission en cours** : aucune. Dernière mission : 002, 5 nouvelles situations (terminée le 12/11). En ligne sur vecu-test.netlify.app.
 
 ## Pédagogie (Vera)
 
@@ -49,7 +49,7 @@ Dernière mise à jour : 12/11/2026 (clôture de la mission 002), par Sacha.
 | PWA : moteur de session, Leitner, audio, hors ligne | `app/` | validé |
 | Classement des voix par qualité | `app/js/audio.js` | validé |
 | Assemblage du site | `scripts/build.mjs`, `scripts/build.sh` | validé |
-| Hébergement de test | `netlify.toml` | validé |
+| Hébergement de test, relié à GitHub : publication automatique à chaque envoi sur `main` | `netlify.toml` | validé (12/11) |
 | Tests du moteur, indépendants du volume de contenu (`node --test tests/*.test.mjs`) | `tests/moteur.test.mjs` | validé (12/11) |
 | Réserve : Voiture 2 min, onend absent, écart possible au-delà de 20 % (avertissement dans le test) | `tests/moteur.test.mjs` | à revoir (mission audio) |
 | Dette : textes « russe » de l'interface à sortir de `textes.js` vers `index.json` (2e langue) | `app/js/textes.js` | à faire |
