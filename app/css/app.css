@@ -18,9 +18,12 @@
   --or: #8A847B; --or-text: #5C5750; --deco-bleu-pale: #E3ECF8;
   --deco-peau: #FBEFE6; --deco-joue: #E4B8B2; --deco-oeil: #1C1B1A; --deco-contour: #1F4E8C;
   /* Zones de sécurité et marges (voir 3. Écran) */
-  --marge: max(20px, env(safe-area-inset-left), env(safe-area-inset-right));
-  --haut: max(env(safe-area-inset-top, 0px), 12px);
-  --bas: max(env(safe-area-inset-bottom, 0px), 16px);
+  /* La barre d'état de l'iPhone réserve déjà sa place : on ne garde que env() et un petit minimum de confort. */
+  --marge: max(clamp(16px, 5vw, 20px), env(safe-area-inset-left), env(safe-area-inset-right));
+  --haut: max(env(safe-area-inset-top, 0px), 6px);
+  --bas: max(env(safe-area-inset-bottom, 0px), 10px);
+  /* Place provisoire pour le bandeau « Powered by Netlify » : passer à 0px quand Max l'aura désactivé. */
+  --reserve-netlify: 40px;
 
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
   --fs-ru-hero: 1.875rem; --fs-ru-hero-long: 1.625rem; --fs-ru-hero-xlong: 1.375rem;
@@ -55,13 +58,6 @@ body.theme-voiture {
   --focus: #8FB4F0; --overlay: rgba(0,0,0,0.6);
   --laque: #8FB4F0; --on-laque: #141312; --laque-soft: #1E2D45;
   --or: #7A746C; --or-text: #ADA79E; --deco-bleu-pale: #1E2D45; --deco-contour: #8FB4F0;
-}
-/* Sur iPhone installé, l'îlot dynamique et la barre d'accueil réclament au moins 59 px en haut et 34 px en bas
-   (bagou-ru.md, 12). env() donne la vraie valeur ; ces planchers ne servent que si elle manque. */
-@media (display-mode: standalone) {
-  @supports (-webkit-touch-callout: none) {
-    :root { --haut: max(env(safe-area-inset-top, 0px), 59px); --bas: max(env(safe-area-inset-bottom, 0px), 34px); }
-  }
 }
 /* Dérivés du décor : recalculés sur body pour suivre le thème Voiture (sombre forcé). */
 body { --deco-bleu: var(--accent); --deco-rouge: var(--laque); --deco-or: var(--or); }
@@ -107,7 +103,7 @@ svg.icon { width: 24px; height: 24px; flex: none; fill: none; stroke: currentCol
 .contenu { flex: 1; padding: var(--space-4) var(--marge) var(--space-5); position: relative; }
 .zone-action {
   position: sticky; bottom: 0; background: var(--bg); z-index: 2;
-  padding: var(--space-3) var(--marge) var(--bas);
+  padding: var(--space-3) var(--marge) calc(var(--bas) + var(--reserve-netlify));
   display: flex; flex-direction: column; gap: var(--space-2);
 }
 /* Mes progrès : voile en haut de la barre, pour montrer que la liste défile derrière. */
@@ -214,11 +210,9 @@ button.badge { min-height: 44px; cursor: pointer; }
 .ru-hero.xlong { font-size: var(--fs-ru-hero-xlong); }
 .fr-hero { font-size: var(--fs-fr-hero); font-weight: 600; line-height: 1.3; }
 .translit { font-size: var(--fs-translit); font-style: italic; color: var(--text-muted); line-height: 1.4; }
-.registre {
-  min-height: 28px; padding: 0 10px; display: inline-flex; align-items: center;
-  border: 1.5px solid var(--border); border-radius: var(--radius-pill);
-  font-size: var(--fs-small); color: var(--text-muted);
-}
+.registre { font-size: var(--fs-small); color: var(--text-muted); }
+.ligne-translit { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--space-2); }
+.ligne-translit .translit + .registre::before { content: "\00B7\00A0"; }
 .petit { font-size: var(--fs-small); color: var(--text-muted); }
 .btn-ecouter {
   margin-top: var(--space-3); min-height: 44px; padding: 0 var(--space-4);
@@ -241,7 +235,8 @@ button.badge { min-height: 44px; cursor: pointer; }
   margin-top: var(--space-3); padding: var(--space-3) var(--space-4); text-align: left; width: 100%;
   background: var(--surface); border-left: 4px solid var(--accent); border-radius: var(--radius-s);
 }
-.astuce strong { display: block; font-size: var(--fs-small); font-weight: 700; color: var(--accent); }
+.astuce strong { display: inline; font-size: var(--fs-small); font-weight: 700; color: var(--accent); }
+.astuce strong::after { content: "\00A0: "; }
 .encart-genre { margin-top: var(--space-3); width: 100%; display: flex; flex-direction: column; gap: var(--space-2); }
 .encart-genre .paire > button { min-height: 52px; }
 .etiquette-moule { font-size: var(--fs-small); color: var(--text-muted); }
@@ -296,7 +291,7 @@ button.badge { min-height: 44px; cursor: pointer; }
 .retour {
   position: sticky; bottom: 0; background: var(--surface);
   border-top: 1px solid var(--border-subtle); border-radius: var(--radius-l) var(--radius-l) 0 0;
-  padding: var(--space-4) var(--marge) var(--bas);
+  padding: var(--space-4) var(--marge) calc(var(--bas) + var(--reserve-netlify));
   display: flex; flex-direction: column; gap: var(--space-2);
   animation: monte 180ms ease-out;
 }
@@ -484,12 +479,7 @@ span.past { cursor: default; }
 .btn-lien { min-height: 44px; padding: 0 var(--space-3); display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   background: none; border: 0; font-size: 1.0625rem; font-weight: 600; color: var(--text); cursor: pointer; }
 
-/* Session : contexte et carte de phrase (bagou-ru.md, 8) */
-.contexte { padding: 0 var(--marge); margin-top: var(--space-2); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.contexte .info { min-height: 34px; padding: 0 12px; display: inline-flex; align-items: center; gap: 6px;
-  background: var(--accent-soft); color: var(--accent); border-radius: var(--radius-pill); font-size: var(--fs-small); font-weight: 600; }
-.contexte .info svg.icon { width: 16px; height: 16px; }
-.emplacement-son { margin-left: auto; }
+/* Session : carte de phrase (bagou-ru.md, 8 et 13) */
 .titre-page { font-size: 1.25rem; font-weight: 800; line-height: 1.2; }
 .titre-page:focus { outline: none; }
 .contenu-accueil { display: flex; flex-direction: column; }
@@ -540,5 +530,110 @@ span.past { cursor: default; }
 
 @media (prefers-reduced-motion: reduce) {
   .poupees.emboite .poupee, .liste-menu { animation: none !important; }
+  .poupee-colorie, .poupee-colorie .poupee { animation-delay: 0s !important; }
 }
 .carte-lieu .lieu-ex { color: var(--text-muted); font-size: var(--fs-small); line-height: 1.3; }
+
+/* ===== 13. Session adaptative (mission 006) : en-tête d'une ligne, contenu qui défile, barre d'action fixe =====
+   La page ne défile jamais : seule la zone de contenu peut défiler. Valeurs : bagou-ru.md, 13. */
+.ecran-session {
+  --fs-ru-hero: clamp(1.375rem, min(7.2vw, 3.6dvh), 1.875rem);
+  --fs-ru-hero-long: clamp(1.25rem, min(6.2vw, 3.1dvh), 1.625rem);
+  --fs-ru-hero-xlong: clamp(1.125rem, min(5.4vw, 2.7dvh), 1.375rem);
+  --fs-fr-hero: clamp(1.25rem, min(6vw, 3dvh), 1.5rem);
+  --fs-fr-carte: clamp(1.125rem, min(5.4vw, 2.8dvh), 1.375rem);
+  --fs-ru-option: clamp(1.125rem, min(5.2vw, 2.7dvh), 1.375rem);
+  --fs-option: clamp(1rem, min(4.8vw, 2.5dvh), 1.125rem);
+  --fs-translit: clamp(0.9375rem, 2.2dvh, 1rem);
+  --fs-button: clamp(1rem, 2.6dvh, 1.125rem);
+  --h-bouton: clamp(52px, 8dvh, 60px);
+  --h-option: clamp(52px, 7.6dvh, 64px);
+  --h-option-ru: clamp(56px, 9dvh, 72px);
+  --e: clamp(6px, 1.2dvh, 12px);
+  --e-grand: clamp(10px, 2.2dvh, 20px);
+  height: 100vh; height: 100dvh; min-height: 0; overflow: hidden;
+}
+.ecran-session .entete { min-height: 48px; justify-content: flex-start; gap: var(--space-2); }
+.entete .barre { flex: 1; min-width: 56px; }
+.entete .btn-icone { width: 44px; height: 44px; }
+.ecran-session .contenu {
+  flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+  padding: var(--e) var(--marge) 16px;
+}
+/* Voile en bas : montre que le contenu défile derrière la barre. */
+.ecran-session .contenu::after {
+  content: ""; flex: none; position: sticky; bottom: -16px; height: 16px; margin-top: -16px; pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+}
+.ecran-session .contenu.carte { display: block; }
+.ecran-session .zone-phrase { padding: var(--e-grand) 0; gap: var(--e); }
+.bas-session { flex: none; }
+.ecran-session .zone-action {
+  position: static; max-height: 45dvh; overflow-y: auto; gap: var(--e);
+  padding: 8px var(--marge) calc(var(--bas) + var(--reserve-netlify));
+  border-top: 1px solid var(--border-subtle);
+}
+.ecran-session .btn-principal { min-height: var(--h-bouton); font-size: var(--fs-button); }
+.ecran-session .paire > button { min-height: 56px; }
+.ecran-session .option { min-height: var(--h-option); padding: 6px 16px; }
+.ecran-session .option.avec-translit { min-height: var(--h-option-ru); }
+.ecran-session .translit { font-size: var(--fs-translit); }
+.ecran-session .option .translit { font-size: var(--fs-small); }
+.ecran-session .carte-phrase { margin-top: var(--e); padding: clamp(12px, 2.2dvh, 18px); gap: var(--e); border-radius: 20px; }
+.ecran-session .carte-phrase .fr-dessus { font-size: var(--fs-fr-carte); padding-right: 84px; }
+.ecran-session .carte-phrase .ligne-translit { align-self: flex-start; text-align: left; }
+.ecran-session .astuce { margin-top: 0; padding: 8px 12px; font-size: var(--fs-small); line-height: 1.35; }
+.ecran-session .boutons-ecoute { margin-top: 0; }
+.ecran-session .bloc-etat { margin-top: 0; padding-top: var(--e); font-size: 1rem; }
+.ecran-session .autre-mot { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--e); }
+.ecran-session .autre-mot .etiquette-moule { flex: none; }
+.ecran-session .puces {
+  flex: 1; min-width: 0; flex-wrap: nowrap; margin: 0; padding-right: 20px; overflow-x: auto;
+  scroll-snap-type: x proximity; scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
+}
+.ecran-session .puces::-webkit-scrollbar { display: none; }
+.ecran-session .puce { flex: none; scroll-snap-align: start; }
+.ecran-session .rang-poupees { margin-top: var(--e); }
+.poupees.compact { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 3px; }
+.poupees.compact .poupee { height: 30px; width: 21px; }
+.poupees.compact .poupee.courante { border-bottom: 3px solid var(--accent); padding-bottom: 2px; }
+.ecran-session .btn-reecouter .rond { width: clamp(64px, 12dvh, 96px); height: clamp(64px, 12dvh, 96px); }
+.ecran-session .btn-reecouter .rond svg.icon { width: 40%; height: 40%; }
+.ecran-session .ordre { gap: var(--e-grand); }
+.ecran-session .zone-reponse { min-height: clamp(48px, 7dvh, 64px); }
+.ecran-session .tuile { min-height: 44px; padding: 8px 12px; }
+.ecran-session .question-voix { margin: 0; line-height: 1.2; }
+
+/* Panneau de retour : les infos défilent, « Suivant » reste fixe en bas. */
+.ecran-session .retour { position: static; border-radius: 0; animation: none; padding: 8px var(--marge) calc(var(--bas) + var(--reserve-netlify)); gap: var(--e); }
+.retour-infos { max-height: 38dvh; overflow-y: auto; display: flex; flex-direction: column; gap: var(--e); }
+.ligne-verdict { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+.etat-change { display: flex; align-items: center; gap: 6px; font-size: var(--fs-small); font-weight: 600; }
+
+/* Matriochka qui se colorie : fondu croisé 350 ms + léger gonflement (rien en boucle). */
+.poupee-colorie { position: relative; display: inline-flex; flex: none; animation: gonfle 450ms ease-out both; animation-delay: var(--delai, 0ms); }
+.poupee-colorie .poupee { display: block; }
+.poupee-colorie .poupee:first-child { animation: estompe 350ms ease-out both; animation-delay: var(--delai, 0ms); }
+.poupee-colorie .poupee:last-child { position: absolute; top: 0; left: 0; animation: apparait 350ms ease-out both; animation-delay: var(--delai, 0ms); }
+@keyframes gonfle { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+@keyframes estompe { from { opacity: 1; } to { opacity: 0; } }
+@keyframes apparait { from { opacity: 0; } to { opacity: 1; } }
+.fin-poupees { margin-top: var(--space-3); }
+
+/* Écrans bas : le repli se fait dans l'ordre de bagou-ru.md, 13.2. */
+@media (max-height: 700px) {
+  .ecran-session .carte-phrase .decor-carte { width: 48px; top: -12px; }
+  .ecran-session .carte-phrase .fr-dessus { padding-right: 56px; }
+  .ecran-session .bloc-etat small, .ecran-session .retour .reverra { display: none; }
+  .ecran-session .bloc-etat .poupee { height: 28px; width: 20px; }
+  .ecran-session .consigne-decouverte { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .ecran-session .zone-action { padding-top: 6px; }
+}
+@media (max-height: 600px) {
+  .ecran-session .carte-phrase .decor-carte { display: none; }
+  .ecran-session .carte-phrase .fr-dessus { padding-right: 0; }
+  .poupees.compact .poupee { height: 22px; width: 16px; }
+  .ecran-session .astuce { padding: 6px 10px; }
+}

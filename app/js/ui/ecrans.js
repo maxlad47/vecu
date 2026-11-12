@@ -3,7 +3,7 @@
 
 import { h, icone, focaliser } from "./dom.js";
 import { creerMenu } from "./menu.js";
-import { poupee, rangeeGigogne, etatDe } from "./matriochka.js";
+import { poupee, poupeeColorie, rangeeGigogne, etatDe } from "./matriochka.js";
 import { t, texteDuree } from "../textes.js";
 import { texteElement } from "../contenu.js";
 
@@ -23,12 +23,17 @@ function boutonRetour(ctx) {
 }
 
 // ---------- 6. Fin de session ----------
-export function afficherFin(racine, ctx, { bilan, duree, dureeReelle, mode, raison, themes }) {
+export function afficherFin(racine, ctx, { bilan, duree, dureeReelle, mode, raison, themes, progres }) {
   const tete = entete(ctx, null, null);
   const vide = raison === "arret" && bilan.cartes === 0;
   const titreTexte = vide ? t("fin.titreVide") : (raison === "arret" ? t("fin.titreArret") : t("fin.titre", { duree: texteDuree(dureeReelle || duree) }));
   const titre = h("h1", { class: "titre-ecran", tabindex: "-1" }, titreTexte);
   const contenu = h("main", { class: "contenu" }, titre);
+  // Poupées qui ont progressé : elles se colorient l'une après l'autre (6 animées au plus, les autres changent sans mouvement).
+  if (progres && progres.length) {
+    contenu.appendChild(h("div", { class: "poupees fin-poupees", "aria-hidden": "true" },
+      progres.map((p, i) => poupeeColorie(i < 6 ? p.avant : p.apres, p.apres, 30, true, i * 120))));
+  }
 
   if (!vide) {
     if (bilan.decouverts.length) {

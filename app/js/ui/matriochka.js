@@ -44,10 +44,24 @@ export function poupee(etat, hauteur, decoratif) {
   return svg;
 }
 
+// Poupée qui se colorie : l'ancienne s'estompe sous la nouvelle (animation dans app.css, supprimée si « réduire les animations »).
+export function poupeeColorie(avant, apres, hauteur, decoratif, delaiMs) {
+  if (avant === apres) return poupee(apres, hauteur, decoratif);
+  return h("span", { class: "poupee-colorie", style: "--delai:" + (delaiMs || 0) + "ms" }, poupee(avant, hauteur, true), poupee(apres, hauteur, decoratif));
+}
+
 // Rangée gigogne d'un thème : une poupée par phrase, de la plus petite à la plus grande, dans l'ordre des phrases.
 // Décorative (aria-hidden) : l'information est dans le texte « 3 acquises sur 9 » écrit à côté.
-export function rangeeGigogne(etats) {
+// Avec « courante » (index de la phrase en cours) : une ligne compacte de poupées égales, la courante soulignée.
+export function rangeeGigogne(etats, courante) {
   const n = etats.length;
+  if (courante !== undefined) {
+    return h("div", { class: "poupees compact", "aria-hidden": "true" }, etats.map((etat, i) => {
+      const p = poupee(etat, 30, true);
+      if (i === courante) p.classList.add("courante");
+      return p;
+    }));
+  }
   const bas = n > 9 ? 26 : 30, haut = n > 9 ? 50 : 54;
   return h("div", { class: "poupees", "aria-hidden": "true" }, etats.map((etat, i) =>
     poupee(etat, Math.round(n > 1 ? bas + ((haut - bas) * i) / (n - 1) : haut), true)));

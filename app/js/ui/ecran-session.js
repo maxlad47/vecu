@@ -3,11 +3,10 @@
 
 import { h, icone, annoncer, classeLongueur, vider, focaliser, mettre, texteMixte, motsRusses } from "./dom.js";
 import { creerMenu } from "./menu.js";
-import { resumeThemes } from "./accueil.js";
-import { poupee, rangeeGigogne, etatDe, motEtat, sousTexteEtat } from "./matriochka.js";
+import { poupee, poupeeColorie, rangeeGigogne, etatDe, motEtat, sousTexteEtat } from "./matriochka.js";
 import { decorSituation, sansDecor } from "../ambiance.js";
 import { ouvrirFeuille } from "./feuille.js";
-import { t, texteDuree } from "../textes.js";
+import { t } from "../textes.js";
 import { INTERFACE, AUDIO } from "../config.js";
 import { creerSession, minutesReelles } from "../moteur.js";
 import { creerHorloge } from "../horloge.js";
@@ -35,10 +34,9 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
 
   const sonore = () => session.mode !== "silence";
 
-  // ---------- Squelette de l'écran (bagou-ru.md, 8) ----------
-  // En-tête : Menu à gauche, Quitter à droite. Dessous : pastilles d'affichage (non touchables), barre de temps.
-  const boutonQuitter = h("button", { type: "button", class: "btn-texte", "aria-label": t("session.quitter"), onclick: () => demanderArret() },
-    icone("croix"), h("span", { "aria-hidden": "true" }, t("nav.quitter")));
+  // ---------- Squelette de l'écran (bagou-ru.md, 13.1) ----------
+  // En-tête d'une seule ligne : Menu, barre de temps, « 3 min », son (icône), Quitter (icône).
+  const boutonQuitter = h("button", { type: "button", class: "btn-icone", "aria-label": t("session.quitter"), onclick: () => demanderArret() }, icone("croix"));
   // Pendant que le menu est ouvert, le chrono est en pause (comme la feuille « On s'arrête là ? »).
   const menu = creerMenu(ctx, {
     choisir: (ecran) => demanderArret(ecran),
@@ -46,29 +44,20 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     surFermeture: () => { horloge.reprendre("menu"); if (courant && courant.repondu && courant.juste) armerAvanceAuto(); }
   });
   const barre = h("span");
-  const compteur = h("span", { class: "compteur" }); // « encore X min »
-  const emplacementBadge = h("span", { class: "emplacement-son" });
-  const pastilleMode = h("span", { class: "info" });
+  const compteurVu = h("span", { "aria-hidden": "true" });  // « 3 min »
+  const compteurLu = h("span", { class: "sr-only" });       // « encore 3 min »
+  // « Couper le son » n'existe que si le son est permis (absent en Silence).
+  const boutonSon = sonore() ? h("button", { type: "button", class: "btn-icone", "aria-label": t("session.couperSon"), onclick: couperLeSon }, icone("muet")) : null;
   const zoneCarte = h("main", { class: "contenu carte" });
-  const zoneBas = h("div");
-  const ecran = h("div", { class: "ecran" },
-    h("header", { class: "entete" }, menu.element, boutonQuitter),
-    h("div", { class: "contexte" }, pastilleMode,
-      h("span", { class: "info" }, texteDuree(duree)),
-      h("span", { class: "info" }, resumeThemes(themes || [], ctx.contenu.situations)),
-      emplacementBadge),
-    h("div", { class: "progression" }, h("div", { class: "barre", "aria-hidden": "true" }, barre), compteur),
+  const zoneBas = h("div", { class: "bas-session" });
+  const ecran = h("div", { class: "ecran ecran-session" },
+    h("header", { class: "entete" }, menu.element,
+      h("div", { class: "barre", "aria-hidden": "true" }, barre),
+      h("span", { class: "compteur" }, compteurVu, compteurLu), boutonSon, boutonQuitter),
     zoneCarte, zoneBas);
   racine.appendChild(ecran);
-
-  // Le mode affiché suit la session (« Couper le son » la fait passer en Sans son). « Couper le son » n'existe que si le son est permis.
-  function afficherBadge() {
-    vider(emplacementBadge);
-    pastilleMode.textContent = t("lieu." + (sonore() ? session.mode : "silence"));
-    if (sonore()) {
-      emplacementBadge.appendChild(h("button", { type: "button", class: "badge", onclick: couperLeSon }, icone("muet"), t("session.couperSon")));
-    }
-  }
+  // États des poupées au départ : à la fin, on colorie celles qui ont progressé.
+  const etatsDepart = new Map([...ctx.stockage.fiches].map(([id, f]) => [id, etatDe(f)]));
 
   // ---------- Audio (jamais appelé en Silence : audio.parler refuse de toute façon) ----------
   function rateBoutons() { return reglages().vitesseVoix === "lente" ? AUDIO.rateLente : AUDIO.rateNormale; }
@@ -95,7 +84,7 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     session.couperSon();
     audio.definirModeAudio("silence");
     ctx.majReglage("dernierMode", "silence");
-    afficherBadge();
+    boutonSon.remove();
     zoneCarte.querySelectorAll("[data-ecouter], [data-reecouter], .boutons-ecoute").forEach((b) => b.remove());
     annoncer(t("session.sonCoupe"));
     // La carte en cours, si elle a besoin du son, devient Sens ou Thème.
@@ -111,6 +100,11 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     if (registre === "tu") return h("span", { class: "registre" }, t("carte.tutoie"));
     if (registre === "vous") return h("span", { class: "registre" }, t("carte.vouvoie"));
     return null;
+  }
+  // Translittération et registre sur une seule ligne (le registre reste seul si la translittération est désactivée).
+  function ligneTranslit(texteTranslit, registre) {
+    const tr = translit(texteTranslit), reg = badgeRegistre(registre);
+    return tr || reg ? h("div", { class: "ligne-translit" }, tr, reg) : null;
   }
   function translit(texte) {
     if (!reglages().translitteration || !texte) return null; // absente du DOM si désactivée
@@ -160,7 +154,9 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     const D = session.duree;
     const ecoule = Math.min(D, horloge.secondes());
     const reste = D - ecoule;
-    compteur.textContent = reste < 60 ? t("session.resteMoins") : t("session.reste", { n: Math.ceil(reste / 60) });
+    const n = Math.ceil(reste / 60);
+    compteurVu.textContent = reste < 60 ? t("session.resteMoinsCourt") : t("session.resteCourt", { n });
+    compteurLu.textContent = reste < 60 ? t("session.resteMoins") : t("session.reste", { n });
     barre.style.width = Math.round((ecoule / D) * 100) + "%";
   }
 
@@ -214,13 +210,13 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
       mettre(carteEl, h("p", { class: "ru-hero " + classeLongueur(f.cible) }, h("span", { class: "petit" }, t("carte.femme") + " "), h("span", { lang: "ru" }, motsRusses(f.accent))));
     } else {
       mettre(carteEl, h("p", { class: "ru-hero " + classeLongueur(texte.cible), lang: "ru" }, motsRusses(texte.accent)));
-      mettre(carteEl, translit(texte.translit));
+      mettre(carteEl, ligneTranslit(texte.translit, el.registre));
       if (el.variantes) {
         const autre = autreVariante(el, genre);
         if (autre) mettre(carteEl, h("p", { class: "petit" }, t(genre === "f" ? "carte.auMasculin" : "carte.auFeminin", { forme: "" }), h("span", { lang: "ru" }, autre.accent)));
       }
     }
-    mettre(carteEl, badgeRegistre(el.registre));
+    if (el.variantes && !genre) mettre(carteEl, badgeRegistre(el.registre)); // sinon, le registre est sur la ligne de la translittération
     mettre(carteEl, blocAstuce(el.astuce));
     if (el.variantes && !genre) {
       const choisir = (g) => {
@@ -246,7 +242,7 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     mettre(carteEl, h("div", { class: "bloc-etat" }, poupee(etat, 40, true),
       h("div", null, motEtat(etat), h("small", null, sousTexteEtat(etat, fiche)))));
 
-    mettre(zoneCarte, consigne("decouverte.consigne"), carteEl);
+    mettre(zoneCarte, h("h1", { class: "consigne consigne-decouverte", tabindex: "-1" }, t("decouverte.consigne")), carteEl);
 
     // Phrase-moule : « Même phrase, autre mot », puces tactiles. Toucher une puce affiche la phrase complète avec ce mot
     // (affichage seulement : le moteur, lui, a déjà fixé le mot de la carte).
@@ -269,9 +265,9 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
       const acquises = etats.filter((e) => e === "acquise").length;
       const texteTheme = acquises === ids.length && ids.length > 0 ? t("theme.tout", { titre: theme.titre })
         : t(acquises === 0 ? "theme.rang0" : acquises === 1 ? "theme.rang1" : "theme.rang", { titre: theme.titre, acquises, total: ids.length });
-      mettre(zoneCarte, h("div", { class: "rang-poupees" }, texteTheme, rangeeGigogne(etats)));
+      mettre(zoneCarte, h("div", { class: "rang-poupees" }, texteTheme, rangeeGigogne(etats, ids.indexOf(el.id))));
     }
-    zoneAction(h("button", { type: "button", class: "btn-principal haut-60", onclick: () => { session.repondre(carte, "non-note"); suivante(); } }, t("retour.suivant")));
+    zoneAction(h("button", { type: "button", class: "btn-principal", onclick: () => { session.repondre(carte, "non-note"); suivante(); } }, t("retour.suivant")));
     if (!courant.luArrivee) { courant.luArrivee = true; lire(texte.cible); }
   }
 
@@ -282,7 +278,7 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
       const contenuOption = francais
         ? h("span", { class: "texte-option" }, option.texte.fr)
         : h("span", { class: "texte-option" }, h("span", { class: "ru", lang: "ru" }, option.texte.accent), translit(option.texte.translit));
-      const bouton = h("button", { type: "button", class: "option" }, contenuOption, h("span", { class: "etat" }), h("span", { class: "sr-only sr-etat" }));
+      const bouton = h("button", { type: "button", class: "option" + (!francais && reglages().translitteration ? " avec-translit" : "") }, contenuOption, h("span", { class: "etat" }), h("span", { class: "sr-only sr-etat" }));
       bouton.addEventListener("click", () => repondreQcm(carte, option, bouton, liste));
       liste.appendChild(h("li", null, bouton));
     });
@@ -307,34 +303,42 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
   }
 
   // Enregistre le résultat puis affiche le panneau de retour (2.8).
+  // Le panneau prend la place des réponses : les infos défilent, « Suivant » reste fixe en bas.
   function resultat(carte, juste) {
     courant.juste = juste;
+    const avant = etatDe(ctx.stockage.fiches.get(carte.element.id));
     session.repondre(carte, juste ? "reussite" : "echec");
+    const apres = etatDe(ctx.stockage.fiches.get(carte.element.id));
     const texte = carte.texte;
     const reponseRusse = ["theme", "moule-theme", "ordre"].includes(carte.type);
     const panneau = h("div", { class: "retour" + (juste ? "" : " est-faux") });
+    const infos = h("div", { class: "retour-infos" });
     const verdict = h("p", { class: "verdict " + (juste ? "ok" : "ko"), role: "status", tabindex: "-1" },
       icone(juste ? "coche" : "croix"), t(juste ? "retour.juste" : "retour.faux"));
-    mettre(panneau, verdict);
+    // La poupée de la phrase se colorie à droite du verdict, seulement si son état a changé.
+    const etatChange = avant === apres ? null
+      : h("span", { class: "etat-change" }, poupeeColorie(avant, apres, 28, true), motEtat(apres));
+    if (etatChange && matchMedia("(prefers-reduced-motion: reduce)").matches) annoncer(t("etat.annonce", { etat: motEtat(apres) }));
+    mettre(infos, h("div", { class: "ligne-verdict" }, verdict, etatChange));
     if (carte.type === "ecoute") {
       // On n'avait pas vu la phrase : on la montre.
-      mettre(panneau, h("div", { class: "bonne-reponse" }, h("p", { class: "ru", lang: "ru" }, texte.accent), translit(texte.translit)));
+      mettre(infos, h("div", { class: "bonne-reponse" }, h("p", { class: "ru", lang: "ru" }, texte.accent), translit(texte.translit)));
     }
     if (!juste) {
-      mettre(panneau, h("p", { class: "petit" }, t("retour.bonne")));
+      mettre(infos, h("p", { class: "petit" }, t("retour.bonne")));
       if (reponseRusse) {
-        mettre(panneau, h("div", { class: "bonne-reponse" }, h("p", { class: "ru", lang: "ru" }, texte.accent), translit(texte.translit)));
+        mettre(infos, h("div", { class: "bonne-reponse" }, h("p", { class: "ru", lang: "ru" }, texte.accent), translit(texte.translit)));
       } else {
         const bloc = h("div", { class: "bonne-reponse" });
         if (carte.type !== "ecoute") bloc.appendChild(h("p", { class: "petit", lang: "ru" }, texte.accent));
         bloc.appendChild(h("p", { class: "fr" }, texte.fr));
-        mettre(panneau, bloc);
+        mettre(infos, bloc);
       }
-      mettre(panneau, blocAstuce(carte.element.astuce));
-      mettre(panneau, h("p", { class: "petit" }, t("retour.reverra")));
+      mettre(infos, blocAstuce(carte.element.astuce));
+      mettre(infos, h("p", { class: "petit reverra" }, t("retour.reverra")));
     }
     const suivant = h("button", { type: "button", class: "btn-principal", onclick: suivante }, t("retour.suivant"));
-    mettre(panneau, suivant);
+    mettre(panneau, infos, suivant);
     vider(zoneBas);
     zoneBas.appendChild(panneau);
     // Le focus va sur le verdict (annoncé par role="status") ; Entrée passe à la suite.
@@ -362,10 +366,10 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     const texte = carte.texte;
     const zone = h("div", { class: "zone-phrase" },
       h("p", { class: "ru-hero " + classeLongueur(texte.cible), lang: "ru" }, texte.accent),
-      translit(texte.translit),
-      badgeRegistre(carte.element.registre),
+      ligneTranslit(texte.translit, carte.element.registre),
       boutonEcouter(texte.cible));
-    mettre(zoneCarte, consigne("sens.consigne"), zone, listeOptions(carte, true));
+    mettre(zoneCarte, consigne("sens.consigne"), zone);
+    zoneAction(listeOptions(carte, true));
   }
 
   // 3.3 Thème
@@ -373,7 +377,8 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     const zone = h("div", { class: "zone-phrase" },
       h("p", { class: "fr-hero" }, carte.texte.fr),
       badgeRegistre(carte.element.registre));
-    mettre(zoneCarte, consigne("theme.consigne"), zone, listeOptions(carte, false));
+    mettre(zoneCarte, consigne("theme.consigne"), zone);
+    zoneAction(listeOptions(carte, false));
   }
 
   // 3.5 Écoute
@@ -383,7 +388,8 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     const bouton = h("button", { type: "button", class: "btn-reecouter", "data-ecouter": "", "data-reecouter": "", "data-repos": t("carte.reecouter"), onclick: () => lire(texte.cible) },
       h("span", { class: "rond" }, icone("reecouter")), libelle);
     const zone = h("div", { class: "zone-phrase" }, sonore() ? bouton : null);
-    mettre(zoneCarte, consigne("ecoute.consigne"), zone, listeOptions(carte, true));
+    mettre(zoneCarte, consigne("ecoute.consigne"), zone);
+    zoneAction(listeOptions(carte, true));
     if (!courant.luArrivee) { courant.luArrivee = true; lire(texte.cible); }
   }
 
@@ -400,6 +406,7 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
         translit(texte.translit),
         blocAstuce(carte.element.astuce),
         boutonEcouter(texte.cible));
+      zone.scrollIntoView({ block: "nearest" });
       const noter = (juste) => {
         if (courant.repondu) return;
         courant.repondu = true;
@@ -430,15 +437,15 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     if (carte.type === "moule-sens") {
       zone = h("div", { class: "zone-phrase" }, etiquette,
         h("p", { class: "ru-hero " + classeLongueur(texte.cible) }, soulignerDifferences(texte.accent, el.moule.modele, "ru")),
-        translit(texte.translit),
-        badgeRegistre(el.registre),
+        ligneTranslit(texte.translit, el.registre),
         boutonEcouter(texte.cible));
     } else {
       zone = h("div", { class: "zone-phrase" }, etiquette,
         h("p", { class: "fr-hero" }, soulignerDifferences(texte.fr, el.moule.fr)),
         badgeRegistre(el.registre));
     }
-    mettre(zoneCarte, consigne("moule.consigne"), zone, listeOptions(carte, carte.type === "moule-sens"));
+    mettre(zoneCarte, consigne("moule.consigne"), zone);
+    zoneAction(listeOptions(carte, carte.type === "moule-sens"));
   }
 
   // 3.4 Ordre
@@ -542,7 +549,7 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     if (courant.repondu) return;
     const k = parseInt(e.key, 10);
     if (k >= 1 && k <= 3) {
-      const options = zoneCarte.querySelectorAll(".option");
+      const options = zoneBas.querySelectorAll(".option");
       if (options[k - 1]) { e.preventDefault(); options[k - 1].click(); }
     }
   }
@@ -566,11 +573,16 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     if (fini) return;
     const modeFinal = session.mode;
     nettoyer();
-    ctx.aller("fin", { bilan: session.bilan(), duree, dureeReelle: minutesReelles(horloge.secondes()), mode: modeFinal, raison, themes });
+    // Phrases dont la poupée a changé d'état pendant la session.
+    const progres = [];
+    ctx.stockage.fiches.forEach((f, id) => {
+      const apres = etatDe(f), avant = etatsDepart.get(id) || "pas_vue";
+      if (apres !== avant) progres.push({ avant, apres });
+    });
+    ctx.aller("fin", { progres, bilan: session.bilan(), duree, dureeReelle: minutesReelles(horloge.secondes()), mode: modeFinal, raison, themes });
   }
 
   // ---------- Démarrage ----------
-  afficherBadge();
   horloge.demarrer();
   // La barre et « encore X min » avancent aussi pendant une carte.
   const minuteurTemps = setInterval(majTemps, 1000);
