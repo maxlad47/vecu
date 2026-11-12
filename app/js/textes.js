@@ -193,6 +193,7 @@ const T = {
   "perso.prenomIndice": "Ton prénom",
   "perso.metier": "Je suis…",
   "perso.metierAucun": "Je préfère ne pas dire",
+  "perso.fermerMetiers": "Fermer la liste",
   "perso.metierCategorie": "{titre}, {n} métiers",
   "perso.facultatif": "Facultatif : tu peux passer.",
   "perso.passer": "Passer",

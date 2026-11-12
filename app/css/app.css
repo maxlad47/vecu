@@ -314,6 +314,7 @@ button.badge { min-height: 44px; cursor: pointer; }
   padding: var(--space-5) var(--marge) var(--bas);
   display: flex; flex-direction: column; gap: var(--space-2);
   animation: monte 200ms ease-out;
+  max-height: calc(100dvh - 24px); overflow-y: auto; overscroll-behavior: contain; /* fenêtre courte : la feuille défile */
 }
 .feuille h2 { font-size: 1.25rem; }
 .feuille p { margin: 0 0 var(--space-3); color: var(--text-muted); }
@@ -668,8 +669,8 @@ span.past { cursor: default; }
 .choix-input:checked + .pastille-couleur { box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--text); }
 .choix-input:checked + .pastille-couleur .coche { display: flex; }
 .nom-choisi { margin: var(--space-2) 0 0; font-weight: 600; text-align: center; }
-.feuille-liste { max-height: 80dvh; }
-.liste-metiers { margin: 0; overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-2); }
+.feuille-liste { max-height: calc(100dvh - 24px); overflow: hidden; }
+.liste-metiers { margin: 0; min-height: 0; padding: 0; border: 0; overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; gap: var(--space-2); }
 .ligne-metier { min-height: 56px; align-items: center; gap: var(--space-2); padding: 0 var(--space-3); font-size: var(--fs-option); font-weight: 600; }
 .ligne-metier .coche { width: 20px; }
 .carte-perso { display: flex; align-items: center; gap: var(--space-3); width: 100%; min-height: 64px; padding: var(--space-2) var(--space-3); margin-bottom: var(--space-2);
@@ -728,3 +729,6 @@ span.past { cursor: default; }
 .categorie-metiers[open] > summary svg.icon { transform: rotate(90deg); }
 .categorie-metiers[open] > summary { border-color: var(--accent); }
 .liste-categorie { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-2) 0 var(--space-1); }
+
+.entete-feuille { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+.entete-feuille h2 { margin: 0; }

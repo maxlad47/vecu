@@ -137,8 +137,9 @@ export function afficherPersonnage(racine, ctx, { depuis, etape: etapeDepart }) 
       h("div", { class: "liste-categorie" }, liste.map((m) => radio(m.id, majuscule(nomMetier(m, genre())))))));
     const voile = h("div", { class: "voile", onclick: (e) => { if (e.target === voile) fermer(); } },
       h("div", { class: "feuille feuille-liste", role: "dialog", "aria-modal": "true", "aria-labelledby": "feuille-metier" },
-        h("h2", { id: "feuille-metier" }, t("perso.metier")),
-        h("fieldset", { class: "liste-metiers" }, h("legend", { class: "sr-only" }, t("perso.metier")), radio("", t("perso.metierAucun")), sections)));
+        h("div", { class: "entete-feuille" }, h("h2", { id: "feuille-metier" }, t("perso.metier")),
+          h("button", { type: "button", class: "btn-icone", "aria-label": t("perso.fermerMetiers"), onclick: fermer }, icone("croix"))),
+        h("div", { class: "liste-metiers", role: "radiogroup", "aria-labelledby": "feuille-metier" }, radio("", t("perso.metierAucun")), sections)));
     feuilleOuverte = voile;
     fermerMetiers = fermer;
     document.addEventListener("keydown", clavier, true);
