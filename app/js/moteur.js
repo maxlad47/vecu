@@ -4,7 +4,7 @@
 // pauses exclues), puis lui transmet le résultat de la carte.
 
 import {
-  REGLES, COUT_NOUVEAU, ECHELLES, REVISION_PAR_BOITE, ROTATION_REMPLISSAGE
+  REGLES, COUT_NOUVEAU, ECHELLES, REVISION_PAR_BOITE, ROTATION_REMPLISSAGE, DIALOGUE
 } from "./config.js";
 import { ficheVide, estDu, estAcquis, appliquerDecouverte, appliquerResultat, validerFiche } from "./leitner.js";
 import { texteElement } from "./contenu.js";
@@ -54,6 +54,8 @@ export function aleatoireGraine(graine) {
  * @param {function} [p.ecrire]    appelé avec chaque fiche modifiée (pour l'enregistrer)
  * @param {object}   [p.persoVus]  mots du personnage déjà montrés en Découverte : { cle: true }
  * @param {function} [p.persoVu]   appelé avec la clé d'un mot du personnage au moment de sa Découverte
+ * @param {object[]} [p.dialogues]  dialogues que le personnage permet de jouer (dialoguesProposables) ; absent = aucun
+ * @param {string}   [p.dernierDialogue] id du dernier dialogue joué (on varie quand il y a le choix)
  */
 // Minutes réellement passées (pauses exclues), arrondies, au moins 1 : pour dire « 4 min de russe » à la fin.
 export function minutesReelles(secondes) { return Math.max(1, Math.round(secondes / 60)); }
@@ -134,6 +136,7 @@ export function creerSession(p) {
     introduitsSession: [],
     travailles: new Set(),
     terminee: false,
+    dialogueFait: false,
     cartes: new Map(),       // cartes(e) : nombre de cartes reçues par l'élément dans la session
     plafond: REGLES.maxCartesParElementParSession,
     prolongation: false,
@@ -239,6 +242,19 @@ export function creerSession(p) {
     let total = 0;
     enJeu.forEach((id) => { total += Math.max(0, etat.plafond - nbCartes(id)); });
     return total;
+  }
+
+  // ---- Dialogue : au plus une carte par session, après quelques éléments, jamais en Voiture ----
+  // Le dialogue est choisi parmi les situations déjà travaillées dans la session (et les thèmes choisis).
+  const dialoguesPossibles = (Array.isArray(p.dialogues) ? p.dialogues : []).filter((d) => !themesChoisis.size || themesChoisis.has(d.situation));
+  function choisirDialogue(t) {
+    if (etat.dialogueFait || mode === "voiture" || !DIALOGUE.durees.includes(duree)) return null;
+    if (etat.travailles.size < DIALOGUE.apresElements || D - t < DIALOGUE.estimation[mode]) return null;
+    const vues = new Set([...etat.travailles].map((id) => (el(id) || {}).situation));
+    let candidats = dialoguesPossibles.filter((d) => vues.has(d.situation));
+    const autres = candidats.filter((d) => d.id !== p.dernierDialogue);
+    if (autres.length) candidats = autres;
+    return candidats.length ? candidats[Math.floor(aleatoire() * candidats.length)] : null;
   }
 
   // ---- 5.2 Choix de la carte suivante (sans effet) ----
@@ -396,6 +412,12 @@ export function creerSession(p) {
     const seuil = REGLES.seuilFinAnticipee * D;
     if (t >= D) { etat.terminee = true; return null; }
     if (etat.prolongation && t >= seuil) { etat.terminee = true; return null; } // règle 3
+    const dialogue = choisirDialogue(t);
+    if (dialogue) {
+      etat.dialogueFait = true;
+      const index = etat.index++;
+      return { index, numero: index + 1, id: dialogue.id, type: "dialogue", dialogue, mode, est: DIALOGUE.estimation[mode], element: null };
+    }
     let choix = null;
     // Le plafond ne peut monter que de quelques crans : la boucle est bornée.
     for (let essai = 0; essai < 50 && !choix; essai++) {
@@ -451,6 +473,21 @@ export function creerSession(p) {
     });
   }
 
+  // Dialogue : une bonne réplique met à jour la boîte de son élément (jamais vu : il est découvert) ;
+  // une fausse réponse ne touche à rien. Un id inconnu est ignoré.
+  function repondreDialogue(id) {
+    if (!el(id)) return;
+    if (fiche(id).boite === 0) {
+      const nf = appliquerDecouverte(fiche(id), { jour, mode, type: "dialogue" });
+      fiches.set(id, nf);
+      ecrire(nf);
+    } else {
+      repondre({ id, mode, type: "dialogue", remplacement: null, etape: null, index: etat.index, rattrapage: false }, "reussite");
+    }
+    etat.travailles.add(id);
+    if (dusAuDepart.has(id)) etat.dusPasses.add(id);
+  }
+
   // « Couper le son » : la suite de la session passe en Silence.
   function couperSon() {
     if (mode === "ecouteurs" || mode === "parler") mode = "silence";
@@ -485,6 +522,7 @@ export function creerSession(p) {
   return {
     prochaineCarte,
     repondre,
+    repondreDialogue,
     couperSon,
     definirGenre,
     ajusterEstimations,

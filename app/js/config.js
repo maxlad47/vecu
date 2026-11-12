@@ -76,6 +76,16 @@ export const HISTORIQUE_MAX = 20;
 // Le « jour » commence à 4 h du matin (repetition-espacee.md, 1).
 export const DECALAGE_JOUR_HEURES = 4;
 
+// Dialogues à choix (docs/pedagogie/dialogues.md, section 2). Une carte « Dialogue » au plus par session,
+// seulement dans ces durées et jamais en Voiture, une fois `apresElements` éléments travaillés.
+// `estimation` : durée d'une carte en secondes (Vera : ~60 s en Écouteurs, ~80 s en Je peux parler ; Silence : 60 par défaut).
+export const DIALOGUE = {
+  durees: ["15", "30"],
+  apresElements: 10,
+  estimation: { silence: 60, ecouteurs: 60, parler: 80 },
+  reponsesMax: 3
+};
+
 // Interface (ecrans-phase0.md).
 export const INTERFACE = {
   avanceAutoMs: 1200,          // après une bonne réponse

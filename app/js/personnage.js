@@ -138,7 +138,7 @@ export function remplacementsPerso(donnees, perso) {
 // Phrase à prénom : le gabarit reçoit le prénom (cyrillique dans la cible, latin tapé dans le français et la translittération).
 // Sans prénom, une phrase simple garde son exemple (« sansPrenom » : l'écran ajoute « ton prénom ici ») ;
 // la carte de visite, elle, prend le prénom d'exemple pour garder le métier.
-function avecPrenom(el, g, perso, exemple) {
+export function avecPrenom(el, g, perso, exemple) {
   const sans = !perso.prenom;
   if (sans && el.personnalise === "prenom") return Object.assign({}, el, { sansPrenom: true });
   const ru = perso.prenomRu;

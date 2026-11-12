@@ -1,0 +1,539 @@
+{
+  "langue": "ru",
+  "fichier": "dialogues",
+  "titre": "Dialogues à choix",
+  "niveau": "A1",
+  "version": 1,
+  "jetons": {
+    "prenom": "{prenom}",
+    "metier": "{metier}"
+  },
+  "dialogues": [
+    {
+      "id": "ru-dialogue-cafe",
+      "situation": "cafe",
+      "titre": "Au comptoir",
+      "scene_fr": "Tu es au comptoir d'un café.",
+      "registre": "vous",
+      "partenaire": { "role_fr": "La serveuse" },
+      "exige": [],
+      "depend_du_genre": false,
+      "echanges": [
+        {
+          "id": "e1",
+          "partenaire": {
+            "fr": "Bonjour ! Qu'est-ce que vous prenez ?",
+            "cible": "Здравствуйте! Что будете заказывать?",
+            "accent": "Здра́вствуйте! Что бу́дете зака́зывать?",
+            "translit": "zdrástvouïti! chto boúditi zakázyvat?"
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": "e2",
+              "element": "ru-cafe-002", "remplacement": 0,
+              "fr": "Un café, s'il vous plaît.", "cible": "Кофе, пожалуйста.", "accent": "Ко́фе, пожа́луйста.", "translit": "kófi, pajálsta"
+            },
+            {
+              "id": "b", "juste": false,
+              "fr": "L'addition, s'il vous plaît.", "cible": "Счёт, пожалуйста.", "accent": "Счёт, пожа́луйста.", "translit": "chtchot, pajálsta",
+              "pourquoi": "L'addition se demande à la fin, pas en arrivant."
+            },
+            {
+              "id": "c", "juste": false,
+              "fr": "Où sont les toilettes ?", "cible": "Где туалет?", "accent": "Где туале́т?", "translit": "gdie toualiét?",
+              "pourquoi": "La serveuse te demande ce que tu prends."
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "partenaire": {
+            "fr": "Vous voulez autre chose ?",
+            "cible": "Что-нибудь ещё?",
+            "accent": "Что́-нибудь ещё?",
+            "translit": "chtó-nibout ichtchó?"
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": "e3",
+              "element": "ru-dialogue-cafe-001", "nouveau": true, "situation": "cafe", "registre": "neutre",
+              "fr": "Non, merci, c'est tout.", "cible": "Нет, спасибо, всё.", "accent": "Нет, спаси́бо, всё.", "translit": "niet, spassíba, fsio",
+              "astuce": "Всё = « c'est tout ». Aussi : Всё, спаси́бо (sans « non »).",
+              "reaction": { "fr": "Très bien.", "cible": "Хорошо.", "accent": "Хорошо́.", "translit": "kharachó" }
+            },
+            {
+              "id": "b", "juste": true, "suite": "e3",
+              "element": "ru-cafe-007", "remplacement": 4,
+              "fr": "Vous avez des desserts ?", "cible": "У вас есть десерты?", "accent": "У вас есть десе́рты?", "translit": "ou vas iest dissiérty?",
+              "reaction": {
+                "fr": "Oui, des gâteaux et des tartes.",
+                "cible": "Да, есть пирожные и пироги.",
+                "accent": "Да, есть пиро́жные и пироги́.",
+                "translit": "da, iest pirójnyïe i piraguí"
+              }
+            },
+            {
+              "id": "c", "juste": false,
+              "fr": "Vous êtes d'ici ?", "cible": "Вы отсюда?", "accent": "Вы отсю́да?", "translit": "vy atsioúda?",
+              "pourquoi": "Elle propose autre chose à commander : réponds-lui."
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "partenaire": {
+            "fr": "Vous payez comment ?",
+            "cible": "Как будете платить?",
+            "accent": "Как бу́дете плати́ть?",
+            "translit": "kak boúditi platít?"
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": "e4",
+              "element": "ru-cafe-005",
+              "fr": "Je peux payer par carte ?", "cible": "Можно картой?", "accent": "Мо́жно ка́ртой?", "translit": "mójna kártaï?"
+            },
+            {
+              "id": "b", "juste": false,
+              "fr": "Merci.", "cible": "Спасибо.", "accent": "Спаси́бо.", "translit": "spassíba",
+              "pourquoi": "On te demande comment tu paies : réponds avec le paiement."
+            },
+            {
+              "id": "c", "juste": false,
+              "fr": "Un thé, s'il vous plaît.", "cible": "Чай, пожалуйста.", "accent": "Чай, пожа́луйста.", "translit": "tchaï, pajálsta",
+              "pourquoi": "Tu as déjà commandé : maintenant, on parle du paiement."
+            }
+          ]
+        },
+        {
+          "id": "e4",
+          "partenaire": {
+            "fr": "Voilà. Bonne journée !",
+            "cible": "Вот, пожалуйста. Хорошего дня!",
+            "accent": "Вот, пожа́луйста. Хоро́шего дня!",
+            "translit": "vot, pajálsta. kharóchiva dnia!"
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": null,
+              "element": "ru-cafe-010",
+              "fr": "Au revoir.", "cible": "До свидания.", "accent": "До свида́ния.", "translit": "da svidánia"
+            },
+            {
+              "id": "b", "juste": false,
+              "fr": "Je ne comprends pas.", "cible": "Я не понимаю.", "accent": "Я не понима́ю.", "translit": "ia ni panimáiou",
+              "pourquoi": "Elle te souhaite une bonne journée : dis au revoir."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ru-dialogue-voisin",
+      "situation": "presenter",
+      "titre": "Sur le palier",
+      "scene_fr": "Tu croises un voisin sur le palier.",
+      "registre": "vous",
+      "partenaire": { "role_fr": "Paul, le voisin" },
+      "exige": ["metier"],
+      "depend_du_genre": true,
+      "echanges": [
+        {
+          "id": "e1",
+          "partenaire": {
+            "fr": "Bonjour, je m'appelle Paul. J'habite à côté.",
+            "cible": "Здравствуйте, меня зовут Поль. Я живу рядом.",
+            "accent": "Здра́вствуйте, меня́ зову́т Поль. Я живу́ ря́дом.",
+            "translit": "zdrástvouïti, miniá zavoút pol. ia jyvoú riádam"
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": "e2",
+              "element": "ru-rencontrer-005",
+              "fr": "Enchanté.", "cible": "Очень приятно.", "accent": "О́чень прия́тно.", "translit": "ótchin priiátna",
+              "variantes_fr": { "m": "Enchanté.", "f": "Enchantée." }
+            },
+            {
+              "id": "b", "juste": false,
+              "fr": "Je ne comprends pas.", "cible": "Я не понимаю.", "accent": "Я не понима́ю.", "translit": "ia ni panimáiou",
+              "pourquoi": "Tu as compris : il se présente. Réponds poliment."
+            },
+            {
+              "id": "c", "juste": false,
+              "fr": "Je viens de Belgique.", "cible": "Я из Бельгии.", "accent": "Я из Бе́льгии.", "translit": "ia iz biélguii",
+              "pourquoi": "Il ne demande pas d'où tu viens."
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "partenaire": {
+            "fr": "Et vous, vous vous appelez comment ?",
+            "cible": "А как вас зовут?",
+            "accent": "А как вас зову́т?",
+            "translit": "a kak vas zavoút?"
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": "e3",
+              "element": "ru-rencontrer-010", "personnalise": "prenom",
+              "fr": "Je m'appelle Sacha.", "cible": "Меня зовут Саша.", "accent": "Меня́ зову́т Са́ша.", "translit": "miniá zavoút sácha",
+              "gabarit": {
+                "fr": "Je m'appelle {prenom}.",
+                "cible": "Меня зовут {prenom}.",
+                "accent": "Меня́ зову́т {prenom}.",
+                "translit": "miniá zavoút {prenom}"
+              }
+            },
+            {
+              "id": "b", "juste": false,
+              "fr": "Je suis ici en vacances.", "cible": "Я здесь в отпуске.", "accent": "Я здесь в о́тпуске.", "translit": "ia zdies v ótpouski",
+              "pourquoi": "Il demande ton prénom."
+            },
+            {
+              "id": "c", "juste": false,
+              "fr": "Je viens de France.", "cible": "Я из Франции.", "accent": "Я из Фра́нции.", "translit": "ia is frántsii",
+              "pourquoi": "Il demande ton prénom."
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "partenaire": {
+            "fr": "Et vous, vous faites quoi dans la vie ?",
+            "cible": "А кем вы работаете?",
+            "accent": "А кем вы рабо́таете?",
+            "translit": "a kiem vy rabótaiti?"
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": "e4",
+              "element": "ru-presenter-001", "metier": "phrase", "personnalise": "metier",
+              "fr": "Je suis ingénieur.", "cible": "Я инженер.", "accent": "Я инжене́р.", "translit": "ia injyniér",
+              "variantes_fr": { "m": "Je suis ingénieur.", "f": "Je suis ingénieure." },
+              "gabarit": "phrase du métier choisi (metiers[].m|f.phrase_*), sinon du domaine (domaines[].phrase_*)"
+            },
+            {
+              "id": "b", "juste": false,
+              "fr": "Je suis ici depuis une semaine.", "cible": "Я здесь уже неделю.", "accent": "Я здесь уже́ неде́лю.", "translit": "ia zdies oujé nidiéliou",
+              "pourquoi": "Il demande ton métier, pas depuis quand tu es là."
+            },
+            {
+              "id": "c", "juste": false,
+              "fr": "Je viens de France.", "cible": "Я из Франции.", "accent": "Я из Фра́нции.", "translit": "ia is frántsii",
+              "pourquoi": "Il demande ton métier."
+            }
+          ]
+        },
+        {
+          "id": "e4",
+          "partenaire": {
+            "fr": "Ah, vous êtes {metier} ! Bienvenue dans le quartier.",
+            "cible": "Ах, вы {metier}! Добро пожаловать в наш район!",
+            "accent": "Ах, вы {metier}! Добро́ пожа́ловать в наш райо́н!",
+            "translit": "akh, vy {metier}! dabró pajálavat v nach raïón!",
+            "metier": "mot",
+            "sans_metier": {
+              "fr": "Bienvenue dans le quartier.",
+              "cible": "Добро пожаловать в наш район!",
+              "accent": "Добро́ пожа́ловать в наш райо́н!",
+              "translit": "dabró pajálavat v nach raïón!"
+            }
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": null,
+              "element": "ru-cafe-003",
+              "fr": "Merci.", "cible": "Спасибо.", "accent": "Спаси́бо.", "translit": "spassíba"
+            },
+            {
+              "id": "b", "juste": false,
+              "fr": "Je ne comprends pas.", "cible": "Я не понимаю.", "accent": "Я не понима́ю.", "translit": "ia ni panimáiou",
+              "pourquoi": "Il te souhaite la bienvenue : remercie-le."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ru-dialogue-soiree",
+      "situation": "rencontrer",
+      "titre": "En soirée",
+      "scene_fr": "Tu es à une soirée chez des amis.",
+      "registre": "tu",
+      "partenaire": { "role_fr": "Marc" },
+      "exige": ["metier"],
+      "depend_du_genre": true,
+      "echanges": [
+        {
+          "id": "e1",
+          "partenaire": {
+            "fr": "Salut ! Moi, c'est Marc.",
+            "cible": "Привет! Я Марк.",
+            "accent": "Приве́т! Я Марк.",
+            "translit": "priviét! ia mark"
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": "e2",
+              "element": "ru-rencontrer-011", "personnalise": "prenom",
+              "fr": "Moi, c'est Sacha. Et toi ?", "cible": "Я Саша. А ты?", "accent": "Я Са́ша. А ты?", "translit": "ia sácha. a ty?",
+              "gabarit": {
+                "fr": "Moi, c'est {prenom}. Et toi ?",
+                "cible": "Я {prenom}. А ты?",
+                "accent": "Я {prenom}. А ты?",
+                "translit": "ia {prenom}. a ty?"
+              }
+            },
+            {
+              "id": "b", "juste": false, "registre": "vous",
+              "fr": "Vous parlez anglais ?", "cible": "Вы говорите по-английски?", "accent": "Вы говори́те по-англи́йски?", "translit": "vy gavaríti pa-anglíïski?",
+              "pourquoi": "Il se présente : présente-toi à ton tour, en tutoyant."
+            },
+            {
+              "id": "c", "juste": false,
+              "fr": "Je ne comprends pas.", "cible": "Я не понимаю.", "accent": "Я не понима́ю.", "translit": "ia ni panimáiou",
+              "pourquoi": "Tu as compris : présente-toi à ton tour."
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "partenaire": {
+            "fr": "Tu viens d'où ?",
+            "cible": "Ты откуда?",
+            "accent": "Ты отку́да?",
+            "translit": "ty atkoúda?"
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": "e3",
+              "element": "ru-rencontrer-006", "remplacement": 2,
+              "fr": "Je viens de Belgique.", "cible": "Я из Бельгии.", "accent": "Я из Бе́льгии.", "translit": "ia iz biélguii",
+              "reaction": { "fr": "Ah, sympa !", "cible": "О, здорово!", "accent": "О, здо́рово!", "translit": "o, zdórava!" }
+            },
+            {
+              "id": "b", "juste": true, "suite": "e3",
+              "element": "ru-rencontrer-008",
+              "fr": "Je parle un peu russe.", "cible": "Я немного говорю по-русски.", "accent": "Я немно́го говорю́ по-ру́сски.", "translit": "ia nimnóga gavarioú pa-roússki",
+              "reaction": {
+                "fr": "Ah bon, tu parles russe ?",
+                "cible": "Ого, ты говоришь по-русски?",
+                "accent": "Ого́, ты говори́шь по-ру́сски?",
+                "translit": "agó, ty gavarích pa-roússki?"
+              }
+            },
+            {
+              "id": "c", "juste": false,
+              "fr": "Je suis ici depuis une semaine.", "cible": "Я здесь уже неделю.", "accent": "Я здесь уже́ неде́лю.", "translit": "ia zdies oujé nidiéliou",
+              "pourquoi": "Il demande d'où tu viens."
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "partenaire": {
+            "fr": "Et toi, tu fais quoi dans la vie ?",
+            "cible": "А ты кем работаешь?",
+            "accent": "А ты кем рабо́таешь?",
+            "translit": "a ty kiem rabótaïch?"
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": "e4",
+              "element": "ru-presenter-001", "metier": "phrase", "personnalise": "metier",
+              "fr": "Je suis ingénieur.", "cible": "Я инженер.", "accent": "Я инжене́р.", "translit": "ia injyniér",
+              "variantes_fr": { "m": "Je suis ingénieur.", "f": "Je suis ingénieure." },
+              "gabarit": "phrase du métier choisi (metiers[].m|f.phrase_*), sinon du domaine (domaines[].phrase_*)"
+            },
+            {
+              "id": "b", "juste": false, "registre": "vous",
+              "fr": "Vous faites quoi ?", "cible": "Кем вы работаете?", "accent": "Кем вы рабо́таете?", "translit": "kiem vy rabótaiti?",
+              "pourquoi": "Entre amis, on dit ты, pas вы."
+            },
+            {
+              "id": "c", "juste": false,
+              "fr": "Je viens de France.", "cible": "Я из Франции.", "accent": "Я из Фра́нции.", "translit": "ia is frántsii",
+              "pourquoi": "Il demande ton métier."
+            }
+          ]
+        },
+        {
+          "id": "e4",
+          "partenaire": {
+            "fr": "Ah, {metier} ! Cool. On se retrouve au bar tout à l'heure ?",
+            "cible": "О, {metier}! Круто. Встретимся попозже в баре?",
+            "accent": "О, {metier}! Кру́то. Встре́тимся попо́зже в ба́ре?",
+            "translit": "o, {metier}! kroúta. fstriétimsia papójjy v bári?",
+            "metier": "mot",
+            "sans_metier": {
+              "fr": "Cool. On se retrouve au bar tout à l'heure ?",
+              "cible": "Круто. Встретимся попозже в баре?",
+              "accent": "Кру́то. Встре́тимся попо́зже в ба́ре?",
+              "translit": "kroúta. fstriétimsia papójjy v bári?"
+            }
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": null,
+              "element": "ru-dialogue-soiree-001", "nouveau": true, "situation": "rencontrer", "registre": "tu",
+              "fr": "Oui, à tout à l'heure.", "cible": "Да, до скорого!", "accent": "Да, до ско́рого!", "translit": "da, da skórava!",
+              "astuce": "До ско́рого = « à bientôt ». Plus familier : Уви́димся!"
+            },
+            {
+              "id": "b", "juste": false,
+              "fr": "Plus lentement, s'il vous plaît.", "cible": "Помедленнее, пожалуйста.", "accent": "Поме́дленнее, пожа́луйста.", "translit": "pamiédlinieie, pajálsta",
+              "pourquoi": "Il te propose un rendez-vous : accepte."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ru-dialogue-hotel",
+      "situation": "hotel",
+      "titre": "À la réception",
+      "scene_fr": "Tu arrives à la réception de ton hôtel.",
+      "registre": "vous",
+      "partenaire": { "role_fr": "La réceptionniste" },
+      "exige": [],
+      "depend_du_genre": true,
+      "echanges": [
+        {
+          "id": "e1",
+          "partenaire": {
+            "fr": "Bonsoir. Vous avez une réservation ?",
+            "cible": "Добрый вечер. У вас есть бронь?",
+            "accent": "До́брый ве́чер. У вас есть бронь?",
+            "translit": "dóbryï viétchir. ou vas iest bron?"
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": "e2",
+              "element": "ru-dialogue-hotel-001", "nouveau": true, "situation": "hotel", "registre": "vous", "personnalise": "prenom",
+              "fr": "Oui, au nom de Sacha.", "cible": "Да, бронь на имя — Саша.", "accent": "Да, бронь на и́мя — Са́ша.", "translit": "da, bron na ímia — sácha",
+              "astuce": "Le prénom reste tel quel, après « на и́мя » (au nom de).",
+              "gabarit": {
+                "fr": "Oui, au nom de {prenom}.",
+                "cible": "Да, бронь на имя — {prenom}.",
+                "accent": "Да, бронь на и́мя — {prenom}.",
+                "translit": "da, bron na ímia — {prenom}"
+              }
+            },
+            {
+              "id": "b", "juste": false,
+              "fr": "Où sont les toilettes ?", "cible": "Где туалет?", "accent": "Где туале́т?", "translit": "gdie toualiét?",
+              "pourquoi": "On te demande si tu as réservé."
+            },
+            {
+              "id": "c", "juste": false,
+              "fr": "Je suis ici en vacances.", "cible": "Я здесь в отпуске.", "accent": "Я здесь в о́тпуске.", "translit": "ia zdies v ótpouski",
+              "pourquoi": "Elle demande si tu as une réservation."
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "partenaire": {
+            "fr": "Voici la clé, chambre douze. Vous voulez le petit-déjeuner demain ?",
+            "cible": "Вот ваш ключ, номер двенадцать. Завтра будете завтракать?",
+            "accent": "Вот ваш ключ, но́мер двена́дцать. За́втра бу́дете за́втракать?",
+            "translit": "vot vach klioutch, nómir dvinátsat. záftra boúditi záftrakat?"
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": "e3",
+              "element": "ru-sortir-003",
+              "fr": "À quelle heure ?", "cible": "Во сколько?", "accent": "Во ско́лько?", "translit": "va skólka?",
+              "reaction": {
+                "fr": "Il est servi de sept à dix heures.",
+                "cible": "Завтрак с семи до десяти.",
+                "accent": "За́втрак с семи́ до десяти́.",
+                "translit": "záftrak s simí da dissití"
+              }
+            },
+            {
+              "id": "b", "juste": true, "suite": "e3",
+              "element": "ru-dialogue-hotel-002", "nouveau": true, "situation": "hotel", "registre": "neutre",
+              "fr": "Non, merci.", "cible": "Нет, спасибо.", "accent": "Нет, спаси́бо.", "translit": "niet, spassíba",
+              "reaction": { "fr": "Très bien.", "cible": "Хорошо.", "accent": "Хорошо́.", "translit": "kharachó" }
+            },
+            {
+              "id": "c", "juste": false,
+              "fr": "Je suis étudiant.", "cible": "Я студент.", "accent": "Я студе́нт.", "translit": "ia stoudiént",
+              "variantes": {
+                "m": { "cible": "Я студент.", "accent": "Я студе́нт.", "translit": "ia stoudiént" },
+                "f": { "cible": "Я студентка.", "accent": "Я студе́нтка.", "translit": "ia stoudiéntka" }
+              },
+              "variantes_fr": { "m": "Je suis étudiant.", "f": "Je suis étudiante." },
+              "pourquoi": "Elle parle du petit-déjeuner : oui ou non."
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "partenaire": {
+            "fr": "Vous êtes là pour le travail ou en vacances ?",
+            "cible": "Вы по работе или в отпуске?",
+            "accent": "Вы по рабо́те и́ли в о́тпуске?",
+            "translit": "vy pa rabóti íli v ótpouski?"
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": "e4",
+              "element": "ru-presenter-004",
+              "fr": "Je suis ici en vacances.", "cible": "Я здесь в отпуске.", "accent": "Я здесь в о́тпуске.", "translit": "ia zdies v ótpouski"
+            },
+            {
+              "id": "b", "juste": true, "suite": "e4",
+              "element": "ru-presenter-005",
+              "fr": "Je suis ici pour le travail.", "cible": "Я здесь по работе.", "accent": "Я здесь по рабо́те.", "translit": "ia zdies pa rabóti"
+            },
+            {
+              "id": "c", "juste": false,
+              "fr": "Combien ça coûte ?", "cible": "Сколько это стоит?", "accent": "Ско́лько э́то сто́ит?", "translit": "skólka éta stóit?",
+              "pourquoi": "Elle demande pourquoi tu es là, pas le prix."
+            }
+          ]
+        },
+        {
+          "id": "e4",
+          "partenaire": {
+            "fr": "Parfait. Bon séjour !",
+            "cible": "Отлично. Приятного пребывания!",
+            "accent": "Отли́чно. Прия́тного пребыва́ния!",
+            "translit": "atlítchna. priiátnava pribyvániia!"
+          },
+          "si_faux": "a",
+          "reponses": [
+            {
+              "id": "a", "juste": true, "suite": null,
+              "element": "ru-cafe-010",
+              "fr": "Au revoir.", "cible": "До свидания.", "accent": "До свида́ния.", "translit": "da svidánia"
+            },
+            {
+              "id": "b", "juste": false,
+              "fr": "Je ne comprends pas.", "cible": "Я не понимаю.", "accent": "Я не понима́ю.", "translit": "ia ni panimáiou",
+              "pourquoi": "Elle te souhaite un bon séjour : dis au revoir."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

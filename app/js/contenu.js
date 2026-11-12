@@ -20,7 +20,25 @@ export async function chargerContenu(langue, lireJson) {
   // Le personnage est facultatif : s'il manque, l'app marche sans (phrases d'exemple).
   let donnees = null;
   if (index.personnage) { try { donnees = await lire(base + index.personnage); } catch (e) { donnees = null; } }
-  return preparerContenu(index, fichiers, donnees);
+  // Les dialogues sont facultatifs aussi : sans eux, pas de carte Dialogue.
+  let dialogues = null;
+  if (index.dialogues) { try { dialogues = await lire(base + index.dialogues); } catch (e) { dialogues = null; } }
+  return preparerContenu(index, fichiers, donnees, dialogues);
+}
+
+// Répliques justes `nouveau: true` des dialogues → phrases au format v0 : elles rejoignent leur situation
+// et deviennent des éléments de répétition espacée comme les autres.
+export function phrasesNouvelles(brut) {
+  const sortie = new Map();
+  ((brut && brut.dialogues) || []).forEach((d) => (d.echanges || []).forEach((e) => (e.reponses || []).forEach((r) => {
+    if (!r.nouveau || !r.element || sortie.has(r.element)) return;
+    sortie.set(r.element, {
+      id: r.element, situation: r.situation, registre: r.registre || "neutre", astuce: r.astuce || null,
+      fr: r.fr, cible: r.cible, accent: r.accent || r.cible, translit: r.translit || null,
+      personnalise: r.personnalise || null, gabarit: r.gabarit && typeof r.gabarit === "object" ? r.gabarit : null
+    });
+  })));
+  return [...sortie.values()];
 }
 
 // Transforme les JSON bruts en une liste d'éléments triés selon l'ordre global par vagues
@@ -28,10 +46,12 @@ export async function chargerContenu(langue, lireJson) {
 // Vague 1 = phrases 1 à 3, vague 2 = 4 à 6, vague 3 = 7 et au-delà.
 // `donnees` (personnage.json, facultatif) : ses phrases à prénom sont glissées dans leur situation,
 // après la phrase `apres` ou à la fin. Sans lui, le résultat est celui d'avant.
-export function preparerContenu(index, fichiers, donnees) {
-  if (donnees && Array.isArray(donnees.phrases)) {
+// `dialogues` (dialogues.json, facultatif) : ses nouvelles répliques s'ajoutent de même, et il reste dans `contenu.dialogues`.
+export function preparerContenu(index, fichiers, donnees, dialogues) {
+  const ajouts = [...((donnees && donnees.phrases) || []), ...phrasesNouvelles(dialogues)];
+  if (ajouts.length) {
     fichiers = Object.assign({}, fichiers);
-    donnees.phrases.forEach((p) => {
+    ajouts.forEach((p) => {
       const d = fichiers[p.situation];
       if (!d || !Array.isArray(d.phrases)) return;
       const liste = d.phrases.slice();
@@ -74,7 +94,7 @@ export function preparerContenu(index, fichiers, donnees) {
   elements.sort((a, b) => (a.vague - b.vague) || (a.rangSituation - b.rangSituation) || (a.rangPhrase - b.rangPhrase));
   elements.forEach((el, i) => { el.rang = i + 1; });
   const parId = new Map(elements.map((el) => [el.id, el]));
-  return { langue: index.langue, situations, elements, parId, donnees: donnees || null };
+  return { langue: index.langue, situations, elements, parId, donnees: donnees || null, dialogues: (dialogues && dialogues.dialogues) || [] };
 }
 
 // Forme d'une variante de genre : une chaîne (le texte) ou un objet { cible, accent, translit }.

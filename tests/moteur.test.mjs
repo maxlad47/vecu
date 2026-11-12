@@ -5,9 +5,10 @@
 // Les comptes attendus (éléments, moules, rangs) sont calculés depuis content/ru/index.json
 // et les fichiers listés : ajouter une situation ne casse pas ce test.
 
-import { preparerContenu, texteElement, aLire } from "../app/js/contenu.js";
+import { preparerContenu, texteElement, aLire, phrasesNouvelles } from "../app/js/contenu.js";
+import { dialoguesProposables, echangeResolu, reponseRetenue } from "../app/js/dialogues.js";
 import { convertirPrenom, convertirParRegles, personnaliser, validerPersonnage, reglageManquant } from "../app/js/personnage.js";
-import { REGLES, AUDIO } from "../app/js/config.js";
+import { REGLES, AUDIO, DIALOGUE } from "../app/js/config.js";
 import { optionsMoule } from "../app/js/exercices.js";
 import { creerSession, aleatoireGraine, minutesReelles } from "../app/js/moteur.js";
 import { controlerAmbiance, construireCss } from "../app/js/ambiance.js";
@@ -560,6 +561,155 @@ const ruPrenom = (latin) => convertirPrenom(latin, donneesPerso.prenoms);
   const sg = creerSession({ contenu: c, fiches: f2, mode: "silence", duree: 5, jour: J, genre: "m", themes: ["metro"], aleatoire: aleatoireGraine(3) });
   const dusAvant = sg.dus.length; sg.definirGenre("f");
   egal([sg.dus.length, JSON.stringify([...f2])], [dusAvant, avant], "changer de genre : aucune phrase due, aucune fiche modifiée");
+}
+
+// ---------- Dialogues à choix (mission 008) ----------
+{
+  const brutD = await lireJson("content/ru/dialogues.json");
+  const J = "2026-11-11";
+  const contenuD = preparerContenu(index, fichiers, donneesPerso, brutD);
+  const dialogues = brutD.dialogues;
+  const perso = (o) => validerPersonnage(Object.assign({ prenom: "Maxime", prenomRu: ruPrenom("Maxime") }, o));
+  const metier = (id) => donneesPerso.metiers.find((m) => m.id === id);
+
+  // Contenu : 43 métiers rangés dans les 9 catégories ; chaque réplique juste pointe vers un élément Leitner qui existe.
+  egal(donneesPerso.metiers.length, 43, "43 métiers");
+  egal(donneesPerso.categories.length, 9, "9 catégories");
+  verifier(donneesPerso.metiers.every((m) => donneesPerso.categories.some((c) => c.id === m.categorie)), "chaque métier est dans une catégorie connue");
+  verifier(donneesPerso.categories.every((c) => donneesPerso.metiers.some((m) => m.categorie === c.id)), "aucune catégorie vide");
+  const nouvelles = phrasesNouvelles(brutD);
+  egal(nouvelles.map((p) => p.id).sort(), ["ru-dialogue-cafe-001", "ru-dialogue-hotel-001", "ru-dialogue-hotel-002", "ru-dialogue-soiree-001"], "4 nouvelles répliques");
+  egal(contenuD.elements.length, contenuP.elements.length + nouvelles.length, "les nouvelles répliques s'ajoutent aux éléments");
+  verifier(nouvelles.every((p) => contenuD.parId.get(p.id).situation === p.situation), "chaque nouvelle réplique est rangée dans sa situation");
+  egal(contenuD.parId.get("ru-dialogue-cafe-001").cible === contenuD.parId.get("ru-courses-007").cible, false, "ru-dialogue-cafe-001 distinct de ru-courses-007");
+  dialogues.forEach((d) => d.echanges.forEach((e) => {
+    verifier(e.reponses.length >= 2 && e.reponses.length <= 3, d.id + "/" + e.id + " : 2 ou 3 réponses");
+    const bonne = e.reponses.find((r) => r.id === e.si_faux);
+    verifier(bonne && bonne.juste, d.id + "/" + e.id + " : si_faux est une réponse juste");
+    e.reponses.filter((r) => r.juste).forEach((r) => {
+      verifier(contenuD.parId.has(r.element), d.id + "/" + e.id + "/" + r.id + " : élément Leitner « " + r.element + " » existe");
+      verifier(r.suite === null || d.echanges.some((x) => x.id === r.suite), d.id + "/" + e.id + "/" + r.id + " : suite valide");
+    });
+  }));
+
+  // Quels dialogues le personnage permet-il ? Sans métier, ceux qui l'exigent sont absents.
+  const noms = (p, d) => dialoguesProposables(dialogues, p, donneesPerso).map((x) => x.id);
+  egal(noms(perso({})), ["ru-dialogue-cafe", "ru-dialogue-hotel"], "sans métier : café et hôtel");
+  egal(noms(perso({ metier: "infirmier" })).length, 4, "avec un métier : les 4 dialogues");
+  egal(noms(perso({ metier: "inconnu" })).length, 2, "métier inconnu : comme sans métier");
+  egal(dialoguesProposables([{ id: "x" }, { id: "y", echanges: [] }, null], perso({}), donneesPerso), [], "dialogue abîmé : ignoré sans erreur");
+  egal(dialoguesProposables(undefined, perso({}), donneesPerso), [], "pas de contenu : aucun dialogue");
+
+  // Un échange : 2 à 3 réponses, la bonne est toujours là, le mélange ne perd rien.
+  const voisin = dialogues.find((d) => d.id === "ru-dialogue-voisin");
+  const ech = (d, id, p, genre, extra) => echangeResolu(d, id, Object.assign({ perso: p, donnees: donneesPerso, genre, aleatoire: aleatoireGraine(4) }, extra));
+  dialogues.forEach((d) => d.echanges.forEach((e) => {
+    const r = ech(d, e.id, perso({ metier: "infirmier" }), "f");
+    verifier(r.reponses.length >= 2 && r.reponses.length <= 3 && r.reponses.includes(r.bonne), d.id + "/" + e.id + " : réponses et bonne réponse présentes");
+    egal(r.reponses.map((x) => x.id).sort(), e.reponses.map((x) => x.id).sort(), d.id + "/" + e.id + " : aucune réponse perdue");
+  }));
+  egal(ech(voisin, "e9", perso({}), "m"), null, "échange inconnu : null");
+
+  // Jetons {metier} : forme du genre, ou variante sans métier (statut, pas de métier).
+  const infirmier = metier("infirmier");
+  ["m", "f"].forEach((g) => {
+    const e4 = ech(voisin, "e4", perso({ metier: "infirmier" }), g);
+    egal([e4.partenaire.fr, e4.partenaire.cible],
+      ["Ah, vous êtes " + infirmier[g].fr + " ! Bienvenue dans le quartier.", "Ах, вы " + infirmier[g].cible + "! Добро пожаловать в наш район!"], "{metier} du partenaire (" + g + ")");
+    verifier(!/\{metier\}/.test(JSON.stringify(e4.partenaire)), "aucun jeton oublié (" + g + ")");
+    const rep = ech(voisin, "e3", perso({ metier: "infirmier" }), g).reponses.find((r) => r.id === "a");
+    egal([rep.texte.fr, rep.texte.cible, rep.element], [infirmier[g].phrase_fr, infirmier[g].phrase_cible, infirmier.element], "réponse « Je suis {métier} » (" + g + ")");
+  });
+  const sans = brutD.dialogues[1].echanges[3].partenaire.sans_metier;
+  egal(ech(voisin, "e4", perso({ metier: "etudiant" }), "f").partenaire.fr, sans.fr, "statut : variante sans métier");
+  egal(ech(voisin, "e4", perso({}), "m").partenaire.cible, sans.cible, "pas de métier : variante sans métier");
+  egal(ech(voisin, "e3", perso({ metier: "retraite" }), "m").reponses.find((r) => r.id === "a").element, "ru-presenter-010", "statut : l'élément du statut");
+
+  // Jeton {prenom} : prénom en cyrillique dans le russe, latin dans le français ; sans prénom, l'exemple et un drapeau.
+  const p1 = ech(voisin, "e2", perso({ metier: "infirmier" }), "m").reponses.find((r) => r.id === "a");
+  egal([p1.texte.fr, p1.sansPrenom, p1.texte.cible.includes(ruPrenom("Maxime").cible)], ["Je m'appelle Maxime.", false, true], "réponse avec le prénom");
+  const p0 = ech(voisin, "e2", validerPersonnage({ metier: "infirmier" }), "m").reponses.find((r) => r.id === "a");
+  egal([p0.texte.fr, p0.sansPrenom], ["Je m'appelle " + donneesPerso.prenoms.exemple.latin + ".", true], "sans prénom : exemple et sansPrenom");
+  const soiree = dialogues.find((d) => d.id === "ru-dialogue-soiree");
+  egal(ech(soiree, "e1", perso({ metier: "infirmier" }), "m").reponses.find((r) => r.id === "a").texte.fr, "Moi, c'est Maxime. Et toi ?", "prénom dans « Moi, c'est ___ »");
+
+  // Accord de genre en français (variantes_fr) et en russe (variantes).
+  const e1 = (g) => ech(voisin, "e1", perso({}), g).reponses.find((r) => r.id === "a").texte.fr;
+  egal([e1("m"), e1("f")], ["Enchanté.", "Enchantée."], "français accordé au genre");
+  const hotel = dialogues.find((d) => d.id === "ru-dialogue-hotel");
+  const etu = (g) => ech(hotel, "e2", perso({}), g).reponses.find((r) => r.id === "c").texte;
+  egal([etu("m").cible, etu("f").cible, etu("f").fr], ["Я студент.", "Я студентка.", "Je suis étudiante."], "russe et français accordés au genre");
+  egal(ech(hotel, "e2", perso({}), undefined).reponses.find((r) => r.id === "c").texte.cible, "Я студент.", "genre inconnu : masculin par défaut");
+
+  // Réaction du partenaire : dans la même bulle, avant sa réplique.
+  const cafe = dialogues.find((d) => d.id === "ru-dialogue-cafe");
+  const reaction = cafe.echanges[1].reponses[0].reaction;
+  const avecReaction = ech(cafe, "e3", perso({}), "m", { reaction });
+  egal([avecReaction.partenaire.fr, avecReaction.partenaire.cible.startsWith(reaction.cible + " ")], [reaction.fr + " " + cafe.echanges[2].partenaire.fr, true], "réaction avant la réplique");
+
+  // Une fausse réponse mène à la branche de la bonne.
+  const e2 = ech(cafe, "e2", perso({}), "m");
+  const fausse = e2.reponses.find((r) => !r.juste);
+  egal(reponseRetenue(e2, fausse), e2.bonne, "fausse réponse : on suit la bonne");
+  egal(reponseRetenue(e2, e2.reponses.find((r) => r.id === "b")).id, "b", "autre réponse juste : on la suit");
+
+  // Moteur : une carte Dialogue au plus, après 10 éléments, jamais en Voiture ni en 2 et 5 min, dans une situation travaillée.
+  const possibles = (p) => dialoguesProposables(contenuD.dialogues, perso(p), donneesPerso);
+  const jouerD = (mode, duree, extra, fiches) => {
+    const s = creerSession(Object.assign({ contenu: contenuD, fiches: fiches || new Map(), mode, duree, jour: J, genre: "m", aleatoire: aleatoireGraine(9), dialogues: possibles({ metier: "infirmier" }) }, extra));
+    const cartes = [];
+    let t = mode === "voiture" ? 4 : 0, c;
+    while ((c = s.prochaineCarte(t))) {
+      cartes.push(c);
+      if (c.type !== "dialogue") s.repondre(c, c.type === "boucle-rappel" ? "passif" : (c.type.includes("decouverte") ? "non-note" : "reussite"));
+      t += c.est;
+    }
+    return { s, cartes, t };
+  };
+  for (const mode of ["silence", "ecouteurs", "parler"]) {
+    const { s, cartes, t } = jouerD(mode, 15);
+    const k = cartes.findIndex((c) => c.type === "dialogue");
+    egal(cartes.filter((c) => c.type === "dialogue").length, 1, mode + " 15 min : une seule carte Dialogue");
+    verifier(k >= DIALOGUE.apresElements, mode + " : le dialogue vient après au moins " + DIALOGUE.apresElements + " cartes");
+    verifier(new Set(cartes.slice(0, k).map((c) => c.id)).size >= DIALOGUE.apresElements, mode + " : après 10 éléments distincts");
+    verifier(cartes.slice(0, k).some((c) => c.element.situation === cartes[k].dialogue.situation), mode + " : dialogue d'une situation travaillée");
+    egal(cartes[k].est, DIALOGUE.estimation[mode], mode + " : durée estimée du dialogue");
+    verifier(t <= 900 * 1.2, mode + " 15 min : durée réelle à 20 % près avec le dialogue (" + t + " s)");
+    verifier(s.bilan().cartes === cartes.length, "le dialogue compte comme une carte");
+  }
+  egal(jouerD("silence", 30).cartes.filter((c) => c.type === "dialogue").length, 1, "30 min : une carte Dialogue");
+  for (const [mode, duree] of [["voiture", 15], ["voiture", 30], ["silence", 2], ["silence", 5], ["ecouteurs", 5], ["parler", 2]]) {
+    egal(jouerD(mode, duree).cartes.filter((c) => c.type === "dialogue").length, 0, "pas de carte Dialogue en " + mode + " " + duree + " min");
+  }
+  egal(jouerD("silence", 15, { dialogues: [] }).cartes.filter((c) => c.type === "dialogue").length, 0, "aucun dialogue proposable : pas de carte");
+  egal(jouerD("silence", 15, { dialogues: undefined }).cartes.filter((c) => c.type === "dialogue").length, 0, "pas de contenu de dialogue : pas de carte");
+  // Thèmes : seulement un dialogue d'un thème choisi ; sans correspondance, pas de dialogue.
+  const th = jouerD("silence", 15, { themes: ["cafe", "courses"] }).cartes.filter((c) => c.type === "dialogue");
+  egal(th.map((c) => c.dialogue.situation), ["cafe"], "thèmes café et courses : le dialogue du café");
+  egal(jouerD("silence", 15, { themes: ["courses"] }).cartes.filter((c) => c.type === "dialogue").length, 0, "thème sans dialogue : pas de carte");
+  // On varie : le dernier dialogue joué n'est pas rejoué quand il y a le choix.
+  const quatreThemes = { themes: ["cafe", "hotel", "rencontrer", "presenter"] };
+  const premier = jouerD("silence", 15, quatreThemes).cartes.find((c) => c.type === "dialogue").dialogue.id;
+  verifier(jouerD("silence", 15, Object.assign({ dernierDialogue: premier }, quatreThemes)).cartes.find((c) => c.type === "dialogue").dialogue.id !== premier, "le dernier dialogue joué n'est pas rejoué");
+
+  // Leitner : une bonne réplique met à jour la boîte ; une fausse ne change rien ; un élément jamais vu est découvert.
+  const ecrites = [];
+  const fiches = new Map([["ru-cafe-005", Object.assign(ficheVide("ru-cafe-005"), { boite: 2, echeance: J, premiereVue: "2026-11-01" })],
+    ["ru-cafe-010", Object.assign(ficheVide("ru-cafe-010"), { boite: 3, echeance: "2026-11-20", premiereVue: "2026-11-01" })]]);
+  const sd = creerSession({ contenu: contenuD, fiches, mode: "silence", duree: 15, jour: J, genre: "m", aleatoire: aleatoireGraine(1), ecrire: (f) => ecrites.push(f.id) });
+  sd.repondreDialogue("ru-cafe-005");
+  egal([fiches.get("ru-cafe-005").boite, fiches.get("ru-cafe-005").echeance, fiches.get("ru-cafe-005").nbReussites], [3, "2026-11-15", 1], "bonne réplique d'un élément dû : boîte + 1");
+  sd.repondreDialogue("ru-cafe-010");
+  egal([fiches.get("ru-cafe-010").boite, fiches.get("ru-cafe-010").echeance], [3, "2026-11-20"], "bonne réplique d'un élément non dû : boîte inchangée");
+  sd.repondreDialogue("ru-dialogue-cafe-001");
+  egal([fiches.get("ru-dialogue-cafe-001").boite, fiches.get("ru-dialogue-cafe-001").echeance], [1, "2026-11-12"], "réplique jamais vue : découverte (boîte 1, demain)");
+  const avantFiches = JSON.stringify([...fiches]);
+  sd.repondreDialogue("id-qui-n-existe-pas");
+  egal(JSON.stringify([...fiches]), avantFiches, "id inconnu : rien n'est écrit");
+  egal(ecrites, ["ru-cafe-005", "ru-cafe-010", "ru-dialogue-cafe-001"], "chaque bonne réplique est enregistrée");
+  // Une fausse réponse n'appelle jamais repondreDialogue (carte-dialogue.js) : les boîtes existantes restent donc intactes.
+  // Les fiches abîmées ou anciennes restent valides avec le nouveau type d'historique.
+  verifier(validerFiche(fiches.get("ru-cafe-005")).boite === 3, "fiche avec historique « dialogue » valide");
 }
 
 // Durée annoncée à la fin : le temps réel, arrondi à la minute, jamais 0.

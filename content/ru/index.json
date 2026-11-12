@@ -17,5 +17,6 @@
     { "id": "banque", "titre": "Banque et argent", "fichier": "banque.json" },
     { "id": "meteo", "titre": "Le temps qu'il fait", "fichier": "meteo.json" }
   ],
-  "personnage": "personnage.json"
+  "personnage": "personnage.json",
+  "dialogues": "dialogues.json"
 }

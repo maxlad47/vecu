@@ -12,6 +12,8 @@ import { creerSession, minutesReelles } from "../moteur.js";
 import { creerHorloge } from "../horloge.js";
 import { ponctuationFinale, normaliser, texteElement, aLire } from "../contenu.js";
 import { reglageManquant } from "../personnage.js";
+import { dialoguesProposables } from "../dialogues.js";
+import { carteDialogue } from "./carte-dialogue.js";
 import * as audio from "../audio.js";
 
 const attendre = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -24,6 +26,8 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     genre: genreReglage() || "m",
     persoVus: ctx.personnage().vus,
     persoVu: ctx.persoVu,
+    dialogues: dialoguesProposables(ctx.contenu.dialogues, ctx.personnage(), ctx.contenu.donnees),
+    dernierDialogue: reglages().dernierDialogue,
     ecrire: (fiche) => ctx.stockage.ecrireFiche(fiche)
   });
   const horloge = creerHorloge();
@@ -185,7 +189,8 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     majTemps();
     const rendus = {
       "decouverte": carteDecouverte, "sens": carteSens, "theme": carteTheme, "ordre": carteOrdre,
-      "ecoute": carteEcoute, "voix-haute": carteVoixHaute, "moule-sens": carteMoule, "moule-theme": carteMoule
+      "ecoute": carteEcoute, "voix-haute": carteVoixHaute, "moule-sens": carteMoule, "moule-theme": carteMoule,
+      "dialogue": carteDeDialogue
     };
     (rendus[carte.type] || carteSens)(carte);
     focaliser(zoneCarte.querySelector(".consigne"));
@@ -194,6 +199,18 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
   function zoneAction(...boutons) {
     vider(zoneBas);
     zoneBas.appendChild(h("div", { class: "zone-action" }, boutons));
+  }
+
+  // Dialogue à choix : l'écran est dans carte-dialogue.js. Le dernier dialogue joué est retenu pour varier la fois suivante.
+  function carteDeDialogue(carte) {
+    ctx.majReglage("dernierDialogue", carte.id);
+    carteDialogue(carte, {
+      zoneCarte, zoneBas, ctx, courant, sonore, lire, boutonEcouter, translit,
+      mode: () => session.mode, genre: genreReglage,
+      choisirGenre: (g) => { ctx.majReglage("genre", g); session.definirGenre(g); },
+      repondreDialogue: (id) => session.repondreDialogue(id),
+      suivre: suivante
+    });
   }
 
   // 3.1 Découverte : la carte de phrase de Bagou (bagou-ru.md, 8).
@@ -562,7 +579,7 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     if (feuille || !courant || menu.ouvert) return;
     if (e.altKey || e.ctrlKey || e.metaKey) return;
     // Entrée sur le verdict (qui a le focus après une réponse) : carte suivante.
-    if (e.key === "Enter" && document.activeElement && document.activeElement.classList.contains("verdict")) { e.preventDefault(); suivante(); return; }
+    if (e.key === "Enter" && document.activeElement && document.activeElement.classList.contains("verdict")) { e.preventDefault(); (courant.suivre || suivante)(); return; }
     if (courant.repondu) return;
     const k = parseInt(e.key, 10);
     if (k >= 1 && k <= 3) {

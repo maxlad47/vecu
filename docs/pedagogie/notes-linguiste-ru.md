@@ -226,3 +226,28 @@ Fichier : `personnage.json` (3 phrases à prénom, 13 métiers m/f, 6 domaines, 
 6. **enseignante** → учи́тельница, et учи́тель face à преподава́тель pour un enseignant d'adultes (le plus probable chez nos utilisateurs).
 7. **Translittération** de медсестра́ (« mitsistrá », д assourdi devant с) et de медбра́т (« midbrát »).
 8. **ru-presenter-011**, Меня́ зову́т X, я Y : la virgule seule (sans и) sonne-t-elle naturelle à l'oral ?
+
+## Métiers élargis et dialogues (mission 008, 12/11/2026)
+
+Fichiers : `personnage.json` (43 métiers en 9 catégories, dont 30 nouveaux, champ `categorie`), `dialogues.json` (4 dialogues, 4 nouvelles phrases). Je n'ai pas pu lancer `node` dans cette session : la validité JSON a été relue à la main, à confirmer par un `JSON.parse`. Conventions inchangées.
+
+**À faire valider par un natif** (du doute le plus fort au plus faible)
+
+1. **ru-dialogue-hotel-001**, Да, бронь на имя — Са́ша : « на имя » veut normalement le génitif (на имя Са́ши), mais le prénom reste au nominatif dans le produit. Le tiret et le nominatif passent-ils à l'oral, ou vaut-il mieux Да, меня́ зову́т Са́ша ?
+2. **Métier au féminin, forme masculine seule** : une femme dit-elle Я электри́к, Я санте́хник, Я меха́ник, Я касси́р, Я парикма́хер, Я пе́карь, Я флори́ст, Я секрета́рь, Я по́вар, Я води́тель авто́буса, Я курье́р, Я фотогра́ф, Я стомато́лог, Я фармаце́вт, Я библиоте́карь, ou préfère-t-on касси́рша, парикма́херша, секрета́рша (souvent familier ou péjoratif) ?
+3. **ка́менщик / ка́менщица** (maçon) : la forme féminine existe, mais est-elle utilisée ? Un maçon dit-il plutôt Я строи́тель ?
+4. **физиотерапе́вт** pour « kinésithérapeute » : face à кинезитерапе́вт, массажи́ст, реабилито́лог. Quel mot un natif attend-il pour un soin du dos ou du sport ?
+5. **фармаце́вт** : face à прови́зор (pharmacien diplômé) et апте́карь (vieilli).
+6. **банки́р** : le mot désigne un dirigeant ou un financier. Un conseiller de banque dit-il bien Я рабо́таю в ба́нке, ou Я банковский рабо́тник ?
+7. **воспита́тель / воспита́тельница** pour « éducateur » (spécialisé, de jeunes enfants) : et социа́льный педаго́г pour le social ?
+8. **ня́ня** pour un homme, **бармен** pour une femme (ба́рменша), **убо́рщик но́меров** pour « homme de chambre » : sont-ils naturels ? Горничный pour un homme existe-t-il ?
+9. **машини́ст по́езда** : une femme dit-elle Я машини́ст (et non машини́стка, qui est la dactylo) ?
+10. **социа́льный рабо́тник**, **графи́ческий диза́йнер**, **администра́тор в оте́ле**, **води́тель авто́буса** : longueur et naturel (plus court : диза́йнер, администра́тор).
+11. **Dialogue du voisin**, Я живу́ ря́дом (« J'habite à côté ») : ou plutôt Я ваш сосе́д / Я живу́ в сосе́дней кварти́ре ? Добро́ пожа́ловать в наш райо́н ! sonne-t-il trop solennel pour un voisin (ou simplement Добро́ пожа́ловать!) ?
+12. **Ах, вы {métier} !** (nominatif sans verbe) avec tous les métiers, y compris менеджер по прода́жам, администра́тор в оте́ле et на пе́нсии (D2, D3 : Ах, вы / О, + métier) : naturel ? Pour « à mon compte » et les domaines, la réplique de remplacement est utilisée (pas de métier).
+13. **Café**, Что бу́дете зака́зывать ? face à Что бу́дете ? ; Как бу́дете плати́ть ? face à Чем бу́дете плати́ть ? ou Ка́ртой и́ли нали́чными ?
+14. **ru-dialogue-cafe-001**, Нет, спаси́бо, всё : proche de ru-courses-007 (Всё, спаси́бо). Faut-il la garder (réponse à Что́-нибудь ещё ?) ou réutiliser courses-007 ?
+15. **Hôtel**, За́втра бу́дете за́втракать ? (« Vous voulez le petit-déjeuner demain ? ») : un réceptionniste dit-il plutôt За́втрак бу́дете ? ou За́втрак включён ? ; Прия́тного пребыва́ния ! comme formule de réception.
+16. **Soirée**, Встре́тимся попо́зже в ба́ре ? (« On se retrouve au bar tout à l'heure ? ») et la réponse Да, до ско́рого ! (ou Дава́й, уви́димся !) ; Ого́, ты говори́шь по-ру́сски ? comme réaction.
+17. **Translittérations** : farmatséft, fiziatirapiéft, pradafchtchítsa (в devant щ), káminchtchik, oubórchtchik nómiraf, satsyálnyï (ци), machiníst, eliktrík, stamatólak, bibliatiékar, vaspitátilnitsa, dvinátsat (двена́дцать), chtó-nibout ichtchó (что́-нибудь ещё), atsioúda (отсю́да), fstriétimsia.
+18. **Rappel Lou/Vera** : Vous / ты des répliques « fausses » de registre (D3, vous au lieu de ты) : le russe est juste, c'est le registre qui est faux.

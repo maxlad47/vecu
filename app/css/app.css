@@ -550,7 +550,8 @@ span.past { cursor: default; }
   --h-option-ru: clamp(56px, 9dvh, 72px);
   --e: clamp(6px, 1.2dvh, 12px);
   --e-grand: clamp(10px, 2.2dvh, 20px);
-  height: 100vh; height: 100dvh; min-height: 0; overflow: hidden;
+  /* flex: none : sans cela, `.ecran { flex: 1 }` laisse le contenu agrandir la page quand scène + panneau dépassent l'écran. */
+  flex: none; height: 100vh; height: 100dvh; min-height: 0; overflow: hidden;
 }
 .ecran-session .entete { min-height: 48px; justify-content: flex-start; gap: var(--space-2); }
 .entete .barre { flex: 1; min-width: 56px; }
@@ -684,3 +685,46 @@ span.past { cursor: default; }
   .poupee-grande .poupee-perso { height: clamp(88px, 16dvh, 120px); }
   .ecran-personnage .nom-choisi { margin-top: 2px; }
 }
+
+/* ===== 15. Dialogue à choix (mission 008, docs/design/dialogues.md) ===== */
+.ligne-lieu { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); min-height: 48px; }
+.ligne-lieu .consigne { margin: 0; font-size: 0.9375rem; }
+.ligne-lieu .decor { width: 48px; flex: none; }
+.tu-as-dit { margin: 0 0 var(--e); font-size: 0.9375rem; overflow-wrap: anywhere; }
+/* Bulle du partenaire : porcelaine, contour 2 px, queue à gauche. Le fondu de 150 ms est coupé par « réduire les animations » (section 11). */
+.bulle {
+  position: relative; margin: 0 0 var(--e) 14px; padding: 10px 14px; text-align: left;
+  display: flex; flex-direction: column; gap: 4px; animation: fondu 150ms;
+  background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius-m);
+}
+.bulle::before {
+  content: ""; position: absolute; left: -9px; top: 18px; width: 14px; height: 14px; transform: rotate(45deg);
+  background: var(--surface); border-left: 2px solid var(--border); border-bottom: 2px solid var(--border);
+}
+.bulle:focus { outline: none; }
+.bulle:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.bulle p { margin: 0; }
+.bulle .role { font-size: 0.9375rem; color: var(--text-muted); }
+.bulle .fr-bulle { font-size: 1.125rem; }
+.bulle .btn-ecouter { margin-top: 4px; align-self: flex-start; }
+.ligne-toi { display: flex; align-items: center; gap: var(--space-3); }
+.ligne-toi .poupee-perso { animation: fondu 200ms; }
+.ligne-toi b { display: block; font-size: 1.125rem; overflow-wrap: anywhere; }
+.ligne-toi .petit { margin: 0; }
+.ecran-session .options-dialogue .option { min-height: 58px; }
+.option .ru-option { font-size: var(--fs-small); font-weight: 400; color: var(--text-muted); }
+
+/* Liste des métiers par catégories : un accordéon, une catégorie ouverte à la fois, celle du métier choisi d'abord. */
+.categorie-metiers { margin-top: 0; border-top: 0; padding-top: 0; } /* annule le style générique de details (section 10) */
+.categorie-metiers > summary::before, .categorie-metiers[open] > summary::before { content: none; }
+.categorie-metiers > summary {
+  min-height: 52px; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2);
+  padding: 0 var(--space-3); font-weight: 700; cursor: pointer; list-style: none;
+  background: var(--surface); border: 2px solid var(--border-subtle); border-radius: var(--radius-m);
+}
+.categorie-metiers > summary::-webkit-details-marker { display: none; }
+.categorie-metiers > summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.categorie-metiers > summary svg.icon { width: 20px; height: 20px; flex: none; transition: transform 150ms; }
+.categorie-metiers[open] > summary svg.icon { transform: rotate(90deg); }
+.categorie-metiers[open] > summary { border-color: var(--accent); }
+.liste-categorie { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-2) 0 var(--space-1); }

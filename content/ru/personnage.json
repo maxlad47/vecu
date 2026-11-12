@@ -68,6 +68,7 @@
   "metiers": [
     {
       "id": "ingenieur",
+      "categorie": "bureau-finance",
       "element": "ru-presenter-001",
       "domaine": null,
       "astuce": null,
@@ -84,6 +85,7 @@
     },
     {
       "id": "medecin",
+      "categorie": "sante",
       "element": "ru-presenter-001",
       "domaine": "sante",
       "astuce": null,
@@ -100,6 +102,7 @@
     },
     {
       "id": "comptable",
+      "categorie": "bureau-finance",
       "element": "ru-presenter-001",
       "domaine": null,
       "astuce": null,
@@ -116,6 +119,7 @@
     },
     {
       "id": "manager",
+      "categorie": "bureau-finance",
       "element": "ru-presenter-001",
       "domaine": null,
       "astuce": null,
@@ -132,6 +136,7 @@
     },
     {
       "id": "avocat",
+      "categorie": "bureau-finance",
       "element": "ru-presenter-001",
       "domaine": null,
       "astuce": null,
@@ -148,6 +153,7 @@
     },
     {
       "id": "infirmier",
+      "categorie": "sante",
       "element": "ru-presenter-001",
       "domaine": "sante",
       "astuce": "Mot à mot « frère médical » et « sœur médicale » : deux mots différents.",
@@ -164,6 +170,7 @@
     },
     {
       "id": "enseignant",
+      "categorie": "enseignement-social",
       "element": "ru-presenter-001",
       "domaine": "education",
       "astuce": "Учи́тель, à l'école. À l'université ou pour adultes : преподава́тель.",
@@ -180,6 +187,7 @@
     },
     {
       "id": "developpeur",
+      "categorie": "creatif-tech",
       "element": "ru-presenter-001",
       "domaine": "informatique",
       "astuce": "Beaucoup de femmes disent aussi Я программи́ст. On entend aussi разрабо́тчик.",
@@ -196,6 +204,7 @@
     },
     {
       "id": "commercial",
+      "categorie": "commerce-services",
       "element": "ru-presenter-001",
       "domaine": "commerce",
       "astuce": "Mot à mot « manager des ventes ». Même forme pour une femme.",
@@ -212,6 +221,7 @@
     },
     {
       "id": "artisan-batiment",
+      "categorie": "batiment-artisanat",
       "element": "ru-presenter-001",
       "domaine": "batiment",
       "astuce": "Строи́тель vaut pour tous les métiers du chantier. Même forme pour une femme.",
@@ -228,6 +238,7 @@
     },
     {
       "id": "etudiant",
+      "categorie": "statuts",
       "element": "ru-presenter-006",
       "domaine": null,
       "astuce": null,
@@ -244,6 +255,7 @@
     },
     {
       "id": "a-mon-compte",
+      "categorie": "statuts",
       "element": "ru-presenter-009",
       "domaine": null,
       "astuce": null,
@@ -260,6 +272,7 @@
     },
     {
       "id": "retraite",
+      "categorie": "statuts",
       "element": "ru-presenter-010",
       "domaine": null,
       "astuce": null,
@@ -273,7 +286,528 @@
         "phrase_fr": "Je suis à la retraite.", "phrase_cible": "Я на пенсии.", "phrase_accent": "Я на пе́нсии.", "phrase_translit": "ia na piénsii",
         "carte_fr": "Je m'appelle {prenom}, je suis à la retraite.", "carte_cible": "Меня зовут {prenom}, я на пенсии.", "carte_accent": "Меня́ зову́т {prenom}, я на пе́нсии.", "carte_translit": "miniá zavoút {prenom}, ia na piénsii"
       }
+    },
+    {
+      "id": "pharmacien",
+      "categorie": "sante",
+      "element": "ru-presenter-001",
+      "domaine": "sante",
+      "astuce": "Même forme pour une femme.",
+      "m": {
+        "fr": "pharmacien", "cible": "фармацевт", "accent": "фармаце́вт", "translit": "farmatséft",
+        "phrase_fr": "Je suis pharmacien.", "phrase_cible": "Я фармацевт.", "phrase_accent": "Я фармаце́вт.", "phrase_translit": "ia farmatséft",
+        "carte_fr": "Je m'appelle {prenom}, je suis pharmacien.", "carte_cible": "Меня зовут {prenom}, я фармацевт.", "carte_accent": "Меня́ зову́т {prenom}, я фармаце́вт.", "carte_translit": "miniá zavoút {prenom}, ia farmatséft"
+      },
+      "f": {
+        "fr": "pharmacienne", "cible": "фармацевт", "accent": "фармаце́вт", "translit": "farmatséft",
+        "phrase_fr": "Je suis pharmacienne.", "phrase_cible": "Я фармацевт.", "phrase_accent": "Я фармаце́вт.", "phrase_translit": "ia farmatséft",
+        "carte_fr": "Je m'appelle {prenom}, je suis pharmacienne.", "carte_cible": "Меня зовут {prenom}, я фармацевт.", "carte_accent": "Меня́ зову́т {prenom}, я фармаце́вт.", "carte_translit": "miniá zavoút {prenom}, ia farmatséft"
+      }
+    },
+    {
+      "id": "dentiste",
+      "categorie": "sante",
+      "element": "ru-presenter-001",
+      "domaine": "sante",
+      "astuce": "Mot à mot « stomatologue ». Même forme pour une femme.",
+      "m": {
+        "fr": "dentiste", "cible": "стоматолог", "accent": "стомато́лог", "translit": "stamatólak",
+        "phrase_fr": "Je suis dentiste.", "phrase_cible": "Я стоматолог.", "phrase_accent": "Я стомато́лог.", "phrase_translit": "ia stamatólak",
+        "carte_fr": "Je m'appelle {prenom}, je suis dentiste.", "carte_cible": "Меня зовут {prenom}, я стоматолог.", "carte_accent": "Меня́ зову́т {prenom}, я стомато́лог.", "carte_translit": "miniá zavoút {prenom}, ia stamatólak"
+      },
+      "f": {
+        "fr": "dentiste", "cible": "стоматолог", "accent": "стомато́лог", "translit": "stamatólak",
+        "phrase_fr": "Je suis dentiste.", "phrase_cible": "Я стоматолог.", "phrase_accent": "Я стомато́лог.", "phrase_translit": "ia stamatólak",
+        "carte_fr": "Je m'appelle {prenom}, je suis dentiste.", "carte_cible": "Меня зовут {prenom}, я стоматолог.", "carte_accent": "Меня́ зову́т {prenom}, я стомато́лог.", "carte_translit": "miniá zavoút {prenom}, ia stamatólak"
+      }
+    },
+    {
+      "id": "kinesitherapeute",
+      "categorie": "sante",
+      "element": "ru-presenter-001",
+      "domaine": "sante",
+      "astuce": "Même forme pour une femme.",
+      "m": {
+        "fr": "kinésithérapeute", "cible": "физиотерапевт", "accent": "физиотерапе́вт", "translit": "fiziatirapiéft",
+        "phrase_fr": "Je suis kinésithérapeute.", "phrase_cible": "Я физиотерапевт.", "phrase_accent": "Я физиотерапе́вт.", "phrase_translit": "ia fiziatirapiéft",
+        "carte_fr": "Je m'appelle {prenom}, je suis kinésithérapeute.", "carte_cible": "Меня зовут {prenom}, я физиотерапевт.", "carte_accent": "Меня́ зову́т {prenom}, я физиотерапе́вт.", "carte_translit": "miniá zavoút {prenom}, ia fiziatirapiéft"
+      },
+      "f": {
+        "fr": "kinésithérapeute", "cible": "физиотерапевт", "accent": "физиотерапе́вт", "translit": "fiziatirapiéft",
+        "phrase_fr": "Je suis kinésithérapeute.", "phrase_cible": "Я физиотерапевт.", "phrase_accent": "Я физиотерапе́вт.", "phrase_translit": "ia fiziatirapiéft",
+        "carte_fr": "Je m'appelle {prenom}, je suis kinésithérapeute.", "carte_cible": "Меня зовут {prenom}, я физиотерапевт.", "carte_accent": "Меня́ зову́т {prenom}, я физиотерапе́вт.", "carte_translit": "miniá zavoút {prenom}, ia fiziatirapiéft"
+      }
+    },
+    {
+      "id": "vendeur",
+      "categorie": "commerce-services",
+      "element": "ru-presenter-001",
+      "domaine": "commerce",
+      "astuce": "Deux mots : продаве́ц (homme), продавщи́ца (femme).",
+      "m": {
+        "fr": "vendeur", "cible": "продавец", "accent": "продаве́ц", "translit": "pradaviéts",
+        "phrase_fr": "Je suis vendeur.", "phrase_cible": "Я продавец.", "phrase_accent": "Я продаве́ц.", "phrase_translit": "ia pradaviéts",
+        "carte_fr": "Je m'appelle {prenom}, je suis vendeur.", "carte_cible": "Меня зовут {prenom}, я продавец.", "carte_accent": "Меня́ зову́т {prenom}, я продаве́ц.", "carte_translit": "miniá zavoút {prenom}, ia pradaviéts"
+      },
+      "f": {
+        "fr": "vendeuse", "cible": "продавщица", "accent": "продавщи́ца", "translit": "pradafchtchítsa",
+        "phrase_fr": "Je suis vendeuse.", "phrase_cible": "Я продавщица.", "phrase_accent": "Я продавщи́ца.", "phrase_translit": "ia pradafchtchítsa",
+        "carte_fr": "Je m'appelle {prenom}, je suis vendeuse.", "carte_cible": "Меня зовут {prenom}, я продавщица.", "carte_accent": "Меня́ зову́т {prenom}, я продавщи́ца.", "carte_translit": "miniá zavoút {prenom}, ia pradafchtchítsa"
+      }
+    },
+    {
+      "id": "caissier",
+      "categorie": "commerce-services",
+      "element": "ru-presenter-001",
+      "domaine": "commerce",
+      "astuce": "Même forme pour une femme. Familier : касси́рша.",
+      "m": {
+        "fr": "caissier", "cible": "кассир", "accent": "касси́р", "translit": "kassír",
+        "phrase_fr": "Je suis caissier.", "phrase_cible": "Я кассир.", "phrase_accent": "Я касси́р.", "phrase_translit": "ia kassír",
+        "carte_fr": "Je m'appelle {prenom}, je suis caissier.", "carte_cible": "Меня зовут {prenom}, я кассир.", "carte_accent": "Меня́ зову́т {prenom}, я касси́р.", "carte_translit": "miniá zavoút {prenom}, ia kassír"
+      },
+      "f": {
+        "fr": "caissière", "cible": "кассир", "accent": "касси́р", "translit": "kassír",
+        "phrase_fr": "Je suis caissière.", "phrase_cible": "Я кассир.", "phrase_accent": "Я касси́р.", "phrase_translit": "ia kassír",
+        "carte_fr": "Je m'appelle {prenom}, je suis caissière.", "carte_cible": "Меня зовут {prenom}, я кассир.", "carte_accent": "Меня́ зову́т {prenom}, я касси́р.", "carte_translit": "miniá zavoút {prenom}, ia kassír"
+      }
+    },
+    {
+      "id": "coiffeur",
+      "categorie": "commerce-services",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Même forme pour une femme.",
+      "m": {
+        "fr": "coiffeur", "cible": "парикмахер", "accent": "парикма́хер", "translit": "parikmákhir",
+        "phrase_fr": "Je suis coiffeur.", "phrase_cible": "Я парикмахер.", "phrase_accent": "Я парикма́хер.", "phrase_translit": "ia parikmákhir",
+        "carte_fr": "Je m'appelle {prenom}, je suis coiffeur.", "carte_cible": "Меня зовут {prenom}, я парикмахер.", "carte_accent": "Меня́ зову́т {prenom}, я парикма́хер.", "carte_translit": "miniá zavoút {prenom}, ia parikmákhir"
+      },
+      "f": {
+        "fr": "coiffeuse", "cible": "парикмахер", "accent": "парикма́хер", "translit": "parikmákhir",
+        "phrase_fr": "Je suis coiffeuse.", "phrase_cible": "Я парикмахер.", "phrase_accent": "Я парикма́хер.", "phrase_translit": "ia parikmákhir",
+        "carte_fr": "Je m'appelle {prenom}, je suis coiffeuse.", "carte_cible": "Меня зовут {prenom}, я парикмахер.", "carte_accent": "Меня́ зову́т {prenom}, я парикма́хер.", "carte_translit": "miniá zavoút {prenom}, ia parikmákhir"
+      }
+    },
+    {
+      "id": "boulanger",
+      "categorie": "commerce-services",
+      "element": "ru-presenter-001",
+      "domaine": "commerce",
+      "astuce": "Même forme pour une femme.",
+      "m": {
+        "fr": "boulanger", "cible": "пекарь", "accent": "пе́карь", "translit": "piékar",
+        "phrase_fr": "Je suis boulanger.", "phrase_cible": "Я пекарь.", "phrase_accent": "Я пе́карь.", "phrase_translit": "ia piékar",
+        "carte_fr": "Je m'appelle {prenom}, je suis boulanger.", "carte_cible": "Меня зовут {prenom}, я пекарь.", "carte_accent": "Меня́ зову́т {prenom}, я пе́карь.", "carte_translit": "miniá zavoút {prenom}, ia piékar"
+      },
+      "f": {
+        "fr": "boulangère", "cible": "пекарь", "accent": "пе́карь", "translit": "piékar",
+        "phrase_fr": "Je suis boulangère.", "phrase_cible": "Я пекарь.", "phrase_accent": "Я пе́карь.", "phrase_translit": "ia piékar",
+        "carte_fr": "Je m'appelle {prenom}, je suis boulangère.", "carte_cible": "Меня зовут {prenom}, я пекарь.", "carte_accent": "Меня́ зову́т {prenom}, я пе́карь.", "carte_translit": "miniá zavoút {prenom}, ia piékar"
+      }
+    },
+    {
+      "id": "fleuriste",
+      "categorie": "commerce-services",
+      "element": "ru-presenter-001",
+      "domaine": "commerce",
+      "astuce": "Même forme pour une femme.",
+      "m": {
+        "fr": "fleuriste", "cible": "флорист", "accent": "флори́ст", "translit": "flaríst",
+        "phrase_fr": "Je suis fleuriste.", "phrase_cible": "Я флорист.", "phrase_accent": "Я флори́ст.", "phrase_translit": "ia flaríst",
+        "carte_fr": "Je m'appelle {prenom}, je suis fleuriste.", "carte_cible": "Меня зовут {prenom}, я флорист.", "carte_accent": "Меня́ зову́т {prenom}, я флори́ст.", "carte_translit": "miniá zavoút {prenom}, ia flaríst"
+      },
+      "f": {
+        "fr": "fleuriste", "cible": "флорист", "accent": "флори́ст", "translit": "flaríst",
+        "phrase_fr": "Je suis fleuriste.", "phrase_cible": "Я флорист.", "phrase_accent": "Я флори́ст.", "phrase_translit": "ia flaríst",
+        "carte_fr": "Je m'appelle {prenom}, je suis fleuriste.", "carte_cible": "Меня зовут {prenom}, я флорист.", "carte_accent": "Меня́ зову́т {prenom}, я флори́ст.", "carte_translit": "miniá zavoút {prenom}, ia flaríst"
+      }
+    },
+    {
+      "id": "macon",
+      "categorie": "batiment-artisanat",
+      "element": "ru-presenter-001",
+      "domaine": "batiment",
+      "astuce": "Deux mots : ка́менщик, ка́менщица. Строи́тель dit tout le chantier.",
+      "m": {
+        "fr": "maçon", "cible": "каменщик", "accent": "ка́менщик", "translit": "káminchtchik",
+        "phrase_fr": "Je suis maçon.", "phrase_cible": "Я каменщик.", "phrase_accent": "Я ка́менщик.", "phrase_translit": "ia káminchtchik",
+        "carte_fr": "Je m'appelle {prenom}, je suis maçon.", "carte_cible": "Меня зовут {prenom}, я каменщик.", "carte_accent": "Меня́ зову́т {prenom}, я ка́менщик.", "carte_translit": "miniá zavoút {prenom}, ia káminchtchik"
+      },
+      "f": {
+        "fr": "maçonne", "cible": "каменщица", "accent": "ка́менщица", "translit": "káminchtchitsa",
+        "phrase_fr": "Je suis maçonne.", "phrase_cible": "Я каменщица.", "phrase_accent": "Я ка́менщица.", "phrase_translit": "ia káminchtchitsa",
+        "carte_fr": "Je m'appelle {prenom}, je suis maçonne.", "carte_cible": "Меня зовут {prenom}, я каменщица.", "carte_accent": "Меня́ зову́т {prenom}, я ка́менщица.", "carte_translit": "miniá zavoút {prenom}, ia káminchtchitsa"
+      }
+    },
+    {
+      "id": "electricien",
+      "categorie": "batiment-artisanat",
+      "element": "ru-presenter-001",
+      "domaine": "batiment",
+      "astuce": "Même forme pour une femme.",
+      "m": {
+        "fr": "électricien", "cible": "электрик", "accent": "электри́к", "translit": "eliktrík",
+        "phrase_fr": "Je suis électricien.", "phrase_cible": "Я электрик.", "phrase_accent": "Я электри́к.", "phrase_translit": "ia eliktrík",
+        "carte_fr": "Je m'appelle {prenom}, je suis électricien.", "carte_cible": "Меня зовут {prenom}, я электрик.", "carte_accent": "Меня́ зову́т {prenom}, я электри́к.", "carte_translit": "miniá zavoút {prenom}, ia eliktrík"
+      },
+      "f": {
+        "fr": "électricienne", "cible": "электрик", "accent": "электри́к", "translit": "eliktrík",
+        "phrase_fr": "Je suis électricienne.", "phrase_cible": "Я электрик.", "phrase_accent": "Я электри́к.", "phrase_translit": "ia eliktrík",
+        "carte_fr": "Je m'appelle {prenom}, je suis électricienne.", "carte_cible": "Меня зовут {prenom}, я электрик.", "carte_accent": "Меня́ зову́т {prenom}, я электри́к.", "carte_translit": "miniá zavoút {prenom}, ia eliktrík"
+      }
+    },
+    {
+      "id": "plombier",
+      "categorie": "batiment-artisanat",
+      "element": "ru-presenter-001",
+      "domaine": "batiment",
+      "astuce": "Mot à mot « technicien sanitaire ». Même forme pour une femme.",
+      "m": {
+        "fr": "plombier", "cible": "сантехник", "accent": "санте́хник", "translit": "santiékhnik",
+        "phrase_fr": "Je suis plombier.", "phrase_cible": "Я сантехник.", "phrase_accent": "Я санте́хник.", "phrase_translit": "ia santiékhnik",
+        "carte_fr": "Je m'appelle {prenom}, je suis plombier.", "carte_cible": "Меня зовут {prenom}, я сантехник.", "carte_accent": "Меня́ зову́т {prenom}, я санте́хник.", "carte_translit": "miniá zavoút {prenom}, ia santiékhnik"
+      },
+      "f": {
+        "fr": "plombière", "cible": "сантехник", "accent": "санте́хник", "translit": "santiékhnik",
+        "phrase_fr": "Je suis plombière.", "phrase_cible": "Я сантехник.", "phrase_accent": "Я санте́хник.", "phrase_translit": "ia santiékhnik",
+        "carte_fr": "Je m'appelle {prenom}, je suis plombière.", "carte_cible": "Меня зовут {prenom}, я сантехник.", "carte_accent": "Меня́ зову́т {prenom}, я санте́хник.", "carte_translit": "miniá zavoút {prenom}, ia santiékhnik"
+      }
+    },
+    {
+      "id": "mecanicien",
+      "categorie": "batiment-artisanat",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Pour les voitures : автомеха́ник. Même forme pour une femme.",
+      "m": {
+        "fr": "mécanicien", "cible": "механик", "accent": "меха́ник", "translit": "mikhánik",
+        "phrase_fr": "Je suis mécanicien.", "phrase_cible": "Я механик.", "phrase_accent": "Я меха́ник.", "phrase_translit": "ia mikhánik",
+        "carte_fr": "Je m'appelle {prenom}, je suis mécanicien.", "carte_cible": "Меня зовут {prenom}, я механик.", "carte_accent": "Меня́ зову́т {prenom}, я меха́ник.", "carte_translit": "miniá zavoút {prenom}, ia mikhánik"
+      },
+      "f": {
+        "fr": "mécanicienne", "cible": "механик", "accent": "меха́ник", "translit": "mikhánik",
+        "phrase_fr": "Je suis mécanicienne.", "phrase_cible": "Я механик.", "phrase_accent": "Я меха́ник.", "phrase_translit": "ia mikhánik",
+        "carte_fr": "Je m'appelle {prenom}, je suis mécanicienne.", "carte_cible": "Меня зовут {prenom}, я механик.", "carte_accent": "Меня́ зову́т {prenom}, я меха́ник.", "carte_translit": "miniá zavoút {prenom}, ia mikhánik"
+      }
+    },
+    {
+      "id": "banquier",
+      "categorie": "bureau-finance",
+      "element": "ru-presenter-001",
+      "domaine": "banque",
+      "astuce": "Банки́р = dirigeant. Un employé dit plutôt Я рабо́таю в ба́нке.",
+      "m": {
+        "fr": "banquier", "cible": "банкир", "accent": "банки́р", "translit": "bankír",
+        "phrase_fr": "Je suis banquier.", "phrase_cible": "Я банкир.", "phrase_accent": "Я банки́р.", "phrase_translit": "ia bankír",
+        "carte_fr": "Je m'appelle {prenom}, je suis banquier.", "carte_cible": "Меня зовут {prenom}, я банкир.", "carte_accent": "Меня́ зову́т {prenom}, я банки́р.", "carte_translit": "miniá zavoút {prenom}, ia bankír"
+      },
+      "f": {
+        "fr": "banquière", "cible": "банкир", "accent": "банки́р", "translit": "bankír",
+        "phrase_fr": "Je suis banquière.", "phrase_cible": "Я банкир.", "phrase_accent": "Я банки́р.", "phrase_translit": "ia bankír",
+        "carte_fr": "Je m'appelle {prenom}, je suis banquière.", "carte_cible": "Меня зовут {prenom}, я банкир.", "carte_accent": "Меня́ зову́т {prenom}, я банки́р.", "carte_translit": "miniá zavoút {prenom}, ia bankír"
+      }
+    },
+    {
+      "id": "secretaire",
+      "categorie": "bureau-finance",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Même forme pour une femme.",
+      "m": {
+        "fr": "secrétaire", "cible": "секретарь", "accent": "секрета́рь", "translit": "sikritár",
+        "phrase_fr": "Je suis secrétaire.", "phrase_cible": "Я секретарь.", "phrase_accent": "Я секрета́рь.", "phrase_translit": "ia sikritár",
+        "carte_fr": "Je m'appelle {prenom}, je suis secrétaire.", "carte_cible": "Меня зовут {prenom}, я секретарь.", "carte_accent": "Меня́ зову́т {prenom}, я секрета́рь.", "carte_translit": "miniá zavoút {prenom}, ia sikritár"
+      },
+      "f": {
+        "fr": "secrétaire", "cible": "секретарь", "accent": "секрета́рь", "translit": "sikritár",
+        "phrase_fr": "Je suis secrétaire.", "phrase_cible": "Я секретарь.", "phrase_accent": "Я секрета́рь.", "phrase_translit": "ia sikritár",
+        "carte_fr": "Je m'appelle {prenom}, je suis secrétaire.", "carte_cible": "Меня зовут {prenom}, я секретарь.", "carte_accent": "Меня́ зову́т {prenom}, я секрета́рь.", "carte_translit": "miniá zavoút {prenom}, ia sikritár"
+      }
+    },
+    {
+      "id": "serveur",
+      "categorie": "restauration-hotellerie",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Deux mots : официа́нт (homme), официа́нтка (femme).",
+      "m": {
+        "fr": "serveur", "cible": "официант", "accent": "официа́нт", "translit": "afitsiánt",
+        "phrase_fr": "Je suis serveur.", "phrase_cible": "Я официант.", "phrase_accent": "Я официа́нт.", "phrase_translit": "ia afitsiánt",
+        "carte_fr": "Je m'appelle {prenom}, je suis serveur.", "carte_cible": "Меня зовут {prenom}, я официант.", "carte_accent": "Меня́ зову́т {prenom}, я официа́нт.", "carte_translit": "miniá zavoút {prenom}, ia afitsiánt"
+      },
+      "f": {
+        "fr": "serveuse", "cible": "официантка", "accent": "официа́нтка", "translit": "afitsiántka",
+        "phrase_fr": "Je suis serveuse.", "phrase_cible": "Я официантка.", "phrase_accent": "Я официа́нтка.", "phrase_translit": "ia afitsiántka",
+        "carte_fr": "Je m'appelle {prenom}, je suis serveuse.", "carte_cible": "Меня зовут {prenom}, я официантка.", "carte_accent": "Меня́ зову́т {prenom}, я официа́нтка.", "carte_translit": "miniá zavoút {prenom}, ia afitsiántka"
+      }
+    },
+    {
+      "id": "cuisinier",
+      "categorie": "restauration-hotellerie",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Même forme pour une femme.",
+      "m": {
+        "fr": "cuisinier", "cible": "повар", "accent": "по́вар", "translit": "póvar",
+        "phrase_fr": "Je suis cuisinier.", "phrase_cible": "Я повар.", "phrase_accent": "Я по́вар.", "phrase_translit": "ia póvar",
+        "carte_fr": "Je m'appelle {prenom}, je suis cuisinier.", "carte_cible": "Меня зовут {prenom}, я повар.", "carte_accent": "Меня́ зову́т {prenom}, я по́вар.", "carte_translit": "miniá zavoút {prenom}, ia póvar"
+      },
+      "f": {
+        "fr": "cuisinière", "cible": "повар", "accent": "по́вар", "translit": "póvar",
+        "phrase_fr": "Je suis cuisinière.", "phrase_cible": "Я повар.", "phrase_accent": "Я по́вар.", "phrase_translit": "ia póvar",
+        "carte_fr": "Je m'appelle {prenom}, je suis cuisinière.", "carte_cible": "Меня зовут {prenom}, я повар.", "carte_accent": "Меня́ зову́т {prenom}, я по́вар.", "carte_translit": "miniá zavoút {prenom}, ia póvar"
+      }
+    },
+    {
+      "id": "receptionniste",
+      "categorie": "restauration-hotellerie",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Администра́тор vaut aussi pour un salon ou un resto. Même forme pour une femme.",
+      "m": {
+        "fr": "réceptionniste d'hôtel", "cible": "администратор в отеле", "accent": "администра́тор в оте́ле", "translit": "administrátar v atiéli",
+        "phrase_fr": "Je suis réceptionniste d'hôtel.", "phrase_cible": "Я администратор в отеле.", "phrase_accent": "Я администра́тор в оте́ле.", "phrase_translit": "ia administrátar v atiéli",
+        "carte_fr": "Je m'appelle {prenom}, je suis réceptionniste d'hôtel.", "carte_cible": "Меня зовут {prenom}, я администратор в отеле.", "carte_accent": "Меня́ зову́т {prenom}, я администра́тор в оте́ле.", "carte_translit": "miniá zavoút {prenom}, ia administrátar v atiéli"
+      },
+      "f": {
+        "fr": "réceptionniste d'hôtel", "cible": "администратор в отеле", "accent": "администра́тор в оте́ле", "translit": "administrátar v atiéli",
+        "phrase_fr": "Je suis réceptionniste d'hôtel.", "phrase_cible": "Я администратор в отеле.", "phrase_accent": "Я администра́тор в оте́ле.", "phrase_translit": "ia administrátar v atiéli",
+        "carte_fr": "Je m'appelle {prenom}, je suis réceptionniste d'hôtel.", "carte_cible": "Меня зовут {prenom}, я администратор в отеле.", "carte_accent": "Меня́ зову́т {prenom}, я администра́тор в оте́ле.", "carte_translit": "miniá zavoút {prenom}, ia administrátar v atiéli"
+      }
+    },
+    {
+      "id": "barman",
+      "categorie": "restauration-hotellerie",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Même forme pour une femme. On dit aussi ба́рменша (familier).",
+      "m": {
+        "fr": "barman", "cible": "бармен", "accent": "ба́рмен", "translit": "bármin",
+        "phrase_fr": "Je suis barman.", "phrase_cible": "Я бармен.", "phrase_accent": "Я ба́рмен.", "phrase_translit": "ia bármin",
+        "carte_fr": "Je m'appelle {prenom}, je suis barman.", "carte_cible": "Меня зовут {prenom}, я бармен.", "carte_accent": "Меня́ зову́т {prenom}, я ба́рмен.", "carte_translit": "miniá zavoút {prenom}, ia bármin"
+      },
+      "f": {
+        "fr": "barmaid", "cible": "бармен", "accent": "ба́рмен", "translit": "bármin",
+        "phrase_fr": "Je suis barmaid.", "phrase_cible": "Я бармен.", "phrase_accent": "Я ба́рмен.", "phrase_translit": "ia bármin",
+        "carte_fr": "Je m'appelle {prenom}, je suis barmaid.", "carte_cible": "Меня зовут {prenom}, я бармен.", "carte_accent": "Меня́ зову́т {prenom}, я ба́рмен.", "carte_translit": "miniá zavoút {prenom}, ia bármin"
+      }
+    },
+    {
+      "id": "femme-de-chambre",
+      "categorie": "restauration-hotellerie",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Deux mots : го́рничная (femme), убо́рщик но́меров (homme).",
+      "m": {
+        "fr": "homme de chambre", "cible": "уборщик номеров", "accent": "убо́рщик но́меров", "translit": "oubórchtchik nómiraf",
+        "phrase_fr": "Je suis homme de chambre.", "phrase_cible": "Я уборщик номеров.", "phrase_accent": "Я убо́рщик но́меров.", "phrase_translit": "ia oubórchtchik nómiraf",
+        "carte_fr": "Je m'appelle {prenom}, je suis homme de chambre.", "carte_cible": "Меня зовут {prenom}, я уборщик номеров.", "carte_accent": "Меня́ зову́т {prenom}, я убо́рщик но́меров.", "carte_translit": "miniá zavoút {prenom}, ia oubórchtchik nómiraf"
+      },
+      "f": {
+        "fr": "femme de chambre", "cible": "горничная", "accent": "го́рничная", "translit": "górnitchnaia",
+        "phrase_fr": "Je suis femme de chambre.", "phrase_cible": "Я горничная.", "phrase_accent": "Я го́рничная.", "phrase_translit": "ia górnitchnaia",
+        "carte_fr": "Je m'appelle {prenom}, je suis femme de chambre.", "carte_cible": "Меня зовут {prenom}, я горничная.", "carte_accent": "Меня́ зову́т {prenom}, я го́рничная.", "carte_translit": "miniá zavoút {prenom}, ia górnitchnaia"
+      }
+    },
+    {
+      "id": "educateur",
+      "categorie": "enseignement-social",
+      "element": "ru-presenter-001",
+      "domaine": "education",
+      "astuce": "Воспита́тель travaille avec des enfants (crèche, foyer).",
+      "m": {
+        "fr": "éducateur", "cible": "воспитатель", "accent": "воспита́тель", "translit": "vaspitátil",
+        "phrase_fr": "Je suis éducateur.", "phrase_cible": "Я воспитатель.", "phrase_accent": "Я воспита́тель.", "phrase_translit": "ia vaspitátil",
+        "carte_fr": "Je m'appelle {prenom}, je suis éducateur.", "carte_cible": "Меня зовут {prenom}, я воспитатель.", "carte_accent": "Меня́ зову́т {prenom}, я воспита́тель.", "carte_translit": "miniá zavoút {prenom}, ia vaspitátil"
+      },
+      "f": {
+        "fr": "éducatrice", "cible": "воспитательница", "accent": "воспита́тельница", "translit": "vaspitátilnitsa",
+        "phrase_fr": "Je suis éducatrice.", "phrase_cible": "Я воспитательница.", "phrase_accent": "Я воспита́тельница.", "phrase_translit": "ia vaspitátilnitsa",
+        "carte_fr": "Je m'appelle {prenom}, je suis éducatrice.", "carte_cible": "Меня зовут {prenom}, я воспитательница.", "carte_accent": "Меня́ зову́т {prenom}, я воспита́тельница.", "carte_translit": "miniá zavoút {prenom}, ia vaspitátilnitsa"
+      }
+    },
+    {
+      "id": "nounou",
+      "categorie": "enseignement-social",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Même mot pour un homme.",
+      "m": {
+        "fr": "nounou", "cible": "няня", "accent": "ня́ня", "translit": "niánia",
+        "phrase_fr": "Je suis nounou.", "phrase_cible": "Я няня.", "phrase_accent": "Я ня́ня.", "phrase_translit": "ia niánia",
+        "carte_fr": "Je m'appelle {prenom}, je suis nounou.", "carte_cible": "Меня зовут {prenom}, я няня.", "carte_accent": "Меня́ зову́т {prenom}, я ня́ня.", "carte_translit": "miniá zavoút {prenom}, ia niánia"
+      },
+      "f": {
+        "fr": "nounou", "cible": "няня", "accent": "ня́ня", "translit": "niánia",
+        "phrase_fr": "Je suis nounou.", "phrase_cible": "Я няня.", "phrase_accent": "Я ня́ня.", "phrase_translit": "ia niánia",
+        "carte_fr": "Je m'appelle {prenom}, je suis nounou.", "carte_cible": "Меня зовут {prenom}, я няня.", "carte_accent": "Меня́ зову́т {prenom}, я ня́ня.", "carte_translit": "miniá zavoút {prenom}, ia niánia"
+      }
+    },
+    {
+      "id": "travailleur-social",
+      "categorie": "enseignement-social",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Même forme pour une femme.",
+      "m": {
+        "fr": "travailleur social", "cible": "социальный работник", "accent": "социа́льный рабо́тник", "translit": "satsyálnyï rabótnik",
+        "phrase_fr": "Je suis travailleur social.", "phrase_cible": "Я социальный работник.", "phrase_accent": "Я социа́льный рабо́тник.", "phrase_translit": "ia satsyálnyï rabótnik",
+        "carte_fr": "Je m'appelle {prenom}, je suis travailleur social.", "carte_cible": "Меня зовут {prenom}, я социальный работник.", "carte_accent": "Меня́ зову́т {prenom}, я социа́льный рабо́тник.", "carte_translit": "miniá zavoút {prenom}, ia satsyálnyï rabótnik"
+      },
+      "f": {
+        "fr": "travailleuse sociale", "cible": "социальный работник", "accent": "социа́льный рабо́тник", "translit": "satsyálnyï rabótnik",
+        "phrase_fr": "Je suis travailleuse sociale.", "phrase_cible": "Я социальный работник.", "phrase_accent": "Я социа́льный рабо́тник.", "phrase_translit": "ia satsyálnyï rabótnik",
+        "carte_fr": "Je m'appelle {prenom}, je suis travailleuse sociale.", "carte_cible": "Меня зовут {prenom}, я социальный работник.", "carte_accent": "Меня́ зову́т {prenom}, я социа́льный рабо́тник.", "carte_translit": "miniá zavoút {prenom}, ia satsyálnyï rabótnik"
+      }
+    },
+    {
+      "id": "bibliothecaire",
+      "categorie": "enseignement-social",
+      "element": "ru-presenter-001",
+      "domaine": "education",
+      "astuce": "Même forme pour une femme.",
+      "m": {
+        "fr": "bibliothécaire", "cible": "библиотекарь", "accent": "библиоте́карь", "translit": "bibliatiékar",
+        "phrase_fr": "Je suis bibliothécaire.", "phrase_cible": "Я библиотекарь.", "phrase_accent": "Я библиоте́карь.", "phrase_translit": "ia bibliatiékar",
+        "carte_fr": "Je m'appelle {prenom}, je suis bibliothécaire.", "carte_cible": "Меня зовут {prenom}, я библиотекарь.", "carte_accent": "Меня́ зову́т {prenom}, я библиоте́карь.", "carte_translit": "miniá zavoút {prenom}, ia bibliatiékar"
+      },
+      "f": {
+        "fr": "bibliothécaire", "cible": "библиотекарь", "accent": "библиоте́карь", "translit": "bibliatiékar",
+        "phrase_fr": "Je suis bibliothécaire.", "phrase_cible": "Я библиотекарь.", "phrase_accent": "Я библиоте́карь.", "phrase_translit": "ia bibliatiékar",
+        "carte_fr": "Je m'appelle {prenom}, je suis bibliothécaire.", "carte_cible": "Меня зовут {prenom}, я библиотекарь.", "carte_accent": "Меня́ зову́т {prenom}, я библиоте́карь.", "carte_translit": "miniá zavoút {prenom}, ia bibliatiékar"
+      }
+    },
+    {
+      "id": "taxi",
+      "categorie": "transport",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Deux mots : такси́ст (homme), такси́стка (femme).",
+      "m": {
+        "fr": "chauffeur de taxi", "cible": "таксист", "accent": "такси́ст", "translit": "taksíst",
+        "phrase_fr": "Je suis chauffeur de taxi.", "phrase_cible": "Я таксист.", "phrase_accent": "Я такси́ст.", "phrase_translit": "ia taksíst",
+        "carte_fr": "Je m'appelle {prenom}, je suis chauffeur de taxi.", "carte_cible": "Меня зовут {prenom}, я таксист.", "carte_accent": "Меня́ зову́т {prenom}, я такси́ст.", "carte_translit": "miniá zavoút {prenom}, ia taksíst"
+      },
+      "f": {
+        "fr": "chauffeuse de taxi", "cible": "таксистка", "accent": "такси́стка", "translit": "taksístka",
+        "phrase_fr": "Je suis chauffeuse de taxi.", "phrase_cible": "Я таксистка.", "phrase_accent": "Я такси́стка.", "phrase_translit": "ia taksístka",
+        "carte_fr": "Je m'appelle {prenom}, je suis chauffeuse de taxi.", "carte_cible": "Меня зовут {prenom}, я таксистка.", "carte_accent": "Меня́ зову́т {prenom}, я такси́стка.", "carte_translit": "miniá zavoút {prenom}, ia taksístka"
+      }
+    },
+    {
+      "id": "chauffeur-bus",
+      "categorie": "transport",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Même forme pour une femme.",
+      "m": {
+        "fr": "chauffeur de bus", "cible": "водитель автобуса", "accent": "води́тель авто́буса", "translit": "vadítil aftóbousa",
+        "phrase_fr": "Je suis chauffeur de bus.", "phrase_cible": "Я водитель автобуса.", "phrase_accent": "Я води́тель авто́буса.", "phrase_translit": "ia vadítil aftóbousa",
+        "carte_fr": "Je m'appelle {prenom}, je suis chauffeur de bus.", "carte_cible": "Меня зовут {prenom}, я водитель автобуса.", "carte_accent": "Меня́ зову́т {prenom}, я води́тель авто́буса.", "carte_translit": "miniá zavoút {prenom}, ia vadítil aftóbousa"
+      },
+      "f": {
+        "fr": "chauffeuse de bus", "cible": "водитель автобуса", "accent": "води́тель авто́буса", "translit": "vadítil aftóbousa",
+        "phrase_fr": "Je suis chauffeuse de bus.", "phrase_cible": "Я водитель автобуса.", "phrase_accent": "Я води́тель авто́буса.", "phrase_translit": "ia vadítil aftóbousa",
+        "carte_fr": "Je m'appelle {prenom}, je suis chauffeuse de bus.", "carte_cible": "Меня зовут {prenom}, я водитель автобуса.", "carte_accent": "Меня́ зову́т {prenom}, я води́тель авто́буса.", "carte_translit": "miniá zavoút {prenom}, ia vadítil aftóbousa"
+      }
+    },
+    {
+      "id": "livreur",
+      "categorie": "transport",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Même forme pour une femme.",
+      "m": {
+        "fr": "livreur", "cible": "курьер", "accent": "курье́р", "translit": "kouriér",
+        "phrase_fr": "Je suis livreur.", "phrase_cible": "Я курьер.", "phrase_accent": "Я курье́р.", "phrase_translit": "ia kouriér",
+        "carte_fr": "Je m'appelle {prenom}, je suis livreur.", "carte_cible": "Меня зовут {prenom}, я курьер.", "carte_accent": "Меня́ зову́т {prenom}, я курье́р.", "carte_translit": "miniá zavoút {prenom}, ia kouriér"
+      },
+      "f": {
+        "fr": "livreuse", "cible": "курьер", "accent": "курье́р", "translit": "kouriér",
+        "phrase_fr": "Je suis livreuse.", "phrase_cible": "Я курьер.", "phrase_accent": "Я курье́р.", "phrase_translit": "ia kouriér",
+        "carte_fr": "Je m'appelle {prenom}, je suis livreuse.", "carte_cible": "Меня зовут {prenom}, я курьер.", "carte_accent": "Меня́ зову́т {prenom}, я курье́р.", "carte_translit": "miniá zavoút {prenom}, ia kouriér"
+      }
+    },
+    {
+      "id": "conducteur-train",
+      "categorie": "transport",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Une femme dit aussi машини́ст. Pas машини́стка : c'est une dactylo.",
+      "m": {
+        "fr": "conducteur de train", "cible": "машинист поезда", "accent": "машини́ст по́езда", "translit": "machiníst póizda",
+        "phrase_fr": "Je suis conducteur de train.", "phrase_cible": "Я машинист поезда.", "phrase_accent": "Я машини́ст по́езда.", "phrase_translit": "ia machiníst póizda",
+        "carte_fr": "Je m'appelle {prenom}, je suis conducteur de train.", "carte_cible": "Меня зовут {prenom}, я машинист поезда.", "carte_accent": "Меня́ зову́т {prenom}, я машини́ст по́езда.", "carte_translit": "miniá zavoút {prenom}, ia machiníst póizda"
+      },
+      "f": {
+        "fr": "conductrice de train", "cible": "машинист поезда", "accent": "машини́ст по́езда", "translit": "machiníst póizda",
+        "phrase_fr": "Je suis conductrice de train.", "phrase_cible": "Я машинист поезда.", "phrase_accent": "Я машини́ст по́езда.", "phrase_translit": "ia machiníst póizda",
+        "carte_fr": "Je m'appelle {prenom}, je suis conductrice de train.", "carte_cible": "Меня зовут {prenom}, я машинист поезда.", "carte_accent": "Меня́ зову́т {prenom}, я машини́ст по́езда.", "carte_translit": "miniá zavoút {prenom}, ia machiníst póizda"
+      }
+    },
+    {
+      "id": "graphiste",
+      "categorie": "creatif-tech",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Plus court : диза́йнер. Même forme pour une femme.",
+      "m": {
+        "fr": "graphiste", "cible": "графический дизайнер", "accent": "графи́ческий диза́йнер", "translit": "grafítchiskiï dizáïnir",
+        "phrase_fr": "Je suis graphiste.", "phrase_cible": "Я графический дизайнер.", "phrase_accent": "Я графи́ческий диза́йнер.", "phrase_translit": "ia grafítchiskiï dizáïnir",
+        "carte_fr": "Je m'appelle {prenom}, je suis graphiste.", "carte_cible": "Меня зовут {prenom}, я графический дизайнер.", "carte_accent": "Меня́ зову́т {prenom}, я графи́ческий диза́йнер.", "carte_translit": "miniá zavoút {prenom}, ia grafítchiskiï dizáïnir"
+      },
+      "f": {
+        "fr": "graphiste", "cible": "графический дизайнер", "accent": "графи́ческий диза́йнер", "translit": "grafítchiskiï dizáïnir",
+        "phrase_fr": "Je suis graphiste.", "phrase_cible": "Я графический дизайнер.", "phrase_accent": "Я графи́ческий диза́йнер.", "phrase_translit": "ia grafítchiskiï dizáïnir",
+        "carte_fr": "Je m'appelle {prenom}, je suis graphiste.", "carte_cible": "Меня зовут {prenom}, я графический дизайнер.", "carte_accent": "Меня́ зову́т {prenom}, я графи́ческий диза́йнер.", "carte_translit": "miniá zavoút {prenom}, ia grafítchiskiï dizáïnir"
+      }
+    },
+    {
+      "id": "photographe",
+      "categorie": "creatif-tech",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Même forme pour une femme.",
+      "m": {
+        "fr": "photographe", "cible": "фотограф", "accent": "фотогра́ф", "translit": "fatagráf",
+        "phrase_fr": "Je suis photographe.", "phrase_cible": "Я фотограф.", "phrase_accent": "Я фотогра́ф.", "phrase_translit": "ia fatagráf",
+        "carte_fr": "Je m'appelle {prenom}, je suis photographe.", "carte_cible": "Меня зовут {prenom}, я фотограф.", "carte_accent": "Меня́ зову́т {prenom}, я фотогра́ф.", "carte_translit": "miniá zavoút {prenom}, ia fatagráf"
+      },
+      "f": {
+        "fr": "photographe", "cible": "фотограф", "accent": "фотогра́ф", "translit": "fatagráf",
+        "phrase_fr": "Je suis photographe.", "phrase_cible": "Я фотограф.", "phrase_accent": "Я фотогра́ф.", "phrase_translit": "ia fatagráf",
+        "carte_fr": "Je m'appelle {prenom}, je suis photographe.", "carte_cible": "Меня зовут {prenom}, я фотограф.", "carte_accent": "Меня́ зову́т {prenom}, я фотогра́ф.", "carte_translit": "miniá zavoút {prenom}, ia fatagráf"
+      }
+    },
+    {
+      "id": "journaliste",
+      "categorie": "creatif-tech",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": "Deux mots : журнали́ст (homme), журнали́стка (femme).",
+      "m": {
+        "fr": "journaliste", "cible": "журналист", "accent": "журнали́ст", "translit": "journalíst",
+        "phrase_fr": "Je suis journaliste.", "phrase_cible": "Я журналист.", "phrase_accent": "Я журнали́ст.", "phrase_translit": "ia journalíst",
+        "carte_fr": "Je m'appelle {prenom}, je suis journaliste.", "carte_cible": "Меня зовут {prenom}, я журналист.", "carte_accent": "Меня́ зову́т {prenom}, я журнали́ст.", "carte_translit": "miniá zavoút {prenom}, ia journalíst"
+      },
+      "f": {
+        "fr": "journaliste", "cible": "журналистка", "accent": "журнали́стка", "translit": "journalístka",
+        "phrase_fr": "Je suis journaliste.", "phrase_cible": "Я журналистка.", "phrase_accent": "Я журнали́стка.", "phrase_translit": "ia journalístka",
+        "carte_fr": "Je m'appelle {prenom}, je suis journaliste.", "carte_cible": "Меня зовут {prenom}, я журналистка.", "carte_accent": "Меня́ зову́т {prenom}, я журнали́стка.", "carte_translit": "miniá zavoút {prenom}, ia journalístka"
+      }
     }
+  ],
+  "categories": [
+    { "id": "sante", "titre": "Santé" },
+    { "id": "commerce-services", "titre": "Commerce et services" },
+    { "id": "batiment-artisanat", "titre": "Bâtiment et artisanat" },
+    { "id": "bureau-finance", "titre": "Bureau et finance" },
+    { "id": "restauration-hotellerie", "titre": "Restauration et hôtellerie" },
+    { "id": "enseignement-social", "titre": "Enseignement et social" },
+    { "id": "transport", "titre": "Transport" },
+    { "id": "creatif-tech", "titre": "Créatif et tech" },
+    { "id": "statuts", "titre": "Statuts" }
   ],
   "domaines": [
     {

@@ -108,37 +108,45 @@ export function afficherPersonnage(racine, ctx, { depuis, etape: etapeDepart }) 
   }
   function versB() { etape = "B"; dessiner(); }
 
-  // Feuille du bas : un métier parmi la liste fermée, « Je préfère ne pas dire » en tête (radios, 56 px la ligne).
+  // Feuille du bas : un métier parmi la liste fermée, rangé par catégories (accordéon : celle du métier choisi est ouverte).
+  // « Je préfère ne pas dire » reste en tête (radios, 56 px la ligne).
   function ouvrirMetiers(declencheur, texteMetier) {
-    const choix = [["", t("perso.metierAucun")]].concat(metiers.map((m) => [m.id, majuscule(nomMetier(m, genre()))]));
     function fermer() {
       if (!feuilleOuverte) return;
       document.removeEventListener("keydown", clavier, true);
+      racine.inert = false;
       feuilleOuverte.remove();
       feuilleOuverte = null;
       focaliser(declencheur);
     }
     function clavier(e) {
       if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); fermer(); }
-      else if (e.key === "Tab") e.preventDefault(); // le groupe de radios est le seul arrêt : le focus reste dans la feuille
     }
-    const radios = choix.map(([v, libelle], i) => {
-      const id = "metier-" + i;
+    let n = 0;
+    const radio = (v, libelle) => {
+      const id = "metier-" + n++;
       return [
         h("input", { class: "choix-input", type: "radio", name: "metier", id, value: v, checked: v === (perso.metier || ""),
           onchange: () => { perso.metier = v || null; enregistrer(); texteMetier.textContent = v ? libelle : t("perso.metierAucun"); fermer(); } }),
         h("label", { class: "choix ligne-metier", for: id }, h("span", { class: "coche" }, icone("coche")), h("span", null, libelle))
       ];
-    });
+    };
+    const categories = (donnees.categories || []).map((c) => ({ c, liste: metiers.filter((m) => m.categorie === c.id) })).filter((g) => g.liste.length);
+    const sections = categories.map(({ c, liste }) => h("details", { class: "categorie-metiers", name: "categorie-metiers", open: liste.some((m) => m.id === perso.metier) },
+      h("summary", { "aria-label": t("perso.metierCategorie", { titre: c.titre, n: liste.length }) }, h("span", null, c.titre), icone("suite")),
+      h("div", { class: "liste-categorie" }, liste.map((m) => radio(m.id, majuscule(nomMetier(m, genre())))))));
     const voile = h("div", { class: "voile", onclick: (e) => { if (e.target === voile) fermer(); } },
       h("div", { class: "feuille feuille-liste", role: "dialog", "aria-modal": "true", "aria-labelledby": "feuille-metier" },
         h("h2", { id: "feuille-metier" }, t("perso.metier")),
-        h("fieldset", { class: "liste-metiers" }, h("legend", { class: "sr-only" }, t("perso.metier")), radios)));
+        h("fieldset", { class: "liste-metiers" }, h("legend", { class: "sr-only" }, t("perso.metier")), radio("", t("perso.metierAucun")), sections)));
     feuilleOuverte = voile;
     fermerMetiers = fermer;
     document.addEventListener("keydown", clavier, true);
+    racine.inert = true; // le fond n'est plus atteignable au clavier : le focus reste dans la feuille
     document.body.appendChild(voile);
-    focaliser(voile.querySelector("input:checked") || voile.querySelector("input"));
+    focaliser(voile.querySelector("input:checked") || voile.querySelector("summary"));
+    const choisi = voile.querySelector(".choix-input:checked + .choix");
+    if (choisi) choisi.scrollIntoView({ block: "nearest" }); // le métier courant reste visible
   }
 
   // ---------- Écran B ----------
@@ -188,6 +196,6 @@ export function afficherPersonnage(racine, ctx, { depuis, etape: etapeDepart }) 
       if (edition) { ctx.aller(retourVers); return true; }
       return false;
     },
-    nettoyer() { menu.fermer(); if (feuilleOuverte) feuilleOuverte.remove(); }
+    nettoyer() { menu.fermer(); racine.inert = false; if (feuilleOuverte) feuilleOuverte.remove(); }
   };
 }
