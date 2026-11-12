@@ -1,0 +1,141 @@
+{
+  "langue": "ru",
+  "situation": "famille",
+  "titre": "Univers : la famille",
+  "niveau": "A1",
+  "statut": "valide-nadia",
+  "phrases": [
+    {
+      "id": "ru-famille-001",
+      "fr": "J'ai un frère.",
+      "cible": "У меня есть брат.",
+      "accent": "У меня́ есть брат.",
+      "translit": "ou miniá iest brat",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "У меня́ есть = « j'ai ». Le nom reste tel quel : брат, сестра́. Pour les enfants : дво́е дете́й.",
+      "moule": {
+        "modele": "У меня есть ___.",
+        "fr": "J'ai ___.",
+        "remplacements": [
+          {
+            "fr": "un frère",
+            "cible": "брат",
+            "accent": "брат",
+            "translit": "brat",
+            "phrase_fr": "J'ai un frère.",
+            "phrase_cible": "У меня есть брат.",
+            "phrase_accent": "У меня́ есть брат.",
+            "phrase_translit": "ou miniá iest brat"
+          },
+          {
+            "fr": "une sœur",
+            "cible": "сестра",
+            "accent": "сестра́",
+            "translit": "sistrá",
+            "phrase_fr": "J'ai une sœur.",
+            "phrase_cible": "У меня есть сестра.",
+            "phrase_accent": "У меня́ есть сестра́.",
+            "phrase_translit": "ou miniá iest sistrá"
+          },
+          {
+            "fr": "deux enfants",
+            "cible": "двое детей",
+            "accent": "дво́е дете́й",
+            "translit": "dvóïe ditiéï",
+            "phrase_fr": "J'ai deux enfants.",
+            "phrase_cible": "У меня есть двое детей.",
+            "phrase_accent": "У меня́ есть дво́е дете́й.",
+            "phrase_translit": "ou miniá iest dvóïe ditiéï"
+          },
+          {
+            "fr": "un fils",
+            "cible": "сын",
+            "accent": "сын",
+            "translit": "syn",
+            "phrase_fr": "J'ai un fils.",
+            "phrase_cible": "У меня есть сын.",
+            "phrase_accent": "У меня́ есть сын.",
+            "phrase_translit": "ou miniá iest syn"
+          },
+          {
+            "fr": "une fille",
+            "cible": "дочь",
+            "accent": "дочь",
+            "translit": "dotch",
+            "phrase_fr": "J'ai une fille.",
+            "phrase_cible": "У меня есть дочь.",
+            "phrase_accent": "У меня́ есть дочь.",
+            "phrase_translit": "ou miniá iest dotch"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-famille-002",
+      "fr": "Mon mari est ici avec moi.",
+      "cible": "Мой муж здесь со мной.",
+      "accent": "Мой муж здесь со мной.",
+      "translit": "moï mouj zdies sa mnoï",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Мой pour un homme, моя́ pour une femme : l'accord suit la personne dont tu parles, pas toi.",
+      "moule": {
+        "modele": "___ здесь со мной.",
+        "fr": "___ est ici avec moi.",
+        "remplacements": [
+          {
+            "fr": "Mon mari",
+            "cible": "Мой муж",
+            "accent": "Мой муж",
+            "translit": "moï mouj",
+            "phrase_fr": "Mon mari est ici avec moi.",
+            "phrase_cible": "Мой муж здесь со мной.",
+            "phrase_accent": "Мой муж здесь со мной.",
+            "phrase_translit": "moï mouj zdies sa mnoï"
+          },
+          {
+            "fr": "Ma femme",
+            "cible": "Моя жена",
+            "accent": "Моя́ жена́",
+            "translit": "maiá jená",
+            "phrase_fr": "Ma femme est ici avec moi.",
+            "phrase_cible": "Моя жена здесь со мной.",
+            "phrase_accent": "Моя́ жена́ здесь со мной.",
+            "phrase_translit": "maiá jená zdies sa mnoï"
+          },
+          {
+            "fr": "Mon père",
+            "cible": "Мой папа",
+            "accent": "Мой па́па",
+            "translit": "moï pápa",
+            "phrase_fr": "Mon père est ici avec moi.",
+            "phrase_cible": "Мой папа здесь со мной.",
+            "phrase_accent": "Мой па́па здесь со мной.",
+            "phrase_translit": "moï pápa zdies sa mnoï"
+          },
+          {
+            "fr": "Ma mère",
+            "cible": "Моя мама",
+            "accent": "Моя́ ма́ма",
+            "translit": "maiá máma",
+            "phrase_fr": "Ma mère est ici avec moi.",
+            "phrase_cible": "Моя мама здесь со мной.",
+            "phrase_accent": "Моя́ ма́ма здесь со мной.",
+            "phrase_translit": "maiá máma zdies sa mnoï"
+          },
+          {
+            "fr": "Mon fils",
+            "cible": "Мой сын",
+            "accent": "Мой сын",
+            "translit": "moï syn",
+            "phrase_fr": "Mon fils est ici avec moi.",
+            "phrase_cible": "Мой сын здесь со мной.",
+            "phrase_accent": "Мой сын здесь со мной.",
+            "phrase_translit": "moï syn zdies sa mnoï"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -254,3 +254,33 @@ Fichiers : `personnage.json` (43 métiers en 9 catégories, dont 30 nouveaux, ch
 
 **Correction du 12/11 (QA de Boris, problème 1)** : le voisin ne donne plus de prénom (Paul / Поль retiré, `role_fr` « Le voisin »), pour qu'un utilisateur prénommé Paul ne se réponde pas à lui-même. Sa réplique devient Здра́вствуйте, я ваш сосе́д. Я живу́ ря́дом.
 19. **Dialogue du voisin**, Я ваш сосе́д. Я живу́ ря́дом : un peu redondant (« voisin » et « à côté »). Naturel tel quel, ou plutôt Я ваш сосе́д, живу́ напро́тив / Я из сосе́дней кварти́ры ? Le point 11 reste ouvert. La suite А как вас зову́т ? (sans prénom donné avant) passe-t-elle ? Translittération « sassiét » à vérifier.
+
+## Univers de vocabulaire (mission 012, 12/11/2026)
+
+Fichiers : `univers-lieux.json`, `univers-maison.json`, `univers-nourriture.json`, `univers-couleurs.json`, `univers-famille.json` (10 moules, 50 remplacements). `variantes` : `null` partout. Conventions inchangées.
+
+**Adaptations (une ligne de raison chacune)**
+
+- **lieux-002** : « à côté de » → ря́дом с + **instrumental** (pas le génitif, contrairement au brief) : ря́дом с вокза́лом. Le génitif s'emploie avec о́коло, недалеко́ от.
+- **maison-001** : нужен / нужна́ / нужно / нужны́ s'accordent avec la chose. Le modèle liste les 4 formes, la forme est dans chaque remplacement.
+- **couleurs-001** : У вас э́то есть в чёрном цве́те? Цвет étant masculin, aucun accord avec le vêtement. Le trou porte l'adjectif au prépositif.
+- **couleurs-002** : Мне э́то велико́ (« ça me va trop grand »), au lieu de « слишком + adjectif » qui exigerait un accord avec le vêtement. Велико́, мало́, тесно́ contiennent déjà « trop ». Le `moule.fr` garde « C'est trop ___ ».
+- **nourriture-001** : la préposition est dans le trou (с молоко́м, со сли́вками : с devient со). `moule.fr` garde « C'est avec ___ ? ».
+- **famille-002** : па́па / ма́ма plutôt qu'оте́ц / мать (plus naturels pour parler de ses parents).
+- **Registre** de nourriture-001 et -002 : aucune marque de vous, j'ai gardé le registre du pédagogue (comme cafe-005).
+- **Niveau** : lieux-002 et nourriture-002 sont A2 selon Vera, le fichier entier reste noté A1 (le format v0 n'a pas de niveau par phrase).
+
+**À faire valider par un natif** (du doute le plus fort au plus faible)
+
+1. **couleurs-002**, Мне э́то велико́ / мало́ / длинно́ / коротко́ / тесно́ : ces formes courtes sans слишком sont-elles toutes naturelles pour un vêtement ? Longueur : on dirait plutôt длинновато / коротковато. Accent de коротко́ (forme courte) face à ко́ротко (adverbe). мало́ n'est-il pas ambigu (« trop peu ») ?
+2. **couleurs-001**, У вас э́то есть в чёрном цве́те? : lourd, un vendeur dit plutôt Есть тако́е в чёрном? ou У вас есть чёрный? Et си́ний / голубо́й pour « bleu ».
+3. **lieux-002**, ря́дом с (instrumental) : confirmer, et choisir entre ря́дом с и о́коло. С пло́щадью (une seule place, sans précision), с мэ́рией (ou с администра́цией) : naturels ?
+4. **lieux-001**, бу́лочная : mot encore courant, ou пека́рня ? Translittération « boúlachnouiou » (ч prononcé ш dans бу́лочная). Суперма́ркет : accent sur ма́, « soupirmárkit ».
+5. **maison-001**, заря́дка pour « chargeur » (ambigu avec la gym du matin) ou заря́дное устро́йство / заря́дник ? Чи́стые простыни́ : accent de простыни́ (pluriel), ou plutôt чи́стое бельё (« draps » dans un hôtel). Полоте́нце : translittération « palatiéntsy ».
+6. **maison-002**, Свет не рабо́тает pour « la lumière » (sinon Свет не гори́т, Ла́мпа не рабо́тает). Отопле́ние dans un logement (sinon Батаре́я не гре́ет).
+7. **nourriture-002**, В э́том блю́де есть… ? : plus naturel que В э́том есть… ? ou Здесь есть… ? Свини́на, алкого́ль, лук : sert-on le singulier collectif лук pour « des oignons » ?
+8. **nourriture-001**, Э́то с … ? avec с + instrumental : forme courte С молоко́м? plus oral ? Со сли́вками : « crème » en café (liquide) ou сметана (crème aigre) selon le contexte.
+9. **famille-002**, Мой муж здесь со мной : calque probable, un natif dit plutôt Я здесь с му́жем. À confirmer. Мой па́па / Моя́ ма́ма (adulte qui parle) face à оте́ц / мать.
+10. **famille-001**, У меня́ есть дво́е дете́й : « двое » collectif (genitif pluriel) et son niveau pour un A1 ; sinon У меня́ дво́е дете́й sans есть.
+11. **ordre_libre** mis sur maison-002 et couleurs-002 (Не рабо́тает душ ; Э́то мне велико́) : à confirmer. Absent de famille-002.
+12. **Translittérations** à vérifier : мэ́рией (« mériieï »), музе́ем (« mouziéïm »), пло́щадью (« plóchtchidiou »), больни́цей (« balnítsyï », с devant б → « z »), сли́вками (« slífkami »), моро́женым (« marójynym »), чи́стые (« tchístyïe »), дво́е (« dvóïe »), дете́й (« ditiéï »), рабо́тает (« rabótaït »), цве́те (« tsviéti »), с devant в gardé « s » (ря́дом с вокза́лом).

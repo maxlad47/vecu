@@ -1,0 +1,142 @@
+{
+  "langue": "ru",
+  "situation": "maison",
+  "titre": "Univers : la maison et le logement",
+  "niveau": "A1",
+  "statut": "valide-nadia",
+  "phrases": [
+    {
+      "id": "ru-maison-001",
+      "fr": "Il me faut un chargeur.",
+      "cible": "Мне нужна зарядка.",
+      "accent": "Мне нужна́ заря́дка.",
+      "translit": "mnie noujná zariátka",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Ну́жен, нужна́, ну́жно, нужны́ : on accorde avec la chose (заря́дка → нужна́, мы́ло → ну́жно).",
+      "moule": {
+        "modele": "Мне нужен/нужна/нужно/нужны ___.",
+        "fr": "Il me faut ___.",
+        "remplacements": [
+          {
+            "fr": "un chargeur",
+            "cible": "нужна зарядка",
+            "accent": "нужна́ заря́дка",
+            "translit": "noujná zariátka",
+            "phrase_fr": "Il me faut un chargeur.",
+            "phrase_cible": "Мне нужна зарядка.",
+            "phrase_accent": "Мне нужна́ заря́дка.",
+            "phrase_translit": "mnie noujná zariátka"
+          },
+          {
+            "fr": "du savon",
+            "cible": "нужно мыло",
+            "accent": "ну́жно мы́ло",
+            "translit": "noújna mýla",
+            "phrase_fr": "Il me faut du savon.",
+            "phrase_cible": "Мне нужно мыло.",
+            "phrase_accent": "Мне ну́жно мы́ло.",
+            "phrase_translit": "mnie noújna mýla"
+          },
+          {
+            "fr": "une serviette",
+            "cible": "нужно полотенце",
+            "accent": "ну́жно полоте́нце",
+            "translit": "noújna palatiéntsy",
+            "phrase_fr": "Il me faut une serviette.",
+            "phrase_cible": "Мне нужно полотенце.",
+            "phrase_accent": "Мне ну́жно полоте́нце.",
+            "phrase_translit": "mnie noújna palatiéntsy"
+          },
+          {
+            "fr": "des draps propres",
+            "cible": "нужны чистые простыни",
+            "accent": "нужны́ чи́стые простыни́",
+            "translit": "noujný tchístyïe prastyní",
+            "phrase_fr": "Il me faut des draps propres.",
+            "phrase_cible": "Мне нужны чистые простыни.",
+            "phrase_accent": "Мне нужны́ чи́стые простыни́.",
+            "phrase_translit": "mnie noujný tchístyïe prastyní"
+          },
+          {
+            "fr": "une couverture",
+            "cible": "нужно одеяло",
+            "accent": "ну́жно одея́ло",
+            "translit": "noújna adiiála",
+            "phrase_fr": "Il me faut une couverture.",
+            "phrase_cible": "Мне нужно одеяло.",
+            "phrase_accent": "Мне ну́жно одея́ло.",
+            "phrase_translit": "mnie noújna adiiála"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-maison-002",
+      "fr": "Le chauffage ne marche pas.",
+      "cible": "Отопление не работает.",
+      "accent": "Отопле́ние не рабо́тает.",
+      "translit": "atapliéniie nie rabótaït",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Рабо́тает dit « marche » pour tout appareil. On peut inverser : Не рабо́тает душ.",
+      "moule": {
+        "modele": "___ не работает.",
+        "fr": "___ ne marche pas.",
+        "remplacements": [
+          {
+            "fr": "Le chauffage",
+            "cible": "Отопление",
+            "accent": "Отопле́ние",
+            "translit": "atapliéniie",
+            "phrase_fr": "Le chauffage ne marche pas.",
+            "phrase_cible": "Отопление не работает.",
+            "phrase_accent": "Отопле́ние не рабо́тает.",
+            "phrase_translit": "atapliéniie nie rabótaït"
+          },
+          {
+            "fr": "La douche",
+            "cible": "Душ",
+            "accent": "Душ",
+            "translit": "douch",
+            "phrase_fr": "La douche ne marche pas.",
+            "phrase_cible": "Душ не работает.",
+            "phrase_accent": "Душ не рабо́тает.",
+            "phrase_translit": "douch nie rabótaït"
+          },
+          {
+            "fr": "La lumière",
+            "cible": "Свет",
+            "accent": "Свет",
+            "translit": "sviet",
+            "phrase_fr": "La lumière ne marche pas.",
+            "phrase_cible": "Свет не работает.",
+            "phrase_accent": "Свет не рабо́тает.",
+            "phrase_translit": "sviet nie rabótaït"
+          },
+          {
+            "fr": "Le wi-fi",
+            "cible": "Вайфай",
+            "accent": "Вайфа́й",
+            "translit": "vaïfáï",
+            "phrase_fr": "Le wi-fi ne marche pas.",
+            "phrase_cible": "Вайфай не работает.",
+            "phrase_accent": "Вайфа́й не рабо́тает.",
+            "phrase_translit": "vaïfáï nie rabótaït"
+          },
+          {
+            "fr": "La télé",
+            "cible": "Телевизор",
+            "accent": "Телеви́зор",
+            "translit": "tilivízar",
+            "phrase_fr": "La télé ne marche pas.",
+            "phrase_cible": "Телевизор не работает.",
+            "phrase_accent": "Телеви́зор не рабо́тает.",
+            "phrase_translit": "tilivízar nie rabótaït"
+          }
+        ]
+      },
+      "ordre_libre": true
+    }
+  ]
+}
