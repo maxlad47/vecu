@@ -23,7 +23,7 @@
       "translit": "vas plókha slýchna",
       "registre": "vous",
       "variantes": null,
-      "astuce": "Mot à mot « on vous entend mal ». Plus fort : Погро́мче! Si ça coupe : Вы пропада́ете.",
+      "astuce": "Pour demander plus fort : Погро́мче! Si ça coupe : Вы пропада́ете.",
       "moule": null,
       "ordre_libre": true
     },
@@ -35,7 +35,7 @@
       "translit": "skajýti pa boúkvam, pajálsta",
       "registre": "vous",
       "variantes": null,
-      "astuce": "Mot à mot « dites par lettres ». On épelle souvent avec des prénoms : Б как Бори́с.",
+      "astuce": "Mot à mot « dites par lettres ». On épelle avec des prénoms : Б как Бори́с.",
       "moule": null,
       "ordre_libre": true
     },
@@ -47,7 +47,7 @@
       "translit": "mójna pagavarít s ivánam?",
       "registre": "vous",
       "variantes": null,
-      "astuce": "Après с, le nom change de fin : Ива́н → с Ива́ном. Poli : prénom + patronyme (Ири́на Петро́вна).",
+      "astuce": "Après с, la fin change : Ива́н → с Ива́ном. Poli : prénom + patronyme.",
       "moule": {
         "modele": "Можно поговорить с ___?",
         "fr": "Je peux parler ___ ?",
@@ -179,7 +179,7 @@
       "translit": "mójyti prislát mnie essemésku?",
       "registre": "vous",
       "variantes": null,
-      "astuce": "À l'oral, un SMS est une эсэмэ́ска. Pour une messagerie : Напиши́те мне (écrivez-moi).",
+      "astuce": "À l'oral, un SMS = эсэмэ́ска. Messagerie : Напиши́те мне (écrivez-moi).",
       "moule": null
     },
     {
@@ -190,7 +190,7 @@
       "translit": "kto éta?",
       "registre": "neutre",
       "variantes": null,
-      "astuce": "Plus poli avec un inconnu : Извини́те, а кто э́то? Le petit а adoucit la question.",
+      "astuce": "Plus poli : Извини́те, а кто э́то? Le petit а adoucit la question.",
       "moule": null
     },
     {
@@ -224,7 +224,7 @@
       "translit": "moï nómir…",
       "registre": "neutre",
       "variantes": null,
-      "astuce": "On dicte par blocs : 123-45-67 se dit « cent vingt-trois, quarante-cinq, soixante-sept ».",
+      "astuce": "Par blocs : 123-45-67 = « cent vingt-trois, quarante-cinq, soixante-sept ».",
       "moule": null
     }
   ]

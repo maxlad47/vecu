@@ -124,7 +124,7 @@
       "translit": "v nómiri niet palatiénits",
       "registre": "neutre",
       "variantes": null,
-      "astuce": "La chambre d'hôtel se dit но́мер, comme « numéro ». Ко́мната, c'est une pièce chez soi.",
+      "astuce": "Chambre d'hôtel = но́мер, comme « numéro ». Ко́мната = pièce chez soi.",
       "moule": {
         "modele": "В номере нет ___.",
         "fr": "Il n'y a pas ___ dans la chambre.",
@@ -224,7 +224,7 @@
       "translit": "ia ouijjáiou záftra oútram",
       "registre": "neutre",
       "variantes": null,
-      "astuce": "Le départ de l'hôtel se dit вы́езд : Во ско́лько вы́езд? (à quelle heure libérer la chambre ?)",
+      "astuce": "Libérer la chambre : вы́езд. Во ско́лько вы́езд? (à quelle heure ?)",
       "moule": null,
       "ordre_libre": true
     }
