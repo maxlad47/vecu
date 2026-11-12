@@ -18,7 +18,8 @@
   --or: #8A847B; --or-text: #5C5750; --deco-bleu-pale: #E3ECF8;
   --deco-peau: #FBEFE6; --deco-joue: #E4B8B2; --deco-oeil: #1C1B1A; --deco-contour: #1F4E8C;
   /* Zones de sécurité et marges (voir 3. Écran) */
-  /* La barre d'état de l'iPhone réserve déjà sa place : on ne garde que env() et un petit minimum de confort. */
+  /* Écran d'accueil iPhone (barre d'état translucide) : la page passe sous l'heure et l'encoche,
+     env(safe-area-inset-top) réserve leur place. Dans Safari classique, env() vaut 0 et le minimum de confort reste. */
   --marge: max(clamp(16px, 5vw, 20px), env(safe-area-inset-left), env(safe-area-inset-right));
   --haut: max(env(safe-area-inset-top, 0px), 6px);
   --bas: max(env(safe-area-inset-bottom, 0px), 10px);
