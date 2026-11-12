@@ -8,12 +8,12 @@ Comment l'équipe travaille, mission après mission. Ce document complète `CLAU
 |---|---|---|---|
 | Max | Fondateur : vision, budget, mises en ligne, test réel | — | — |
 | Sacha | CEO : cadre, découpe, arbitre, valide | Opus (session principale) | Chaque arbitrage engage toute l'équipe |
-| Vera | Pédagogue : quoi apprendre, dans quel ordre, comment réviser | Opus (décision de Max, 12/11) | Le contenu est le vrai chantier : une pédagogie fine pèse plus que la vitesse |
+| Vera | Pédagogue : quoi apprendre, dans quel ordre, comment réviser | Haiku (décision de Max, 12/11) | Modèle économe : Opus réservé à Nadia. Sacha peut surclasser sur une tâche précise. |
 | Nadia | Linguiste russe : un russe juste et naturel | Opus | Une erreur de russe apprise par cœur coûte très cher. C'est le cœur de la qualité. |
-| Lou | Designer : écrans, textes de l'interface, accessibilité | Opus (décision de Max, 12/11) | Les choix de design et de textes font l'identité de l'app |
+| Lou | Designer : écrans, textes de l'interface, accessibilité | Haiku (décision de Max, 12/11) | Modèle économe : Opus réservé à Nadia. Sacha peut surclasser sur une tâche précise. |
 | Kostia | Développeur : l'app et ses tests automatiques | Sonnet par défaut, Opus sur décision de Sacha (Max veut Sonnet pour le code) | Sonnet code très bien. Opus pour l'architecture ou un bug qui résiste. |
 | Boris | Testeur QA : vérifie, ne corrige pas | Sonnet (décision de Max, 12/11) | Scénarios de test et lecture de code. Il reste sur Sonnet et son périmètre est borné (voir plus bas). |
-| Léa | Utilisatrice témoin : ressenti d'une débutante | Opus (décision de Max, 12/11) | Un avis plus nuancé et plus franc sur le ressenti |
+| Léa | Utilisatrice témoin : ressenti d'une débutante | Haiku (décision de Max, 12/11) | Un avis d'utilisatrice, pas d'expertise. Le modèle le plus économe suffit. |
 
 Règle de surclassement : Sacha peut lancer n'importe quel agent sur un modèle plus puissant pour une tâche précise, et le note dans le relais. On ne change pas le modèle par défaut sans décision au journal.
 
