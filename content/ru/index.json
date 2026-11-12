@@ -18,5 +18,6 @@
     { "id": "meteo", "titre": "Le temps qu'il fait", "fichier": "meteo.json" }
   ],
   "personnage": "personnage.json",
-  "dialogues": "dialogues.json"
+  "dialogues": "dialogues.json",
+  "test": "test-niveau.json"
 }

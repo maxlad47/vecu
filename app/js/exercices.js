@@ -85,7 +85,7 @@ export function optionsMoule(el, remplacement, ctx) {
 }
 
 // La position de la bonne réponse est tirée au hasard parmi les 3.
-function placerBonne(bonne, leurres, aleatoire) {
+export function placerBonne(bonne, leurres, aleatoire) {
   const options = leurres.slice();
   const position = Math.floor(aleatoire() * (options.length + 1));
   options.splice(position, 0, bonne);

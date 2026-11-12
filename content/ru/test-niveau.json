@@ -1,0 +1,171 @@
+{
+  "langue": "ru",
+  "fichier": "test-niveau",
+  "titre": "Test de niveau en 2 minutes",
+  "statut": "brouillon",
+  "note": "Aucune phrase nouvelle : ids de content/ru/*.json (docs/pedagogie/test-niveau.md, section 2, par Vera). Leurres validés par Nadia (mission 013) ; brouillon tant qu'un natif ne les a pas relus. Les 3 derniers témoins (formes plus lourdes) vont de la moins lourde à la plus lourde. Pour un moule, remplacement = index du remplacement (0 pour le témoin).",
+  "temoins": [
+    {
+      "situation": "cafe",
+      "id": "ru-cafe-004",
+      "leurres": [
+        {
+          "id": "ru-cafe-003"
+        },
+        {
+          "id": "ru-cafe-010"
+        }
+      ]
+    },
+    {
+      "situation": "urgences",
+      "id": "ru-urgences-001",
+      "leurres": [
+        {
+          "id": "ru-urgences-005"
+        },
+        {
+          "id": "ru-urgences-003"
+        }
+      ]
+    },
+    {
+      "situation": "rencontrer",
+      "id": "ru-rencontrer-001",
+      "leurres": [
+        {
+          "id": "ru-rencontrer-004"
+        },
+        {
+          "id": "ru-rencontrer-005"
+        }
+      ]
+    },
+    {
+      "situation": "metro",
+      "id": "ru-metro-001",
+      "remplacement": 0,
+      "leurres": [
+        {
+          "id": "ru-metro-001",
+          "remplacement": 2
+        },
+        {
+          "id": "ru-metro-001",
+          "remplacement": 3
+        }
+      ]
+    },
+    {
+      "situation": "courses",
+      "id": "ru-courses-001",
+      "leurres": [
+        {
+          "id": "ru-courses-003"
+        },
+        {
+          "id": "ru-courses-004"
+        }
+      ]
+    },
+    {
+      "situation": "pharmacie",
+      "id": "ru-pharmacie-004",
+      "leurres": [
+        {
+          "id": "ru-pharmacie-001"
+        },
+        {
+          "id": "ru-pharmacie-009"
+        }
+      ]
+    },
+    {
+      "situation": "gouts",
+      "id": "ru-gouts-007",
+      "leurres": [
+        {
+          "id": "ru-gouts-001"
+        },
+        {
+          "id": "ru-gouts-009"
+        }
+      ]
+    },
+    {
+      "situation": "sortir",
+      "id": "ru-sortir-002",
+      "remplacement": 0,
+      "leurres": [
+        {
+          "id": "ru-sortir-002",
+          "remplacement": 2
+        },
+        {
+          "id": "ru-sortir-002",
+          "remplacement": 3
+        }
+      ]
+    },
+    {
+      "situation": "presenter",
+      "id": "ru-presenter-003",
+      "remplacement": 0,
+      "leurres": [
+        {
+          "id": "ru-presenter-003",
+          "remplacement": 2
+        },
+        {
+          "id": "ru-presenter-003",
+          "remplacement": 4
+        }
+      ]
+    },
+    {
+      "situation": "restaurant",
+      "id": "ru-restaurant-006",
+      "remplacement": 0,
+      "leurres": [
+        {
+          "id": "ru-restaurant-006",
+          "remplacement": 1
+        },
+        {
+          "id": "ru-restaurant-006",
+          "remplacement": 2
+        }
+      ]
+    },
+    {
+      "situation": "hotel",
+      "id": "ru-hotel-006",
+      "remplacement": 0,
+      "leurres": [
+        {
+          "id": "ru-hotel-006",
+          "remplacement": 1
+        },
+        {
+          "id": "ru-hotel-006",
+          "remplacement": 4
+        }
+      ]
+    },
+    {
+      "situation": "banque",
+      "id": "ru-banque-006",
+      "remplacement": 0,
+      "leurres": [
+        {
+          "id": "ru-banque-006",
+          "remplacement": 1
+        },
+        {
+          "id": "ru-banque-006",
+          "remplacement": 2
+        }
+      ]
+    }
+  ]
+}

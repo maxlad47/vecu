@@ -23,7 +23,11 @@ export async function chargerContenu(langue, lireJson) {
   // Les dialogues sont facultatifs aussi : sans eux, pas de carte Dialogue.
   let dialogues = null;
   if (index.dialogues) { try { dialogues = await lire(base + index.dialogues); } catch (e) { dialogues = null; } }
-  return preparerContenu(index, fichiers, donnees, dialogues);
+  const contenu = preparerContenu(index, fichiers, donnees, dialogues);
+  // Le test de niveau est facultatif aussi : sans lui, l'app ne le propose pas.
+  contenu.test = null;
+  if (index.test) { try { contenu.test = await lire(base + index.test); } catch (e) { contenu.test = null; } }
+  return contenu;
 }
 
 // Répliques justes `nouveau: true` des dialogues → phrases au format v0 : elles rejoignent leur situation

@@ -1,7 +1,7 @@
 // Répétition espacée : boîtes de Leitner de 0 à 6 (docs/pedagogie/repetition-espacee.md).
 // Module pur : aucune dépendance au DOM ni au stockage.
 
-import { INTERVALLES, BOITE_MAX, BOITE_ACQUIS, HISTORIQUE_MAX, DECALAGE_JOUR_HEURES } from "./config.js";
+import { INTERVALLES, BOITE_MAX, BOITE_ACQUIS, HISTORIQUE_MAX, DECALAGE_JOUR_HEURES, TEST_NIVEAU } from "./config.js";
 
 function deuxChiffres(n) { return (n < 10 ? "0" : "") + n; }
 
@@ -64,6 +64,21 @@ export function appliquerDecouverte(fiche, { jour, mode, type, remplacement }) {
   f.derniereRevue = jour;
   if (remplacement !== undefined && remplacement !== null) f.dernierRemplacement = remplacement;
   ajouterHistorique(f, { jour, mode, type, remplacement: remplacement === undefined ? null : remplacement, resultat: "non-note", compte });
+  return f;
+}
+
+// Résultat d'un témoin du test de niveau : réussi = boîte 2, raté = boîte 1 (repetition-espacee.md, 3).
+// Seule une fiche en boîte 0 est touchée : refaire le test n'écrase jamais une progression réelle.
+export function appliquerTest(fiche, { jour, mode, resultat, remplacement }) {
+  if (fiche.boite !== 0) return fiche;
+  const f = copier(fiche);
+  f.boite = resultat === "reussite" ? TEST_NIVEAU.boiteReussi : TEST_NIVEAU.boiteRate;
+  f.echeance = ajouterJours(jour, INTERVALLES[f.boite]);
+  f.premiereVue = jour;
+  f.derniereRevue = jour;
+  if (resultat === "reussite") f.nbReussites += 1; else f.nbEchecs += 1;
+  if (remplacement !== undefined && remplacement !== null) f.dernierRemplacement = remplacement;
+  ajouterHistorique(f, { jour, mode, type: "test", remplacement: remplacement === undefined ? null : remplacement, resultat, compte: true });
   return f;
 }
 

@@ -13,7 +13,8 @@ import { optionsMoule } from "../app/js/exercices.js";
 import { creerSession, aleatoireGraine, minutesReelles } from "../app/js/moteur.js";
 import { controlerAmbiance, construireCss } from "../app/js/ambiance.js";
 import { dureePourLieu, themesValides, basculerTheme, dernierChoix } from "../app/js/parcours.js";
-import { ficheVide, ajouterJours, calculerJour, appliquerResultat, validerFiche } from "../app/js/leitner.js";
+import { ficheVide, ajouterJours, calculerJour, appliquerResultat, validerFiche, appliquerTest } from "../app/js/leitner.js";
+import { preparerTest, etatInitial, repondre, estTermine, bilanTest, testDisponible } from "../app/js/test-niveau.js";
 
 const sortie = typeof print === "function" ? print : console.log;
 let echecs = 0, reussites = 0;
@@ -752,6 +753,43 @@ import { construireSauvegarde, lireSauvegarde, ajouterSession, resumeUsage, rapp
     const d = JSON.parse(readFileSync(new URL(nom, dossier), "utf8"));
     verifier(valides.includes(d.statut), "statut de relecture valide : " + nom);
   }
+}
+
+// ---------- Test de niveau (mission 013) ----------
+{
+  const donnees = await lireJson("content/ru/test-niveau.json");
+  const contenuTest = Object.assign({}, contenu, { test: donnees });
+  const questions = preparerTest(donnees, contenu, aleatoireGraine(7));
+  egal(questions.length, 12, "test : 12 questions");
+  verifier(testDisponible(contenuTest) && !testDisponible(contenu), "test : proposé seulement si le contenu le porte");
+  verifier(questions.every((q) => q.options.length === 3 && q.options.filter((o) => o.juste).length === 1), "test : 3 choix dont 1 seul juste");
+  verifier(questions.every((q) => new Set(q.options.map((o) => o.texte.cible)).size === 3), "test : 3 réponses russes différentes (phrases complètes)");
+  verifier(new Set(questions.map((q) => q.situation)).size === 12, "test : une situation par témoin");
+  verifier(!["amis", "meteo", "telephone"].some((s) => questions.some((q) => q.situation === s)), "test : amis, meteo, telephone non testées");
+  egal(questions.slice(9).map((q) => q.situation), ["restaurant", "hotel", "banque"], "test : ordre des 3 derniers témoins");
+
+  // Arrêt après 2 erreurs de suite (une erreur isolée ne coupe pas).
+  let e = etatInitial();
+  e = repondre(repondre(e, false), true);
+  verifier(!estTermine(e, 12), "test : 1 erreur puis 1 réussite, on continue");
+  e = repondre(repondre(e, false), false);
+  verifier(estTermine(e, 12), "test : 2 erreurs de suite, arrêt");
+  const bilan = bilanTest(e, questions, 15);
+  egal([bilan.reussies, bilan.total, bilan.genre], [1, 15, "arret"], "test : bilan après arrêt anticipé");
+  const tout = Array(12).fill(true).reduce((x, v) => repondre(x, v), etatInitial());
+  verifier(estTermine(tout, 12), "test : fin après 12 réponses");
+  egal([bilanTest(tout, questions, 15).genre, bilanTest(tout, questions, 15).eleve], ["tout", true], "test : 12 réussites, message honnête");
+  egal(bilanTest(repondre(repondre(etatInitial(), false), false), questions, 15).genre, "zero", "test : 0 réussite");
+  verifier(!bilanTest(repondre(etatInitial(), true), questions, 15).eleve, "test : score bas, pas de rappel de limite");
+
+  // Placement en boîtes : réussi = 2 (J+2), raté = 1 (J+1), non testé = reste en 0, jamais de réécriture d'une fiche vue.
+  const ok = appliquerTest(ficheVide("a"), { jour: "2026-11-12", mode: "silence", resultat: "reussite", remplacement: 0 });
+  egal([ok.boite, ok.echeance, ok.historique[0].type, ok.historique[0].compte], [2, "2026-11-14", "test", true], "test : réussi = boîte 2");
+  const ko = appliquerTest(ficheVide("b"), { jour: "2026-11-12", mode: "silence", resultat: "echec" });
+  egal([ko.boite, ko.echeance], [1, "2026-11-13"], "test : raté = boîte 1");
+  const vue = Object.assign(ficheVide("c"), { boite: 4, echeance: "2026-11-20" });
+  verifier(appliquerTest(vue, { jour: "2026-11-12", mode: "silence", resultat: "echec" }) === vue, "test : relance, une fiche déjà vue n'est pas touchée");
+  verifier(validerFiche(JSON.parse(JSON.stringify(ok))).boite === 2, "test : fiche du test relue sans perte");
 }
 
 sortie(reussites + " vérifications réussies, " + echecs + " échec(s).");

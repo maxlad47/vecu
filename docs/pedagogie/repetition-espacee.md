@@ -96,7 +96,7 @@ Un élément acquis qui est raté en révision descend de 2 boîtes (4 → 2) et
 | `dernierEchecNonDu` | date ou `null` | sert à limiter la rétrogradation non due à une fois par jour |
 | `nbReussites`, `nbEchecs` | entiers | toutes les cartes notées, y compris les réussites passives |
 | `dernierRemplacement` | entier ou `null` | moules seulement : index du dernier remplacement joué |
-| `historique` | liste, 20 entrées au plus (les plus anciennes sont supprimées) | `type` parmi `decouverte`, `sens`, `theme`, `ordre`, `ecoute`, `voix-haute`, `moule-sens`, `moule-theme`, `boucle-decouverte`, `boucle-rappel` ; `resultat` parmi `reussite`, `echec`, `passif`, `non-note` ; `compte` = true si la carte a changé la boîte |
+| `historique` | liste, 20 entrées au plus (les plus anciennes sont supprimées) | `type` parmi `test` (témoin du test de niveau : réussi = boîte 2, raté = boîte 1, `compte` = true), `decouverte`, `sens`, `theme`, `ordre`, `ecoute`, `voix-haute`, `moule-sens`, `moule-theme`, `boucle-decouverte`, `boucle-rappel` ; `resultat` parmi `reussite`, `echec`, `passif`, `non-note` ; `compte` = true si la carte a changé la boîte |
 
 Hors élément (magasin `reglages`) : `dernierDuree`, `dernierMode`, `translitteration` (booléen), `genre` (`"m"` ou `"f"`, par défaut `"m"` tant que l'utilisateur ne l'a pas choisi), `vitesseVoix` (`"normale"` ou `"lente"`).
 Si IndexedDB est indisponible, la même structure est gardée en mémoire (repli prévu dans le brief).

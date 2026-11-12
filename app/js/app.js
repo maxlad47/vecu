@@ -12,12 +12,14 @@ import { chargerAmbiance } from "./ambiance.js";
 import { ouvrirStockage } from "./stockage.js";
 import { ajouterSession, jourLocal } from "./sauvegarde.js";
 import { calculerJour } from "./leitner.js";
+import { TEST_NIVEAU } from "./config.js";
 import { t } from "./textes.js";
 import * as audio from "./audio.js";
 import { h, vider } from "./ui/dom.js";
 import { afficherAccueil } from "./ui/accueil.js";
 import { afficherSession } from "./ui/ecran-session.js";
 import { afficherPersonnage } from "./ui/ecran-personnage.js";
+import { afficherTest } from "./ui/ecran-test.js";
 import { afficherAvantDepart, afficherVoitureRoute } from "./ui/voiture.js";
 import { afficherFin, afficherProgres, afficherReglages, afficherSansVoix } from "./ui/ecrans.js";
 
@@ -32,6 +34,7 @@ const ECRANS = {
   progres: afficherProgres,
   reglages: afficherReglages,
   personnage: afficherPersonnage,
+  test: afficherTest,
   sansVoix: afficherSansVoix
 };
 
@@ -137,13 +140,23 @@ function lancer(duree, mode, options) {
   });
 }
 
+// Lance le test de niveau. mode : celui du parcours, sinon le dernier mode (jamais la Voiture : il faut un écran).
+// Ce toucher autorise l'audio (en Silence, rien ne part).
+function lancerTest(depuis, mode) {
+  const choisi = mode || reglages().dernierMode;
+  const m = TEST_NIVEAU.modes.includes(choisi) ? choisi : "silence";
+  audio.definirModeAudio(m);
+  audio.amorcer();
+  aller("test", { mode: m, depuis });
+}
+
 const ctx = {
   get contenu() { return contenuPerso || (contenuPerso = personnaliser(contenuBase, stockage.personnage)); },
   personnage: () => stockage.personnage,
   majPersonnage: (p) => { stockage.ecrirePersonnage(p); contenuPerso = null; },
   persoVu: (cle) => { const p = stockage.personnage; p.vus[cle] = true; ctx.majPersonnage(p); },
   get stockage() { return stockage; },
-  reglages, majReglage, appliquerTheme, aller, lancer, garde,
+  reglages, majReglage, appliquerTheme, aller, lancer, lancerTest, garde,
   retourAccueil: () => aller("accueil"),
   jour: () => calculerJour(new Date()),
   // Mesure d'usage locale : une ligne par jour (sessions, minutes, cartes). Rien ne quitte l'appareil.

@@ -8,6 +8,7 @@ import { t, texteDuree } from "../textes.js";
 import { texteElement } from "../contenu.js";
 import { poupeePerso } from "./poupee-perso.js";
 import { nomMetier } from "./ecran-personnage.js";
+import { testDisponible } from "../test-niveau.js";
 import { rappelSauvegardeDu, resumeUsage } from "../sauvegarde.js";
 
 // « Tu sais dire N phrases » (écran de fin et Mes progrès).
@@ -190,6 +191,8 @@ export function afficherReglages(racine, ctx) {
             h("label", { class: "choix", for: id }, h("span", { class: "coche" }, icone("coche")), h("span", null, libelle))
           ];
         })))),
+      h("div", { class: "reglage" }, h("h2", { class: "intertitre" }, t("test.reglages")), h("p", { class: "aide-reglage" }, t("test.reglagesAide")),
+        testDisponible(ctx.contenu) ? h("button", { type: "button", class: "btn-secondaire", id: "refaire-test", onclick: () => ctx.lancerTest("reglages") }, t("test.refaire")) : null),
       blocSauvegarde(),
       h("p", { class: "pied" }, t("reglages.pied"))),
     boutonRetour(ctx));
