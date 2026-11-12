@@ -4,13 +4,13 @@ Source unique de vérité : ce qui existe, où, et dans quel état. **Chaque age
 
 Statuts : **validé** (ne se refait pas, on complète ou on corrige) · **livré** (en attente de validation) · **à revoir** (un problème est connu) · **à faire**.
 
-Dernière mise à jour : 12/11/2026 (clôture de la mission 006), par Sacha.
+Dernière mise à jour : 12/11/2026 (clôture de la mission 007), par Sacha.
 
 ## Où en est-on
 
 - **Phase 0 (prototype)** : mission 1 terminée le 11/11/2026. En ligne pour test sur https://maxlad47.github.io/vecu/ (non référencé, D19). L'ancienne adresse vecu-test.netlify.app est figée.
 - **En cours** : 2 semaines de test par Max (critère de passage de la phase 0).
-- **Missions en cours** : aucune. Dernière mission : 006, écrans adaptatifs (12/11), QA Boris « Livrable avec réserves », Léa 7/10. Reste à vérifier par Max sur iPhone : Safari et app installée (zones sûres, bande du haut). Avant : 005, Bagou dans l'app (12/11). Reste à vérifier par Max sur iPhone : passage de Vécu à Bagou. 004, lot 3 de situations : **terminé sur la branche `mission-004-lot3`** (15 situations, 146 éléments, Boris « Livrable avec réserves » levées, Léa 7/10). En attente de l'accord de Max pour fusionner dans `main` (donc publier) après son bilan.
+- **Missions en cours** : aucune. Dernière : 007, personnage personnalisable (12/11), QA Boris « Livrable » après contre-vérification, Léa 6/10, en ligne pour test (avec le lot 3 : 15 situations). À vérifier par Max sur iPhone : création du personnage, accords au féminin et au masculin, Réglages, Écouteurs. Dernière mission : 006, écrans adaptatifs (12/11), QA Boris « Livrable avec réserves », Léa 7/10. Reste à vérifier par Max sur iPhone : Safari et app installée (zones sûres, bande du haut). Avant : 005, Bagou dans l'app (12/11). Reste à vérifier par Max sur iPhone : passage de Vécu à Bagou. 004, lot 3 de situations : **terminé sur la branche `mission-004-lot3`** (15 situations, 146 éléments, Boris « Livrable avec réserves » levées, Léa 7/10). En attente de l'accord de Max pour fusionner dans `main` (donc publier) après son bilan.
 - Dernière mission terminée : 002 (12/11), en ligne sur vecu-test.netlify.app.
 
 ## Pédagogie (Vera)
@@ -57,6 +57,9 @@ Dernière mise à jour : 12/11/2026 (clôture de la mission 006), par Sacha.
 | Écrans de session adaptatifs : en-tête une ligne, barre d'action fixe, tailles fluides, marge Netlify retirée (mission 006) | `app/css/app.css` (section 13), `app/js/ui/` | validé (12/11) |
 | Rapport QA des écrans adaptatifs : « Livrable avec réserves » (Ordre, À voix haute, Écoute, sombre, 393×852 et 430×932 en capture, iPhone réel non testés) | `docs/qa/2026-11-12-ecrans-adaptatifs.md` | validé |
 | Astuce sur 3 lignes à 360×640 ; rond « Réécouter » jugé grand par Léa | `app/css/app.css` | à revoir (iPhone) |
+| Personnage personnalisable : prénom (cyrillique auto), genre une seule fois, métier (13), poupée neutre (4 couleurs, 3 motifs), français accordé au genre (`variantes_fr`), mécanisme réglage → moule générique (mission 007) | `app/js/personnage.js`, `content/ru/personnage.json`, `docs/design/personnage.md`, `docs/pedagogie/personnage.md` | validé (12/11) |
+| Rapport QA du personnage : « Livrable » (reste : Écouteurs, hors ligne réel, effacement non testés) | `docs/qa/2026-11-12-personnage.md` | validé |
+| Personnage, à faire : mini-poupée de l'en-tête d'accueil ; carte « Mon personnage » qui allonge Réglages (bouton Normale/Lente coupé selon Léa) ; libellés « Corriger » et « Garder en lettres latines » à clarifier ; « Анн » à revoir en « Анна » ; thèmes de vocabulaire (couleurs, transports…) à choisir | `app/`, `content/ru/` | à faire |
 | Rapport QA de Bagou dans l'app : « Livrable avec réserves mineures » (levées) | `docs/qa/2026-11-12-bagou-app.md` | validé |
 | Lien entre les 4 états de matriochka et les boîtes Leitner (proposition de Kostia) | `app/js/` | à revoir (Vera) |
 | Dette : textes « russe » de l'interface à sortir de `textes.js` vers `index.json` (2e langue) | `app/js/textes.js` | à faire |
