@@ -26,3 +26,8 @@ Branche `mission-005-bagou-app`. Tests (`node --test tests/*.test.mjs` : 709 vé
 
 ## Limites
 - Je n'ai pu rejouer ni `tests/qa/scenarios.rb` (le client CDP échoue sur le Ruby de cette machine : « trame invalide »), ni vérifier les écrans autres que l'accueil à l'œil. Seul l'accueil est capturé.
+
+## Corrections du 12/11
+- `options.bouton` n'est pas du code mort : l'écran de fin (`ecrans.js`, bouton « Encore ») le passe encore. Laissé tel quel ; seul l'accueil ne l'utilise pas.
+- Style inline de `accueil.js` remplacé par la classe `.btn-ligne` (`app.css`).
+- « Mes progrès » : dégradé de 24 px au-dessus de la barre Retour (`.ecran-progres`), purement visuel ; à revoir à 360, 390 et 430 px.

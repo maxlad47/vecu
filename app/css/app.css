@@ -110,6 +110,8 @@ svg.icon { width: 24px; height: 24px; flex: none; fill: none; stroke: currentCol
   padding: var(--space-3) var(--marge) var(--bas);
   display: flex; flex-direction: column; gap: var(--space-2);
 }
+/* Mes progrès : voile en haut de la barre, pour montrer que la liste défile derrière. */
+.ecran-progres .zone-action::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 24px; pointer-events: none; background: linear-gradient(to bottom, transparent, var(--bg)); }
 .zone-action.deux-boutons { flex-direction: row; align-items: stretch; }
 .zone-action.deux-boutons .btn-secondaire { width: 112px; flex: none; }
 .zone-action.deux-boutons .btn-principal { flex: 1; min-width: 0; }
@@ -137,6 +139,7 @@ svg.icon { width: 24px; height: 24px; flex: none; fill: none; stroke: currentCol
   transition: transform 100ms, filter 100ms;
   -webkit-tap-highlight-color: transparent;
 }
+.btn-principal.btn-ligne { flex-direction: row; }
 .btn-principal:active { transform: scale(0.98); filter: brightness(0.92); }
 .btn-principal.deux-lignes { min-height: 64px; }
 .btn-principal .sous { font-size: var(--fs-small); font-weight: 400; }

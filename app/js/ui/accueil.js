@@ -115,12 +115,11 @@ export function afficherAccueil(racine, ctx, options) {
             n === prerempli ? h("span", { class: "etiquette" }, t("duree.prerempli", { lieu: t("lieu." + lieu + ".court") })) : null)
         ];
       }));
-    const suite = h("button", { type: "button", class: "btn-principal", id: "suite", onclick: () => {
+    const suite = h("button", { type: "button", class: "btn-principal btn-ligne", id: "suite", onclick: () => {
       ctx.majReglage("dureeParLieu", Object.assign({}, reglages().dureeParLieu, { [lieu]: duree }));
       if (lieu === "voiture") ctx.lancer(duree, "voiture", { themes }); // étapes 3 et 4 sautées : Avant le départ
       else { etape = 3; dessiner(); }
     } }, t("nav.suite"), icone("suite"));
-    suite.style.flexDirection = "row";
     return [
       h("main", { class: "contenu" }, pastilles(2), titre("accueil.qTemps"), lignes, h("p", { class: "consigne-etape" }, t("duree.consigne"))),
       barreBas(boutonRetour(1), suite)

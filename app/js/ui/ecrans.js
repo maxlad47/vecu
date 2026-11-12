@@ -93,7 +93,7 @@ export function afficherProgres(racine, ctx) {
         rangee);
     })));
   }
-  racine.appendChild(h("div", { class: "ecran" }, tete.element, contenu, boutonRetour(ctx)));
+  racine.appendChild(h("div", { class: "ecran ecran-progres" }, tete.element, contenu, boutonRetour(ctx)));
   focaliser(racine.querySelector("h1"));
   return { nettoyer() { tete.menu.fermer(); } };
 }
