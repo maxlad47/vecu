@@ -1,6 +1,6 @@
 # QA mission 011 : « Écrire la réponse » (branche mission-011-cyrillique)
 
-**Verdict : Livrable avec réserves.** Mécanique de comparaison et rendu corrects ; trois défauts à corriger avant de montrer l'exercice à un débutant (n°1, 2 et 3).
+**Verdict initial : Livrable avec réserves** (voir « Contre-vérification » : verdict final Livrable avec réserves mineures). Mécanique de comparaison et rendu corrects ; trois défauts à corriger avant de montrer l'exercice à un débutant (n°1, 2 et 3).
 
 Automatique : `node tests/moteur.test.mjs` (1017 vérifications, 0 échec), `node --test tests/*.test.mjs` (pass), `node scripts/build.mjs` (67 fichiers) : verts. Mais voir le n°1.
 
@@ -31,3 +31,17 @@ Moteur piloté avec l'horloge simulée, Silence et Écouteurs, durée réelle d'
 - Contrastes (non mesurés), VoiceOver/lecteur d'écran, hors ligne et premier lancement (inchangés par cette mission), Voiture et Parler en navigateur.
 - Phrases à prénom : le contenu de test n'avait pas de personnage ; `!el.personnalise` lu dans le code seulement.
 - Contenu JSON : aucun fichier modifié par la branche, non revalidé.
+
+## Contre-vérification (commit 560427e, 12/11/2026)
+
+**Verdict final : Livrable avec réserves mineures.** Les 4 points sont corrigés ; une réserve de contenu reste.
+
+1. **Tests dans le filet : corrigé.** Attendu forcé à [9, 9] sur le test du re-passage : « ÉCHEC », code de sortie 1 pour `node tests/moteur.test.mjs`, `node --test` en échec (pass 0, fail 1). Annulé (copie restaurée, `git status` propre). Total 1046 vérifications.
+2. **Re-passage après erreur : corrigé.** Simulation 4 modes × 5 boîtes de départ × 6 graines × 3 profils de réponses (échec, réussite, mixte) : 49 104 cartes, 4 704 « Écrire », 0 doublon de suite, 0 sous la boîte 4, 0 en Voiture.
+3. **Saisie latine : corrigé.** Translit de toutes les phrases et remplacements, deux genres : 544 formes, 544 justes (100 %, avant : 4 %). En MAJUSCULES sans ponctuation : 0 écart. Saisies fausses (2 lettres retirées, translit d'une autre phrase, début + mot inventé, « blabla ») : 2 176 essais, 0 accepté comme « juste ».
+4. **Mauvais genre : corrigé en cyrillique.** Genre choisi : la forme de l'autre genre est « faux » (`Я рад` pour `Я рада` ; `Я заблудился` pour une femme). Genre non choisi : les deux formes sont « juste » (12/12).
+5. Automatique : `node tests/moteur.test.mjs` (1046, 0 échec), `node --test tests/*.test.mjs` (pass 1, fail 0), `node scripts/build.mjs` (67 fichiers) : verts.
+
+**Réserve restante (contenu, antérieure à la mission).** `ru-metro-002` (« Я заблудился/заблудилась ») et `ru-presenter-006` (« Я студент/студентка ») ont la même `translit` pour les deux genres : la translit affichée à une femme est la forme masculine (`ia zabloudílsia`), fausse. Conséquence : en latin, la translit de l'autre genre est acceptée (genre f, `ia zabloudílsia` donne « juste » alors que `Я заблудился` donne « faux »). À corriger dans le JSON (translit par genre) : Nadia. Non bloquant.
+
+Non retesté : rendu Chrome et clavier mobile (code d'affichage inchangé par 560427e).
