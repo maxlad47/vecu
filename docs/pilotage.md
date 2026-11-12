@@ -35,21 +35,22 @@ Apprendre une langue avec des phrases qui servent dans la vraie vie, n'importe o
 
 ### Missions prévues
 
-Chaque mission suit le même cycle (`docs/processus.md`). Une mission reçoit son numéro **au moment où elle est lancée**, pas quand elle est prévue : la liste ci-dessous n'est pas un ordre obligatoire. Sacha la réajuste selon les retours de Max.
+Chaque mission suit le même cycle (`docs/processus.md`). Une mission reçoit son numéro au moment où elle est lancée. Ordre décidé avec Max le 12/11 (D17).
 
 | N° | Mission | Phase | Agents | Statut |
 |---|---|---|---|---|
 | 001 | Prototype jouable | 0 | tous | fait (11/11) |
-| — | Organisation de l'équipe (modèles, processus, anti-doublon) | 0 | Sacha | fait (12/11) |
-| — | Test réel par Max pendant 2 semaines, puis bilan | 0 | Max, Sacha | en cours (jusqu'au 25/11 environ) |
-| — | Corrections issues du test de Max | 1 | selon les retours | à faire |
-| 002 | 5 nouvelles situations : métro et directions, pharmacie et santé, se présenter, restaurant, urgences | 0 (avance sur la 1) | Vera, Nadia, Boris, Léa | fait (12/11) |
-| — | 5 nouvelles situations : hôtel, au téléphone, chez des amis, banque et argent, le temps qu'il fait | 1 | Vera, Nadia, Boris | à faire |
-| — | Réglages « mon prénom » et « mon métier », variantes de genre complètes | 1 | Vera, Nadia, Lou, Kostia, Boris | à faire |
-| — | Audio pré-généré (voix de qualité, Voiture écran verrouillé). Compte Azure à valider par Max | 1 | Kostia, Boris | à faire |
-| — | Écrire la réponse (saisie en cyrillique ou en translittération) | 1 | Lou, Kostia, Boris, Léa | à faire |
-| — | Test de niveau en 2 min et phrases-moules interactives | 1 | Vera, Lou, Kostia, Boris, Léa | à faire |
-| — | Scènes : petits dialogues de 4 à 6 phrases pour les sessions de 15 et 30 min | 1 | Vera, Nadia, Lou, Kostia, Boris, Léa | à faire |
+| 002 | 5 nouvelles situations : métro, pharmacie, se présenter, restaurant, urgences | 0 | Vera, Nadia, Boris, Léa | fait (12/11) |
+| 003 | Design Bagou : identité russe, parcours d'accueil, menu, carnet, progrès, matriochka (maquettes, sans toucher à l'app) | 0 | Lou | en cours |
+| 004 | 5 dernières situations : hôtel, au téléphone, chez des amis, banque et argent, le temps qu'il fait (branche à part) | 0 | Vera, Nadia, Boris, Léa | en cours |
+| — | Test réel par Max, puis bilan | 0 | Max, Sacha | en cours (jusqu'au 25/11 environ) |
+| — | 1. Corrections issues du test | 1 | selon les retours | à faire |
+| — | 2. Bagou dans l'app : nouvelle identité, parcours d'accueil, choix des thèmes, menu (d'après la 003) | 1 | Lou, Kostia, Boris, Léa | à faire |
+| — | 3. Mon carnet et la matriochka | 1 | Lou, Kostia, Boris, Léa | à faire |
+| — | 4. Mes progrès (statistiques locales) | 1 | Lou, Kostia, Boris | à faire |
+| — | 5. Audio pré-généré (compte Azure à valider par Max) | 1 | Kostia, Boris | à faire |
+| — | 6. Les angles : Verbes, Vocabulaire, Grammaire en contexte (D16) | 1 | Vera, Nadia, Lou, Kostia, Boris, Léa | à faire |
+| — | 7. Écrire la réponse, test de niveau, scènes, réglages prénom et métier, variantes de genre complètes | 1 | à répartir | à faire |
 | — | Revue de phase 1 : bilan, revue des outils (D12), feuille de route de la phase 2 | 1 | Sacha, Max | à faire |
 
 ## Risques identifiés

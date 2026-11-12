@@ -50,7 +50,7 @@ Durées proposées : 2, 5, 15 et 30 min. La durée annoncée doit être la duré
 1. **Test du vécu.** Pour chaque phrase, la question est : quelqu'un la dirait-il vraiment pendant ses 30 premiers jours sur place ? Si la réponse est non, la phrase sort.
 2. **L'unité est la phrase utile**, rangée dans une situation de vie : au café, faire les courses, parler de ses goûts, sortir, rencontrer quelqu'un, etc.
 3. **Phrases-moules.** Privilégier les structures à trou (« J'aime ___ », « Combien coûte ___ ? ») qui multiplient les phrases possibles.
-4. **La grammaire n'apparaît qu'en astuce** de 2 lignes maximum, au moment où elle sert.
+4. **Grammaire, verbes et vocabulaire toujours en contexte.** Par défaut, la grammaire n'apparaît qu'en astuce de 2 lignes au moment où elle sert. L'utilisateur peut aussi choisir un angle de travail (Verbes, Vocabulaire, Grammaire) : il pratique alors un verbe, des mots ou un mécanisme **uniquement à travers des phrases utiles**, jamais en liste ni en tableau isolé, avec une explication de 2 lignes au plus. (Règle modifiée par Max le 12/11/2026, D16.)
 5. **Pour le russe** : accent tonique indiqué, translittération disponible, formes masculine et féminine quand le genre de la personne qui parle change la phrase, tutoiement ou vouvoiement signalé.
 6. **Répétition espacée par défaut.** Une phrase vue revient jusqu'à être acquise.
 7. **Aucun contenu public sans relecture** par un locuteur natif humain.

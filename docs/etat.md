@@ -10,7 +10,8 @@ Dernière mise à jour : 12/11/2026 (clôture de la mission 002), par Sacha.
 
 - **Phase 0 (prototype)** : mission 1 terminée le 11/11/2026. En ligne pour test sur https://vecu-test.netlify.app (non référencé).
 - **En cours** : 2 semaines de test par Max (critère de passage de la phase 0).
-- **Mission en cours** : aucune. Dernière mission : 002, 5 nouvelles situations (terminée le 12/11). En ligne sur vecu-test.netlify.app.
+- **Missions en cours** : 003, design Bagou (`docs/missions/003-design-bagou/brief.md`), étape 1. 004, lot 3 de situations (`docs/missions/004-lot3/brief.md`, branche `mission-004-lot3`), étape 1.
+- Dernière mission terminée : 002 (12/11), en ligne sur vecu-test.netlify.app.
 
 ## Pédagogie (Vera)
 
