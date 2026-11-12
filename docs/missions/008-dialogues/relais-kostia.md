@@ -4,7 +4,7 @@ Code et tests faits, commit local, pas de push. `node --test tests/*.test.mjs` :
 ## Ce qui change
 - `app/js/dialogues.js` (nouveau, pur) : dialogues jouables selon le personnage, échange résolu (jetons {prenom} et {metier}, genre m/f en français et en russe, réaction du partenaire dans la même bulle, 2 à 3 réponses mélangées).
 - `app/js/ui/carte-dialogue.js` (nouveau) : bulle, ligne « toi » avec poupée, réponses fixées en bas, panneau de retour, question du genre.
-- `moteur.js` : carte `dialogue` et `repondreDialogue`. Règle (config.js, `DIALOGUE`) : 15 et 30 min, une fois, après 10 éléments travaillés, jamais en Voiture, dans une situation déjà travaillée, thèmes respectés, on varie d'une session à l'autre.
+- `moteur.js` : carte `dialogue` et `repondreDialogue`. Règle (config.js, `DIALOGUE`) : 5, 15 et 30 min (jamais 2), une fois, après la 3e carte, jamais en Voiture, de préférence dans une situation déjà travaillée, thèmes respectés, on varie d'une session à l'autre.
 - `contenu.js` : charge `dialogues.json`, ajoute les 4 répliques `nouveau` à leur situation (éléments Leitner ordinaires).
 - Leitner : bonne réplique = boîte mise à jour (dû : +1 ; jamais vue : découverte, boîte 1) ; fausse = rien.
 - `ecran-personnage.js` : métiers en accordéon par catégorie (43 métiers, 9 catégories), la catégorie du métier courant est ouverte et visible. Le fond est `inert` pendant la feuille.
@@ -19,4 +19,4 @@ Code et tests faits, commit local, pas de push. `node --test tests/*.test.mjs` :
 6. Non testé : iPhone réel, mode sombre, hors ligne réel, lecteur d'écran.
 
 ## Écarts (voir ma réponse à Sacha)
-Fréquence de Vera (pas celle de Lou) ; boutons de réponse en français + russe sans translittération ; Vera dit « une fausse réponse = échec », suivi Sacha (rien). Mesures Chrome : page jamais défilée, réponses 60-61 px, aucune cible sous 44 px (`tests/qa/dialogue.rb`).
+Fréquence de Lou (arbitrage de Sacha) ; boutons de réponse en français + russe sans translittération ; Vera dit « une fausse réponse = échec », suivi Sacha (rien). Mesures Chrome : page jamais défilée, réponses 60-61 px, aucune cible sous 44 px (`tests/qa/dialogue.rb`).

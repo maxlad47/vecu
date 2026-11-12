@@ -249,10 +249,11 @@ export function creerSession(p) {
   const dialoguesPossibles = (Array.isArray(p.dialogues) ? p.dialogues : []).filter((d) => !themesChoisis.size || themesChoisis.has(d.situation));
   function choisirDialogue(t) {
     if (etat.dialogueFait || mode === "voiture" || !DIALOGUE.durees.includes(duree)) return null;
-    if (etat.travailles.size < DIALOGUE.apresElements || D - t < DIALOGUE.estimation[mode]) return null;
+    if (etat.index < DIALOGUE.apresCartes || D - t < DIALOGUE.estimation[mode]) return null;
     const vues = new Set([...etat.travailles].map((id) => (el(id) || {}).situation));
     let candidats = dialoguesPossibles.filter((d) => vues.has(d.situation));
-    const autres = candidats.filter((d) => d.id !== p.dernierDialogue);
+    // Aucun dialogue d'une situation travaillée (un thème sans dialogue, thème au hasard) ou seul le dernier joué : on prend un autre.
+    const autres = (candidats.length > 1 || candidats[0] && candidats[0].id !== p.dernierDialogue ? candidats : dialoguesPossibles).filter((d) => d.id !== p.dernierDialogue);
     if (autres.length) candidats = autres;
     return candidats.length ? candidats[Math.floor(aleatoire() * candidats.length)] : null;
   }

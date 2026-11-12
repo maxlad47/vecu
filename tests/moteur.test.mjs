@@ -670,15 +670,22 @@ const ruPrenom = (latin) => convertirPrenom(latin, donneesPerso.prenoms);
     const { s, cartes, t } = jouerD(mode, 15);
     const k = cartes.findIndex((c) => c.type === "dialogue");
     egal(cartes.filter((c) => c.type === "dialogue").length, 1, mode + " 15 min : une seule carte Dialogue");
-    verifier(k >= DIALOGUE.apresElements, mode + " : le dialogue vient après au moins " + DIALOGUE.apresElements + " cartes");
-    verifier(new Set(cartes.slice(0, k).map((c) => c.id)).size >= DIALOGUE.apresElements, mode + " : après 10 éléments distincts");
+    verifier(k >= DIALOGUE.apresCartes, mode + " : le dialogue vient après au moins " + DIALOGUE.apresCartes + " cartes");
     verifier(cartes.slice(0, k).some((c) => c.element.situation === cartes[k].dialogue.situation), mode + " : dialogue d'une situation travaillée");
     egal(cartes[k].est, DIALOGUE.estimation[mode], mode + " : durée estimée du dialogue");
     verifier(t <= 900 * 1.2, mode + " 15 min : durée réelle à 20 % près avec le dialogue (" + t + " s)");
     verifier(s.bilan().cartes === cartes.length, "le dialogue compte comme une carte");
   }
+  for (const mode of ["silence", "ecouteurs", "parler"]) {
+    const r5 = jouerD(mode, 5);
+    egal(r5.cartes.filter((c) => c.type === "dialogue").length, 1, mode + " 5 min : une carte Dialogue");
+    verifier(r5.cartes.findIndex((c) => c.type === "dialogue") >= 3, mode + " 5 min : après la 3e carte");
+    verifier(r5.t <= 300 * 1.2, mode + " 5 min : durée réelle à 20 % près (" + r5.t + " s)");
+  }
+  // Un seul thème, peu de phrases : le dialogue de cette situation apparaît quand même.
+  egal(jouerD("silence", 5, { themes: ["hotel"] }).cartes.filter((c) => c.type === "dialogue").map((c) => c.dialogue.situation), ["hotel"], "un seul thème : son dialogue apparaît");
   egal(jouerD("silence", 30).cartes.filter((c) => c.type === "dialogue").length, 1, "30 min : une carte Dialogue");
-  for (const [mode, duree] of [["voiture", 15], ["voiture", 30], ["silence", 2], ["silence", 5], ["ecouteurs", 5], ["parler", 2]]) {
+  for (const [mode, duree] of [["voiture", 15], ["voiture", 30], ["silence", 2], ["silence", 2], ["ecouteurs", 2], ["parler", 2]]) {
     egal(jouerD(mode, duree).cartes.filter((c) => c.type === "dialogue").length, 0, "pas de carte Dialogue en " + mode + " " + duree + " min");
   }
   egal(jouerD("silence", 15, { dialogues: [] }).cartes.filter((c) => c.type === "dialogue").length, 0, "aucun dialogue proposable : pas de carte");
