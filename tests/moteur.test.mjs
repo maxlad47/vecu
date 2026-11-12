@@ -8,6 +8,8 @@
 import { preparerContenu, texteElement } from "../app/js/contenu.js";
 import { REGLES, AUDIO } from "../app/js/config.js";
 import { creerSession, aleatoireGraine } from "../app/js/moteur.js";
+import { controlerAmbiance, construireCss } from "../app/js/ambiance.js";
+import { dureePourLieu, themesValides, basculerTheme, dernierChoix } from "../app/js/parcours.js";
 import { ficheVide, ajouterJours, calculerJour, appliquerResultat, validerFiche } from "../app/js/leitner.js";
 
 const sortie = typeof print === "function" ? print : console.log;
@@ -216,6 +218,123 @@ egal(suite.length, 28, "exemple 1 : 28 cartes");
     s.repondre(carte, "reussite"); t += carte.est; n++;
   }
   verifier(!apres.has("ecoute") && !apres.has("voix-haute"), "après Couper le son : plus d'Écoute ni d'À voix haute");
+}
+
+// ---------- Thèmes choisis (mission 005) ----------
+// Avec des thèmes, nouvelles phrases, révisions et remplissage viennent uniquement de ces thèmes ;
+// les révisions dues ailleurs attendent, sans pénalité (leur fiche n'est pas touchée).
+{
+  const J = "2026-11-11";
+  const choisis = ["cafe", "courses"];
+  const jouerSession = (p, res) => {
+    const s = creerSession(Object.assign({ contenu, jour: J, genre: "m", aleatoire: aleatoireGraine(21) }, p));
+    const cartes = [];
+    let t = p.mode === "voiture" ? 4 : 0, c;
+    while ((c = s.prochaineCarte(t))) {
+      cartes.push(c);
+      s.repondre(c, c.type === "boucle-rappel" ? "passif" : (c.type.includes("decouverte") ? "non-note" : (res || "reussite")));
+      t += c.est;
+    }
+    return { s, cartes };
+  };
+  const nonVides = (ids) => ids.length > 0;
+
+  // 1. Deux thèmes depuis zéro : que des phrases de ces deux thèmes, dans tous les modes et toutes les durées.
+  for (const mode of ["silence", "ecouteurs", "parler", "voiture"]) {
+    for (const duree of [2, 5, 15, 30]) {
+      const { s, cartes } = jouerSession({ fiches: new Map(), mode, duree, themes: choisis });
+      verifier(cartes.length > 0, "thèmes " + mode + " " + duree + " min : la session a des cartes");
+      verifier(cartes.every((c) => choisis.includes(c.element.situation)), "thèmes " + mode + " " + duree + " min : que cafe et courses");
+      verifier(s.bilan().decouverts.every((id) => choisis.includes(contenu.parId.get(id).situation)), "thèmes " + mode + " " + duree + " min : découvertes dans les thèmes");
+    }
+  }
+
+  // 2. Des révisions dues dans un autre thème attendent, sans pénalité, et ne passent pas devant.
+  {
+    const fiches = new Map();
+    const poser = (id, boite, echeance) => fiches.set(id, Object.assign(ficheVide(id), { boite, echeance, premiereVue: "2026-11-01", nbReussites: 2 }));
+    const ailleurs = contenu.elements.filter((e) => e.situation === "urgences" || e.situation === "metro").slice(0, 6).map((e) => e.id);
+    ailleurs.forEach((id) => poser(id, 2, J));
+    poser("ru-cafe-001", 2, J); // une due dans le thème choisi
+    const avant = JSON.stringify(ailleurs.map((id) => fiches.get(id)));
+    const { s, cartes } = jouerSession({ fiches, mode: "silence", duree: 15, themes: choisis }, "echec");
+    egal(s.dus, ["ru-cafe-001"], "thèmes : seules les révisions dues des thèmes sont dues");
+    verifier(cartes.some((c) => c.id === "ru-cafe-001"), "thèmes : la révision due du thème est jouée");
+    verifier(cartes.every((c) => !ailleurs.includes(c.id)), "thèmes : aucune carte pour les révisions dues ailleurs");
+    egal(JSON.stringify(ailleurs.map((id) => fiches.get(id))), avant, "thèmes : les dues ailleurs sont intactes (ni boîte, ni échéance, ni historique)");
+    // Sans thème, les mêmes phrases dues reviennent bien en tête : l'attente ne les efface pas.
+    const sans = creerSession({ contenu, fiches, mode: "silence", duree: 15, jour: J, genre: "m", aleatoire: aleatoireGraine(21) });
+    verifier(ailleurs.every((id) => sans.dus.includes(id)), "thèmes : une fois « Au hasard », les dues mises de côté sont de nouveau dues");
+  }
+
+  // 3. « Au hasard » = comportement d'origine : liste vide, absente, tous les thèmes, ou identifiants inconnus.
+  {
+    const suite = (themes) => jouerSession({ fiches: new Map(), mode: "ecouteurs", duree: 15, themes }).cartes.map((c) => c.regle + c.id + c.type);
+    const reference = suite(undefined);
+    egal(suite([]), reference, "Au hasard : liste vide = comportement d'origine");
+    egal(suite(["inconnu"]), reference, "Au hasard : thème inconnu ignoré");
+    egal(suite(index.situations.map((x) => x.id)), reference, "Au hasard : tous les thèmes cochés = comportement d'origine");
+  }
+
+  // 4. Un thème déjà vu et rien de dû : le remplissage reste dans le thème, la session ne plante pas et se termine.
+  {
+    const fiches = new Map();
+    contenu.elements.filter((e) => e.situation === "presenter" || e.situation === "cafe").forEach((e) => fiches.set(e.id, Object.assign(ficheVide(e.id), { boite: 3, echeance: "2026-12-01", premiereVue: "2026-11-01" })));
+    const { cartes } = jouerSession({ fiches, mode: "silence", duree: 5, themes: ["cafe"] });
+    verifier(cartes.length > 0 && cartes.every((c) => c.element.situation === "cafe"), "thème tout vu : remplissage dans le thème seulement");
+  }
+
+  // 5. Les choix du QCM peuvent venir d'autres thèmes (un thème de 3 phrases doit pouvoir poser 3 options).
+  {
+    const { cartes } = jouerSession({ fiches: new Map(), mode: "silence", duree: 30, themes: ["urgences"] });
+    verifier(cartes.filter((c) => c.options).every((c) => c.options.length === 3), "thème seul : QCM toujours à 3 options");
+  }
+
+  // 6. « Tu sais dire N phrases » compte tout le contenu, pas seulement les thèmes de la session.
+  {
+    const fiches = new Map();
+    const ailleurs = contenu.elements.find((e) => e.situation === "metro");
+    fiches.set(ailleurs.id, Object.assign(ficheVide(ailleurs.id), { boite: 5, echeance: "2026-12-01", premiereVue: "2026-11-01" }));
+    const { s } = jouerSession({ fiches, mode: "silence", duree: 2, themes: ["cafe"] });
+    egal(s.bilan().totalAcquis, 1, "bilan : les phrases acquises hors thèmes comptent dans le total");
+    verifier(nonVides(s.bilan().decouverts), "bilan : au moins une découverte dans le thème");
+  }
+}
+
+// ---------- Parcours d'accueil : préremplissage, cases des thèmes, dernier choix ----------
+{
+  const sit = index.situations;
+  egal(["silence", "ecouteurs", "parler", "voiture"].map((l) => dureePourLieu(l, null)), [2, 5, 15, 30], "durée préremplie par lieu");
+  egal(dureePourLieu("ecouteurs", { ecouteurs: 15 }), 15, "mémoire par lieu : la dernière durée de ce lieu");
+  egal(dureePourLieu("voiture", { ecouteurs: 15 }), 30, "mémoire par lieu : un autre lieu n'est pas touché");
+  egal(dureePourLieu("silence", { silence: 7 }), 2, "mémoire par lieu : durée inconnue ignorée");
+  egal(basculerTheme([], "cafe", sit), ["cafe"], "cocher un thème décoche « Au hasard »");
+  egal(basculerTheme(["cafe"], "metro", sit), ["cafe", "metro"], "cocher un deuxième thème (ordre du contenu)");
+  egal(basculerTheme(["cafe"], "cafe", sit), [], "tout décocher remet « Au hasard »");
+  egal(basculerTheme(["metro"], "cafe", sit), ["cafe", "metro"], "l'ordre suit le contenu, pas les touchers");
+  egal(themesValides(["cafe", "cafe", "inconnu"], sit), ["cafe"], "thèmes inconnus et doublons retirés");
+  egal(themesValides(undefined, sit), [], "pas de thèmes mémorisés = « Au hasard »");
+  egal(dernierChoix({}, sit), null, "premier lancement : pas de « Comme la dernière fois »");
+  egal(dernierChoix({ dernierMode: "voiture", dernierDuree: 30, derniersThemes: ["cafe", "x"] }, sit), { lieu: "voiture", duree: 30, themes: ["cafe"] }, "dernier choix relu");
+  egal(dernierChoix({ dernierMode: "voiture", dernierDuree: 8 }, sit), null, "dernier choix illisible = pas de bouton");
+}
+
+// ---------- Ambiance (content/ru/ambiance.json) ----------
+{
+  const amb = await lireJson("content/ru/ambiance.json");
+  const v = controlerAmbiance(amb);
+  verifier(v.ok, "ambiance.json passe le contrôle d'entrée (contrastes de bagou-ru.md 1.2) " + v.raisons.join(" ; "));
+  const abime = JSON.parse(JSON.stringify(amb)); abime.couleurs.clair["--text-muted"] = "#CCCCCC";
+  verifier(!controlerAmbiance(abime).ok, "un contraste insuffisant refuse l'ambiance");
+  const incomplet = JSON.parse(JSON.stringify(amb)); delete incomplet.couleurs.sombre["--laque"];
+  verifier(!controlerAmbiance(incomplet).ok, "un jeton manquant refuse l'ambiance");
+  verifier(!controlerAmbiance(null).ok, "pas de fichier lisible : refusé");
+  const css = construireCss(amb);
+  verifier(css.includes("--laque:#B3261E") && css.includes("prefers-color-scheme: dark") && css.includes("body.theme-voiture"), "CSS d'ambiance : clair, sombre et Voiture");
+  for (const f of ["bulbes", "samovar", "rameau", "croix", "panier", "pont", "tasses", "lustres", "bouleau", "pelmeni", "poupee-acquise"]) {
+    const svg = typeof readFile === "function" ? readFile("content/ru/ambiance/" + f + ".svg") : (await (await import("node:fs/promises")).readFile(new URL("content/ru/ambiance/" + f + ".svg", racine), "utf8"));
+    verifier(!/#[0-9a-fA-F]{3,6}\b/.test(svg) && svg.length < 3072, "SVG " + f + " : aucune couleur en dur, moins de 3 Ko");
+  }
 }
 
 // ---------- QCM : 3 options distinctes, une seule juste ----------

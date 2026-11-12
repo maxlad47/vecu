@@ -26,6 +26,7 @@ function ajouter(el, enfants) {
 }
 
 // Icônes SVG en ligne (dessinées dans les maquettes de docs/design/maquettes/).
+// Contenu fixe écrit ici, jamais du texte venu de l'utilisateur ou du contenu : innerHTML sans risque.
 const CHEMINS = {
   graphique: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
   engrenage: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
@@ -39,7 +40,12 @@ const CHEMINS = {
   voiture: '<path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><path d="M3 12h18"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/><path d="M9.5 17h5"/>',
   reecouter: '<path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/>',
   pause: '<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>',
-  lecture: '<path d="M7 4l13 8-13 8z"/>'
+  lecture: '<path d="M7 4l13 8-13 8z"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  suite: '<path d="M9 5l7 7-7 7"/>',
+  hasard: '<path d="M4 7h3c5 0 5 10 10 10h3M4 17h3c1.5 0 2.5-.8 3.4-2M14 8.5C15 7.5 16 7 17 7h3M18 4.5L20.5 7 18 9.5M18 14.5l2.5 2.5-2.5 2.5"/>',
+  batterie: '<rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21 10.5v3M10.5 9.5l-2 3h4l-2 3"/>',
+  telephone: '<rect x="7" y="3" width="10" height="18" rx="2"/><path d="M10.5 18h3"/>'
 };
 
 export function icone(nom) {
@@ -64,6 +70,20 @@ export function classeLongueur(cible) {
   if (n > 45) return "xlong";
   if (n >= 29) return "long";
   return "";
+}
+
+// Phrase russe dont chaque mot est un bloc insécable (bagou-ru.md, 12) : l'accent tonique ne se détache pas de son voisin.
+export function motsRusses(texte) {
+  const span = document.createElement("span");
+  String(texte).split(/(\s+)/).forEach((morceau) => {
+    if (!morceau) return;
+    if (/^\s+$/.test(morceau)) { span.appendChild(document.createTextNode(" ")); return; }
+    const mot = document.createElement("span");
+    mot.className = "mot-ru";
+    mot.textContent = morceau;
+    span.appendChild(mot);
+  });
+  return span;
 }
 
 export function vider(el) { while (el.firstChild) el.removeChild(el.firstChild); }

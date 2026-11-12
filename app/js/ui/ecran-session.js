@@ -1,22 +1,26 @@
 // Écran de session (modes Silence, Écouteurs, Je peux parler) : en-tête, cartes, retour après réponse.
 // La composition des cartes vient du moteur (../session.js) ; ici, on ne fait qu'afficher et écouter.
 
-import { h, icone, annoncer, classeLongueur, vider, focaliser, mettre, texteMixte } from "./dom.js";
+import { h, icone, annoncer, classeLongueur, vider, focaliser, mettre, texteMixte, motsRusses } from "./dom.js";
+import { creerMenu } from "./menu.js";
+import { resumeThemes } from "./accueil.js";
+import { poupee, rangeeGigogne, etatDe, motEtat, sousTexteEtat } from "./matriochka.js";
+import { decorSituation, sansDecor } from "../ambiance.js";
 import { ouvrirFeuille } from "./feuille.js";
-import { t } from "../textes.js";
+import { t, texteDuree } from "../textes.js";
 import { INTERFACE, AUDIO } from "../config.js";
 import { creerSession } from "../moteur.js";
 import { creerHorloge } from "../horloge.js";
-import { autreVariante, variante, ponctuationFinale, normaliser } from "../contenu.js";
+import { autreVariante, variante, ponctuationFinale, normaliser, texteElement } from "../contenu.js";
 import * as audio from "../audio.js";
 
 const attendre = (ms) => new Promise((r) => setTimeout(r, ms));
 
-export function afficherSession(racine, ctx, { duree, mode }) {
+export function afficherSession(racine, ctx, { duree, mode, themes }) {
   const reglages = () => ctx.reglages();
   const genreReglage = () => reglages().genre; // undefined tant que jamais réglé
   const session = creerSession({
-    contenu: ctx.contenu, fiches: ctx.stockage.fiches, mode, duree, jour: ctx.jour(),
+    contenu: ctx.contenu, fiches: ctx.stockage.fiches, mode, duree, jour: ctx.jour(), themes,
     genre: genreReglage() || "m",
     ecrire: (fiche) => ctx.stockage.ecrireFiche(fiche)
   });
@@ -31,35 +35,46 @@ export function afficherSession(racine, ctx, { duree, mode }) {
 
   const sonore = () => session.mode !== "silence";
 
-  // ---------- Squelette de l'écran ----------
-  const boutonQuitter = h("button", { type: "button", class: "btn-icone", "aria-label": t("session.quitter"), onclick: demanderArret }, icone("croix"));
+  // ---------- Squelette de l'écran (bagou-ru.md, 8) ----------
+  // En-tête : Menu à gauche, Quitter à droite. Dessous : pastilles d'affichage (non touchables), barre de temps.
+  const boutonQuitter = h("button", { type: "button", class: "btn-texte", "aria-label": t("session.quitter"), onclick: () => demanderArret() },
+    icone("croix"), h("span", { "aria-hidden": "true" }, t("nav.quitter")));
+  // Pendant que le menu est ouvert, le chrono est en pause (comme la feuille « On s'arrête là ? »).
+  const menu = creerMenu(ctx, {
+    choisir: (ecran) => demanderArret(ecran),
+    surOuverture: () => { audio.couper(); jetonAvance++; horloge.pause("menu"); },
+    surFermeture: () => { horloge.reprendre("menu"); if (courant && courant.repondu && courant.juste) armerAvanceAuto(); }
+  });
   const barre = h("span");
   const compteur = h("span", { class: "compteur" }); // « encore X min »
-  const emplacementBadge = h("span");
+  const emplacementBadge = h("span", { class: "emplacement-son" });
+  const pastilleMode = h("span", { class: "info" });
   const zoneCarte = h("main", { class: "contenu carte" });
   const zoneBas = h("div");
   const ecran = h("div", { class: "ecran" },
-    h("header", { class: "entete-session" },
-      boutonQuitter,
-      h("div", { class: "progression" }, h("div", { class: "barre", "aria-hidden": "true" }, barre), compteur),
+    h("header", { class: "entete" }, menu.element, boutonQuitter),
+    h("div", { class: "contexte" }, pastilleMode,
+      h("span", { class: "info" }, texteDuree(duree)),
+      h("span", { class: "info" }, resumeThemes(themes || [], ctx.contenu.situations)),
       emplacementBadge),
+    h("div", { class: "progression" }, h("div", { class: "barre", "aria-hidden": "true" }, barre), compteur),
     zoneCarte, zoneBas);
   racine.appendChild(ecran);
 
+  // Le mode affiché suit la session (« Couper le son » la fait passer en Sans son). « Couper le son » n'existe que si le son est permis.
   function afficherBadge() {
     vider(emplacementBadge);
-    if (!sonore()) {
-      emplacementBadge.appendChild(h("span", { class: "badge" }, icone("muet"), t("session.badgeSilence")));
-    } else {
+    pastilleMode.textContent = t("lieu." + (sonore() ? session.mode : "silence"));
+    if (sonore()) {
       emplacementBadge.appendChild(h("button", { type: "button", class: "badge", onclick: couperLeSon }, icone("muet"), t("session.couperSon")));
     }
   }
 
   // ---------- Audio (jamais appelé en Silence : audio.parler refuse de toute façon) ----------
   function rateBoutons() { return reglages().vitesseVoix === "lente" ? AUDIO.rateLente : AUDIO.rateNormale; }
-  function lire(texteCible) {
+  function lire(texteCible, rate) {
     if (!sonore()) return Promise.resolve("refuse");
-    derniereLecture = audio.parler(texteCible, { langue: "cible", rate: rateBoutons() });
+    derniereLecture = audio.parler(texteCible, { langue: "cible", rate: rate || rateBoutons() });
     return derniereLecture;
   }
   const desabonner = audio.surLecture((enCours) => {
@@ -81,7 +96,7 @@ export function afficherSession(racine, ctx, { duree, mode }) {
     audio.definirModeAudio("silence");
     ctx.majReglage("dernierMode", "silence");
     afficherBadge();
-    zoneCarte.querySelectorAll("[data-ecouter], [data-reecouter]").forEach((b) => b.remove());
+    zoneCarte.querySelectorAll("[data-ecouter], [data-reecouter], .boutons-ecoute").forEach((b) => b.remove());
     annoncer(t("session.sonCoupe"));
     // La carte en cours, si elle a besoin du son, devient Sens ou Thème.
     if (courant && !courant.repondu && (courant.carte.type === "ecoute" || courant.carte.type === "voix-haute")) {
@@ -182,31 +197,31 @@ export function afficherSession(racine, ctx, { duree, mode }) {
     zoneBas.appendChild(h("div", { class: "zone-action" }, boutons));
   }
 
-  // 3.1 Découverte
+  // 3.1 Découverte : la carte de phrase de Bagou (bagou-ru.md, 8).
   function carteDecouverte(carte) {
     const el = carte.element;
     const texte = carte.texte;
     const genre = genreReglage();
-    const zone = h("div", { class: "zone-phrase" }, h("p", { class: "fr-dessus" }, texte.fr));
+    const fiche = ctx.stockage.fiches.get(el.id);
+    const theme = ctx.contenu.situations.find((x) => x.id === el.situation);
+    const decor = decorSituation(el.situation); // discret, en haut à droite, jamais derrière un texte
+    const carteEl = h("div", { class: "carte-phrase" + (sansDecor(el.situation) ? " sans-decor" : "") }, decor,
+      h("p", { class: "fr-dessus" }, texte.fr));
     if (el.variantes && !genre) {
       // Genre jamais réglé : on montre les deux formes et on pose la question (ecrans-phase0.md, 2.5).
       const m = variante(el, "m"), f = variante(el, "f");
-      mettre(zone, h("p", { class: "ru-hero " + classeLongueur(m.cible) }, h("span", { class: "petit" }, t("carte.homme") + " "), h("span", { lang: "ru" }, m.accent)));
-      mettre(zone, h("p", { class: "ru-hero " + classeLongueur(f.cible) }, h("span", { class: "petit" }, t("carte.femme") + " "), h("span", { lang: "ru" }, f.accent)));
+      mettre(carteEl, h("p", { class: "ru-hero " + classeLongueur(m.cible) }, h("span", { class: "petit" }, t("carte.homme") + " "), h("span", { lang: "ru" }, motsRusses(m.accent))));
+      mettre(carteEl, h("p", { class: "ru-hero " + classeLongueur(f.cible) }, h("span", { class: "petit" }, t("carte.femme") + " "), h("span", { lang: "ru" }, motsRusses(f.accent))));
     } else {
-      mettre(zone, h("p", { class: "ru-hero " + classeLongueur(texte.cible), lang: "ru" }, texte.accent));
-      mettre(zone, translit(texte.translit));
+      mettre(carteEl, h("p", { class: "ru-hero " + classeLongueur(texte.cible), lang: "ru" }, motsRusses(texte.accent)));
+      mettre(carteEl, translit(texte.translit));
       if (el.variantes) {
         const autre = autreVariante(el, genre);
-        if (autre) mettre(zone, h("p", { class: "petit" }, t(genre === "f" ? "carte.auMasculin" : "carte.auFeminin", { forme: "" }), h("span", { lang: "ru" }, autre.accent)));
+        if (autre) mettre(carteEl, h("p", { class: "petit" }, t(genre === "f" ? "carte.auMasculin" : "carte.auFeminin", { forme: "" }), h("span", { lang: "ru" }, autre.accent)));
       }
     }
-    mettre(zone, badgeRegistre(el.registre));
-    if (el.moule) {
-      const autres = el.moule.remplacements.filter((_, i) => i !== (carte.remplacement || 0)).slice(0, 3).map((r) => r.accent || r.cible);
-      mettre(zone, h("p", { class: "petit" }, t("decouverte.moule") + " ", h("span", { lang: "ru" }, autres.join(", "))));
-    }
-    mettre(zone, blocAstuce(el.astuce));
+    mettre(carteEl, badgeRegistre(el.registre));
+    mettre(carteEl, blocAstuce(el.astuce));
     if (el.variantes && !genre) {
       const choisir = (g) => {
         ctx.majReglage("genre", g);
@@ -215,15 +230,48 @@ export function afficherSession(racine, ctx, { duree, mode }) {
         carte.texte = Object.assign({}, carte.texte, variante(el, g));
         afficherCarte(carte, true);
       };
-      mettre(zone, h("div", { class: "encart-genre" },
+      mettre(carteEl, h("div", { class: "encart-genre" },
         h("p", null, t("genre.question")),
         h("div", { class: "paire" },
           h("button", { type: "button", class: "btn-secondaire", onclick: () => choisir("m") }, t("genre.m")),
           h("button", { type: "button", class: "btn-secondaire", onclick: () => choisir("f") }, t("genre.f")))));
     }
-    mettre(zone, boutonEcouter(texte.cible));
-    mettre(zoneCarte, consigne("decouverte.consigne"), zone);
-    zoneAction(h("button", { type: "button", class: "btn-principal", onclick: () => { session.repondre(carte, "non-note"); suivante(); } }, t("retour.suivant")));
+    if (sonore()) {
+      const bouton = (cle, rate, extra) => h("button", Object.assign({ type: "button", class: "btn-ecouter", "data-ecouter": "", "data-repos": t(cle), onclick: () => lire(texte.cible, rate) }, extra),
+        icone("hautParleur"), h("span", { class: "libelle-ecoute" }, t(cle)));
+      mettre(carteEl, h("div", { class: "boutons-ecoute" }, bouton("carte.ecouter", null), bouton("carte.lentement", AUDIO.rateLente)));
+    }
+    // Bloc d'état : poupée + mot + sous-texte (la forme et le mot, jamais la couleur seule).
+    const etat = etatDe(fiche);
+    mettre(carteEl, h("div", { class: "bloc-etat" }, poupee(etat, 40, true),
+      h("div", null, motEtat(etat), h("small", null, sousTexteEtat(etat, fiche)))));
+
+    mettre(zoneCarte, consigne("decouverte.consigne"), carteEl);
+
+    // Phrase-moule : « Même phrase, autre mot », puces tactiles. Toucher une puce affiche la phrase complète avec ce mot
+    // (affichage seulement : le moteur, lui, a déjà fixé le mot de la carte).
+    if (el.moule) {
+      const affiche = carte.affiche === undefined ? (carte.remplacement || 0) : carte.affiche;
+      mettre(zoneCarte, h("div", { class: "autre-mot" },
+        h("span", { class: "etiquette-moule" }, t("moule.consigne")),
+        h("div", { class: "puces" }, el.moule.remplacements.map((r, i) =>
+          h("button", { type: "button", class: "puce", lang: "ru", "aria-pressed": String(i === affiche), onclick: () => {
+            carte.affiche = i;
+            carte.texte = texteElement(el, { genre: genreReglage() || "m", remplacement: i });
+            afficherCarte(carte, true);
+            focaliser(zoneCarte.querySelectorAll(".puce")[i]);
+          } }, r.accent || r.cible)))));
+    }
+    // Poupées du thème : une par phrase, gigognes, avec « Au café · 3 acquises sur 9 ».
+    if (theme) {
+      const ids = theme.ids.filter((id) => ctx.contenu.parId.has(id));
+      const etats = ids.map((id) => etatDe(ctx.stockage.fiches.get(id)));
+      const acquises = etats.filter((e) => e === "acquise").length;
+      const texteTheme = acquises === ids.length && ids.length > 0 ? t("theme.tout", { titre: theme.titre })
+        : t(acquises === 0 ? "theme.rang0" : acquises === 1 ? "theme.rang1" : "theme.rang", { titre: theme.titre, acquises, total: ids.length });
+      mettre(zoneCarte, h("div", { class: "rang-poupees" }, texteTheme, rangeeGigogne(etats)));
+    }
+    zoneAction(h("button", { type: "button", class: "btn-principal haut-60", onclick: () => { session.repondre(carte, "non-note"); suivante(); } }, t("retour.suivant")));
     if (!courant.luArrivee) { courant.luArrivee = true; lire(texte.cible); }
   }
 
@@ -264,7 +312,7 @@ export function afficherSession(racine, ctx, { duree, mode }) {
     session.repondre(carte, juste ? "reussite" : "echec");
     const texte = carte.texte;
     const reponseRusse = ["theme", "moule-theme", "ordre"].includes(carte.type);
-    const panneau = h("div", { class: "retour" });
+    const panneau = h("div", { class: "retour" + (juste ? "" : " est-faux") });
     const verdict = h("p", { class: "verdict " + (juste ? "ok" : "ko"), role: "status", tabindex: "-1" },
       icone(juste ? "coche" : "croix"), t(juste ? "retour.juste" : "retour.faux"));
     mettre(panneau, verdict);
@@ -454,7 +502,8 @@ export function afficherSession(racine, ctx, { duree, mode }) {
   }
 
   // ---------- Quitter, arrière-plan, clavier ----------
-  function demanderArret() {
+  // vers : écran du menu choisi (« progres », « reglages »). Arrêter la session y mène directement, sans écran de fin.
+  function demanderArret(vers) {
     if (feuille || fini) return;
     audio.couper(); // toute lecture est coupée à l'ouverture de la feuille
     jetonAvance++;
@@ -468,7 +517,10 @@ export function afficherSession(racine, ctx, { duree, mode }) {
         horloge.reprendre("feuille");
         if (courant && courant.repondu && courant.juste) armerAvanceAuto();
       },
-      surSecondaire: () => { feuille = null; terminer("arret"); }
+      surSecondaire: () => {
+        feuille = null;
+        if (vers) { nettoyer(); ctx.aller(vers); } else terminer("arret");
+      }
     });
   }
 
@@ -483,7 +535,7 @@ export function afficherSession(racine, ctx, { duree, mode }) {
   }
 
   function clavier(e) {
-    if (feuille || !courant) return;
+    if (feuille || !courant || menu.ouvert) return;
     if (e.altKey || e.ctrlKey || e.metaKey) return;
     // Entrée sur le verdict (qui a le focus après une réponse) : carte suivante.
     if (e.key === "Enter" && document.activeElement && document.activeElement.classList.contains("verdict")) { e.preventDefault(); suivante(); return; }
@@ -498,6 +550,7 @@ export function afficherSession(racine, ctx, { duree, mode }) {
   document.addEventListener("keydown", clavier);
 
   function nettoyer() {
+    menu.fermer();
     fini = true;
     clearInterval(minuteurTemps);
     jetonAvance++;
@@ -513,7 +566,7 @@ export function afficherSession(racine, ctx, { duree, mode }) {
     if (fini) return;
     const modeFinal = session.mode;
     nettoyer();
-    ctx.aller("fin", { bilan: session.bilan(), duree, mode: modeFinal, raison });
+    ctx.aller("fin", { bilan: session.bilan(), duree, mode: modeFinal, raison, themes });
   }
 
   // ---------- Démarrage ----------
@@ -526,6 +579,7 @@ export function afficherSession(racine, ctx, { duree, mode }) {
   return {
     // Bouton « retour » du téléphone : ouvre la feuille (ou la referme si elle est ouverte).
     retour() {
+      if (menu.ouvert) { menu.fermer(); return true; }
       if (feuille) { const f = feuille; feuille = null; f.fermer(); horloge.reprendre("feuille"); if (courant && courant.repondu && courant.juste) armerAvanceAuto(); }
       else demanderArret();
       return true;

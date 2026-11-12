@@ -1,0 +1,49 @@
+{
+  "langue": "ru",
+  "version": 1,
+  "nom": "Gjel et Khokhloma",
+  "repartition": { "fond": 70, "principale": 20, "accents": 10 },
+  "couleurs": {
+    "clair": {
+      "--bg": "#FBF8F2", "--surface": "#FFFFFF", "--text": "#1B2340", "--text-muted": "#4F5A7A",
+      "--border": "#6E7AA0", "--border-subtle": "#D5DBEA", "--accent": "#22408F", "--on-accent": "#FFFFFF",
+      "--accent-soft": "#DDE5F6", "--laque": "#B3261E", "--on-laque": "#FFFFFF", "--laque-soft": "#F6D9D5",
+      "--or": "#C9A227", "--or-text": "#7A5C00", "--deco-bleu-pale": "#B9C9EC",
+      "--deco-peau": "#FBEFE6", "--deco-joue": "#E58A86", "--deco-oeil": "#1B2340", "--deco-contour": "#7E1A15"
+    },
+    "sombre": {
+      "--bg": "#0F1426", "--surface": "#1A2140", "--text": "#F3EFE6", "--text-muted": "#B4BCD6",
+      "--border": "#7F8BB3", "--border-subtle": "#2B3458", "--accent": "#9DB8F5", "--on-accent": "#0F1426",
+      "--accent-soft": "#1F2D5A", "--laque": "#E8675E", "--on-laque": "#0F1426", "--laque-soft": "#3A1F2A",
+      "--or": "#E0B84A", "--or-text": "#E0B84A", "--deco-bleu-pale": "#2B3F78",
+      "--deco-peau": "#FBEFE6", "--deco-joue": "#E58A86", "--deco-oeil": "#1B2340", "--deco-contour": "#B3261E"
+    }
+  },
+  "objet_progression": {
+    "id": "matriochka",
+    "nom": "matriochka",
+    "gigogne": true,
+    "symboles": {
+      "pas_vue": "ambiance/poupee-pas-vue.svg",
+      "vue": "ambiance/poupee-vue.svg",
+      "en_cours": "ambiance/poupee-en-cours.svg",
+      "acquise": "ambiance/poupee-acquise.svg"
+    }
+  },
+  "decors": {
+    "accueil": "ambiance/bulbes.svg",
+    "defaut": "ambiance/rameau.svg",
+    "par_situation": {
+      "cafe": "ambiance/samovar.svg",
+      "courses": "ambiance/panier.svg",
+      "gouts": "ambiance/rameau.svg",
+      "sortir": "ambiance/pont.svg",
+      "rencontrer": "ambiance/tasses.svg",
+      "metro": "ambiance/lustres.svg",
+      "pharmacie": { "fichier": "ambiance/croix.svg", "sobre": true },
+      "presenter": "ambiance/bouleau.svg",
+      "restaurant": "ambiance/pelmeni.svg",
+      "urgences": null
+    }
+  }
+}

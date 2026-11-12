@@ -7,6 +7,8 @@
 // - un « jeton » change à chaque pause : une étape d'un cycle abandonné ne fait plus rien.
 
 import { h, icone, focaliser } from "./dom.js";
+import { creerMenu } from "./menu.js";
+import { resumeThemes } from "./accueil.js";
 import { t, texteDuree } from "../textes.js";
 import { REGLES } from "../config.js";
 import { creerSession } from "../moteur.js";
@@ -15,10 +17,16 @@ import * as audio from "../audio.js";
 
 const ABANDON = { abandon: true };
 
-// 4.1 Avant le départ
-export function afficherAvantDepart(racine, ctx, { duree }) {
-  document.body.classList.add("theme-voiture");
-  const demarrer = h("button", { type: "button", class: "btn-principal tres-haut", onclick: lancer }, t("voiture.demarrer"));
+// 4.1 Avant le départ : rien à lire, un seul gros bouton (bagou-ru.md, section 4).
+// Les trois pastilles ramènent à leur étape de l'accueil sans perdre les autres choix.
+export function afficherAvantDepart(racine, ctx, { duree, themes }) {
+  const themesChoisis = themes || [];
+  const choix = { lieu: "voiture", duree, themes: themesChoisis };
+  const versEtape = (etape) => ctx.aller("accueil", { etape, choix });
+  const menu = creerMenu(ctx, {});
+  const libelle = h("span", { class: "libelle" }, t("voiture.demarrer"));
+  const sous = h("span", { class: "sous" }, t("voiture.demarrerSous", { duree: texteDuree(duree) }));
+  const demarrer = h("button", { type: "button", class: "btn-principal tres-haut", id: "je-demarre", onclick: lancer }, libelle, sous);
   let enPreparation = false;
   function lancer() {
     if (enPreparation) return;
@@ -26,37 +34,41 @@ export function afficherAvantDepart(racine, ctx, { duree }) {
     // Ce toucher autorise l'audio.
     audio.definirModeAudio("voiture");
     audio.amorcer();
-    demarrer.textContent = t("voix.prepare");
+    libelle.textContent = t("voix.prepare");
+    sous.textContent = "";
     const toujoursLa = ctx.garde();
     audio.verifierVoix(["cible", "fr"]).then((voix) => {
       enPreparation = false;
       if (!toujoursLa()) return; // retour à l'accueil pendant l'attente : la Voiture ne part pas
       if (!voix.cible) { audio.definirModeAudio("silence"); ctx.aller("sansVoix", { variante: "voiture", duree }); return; }
       if (!voix.fr) { audio.definirModeAudio("silence"); ctx.aller("sansVoix", { variante: "fr", duree }); return; }
-      ctx.aller("voitureRoute", { duree });
+      ctx.aller("voitureRoute", { duree, themes: themesChoisis });
     });
   }
-  const titre = h("h1", { class: "titre-ecran", tabindex: "-1" }, t("voiture.titre"));
+  const past = (icon, texte, etape) => h("button", { type: "button", class: "past", "aria-label": t("past.modifier", { valeur: texte }), onclick: () => versEtape(etape) },
+    icon ? icone(icon) : null, h("span", { "aria-hidden": "true" }, texte));
+  const titre = h("h1", { class: "titre-etape", tabindex: "-1" }, t("voiture.avantTitre"));
+  const ligne = (icon, cle) => h("li", null, h("span", { class: "ic" }, icone(icon)), t(cle));
   racine.appendChild(h("div", { class: "ecran" },
-    h("header", { class: "entete avec-retour" },
-      h("button", { type: "button", class: "btn-icone", "aria-label": t("voiture.retour"), onclick: () => ctx.retourAccueil() }, icone("retour"))),
+    h("header", { class: "entete" }, menu.element),
     h("main", { class: "contenu" },
+      h("div", { class: "pastilles" },
+        past("voiture", t("lieu.voiture"), 1), past(null, texteDuree(duree), 2), past(null, resumeThemes(themesChoisis, ctx.contenu.situations), 3)),
       titre,
-      h("p", { class: "texte" }, t("voiture.texte1")),
-      h("p", { class: "texte" }, t("voiture.texte2")),
-      h("p", { class: "petit" }, t("voiture.rappel", { duree: texteDuree(duree) }))),
-    h("div", { class: "zone-action" }, demarrer)));
+      h("ul", { class: "preparatifs" }, ligne("batterie", "voiture.branche"), ligne("hautParleur", "voiture.volume"), ligne("telephone", "voiture.pose"))),
+    h("div", { class: "zone-action" }, demarrer,
+      h("button", { type: "button", class: "btn-lien", onclick: () => versEtape(2) }, icone("retour"), t("nav.retour")))));
   focaliser(titre);
-  return { nettoyer() {} };
+  return { nettoyer() { menu.fermer(); } };
 }
 
 // 4.2 En route
-export function afficherVoitureRoute(racine, ctx, { duree }) {
+export function afficherVoitureRoute(racine, ctx, { duree, themes }) {
   document.body.classList.add("theme-voiture");
   audio.definirModeAudio("voiture");
   const reglages = ctx.reglages();
   const session = creerSession({
-    contenu: ctx.contenu, fiches: ctx.stockage.fiches, mode: "voiture", duree, jour: ctx.jour(),
+    contenu: ctx.contenu, fiches: ctx.stockage.fiches, mode: "voiture", duree, jour: ctx.jour(), themes,
     genre: reglages.genre || "m",
     ecrire: (fiche) => ctx.stockage.ecrireFiche(fiche)
   });
@@ -226,7 +238,7 @@ export function afficherVoitureRoute(racine, ctx, { duree }) {
   function terminer(raison) {
     if (fini) return;
     nettoyer();
-    ctx.aller("fin", { bilan: session.bilan(), duree, mode: "voiture", raison });
+    ctx.aller("fin", { bilan: session.bilan(), duree, mode: "voiture", raison, themes });
   }
 
   // ---------- Démarrage ----------

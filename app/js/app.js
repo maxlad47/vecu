@@ -1,4 +1,4 @@
-// Point d'entrée : charge le stockage et le contenu, puis gère la navigation entre écrans.
+// Point d'entrée de Bagou : charge le stockage, l'ambiance et le contenu, puis gère la navigation entre écrans.
 //
 // Navigation : par état en mémoire, sans URL. Pour que le bouton « retour » du téléphone
 // ne fasse pas quitter l'app, on pousse un état d'historique (history.pushState sans changer
@@ -7,6 +7,7 @@
 
 import { LANGUE_CIBLE } from "./config.js";
 import { chargerContenu } from "./contenu.js";
+import { chargerAmbiance } from "./ambiance.js";
 import { ouvrirStockage } from "./stockage.js";
 import { calculerJour } from "./leitner.js";
 import { t } from "./textes.js";
@@ -72,7 +73,8 @@ function aller(nom, params) {
   vue = null;
   vider(racine);
   // Le thème sombre forcé ne vaut que pour le mode Voiture (et sa fin de session).
-  const voiture = nom === "voitureAvant" || nom === "voitureRoute" || (params && params.mode === "voiture" && nom === "fin") ||
+  // « Avant le départ » suit le thème choisi : le sombre ne vient qu'à « Je démarre ».
+  const voiture = nom === "voitureRoute" || (params && params.mode === "voiture" && nom === "fin") ||
     (nom === "sansVoix" && params && params.variante !== "cible");
   document.body.classList.toggle("theme-voiture", !!voiture);
 
@@ -97,10 +99,17 @@ function surRetour() {
   aller("accueil");
 }
 
-// Lance une session. Renvoie une promesse quand il faut d'abord vérifier les voix.
-function lancer(duree, mode, boutonAttente) {
-  if (mode === "voiture") { aller("voitureAvant", { duree }); return null; }
-  if (mode === "silence") { audio.definirModeAudio("silence"); aller("session", { duree, mode }); return null; }
+// Lance une session. options : { themes: [ids] (vide = « Au hasard »), bouton } (bouton : reçoit « Je prépare la voix… »).
+// Renvoie une promesse quand il faut d'abord vérifier les voix.
+function lancer(duree, mode, options) {
+  const themes = (options && Array.isArray(options.themes)) ? options.themes : [];
+  const boutonAttente = options && options.bouton;
+  // « Comme la dernière fois » relit ces trois valeurs.
+  majReglage("dernierMode", mode);
+  majReglage("dernierDuree", duree);
+  majReglage("derniersThemes", themes);
+  if (mode === "voiture") { aller("voitureAvant", { duree, themes }); return null; }
+  if (mode === "silence") { audio.definirModeAudio("silence"); aller("session", { duree, mode, themes }); return null; }
   // Écouteurs ou Je peux parler : ce toucher autorise l'audio, puis on vérifie la voix russe.
   audio.definirModeAudio(mode);
   audio.amorcer();
@@ -108,23 +117,15 @@ function lancer(duree, mode, boutonAttente) {
   const toujoursLa = garde();
   return audio.verifierVoix(["cible"]).then((voix) => {
     if (!toujoursLa()) return; // l'utilisateur a changé d'écran pendant l'attente : on ne fait rien
-    if (voix.cible) aller("session", { duree, mode });
-    else { audio.definirModeAudio("silence"); aller("sansVoix", { variante: "cible", duree }); }
+    if (voix.cible) aller("session", { duree, mode, themes });
+    else { audio.definirModeAudio("silence"); aller("sansVoix", { variante: "cible", duree, themes }); }
   });
-}
-
-// « Commencer » depuis Mes progrès vide.
-function commencer() {
-  const r = reglages();
-  if (r.dernierMode) return lancer(r.dernierDuree || 5, r.dernierMode);
-  aller("accueil", { demanderLieu: true });
-  return null;
 }
 
 const ctx = {
   get contenu() { return contenu; },
   get stockage() { return stockage; },
-  reglages, majReglage, appliquerTheme, aller, lancer, commencer, garde,
+  reglages, majReglage, appliquerTheme, aller, lancer, garde,
   retourAccueil: () => aller("accueil"),
   jour: () => calculerJour(new Date())
 };
@@ -155,6 +156,8 @@ async function demarrer() {
     afficherErreurContenu();
     return;
   }
+  // Ne rejette jamais : sans ambiance valide, l'ambiance neutre de app.css s'applique.
+  await chargerAmbiance(LANGUE_CIBLE);
   historique("remplacer");
   window.addEventListener("popstate", surRetour);
   aller("accueil");

@@ -83,6 +83,9 @@ export const INTERFACE = {
   attenteVoixMs: 3000,         // attente des voix (voiceschanged), jusqu'à 3 s
   dureesProposees: [2, 5, 15, 30],
   dureeParDefaut: 5,
+  // Durée préremplie à l'étape 2 selon le lieu (bagou-ru.md, section 4). Elle est remplacée
+  // par la dernière durée choisie pour ce lieu (mémoire par lieu).
+  dureeParLieu: { silence: 2, ecouteurs: 5, parler: 15, voiture: 30 },
   modes: ["silence", "ecouteurs", "parler", "voiture"]
 };
 

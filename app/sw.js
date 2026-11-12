@@ -1,11 +1,11 @@
-// Service worker de Vécu : met en cache l'app et le contenu pour marcher sans réseau.
+// Service worker de Bagou : met en cache l'app et le contenu pour marcher sans réseau.
 // Le script de construction (scripts/build.mjs ou scripts/build.sh) remplace les deux lignes
 // marquées ci-dessous par la version du cache et la liste réelle des fichiers de dist/.
 
 const VERSION = "dev"; // __VERSION__
 const FICHIERS = []; // __FICHIERS__
 
-const CACHE = "vecu-" + VERSION;
+const CACHE = "bagou-" + VERSION;
 
 // Installation : on télécharge tous les fichiers de l'app et du contenu.
 self.addEventListener("install", (evenement) => {
@@ -18,7 +18,7 @@ self.addEventListener("install", (evenement) => {
 self.addEventListener("activate", (evenement) => {
   evenement.waitUntil(
     caches.keys()
-      .then((noms) => Promise.all(noms.filter((n) => n.startsWith("vecu-") && n !== CACHE).map((n) => caches.delete(n))))
+      .then((noms) => Promise.all(noms.filter((n) => (n.startsWith("bagou-") || n.startsWith("vecu-")) && n !== CACHE).map((n) => caches.delete(n))))
       .then(() => self.clients.claim())
   );
 });

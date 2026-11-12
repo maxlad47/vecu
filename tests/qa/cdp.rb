@@ -8,7 +8,7 @@ require "base64"
 require "net/http"
 require "tmpdir"
 
-CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+CHROME = ENV["CHROME"] || (File.exist?("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome") ? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" : "google-chrome")
 
 GARDER = %w[Runtime.exceptionThrown Runtime.consoleAPICalled Network.requestWillBeSent Fetch.requestPaused].freeze
 
@@ -17,7 +17,7 @@ class CDP
 
   def self.lancer(port: 9333, profil: nil, largeur: 360, hauteur: 800)
     profil ||= Dir.mktmpdir("vecu-qa-")
-    pid = spawn(CHROME, "--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check",
+    pid = spawn(CHROME, "--headless=new", "--no-sandbox", "--disable-gpu", "--no-first-run", "--no-default-browser-check",
                 "--remote-debugging-port=#{port}", "--user-data-dir=#{profil}", "--window-size=#{largeur},#{hauteur}",
                 "--mute-audio", "about:blank", out: File::NULL, err: File::NULL)
     url = nil

@@ -89,10 +89,19 @@ const $$ = (s) => [...doc.querySelectorAll(s)];
 const parTexte = (texte) => $$("button").find((b) => b.textContent.includes(texte));
 async function cliquer(el) { if (el) { el.click(); await pause(60); } }
 
-async function demarrer(lieu, duree) {
-  await cliquer($("#duree-" + (duree || 5)));
+// Parcours d'accueil de Bagou : lieu, durée, « Suite », puis « C'est parti » (en voiture : « Avant le départ »).
+async function viaMenu(texte) {
+  await cliquer($(".btn-menu"));
+  await cliquer($$(".liste-menu a").find((a) => a.textContent.includes(texte)));
+}
+async function parcours(lieu, duree) {
   await cliquer($("#lieu-" + lieu));
-  await cliquer($(".zone-action .btn-principal"));
+  await cliquer($("#duree-" + (duree || 5)));
+  await cliquer($("#suite"));
+  if (lieu !== "voiture") await cliquer($("#c-est-parti"));
+}
+async function demarrer(lieu, duree) {
+  await parcours(lieu, duree);
   await pause(1800);
 }
 function consigne() { const c = $(".consigne"); return c ? c.textContent : ""; }
@@ -119,7 +128,7 @@ async function jusqua(texteConsigne, max) {
 
 const scenarios = {
   async accueil() { await charger(); },
-  async accueil2() { await charger(); await cliquer($("#lieu-silence")); await cliquer($("#duree-15")); await pause(300); await charger(); rapport.boutonPret = $(".zone-action .btn-principal").textContent; rapport.idb = await lireReglages(); },
+  async accueil2() { await charger(); await parcours("silence", 15); await pause(300); await charger(); rapport.boutonPret = $("#derniere-fois") && $("#derniere-fois").textContent; rapport.idb = await lireReglages(); },
   async decouverte() { await charger(); await demarrer("silence"); },
   async sens() { await charger(); await demarrer("silence"); await jusqua("Ça veut dire"); },
   async theme() { await charger(); await demarrer("silence"); await jusqua("Comment on dit"); },
@@ -130,18 +139,18 @@ const scenarios = {
   async course() {
   const essai = async (depart, langues) => {
     await charger(); installerSynthese(true, 1200, langues);
-    await cliquer($("#duree-5")); await cliquer($("#lieu-" + depart)); await cliquer($(".zone-action .btn-principal"));
-    if (depart === "voiture") { await pause(300); await cliquer(parTexte("Démarrer")); await pause(200); await cliquer($("[aria-label=\"Revenir à l’accueil\"]")); }
-    else { await pause(200); await cliquer(parTexte("Réglages")); await pause(200); win.history.back(); }
+    await parcours(depart, 5);
+    if (depart === "voiture") { await pause(300); await cliquer(parTexte("Je démarre")); await pause(200); await cliquer($(".btn-lien")); }
+    else { await pause(200); await viaMenu("Réglages"); await pause(200); win.history.back(); }
     await pause(300);
-    await cliquer($("#lieu-silence")); await cliquer($(".zone-action .btn-principal")); await pause(300);
+    await parcours("silence", 5); await pause(300);
     const avant = rapport.parles.length;
     await pause(2500);
-    const badge = $(".entete-session .badge");
+    const badge = $(".contexte .info");
     return { depart, langues, consigne: consigne(), badge: badge && badge.textContent, sonApresSilence: rapport.parles.slice(avant), ecranVoiture: !!$(".voiture-route"), ecranSansVoix: !!$(".titre-ecran") && $(".titre-ecran").textContent };
   };
   rapport.essais = [await essai("ecouteurs", "ru+fr"), await essai("voiture", "ru+fr"), await essai("ecouteurs", "fr")];
-  rapport.ok = rapport.essais.every((e) => e.badge === "Silence" && e.sonApresSilence.length === 0 && !e.ecranVoiture);
+  rapport.ok = rapport.essais.every((e) => e.badge === "Sans son" && e.sonApresSilence.length === 0 && !e.ecranVoiture);
 },
 
   async ordre() {
@@ -155,14 +164,14 @@ const scenarios = {
   async ecoute() { await charger(); installerSynthese(true); await demarrer("parler"); await jusqua("Écoute."); await pause(300); },
   async voixhaute() { await charger(); installerSynthese(true); await demarrer("parler"); await jusqua("Dis-le"); await cliquer(parTexte("Voir la réponse")); await pause(300); },
   async sansvoix() { await charger(); installerSynthese(false); await demarrer("ecouteurs"); },
-  async quitter() { await charger(); await demarrer("silence"); await cliquer($(".entete-session .btn-icone")); },
+  async quitter() { await charger(); await demarrer("silence"); await cliquer($(".entete .btn-texte")); },
   async voitureavant() { await charger(); await demarrer("voiture", 15); },
-  async voitureroute() { await charger(); installerSynthese(true); await demarrer("voiture", 2); await cliquer(parTexte("Démarrer")); await pause(2500); rapport.etatVoiture = $(".bouton-pause") && $(".bouton-pause").getAttribute("aria-label"); },
+  async voitureroute() { await charger(); installerSynthese(true); await demarrer("voiture", 2); await cliquer(parTexte("Je démarre")); await pause(2500); rapport.etatVoiture = $(".bouton-pause") && $(".bouton-pause").getAttribute("aria-label"); },
   async voiturepause() { await scenarios.voitureroute(); await cliquer($(".bouton-pause")); await pause(500); },
   async voiturefin() {
     await charger(); installerSynthese(true); await demarrer("voiture", 2);
     const debut = performance.now();
-    await cliquer(parTexte("Démarrer"));
+    await cliquer(parTexte("Je démarre"));
     for (let i = 0; i < 600 && !$(".titre-ecran"); i++) await pause(1000);
     rapport.dureeReelleS = Math.round((performance.now() - debut) / 1000);
     rapport.titre = $(".titre-ecran") && $(".titre-ecran").textContent;
@@ -181,10 +190,10 @@ const scenarios = {
   },
   async progres() {
     await semer([fiche("ru-cafe-001", 4, jourDecale(5)), fiche("ru-cafe-002", 5, jourDecale(9)), fiche("ru-cafe-003", 4, jourDecale(2)), fiche("ru-courses-001", 4, jourDecale(2)), fiche("ru-courses-002", 2, jourDecale(1))]);
-    await charger(); await cliquer(parTexte("Mes progrès"));
+    await charger(); await viaMenu("Mes progrès");
   },
-  async progresvide() { await charger(); await cliquer(parTexte("Mes progrès")); },
-  async reglages() { await charger(); await cliquer(parTexte("Réglages")); },
+  async progresvide() { await charger(); await viaMenu("Mes progrès"); },
+  async reglages() { await charger(); await viaMenu("Réglages"); },
   async retour() { await charger(); await demarrer("silence"); win.history.back(); await pause(400); rapport.feuilleOuverte = !!$("[role=dialog]"); }
 };
 

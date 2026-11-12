@@ -20,8 +20,9 @@
     const ecoute = { voiceschanged: [] };
     let courant = null, minuteur = null;
     const contexte = () => {
-      const b = document.querySelector(".entete-session .badge");
-      return b && b.tagName === "SPAN" ? "SESSION-SILENCE" : (document.querySelector(".voiture-route") ? "voiture" : (document.querySelector(".entete-session") ? "session-son" : "hors-session"));
+      // Session = écran avec les pastilles de contexte. « Couper le son » (button.badge) n'existe que si le son est permis.
+      const session = document.querySelector(".contexte");
+      return session && !document.querySelector(".contexte button.badge") ? "SESSION-SILENCE" : (document.querySelector(".voiture-route") ? "voiture" : (session ? "session-son" : "hors-session"));
     };
     const faux = {
       paused: false, pending: false,

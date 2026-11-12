@@ -1,5 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Vécu">
-  <rect width="512" height="512" fill="#1F4E8C"/>
-  <path d="M120 150 h272 a40 40 0 0 1 40 40 v120 a40 40 0 0 1 -40 40 h-150 l-70 60 v-60 h-52 a40 40 0 0 1 -40 -40 v-120 a40 40 0 0 1 40 -40 z" fill="#FAF7F2"/>
-  <path d="M190 215 l66 90 l66 -90" fill="none" stroke="#1F4E8C" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Bagou">
+  <rect width="512" height="512" fill="#22408F"/>
+  <g transform="translate(256 262) scale(.86) translate(-256 -262)">
+  <ellipse cx="256" cy="324" rx="130" ry="138" fill="#B3261E" stroke="#7E1A15" stroke-width="12"/>
+  <circle cx="256" cy="156" r="96" fill="#FBF8F2" stroke="#7E1A15" stroke-width="12"/>
+  <circle cx="256" cy="166" r="52" fill="#FBEFE6"/>
+  <circle cx="236" cy="162" r="8" fill="#1B2340"/><circle cx="276" cy="162" r="8" fill="#1B2340"/>
+  <circle cx="226" cy="188" r="10" fill="#E58A86"/><circle cx="286" cy="188" r="10" fill="#E58A86"/>
+  <path d="M176 112Q256 44 336 112" fill="none" stroke="#C9A227" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="256" cy="330" r="46" fill="none" stroke="#C9A227" stroke-width="14"/>
+  <circle cx="256" cy="330" r="17" fill="#C9A227"/>
+  </g>
 </svg>

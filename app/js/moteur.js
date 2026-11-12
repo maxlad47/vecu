@@ -46,6 +46,10 @@ export function aleatoireGraine(graine) {
  * @param {number} p.duree    durée annoncée en minutes (2, 5, 15, 30)
  * @param {string} p.jour     jour de la répétition (AAAA-MM-JJ)
  * @param {string} p.genre    "m" ou "f"
+ * @param {string[]} [p.themes] ids de situations choisies ; vide ou absent = « Au hasard »
+ *   (tout le contenu, comportement d'origine). Avec des thèmes, les nouvelles phrases, les
+ *   révisions dues et le remplissage ne viennent que de ces thèmes. Les révisions dues
+ *   ailleurs attendent : leur fiche n'est pas touchée, donc aucune pénalité.
  * @param {function} [p.aleatoire] tirage dans [0, 1[
  * @param {function} [p.ecrire]    appelé avec chaque fiche modifiée (pour l'enregistrer)
  */
@@ -67,7 +71,10 @@ export function creerSession(p) {
   });
   const fiche = (id) => fiches.get(id) || ficheVide(id);
   const el = (id) => contenu.parId.get(id);
-  const elements = contenu.elements;
+  const tousElements = contenu.elements;
+  // Thèmes choisis (ids inconnus ignorés). Si plus rien de valide, on retombe sur « Au hasard ».
+  const themesChoisis = new Set((Array.isArray(p.themes) ? p.themes : []).filter((id) => tousElements.some((e) => e.situation === id)));
+  const elements = themesChoisis.size ? tousElements.filter((e) => themesChoisis.has(e.situation)) : tousElements;
 
   // ---- 5.1 Initialisation ----
   const dus = elements
@@ -80,7 +87,8 @@ export function creerSession(p) {
     .map((e) => e.id);
   const dusAuDepart = new Set(dus);
   const nouveauxPossibles = elements.filter((e) => fiche(e.id).boite === 0).map((e) => e.id);
-  const nbVus = elements.length - nouveauxPossibles.length;
+  // Le démarrage prudent des sessions de 2 min compte les phrases vues partout, pas seulement dans les thèmes.
+  const nbVus = tousElements.filter((e) => fiche(e.id).boite >= 1).length;
 
   // ---- Section 2 : nombre de nouveaux éléments ----
   let nMax = REGLES.nMax[mode][duree];
@@ -93,7 +101,7 @@ export function creerSession(p) {
   // Éléments « en jeu » pour la réserve : vus avant la session, ou introduits pendant.
   const enJeu = new Set(elements.filter((e) => fiche(e.id).boite >= 1).map((e) => e.id));
 
-  const acquisAvant = new Set(elements.filter((e) => estAcquis(fiche(e.id))).map((e) => e.id));
+  const acquisAvant = new Set(tousElements.filter((e) => estAcquis(fiche(e.id))).map((e) => e.id));
 
   // ---- État de la session ----
   const etat = {
@@ -346,7 +354,7 @@ export function creerSession(p) {
   // Ajoute les choix du QCM ou les tuiles de l'Ordre.
   function ajouterExercice(carte) {
     const ctx = {
-      elements, fiche, genre, aleatoire,
+      elements: tousElements, fiche, genre, aleatoire,
       introduitsSession: new Set(etat.introduitsSession)
     };
     // À voix haute reçoit aussi des choix : ils servent si l'on coupe le son pendant la carte
@@ -439,7 +447,8 @@ export function creerSession(p) {
   function bilan() {
     const decouverts = etat.introduitsSession.slice();
     const revises = [...etat.travailles].filter((id) => !decouverts.includes(id));
-    const acquisMaintenant = elements.filter((e) => estAcquis(fiche(e.id))).map((e) => e.id);
+    // « Tu sais dire N phrases » compte toujours tout le contenu, quels que soient les thèmes de la session.
+    const acquisMaintenant = tousElements.filter((e) => estAcquis(fiche(e.id))).map((e) => e.id);
     return {
       decouverts,
       revises,
@@ -447,7 +456,7 @@ export function creerSession(p) {
       cartes: etat.index,
       totalAcquis: acquisMaintenant.length,
       nouveauxAcquis: acquisMaintenant.filter((id) => !acquisAvant.has(id)).length,
-      toutVu: nouveauxPossibles.length === 0
+      toutVu: tousElements.every((e) => fiche(e.id).boite >= 1)
     };
   }
 

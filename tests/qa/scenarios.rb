@@ -44,8 +44,16 @@ def qa(c) c.js("JSON.parse(JSON.stringify(window.__qa))") end
 def ecran(c) c.js("__d.ecran()") end
 def clic(c, sel) c.js("(() => { const e = document.querySelector(#{sel.to_json}); if (e) e.click(); return !!e; })()") end
 def clic_texte(c, t) c.js("(() => { const b = __d.bouton(#{t.to_json}); if (b) b.click(); return !!b; })()") end
+# Parcours d'accueil de Bagou : lieu, durée, « Suite », puis « C'est parti » (thèmes : « Au hasard »).
+# En voiture, « Suite » mène directement à « Avant le départ » (bouton « Je démarre »).
 def demarrer(c, lieu, duree)
-  clic(c, "#duree-#{duree}"); clic(c, "#lieu-#{lieu}"); clic(c, ".zone-action .btn-principal")
+  clic(c, "#lieu-#{lieu}"); clic(c, "#duree-#{duree}"); clic(c, "#suite")
+  clic(c, "#c-est-parti") unless lieu == "voiture"
+end
+# Ouvre le menu déroulant et touche une entrée (« Mes progrès » ou « Réglages »).
+def via_menu(c, texte)
+  clic(c, ".btn-menu"); c.attendre(0.2)
+  c.js("(() => { const a = [...document.querySelectorAll('.liste-menu a')].find(x => x.textContent.includes(#{texte.to_json})); if (a) a.click(); return !!a; })()")
 end
 # Joue une session jusqu'à l'écran de fin. Renvoie [durée réelle s, nb cartes].
 def jouer(c, delai: 2.0, max: 400, opts: {})
@@ -77,7 +85,7 @@ when "silence"
     types << c.js("__d.repondre(#{i}, {toutToucher: true})")
     n += 1
     if i == 3 then c.js("history.back()"); c.attendre(0.4); c.js("history.back()"); c.attendre(0.4) end  # retour : feuille puis refermée
-    if i == 5 then clic(c, ".entete-session .btn-icone"); c.attendre(0.3); c.js("document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))") end
+    if i == 5 then clic(c, ".entete .btn-texte"); c.attendre(0.3); c.js("document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))") end
     if i == 7 then c.js("__qaCacher(true)"); c.attendre(0.5); c.js("__qaCacher(false)") end
     c.attendre(3.0)
   end
@@ -96,10 +104,10 @@ when "silence"
   # Réglages, progrès, retour : toujours rien
   c.js("history.back()"); c.attendre(0.5); clic_texte(c, "Arrêter"); c.attendre(0.5)
   clic_texte(c, "Accueil"); c.attendre(0.5)
-  clic_texte(c, "Réglages"); c.attendre(0.3)
+  via_menu(c, "Réglages"); c.attendre(0.3)
   c.js("document.querySelectorAll('input, [role=switch]').forEach(e => e.click())"); c.attendre(0.5)
   c.js("history.back()"); c.attendre(0.5)
-  clic_texte(c, "Mes progrès"); c.attendre(0.3); c.js("history.back()"); c.attendre(0.5)
+  via_menu(c, "Mes progrès"); c.attendre(0.3); c.js("history.back()"); c.attendre(0.5)
   note "apres_reglages_speak", qa(c)["speak"].size
   # Rechargement en pleine session Silence
   demarrer(c, "silence", 5); c.attendre(1); c.js("__d.repondre(0, {})"); c.attendre(1)
@@ -135,7 +143,7 @@ when "silence-apres-son"
   note "silence_apres_son_speak", speaks(c).size - base
   # Voiture → retour → Silence
   c.js("history.back()"); c.attendre(0.4); clic_texte(c, "Arrêter"); c.attendre(0.5); clic_texte(c, "Accueil"); c.attendre(0.5)
-  demarrer(c, "voiture", 2); c.attendre(0.5); clic_texte(c, "Démarrer"); c.attendre(4)
+  demarrer(c, "voiture", 2); c.attendre(0.5); clic_texte(c, "Je démarre"); c.attendre(4)
   clic(c, ".bouton-pause"); c.attendre(0.5); clic_texte(c, "Arrêter"); c.attendre(0.5)
   clic_texte(c, "Accueil"); c.attendre(0.5)
   base = speaks(c).size
@@ -154,10 +162,10 @@ when "silence-course"
     if depart == "ecouteurs"
       demarrer(c, "ecouteurs", 5)                 # « Préparation… » (voix pas encore là)
     else
-      demarrer(c, "voiture", 5); c.attendre(0.3); clic_texte(c, "Démarrer")
+      demarrer(c, "voiture", 5); c.attendre(0.3); clic_texte(c, "Je démarre")
     end
     c.attendre(0.2)
-    clic_texte(c, "Réglages") if depart == "ecouteurs"   # on change d'avis
+    via_menu(c, "Réglages") if depart == "ecouteurs"   # on change d'avis
     c.js("history.back()"); c.attendre(0.3)
     demarrer(c, "silence", 5); c.attendre(0.3)
     note "#{depart}_course_avant", ecran(c)
@@ -172,7 +180,7 @@ when "silence-course"
   c = ouvrir({ voix: "fr" })
   aller(c)
   demarrer(c, "ecouteurs", 5); c.attendre(0.2)
-  clic_texte(c, "Réglages"); c.attendre(0.2); c.js("history.back()"); c.attendre(0.3)
+  via_menu(c, "Réglages"); c.attendre(0.2); c.js("history.back()"); c.attendre(0.3)
   demarrer(c, "silence", 5); c.attendre(0.3)
   note "sansru_course_avant", ecran(c)["consigne"]
   c.attendre(2)
@@ -194,7 +202,7 @@ when /\Avoiture-(.+)\z/
   aller(c)
   demarrer(c, "voiture", 2); c.attendre(0.5)
   t0 = Time.now
-  clic_texte(c, "Démarrer")
+  clic_texte(c, "Je démarre")
   c.attendre(2)
   note "ecran_depart", ecran(c)
   if variante == "cache"
@@ -252,13 +260,13 @@ when "stockage"
   profil = Dir.mktmpdir("vecu-qa-")
   c = ouvrir({}, profil)
   aller(c)
-  note "premier_lancement", ecran(c).merge(bouton: c.js("document.querySelector('.zone-action .btn-principal').textContent"))
+  note "premier_lancement", ecran(c).merge(bouton: c.js("(document.querySelector('.zone-action .btn-principal') || {}).textContent || null"))
   demarrer(c, "silence", 15); c.attendre(1)
   6.times { |i| c.js("__d.repondre(#{i}, {})"); c.attendre(1.5) }
   c.cmd("Page.reload"); c.attendre_que("!!document.querySelector('.ecran')", max: 20); c.js(PILOTE)
   note "apres_rechargement_ecran", ecran(c)
   note "apres_rechargement_choix", c.js("[...document.querySelectorAll('input:checked')].map(i => i.id)")
-  clic_texte(c, "Mes progrès"); c.attendre(0.5)
+  via_menu(c, "Mes progrès"); c.attendre(0.5)
   note "progres_apres_rechargement", c.js("document.querySelector('main').innerText")
   fiches = c.js("new Promise(r => { const d = indexedDB.open('vecu'); d.onsuccess = () => { const q = d.result.transaction('progression').objectStore('progression').getAll(); q.onsuccess = () => r(q.result.map(f => f.id + ':' + f.boite)); }; })")
   note "fiches_idb", fiches
@@ -342,8 +350,8 @@ when "a11y"
   JS
   res = {}
   res["accueil"] = c.js(mesure)
-  clic_texte(c, "Réglages"); c.attendre(0.3); res["reglages"] = c.js(mesure); c.js("history.back()"); c.attendre(0.4)
-  clic_texte(c, "Mes progrès"); c.attendre(0.3); res["progres"] = c.js(mesure); c.js("history.back()"); c.attendre(0.4)
+  via_menu(c, "Réglages"); c.attendre(0.3); res["reglages"] = c.js(mesure); c.js("history.back()"); c.attendre(0.4)
+  via_menu(c, "Mes progrès"); c.attendre(0.3); res["progres"] = c.js(mesure); c.js("history.back()"); c.attendre(0.4)
   demarrer(c, "parler", 30); c.attendre(1.5)
   vus = {}
   60.times do |i|
@@ -354,7 +362,7 @@ when "a11y"
     c.js("__d.repondre(#{i}, {})"); c.attendre(1.6)
   end
   res["cartes"] = vus
-  clic(c, ".entete-session .btn-icone"); c.attendre(0.3); res["feuille"] = c.js(mesure)
+  clic(c, ".entete .btn-texte"); c.attendre(0.3); res["feuille"] = c.js(mesure)
   clic_texte(c, "Arrêter"); c.attendre(0.4); res["fin"] = c.js(mesure)
   note "mesures_360", res
   # Phrases les plus longues à 360 px : Ordre / options russes (débordement horizontal)
@@ -404,7 +412,7 @@ when "sans-voix"
       c = ouvrir(conf)
       aller(c)
       demarrer(c, lieu, 5); c.attendre(0.3)
-      clic_texte(c, "Démarrer") if lieu == "voiture"
+      clic_texte(c, "Je démarre") if lieu == "voiture"
       c.attendre(3.6)
       e = ecran(c)
       boutons = c.js("[...document.querySelectorAll('.zone-action button')].map(b => b.textContent)")

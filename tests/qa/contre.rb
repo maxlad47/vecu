@@ -14,7 +14,7 @@ when "course"
       c = ouvrir({ voix: voix, tard: tard })
       aller(c)
       if depart == "voiture"
-        demarrer(c, "voiture", 5); c.attendre(0.2); clic_texte(c, "Démarrer"); c.attendre(0.1)
+        demarrer(c, "voiture", 5); c.attendre(0.2); clic_texte(c, "Je démarre"); c.attendre(0.1)
         clic(c, ".entete .btn-icone")                 # flèche retour pendant « Préparation… »
       else
         demarrer(c, "ecouteurs", 5); c.attendre(0.1)
@@ -28,7 +28,7 @@ when "course"
       q = qa(c)
       r = q["repere"]
       e = ecran(c)
-      badge = c.js("(document.querySelector('.entete-session .badge')||{}).textContent||null")
+      badge = c.js("(document.querySelector('.contexte .info')||{}).textContent||null")
       note "#{depart}_#{tard}", {
         ecran_final: e["consigne"] || e["h1"], badge: badge,
         speak_apres_silence: q["speak"][r["speak"]..-1].map { |s| s["texte"] },
@@ -50,7 +50,7 @@ when /\Avoiture-(.+)\z/
   aller(c)
   demarrer(c, "voiture", 2); c.attendre(0.5)
   t0 = Time.now
-  clic_texte(c, "Démarrer"); c.attendre(4)
+  clic_texte(c, "Je démarre"); c.attendre(4)
   if v == "cache"
     c.attendre(8); c.js("__qaCacher(true)"); c.attendre(0.5)
     note "cache_etat_masque", ecran(c)["pause"]

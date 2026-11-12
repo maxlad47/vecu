@@ -1,23 +1,30 @@
 // Écrans simples : Fin de session, Mes progrès, Réglages, Pas de voix.
+// Tous ont « Menu » en haut à gauche ; Mes progrès et Réglages ont « Retour » en bas (bagou-ru.md, 5).
 
 import { h, icone, focaliser } from "./dom.js";
+import { creerMenu } from "./menu.js";
+import { poupee, rangeeGigogne, etatDe } from "./matriochka.js";
 import { t, texteDuree } from "../textes.js";
-import { estAcquis } from "../leitner.js";
 import { texteElement } from "../contenu.js";
 
-// « Tu sais dire N phrases. » (écran de fin et Mes progrès).
-function phrasesSues(n) { return n === 0 ? t("progres.tete0") : n === 1 ? t("progres.tete1") : t("progres.tete", { total: n }); }
+// « Tu sais dire N phrases » (écran de fin et Mes progrès).
+function phrasesSues(n) { return n === 0 ? t("progres.cle0") : n === 1 ? t("progres.cle1") : t("progres.cle", { n }); }
 
 function nombrePhrases(n) { return n === 1 ? t("fin.phrase1") : t("fin.phrases", { n }); }
 
-function enteteRetour(ctx, titre) {
-  return h("header", { class: "entete avec-retour" },
-    h("button", { type: "button", class: "btn-icone", "aria-label": t("voiture.retour"), onclick: () => ctx.retourAccueil() }, icone("retour")),
-    titre ? h("h1", null, titre) : null);
+// En-tête commun : Menu à gauche, titre de l'écran à droite (facultatif).
+function entete(ctx, ici, titre) {
+  const menu = creerMenu(ctx, { ici });
+  return { menu, element: h("header", { class: "entete" }, menu.element, titre ? h("h1", { class: "titre-page", tabindex: "-1" }, titre) : null) };
+}
+function boutonRetour(ctx) {
+  return h("div", { class: "zone-action" },
+    h("button", { type: "button", class: "btn-secondaire", id: "retour", onclick: () => ctx.retourAccueil() }, icone("retour"), t("nav.retour")));
 }
 
 // ---------- 6. Fin de session ----------
-export function afficherFin(racine, ctx, { bilan, duree, mode, raison }) {
+export function afficherFin(racine, ctx, { bilan, duree, mode, raison, themes }) {
+  const tete = entete(ctx, null, null);
   const vide = raison === "arret" && bilan.cartes === 0;
   const titreTexte = vide ? t("fin.titreVide") : (raison === "arret" ? t("fin.titreArret") : t("fin.titre", { duree: texteDuree(duree) }));
   const titre = h("h1", { class: "titre-ecran", tabindex: "-1" }, titreTexte);
@@ -47,43 +54,48 @@ export function afficherFin(racine, ctx, { bilan, duree, mode, raison }) {
     if (bilan.toutVu) contenu.appendChild(h("p", { class: "bloc petit" }, t("fin.toutVu")));
   }
 
-  const encore = h("button", { type: "button", class: "btn-principal", onclick: () => ctx.lancer(duree, mode, encore) },
+  const encore = h("button", { type: "button", class: "btn-principal", onclick: () => ctx.lancer(duree, mode, { themes: themes || [], bouton: encore }) },
     t("fin.encore", { duree: texteDuree(duree) }));
-  racine.appendChild(h("div", { class: "ecran" }, contenu,
+  racine.appendChild(h("div", { class: "ecran" }, tete.element, contenu,
     h("div", { class: "zone-action" }, encore,
       h("button", { type: "button", class: "btn-secondaire", onclick: () => ctx.retourAccueil() }, t("fin.accueil")))));
   focaliser(titre);
-  return { nettoyer() {} };
+  return { nettoyer() { tete.menu.fermer(); } };
 }
 
 // ---------- 7. Mes progrès ----------
+// Une rangée de poupées gigognes par thème (une poupée par phrase, état = forme + mot écrit dans le texte).
 export function afficherProgres(racine, ctx) {
   const fiches = ctx.stockage.fiches;
-  const acquis = (id) => estAcquis(fiches.get(id));
+  const tete = entete(ctx, "progres", t("menu.progres"));
   const vus = ctx.contenu.elements.filter((e) => { const f = fiches.get(e.id); return f && f.boite >= 1; }).length;
-  const total = ctx.contenu.elements.filter((e) => acquis(e.id)).length;
+  const total = ctx.contenu.elements.filter((e) => etatDe(fiches.get(e.id)) === "acquise").length;
   const videEtat = vus === 0 && total === 0;
 
-  const tete = videEtat ? t("progres.vide") : phrasesSues(total);
-  const liste = h("ul", { class: "situations" }, ctx.contenu.situations.map((s) => {
-    const nb = s.ids.filter((id) => ctx.contenu.parId.has(id)).length;
-    const nbAcquis = s.ids.filter(acquis).length;
-    return h("li", { class: "situation", "aria-label": t("progres.ligneSr", { titre: s.titre, acquises: nbAcquis, total: nb }) },
-      h("div", { class: "ligne", "aria-hidden": "true" },
-        h("span", { class: "nom" }, s.titre),
-        h("span", { class: "compte" }, t("progres.ligne", { acquises: nbAcquis, total: nb }))),
-      h("div", { class: "barre", "aria-hidden": "true" }, h("span", { style: "width:" + (nb ? Math.round((nbAcquis / nb) * 100) : 0) + "%" })));
-  }));
-  const ecran = h("div", { class: "ecran" },
-    enteteRetour(ctx, t("progres.titre")),
-    h("main", { class: "contenu" }, h("p", null, tete), liste));
+  const contenu = h("main", { class: "contenu" });
   if (videEtat) {
-    ecran.appendChild(h("div", { class: "zone-action" },
-      h("button", { type: "button", class: "btn-principal", onclick: () => ctx.commencer() }, t("progres.commencer"))));
+    contenu.appendChild(h("p", { class: "texte" }, t("progres.vide")));
+  } else {
+    contenu.appendChild(h("div", { class: "cle-progres" }, poupee("acquise", 56, true),
+      h("div", null, h("b", null, phrasesSues(total)), h("small", null, t("progres.surTotal", { total: ctx.contenu.elements.length })))));
+    contenu.appendChild(h("div", null, ctx.contenu.situations.map((s) => {
+      const ids = s.ids.filter((id) => ctx.contenu.parId.has(id));
+      const etats = ids.map((id) => etatDe(fiches.get(id)));
+      const nbAcquis = etats.filter((e) => e === "acquise").length;
+      const toutAcquis = ids.length > 0 && nbAcquis === ids.length;
+      const rangee = rangeeGigogne(etats);
+      if (toutAcquis) rangee.classList.add("emboite"); // les poupées s'emboîtent (300 ms, sans mouvement si « réduire les animations »)
+      return h("section", { class: "theme-progres" },
+        h("div", { class: "sr-only" }, t("progres.ligneSr", { titre: s.titre, acquises: nbAcquis, total: ids.length })),
+        h("div", { class: "ligne", "aria-hidden": "true" },
+          h("span", { class: "nom" }, s.titre),
+          h("span", { class: "compte" }, toutAcquis ? t("theme.toutAcquis") : t("progres.ligne", { acquises: nbAcquis, total: ids.length }))),
+        rangee);
+    })));
   }
-  racine.appendChild(ecran);
-  focaliser(ecran.querySelector("h1"));
-  return { nettoyer() {} };
+  racine.appendChild(h("div", { class: "ecran" }, tete.element, contenu, boutonRetour(ctx)));
+  focaliser(racine.querySelector("h1"));
+  return { nettoyer() { tete.menu.fermer(); } };
 }
 
 // ---------- 8. Réglages ----------
@@ -113,8 +125,9 @@ export function afficherReglages(racine, ctx) {
       }))));
   }
 
+  const tete = entete(ctx, "reglages", t("reglages.titre"));
   const ecran = h("div", { class: "ecran" },
-    enteteRetour(ctx, t("reglages.titre")),
+    tete.element,
     h("main", { class: "contenu" },
       h("div", { class: "reglage" }, interrupteur, h("p", { class: "aide-reglage", id: "aide-translit" }, t("reglages.translitAide"))),
       segments("genre", t("reglages.genre"), t("reglages.genreAide"),
@@ -132,15 +145,17 @@ export function afficherReglages(racine, ctx) {
             h("label", { class: "choix", for: id }, h("span", { class: "coche" }, icone("coche")), h("span", null, libelle))
           ];
         })))),
-      h("p", { class: "pied" }, t("reglages.pied"))));
+      h("p", { class: "pied" }, t("reglages.pied"))),
+    boutonRetour(ctx));
   racine.appendChild(ecran);
   focaliser(ecran.querySelector("h1"));
-  return { nettoyer() {} };
+  return { nettoyer() { tete.menu.fermer(); } };
 }
 
 // ---------- 5. Pas de voix ----------
 // variante : "cible" (Écouteurs, Je peux parler), "voiture" (pas de voix russe), "fr" (pas de voix française)
-export function afficherSansVoix(racine, ctx, { variante, duree }) {
+export function afficherSansVoix(racine, ctx, { variante, duree, themes }) {
+  const tete = entete(ctx, null, null);
   const enVoiture = variante !== "cible";
   const titre = h("h1", { class: "titre-ecran", tabindex: "-1" }, t(variante === "fr" ? "sansVoixFr.titre" : "sansVoix.titre"));
   const texte = variante === "fr" ? t("sansVoixFr.texte") : (variante === "voiture" ? t("sansVoix.voitureTexte") : t("sansVoix.texte"));
@@ -150,11 +165,11 @@ export function afficherSansVoix(racine, ctx, { variante, duree }) {
   const boutons = enVoiture
     // En Voiture, on ne propose pas le mode Silence : on ne pousse pas à lire au volant.
     ? [h("button", { type: "button", class: "btn-principal", onclick: () => ctx.retourAccueil() }, t("sansVoix.accueil"))]
-    : [h("button", { type: "button", class: "btn-principal", onclick: () => { ctx.majReglage("dernierMode", "silence"); ctx.lancer(duree, "silence"); } }, t("sansVoix.silence")),
+    : [h("button", { type: "button", class: "btn-principal", onclick: () => { ctx.majReglage("dernierMode", "silence"); ctx.lancer(duree, "silence", { themes: themes || [] }); } }, t("sansVoix.silence")),
        h("button", { type: "button", class: "btn-secondaire", onclick: () => ctx.retourAccueil() }, t("sansVoix.accueil"))];
-  racine.appendChild(h("div", { class: "ecran" },
+  racine.appendChild(h("div", { class: "ecran" }, tete.element,
     h("main", { class: "contenu" }, titre, h("p", { class: "texte" }, texte), aide),
     h("div", { class: "zone-action" }, boutons)));
   focaliser(titre);
-  return { nettoyer() {} };
+  return { nettoyer() { tete.menu.fermer(); } };
 }
