@@ -35,19 +35,19 @@ Apprendre une langue avec des phrases qui servent dans la vraie vie, n'importe o
 
 ### Missions prévues
 
-Chaque mission suit le même cycle (`docs/processus.md`). L'ordre peut changer après les retours de Max : c'est Sacha qui le réajuste à chaque revue de phase.
+Chaque mission suit le même cycle (`docs/processus.md`). Une mission reçoit son numéro **au moment où elle est lancée**, pas quand elle est prévue : la liste ci-dessous n'est pas un ordre obligatoire. Sacha la réajuste selon les retours de Max.
 
-| # | Mission | Phase | Agents | Statut |
+| N° | Mission | Phase | Agents | Statut |
 |---|---|---|---|---|
 | 001 | Prototype jouable | 0 | tous | fait (11/11) |
 | — | Organisation de l'équipe (modèles, processus, anti-doublon) | 0 | Sacha | fait (12/11) |
 | — | Test réel par Max pendant 2 semaines, puis bilan | 0 | Max, Sacha | en cours (jusqu'au 25/11 environ) |
-| 002 | Corrections issues du test de Max | 1 | selon les retours | à faire |
-| 003 | 10 nouvelles situations : métro et directions, pharmacie et santé, se présenter et son métier, restaurant, hôtel, au téléphone, chez des amis, urgences, banque et argent, le temps qu'il fait | 1 | Vera, Nadia, Boris | à faire |
-| 004 | Audio pré-généré (voix de qualité, Voiture écran verrouillé). Compte Azure à valider par Max | 1 | Kostia, Boris | à faire |
-| 005 | Écrire la réponse (saisie en cyrillique ou en translittération) | 1 | Lou, Kostia, Boris, Léa | à faire |
-| 006 | Test de niveau en 2 min et phrases-moules interactives | 1 | Vera, Lou, Kostia, Boris, Léa | à faire |
-| 007 | Scènes : petits dialogues de 4 à 6 phrases pour les sessions de 15 et 30 min | 1 | Vera, Nadia, Lou, Kostia, Boris, Léa | à faire |
+| — | Corrections issues du test de Max | 1 | selon les retours | à faire |
+| — | 10 nouvelles situations : métro et directions, pharmacie et santé, se présenter et son métier, restaurant, hôtel, au téléphone, chez des amis, urgences, banque et argent, le temps qu'il fait | 1 | Vera, Nadia, Boris | à faire |
+| — | Audio pré-généré (voix de qualité, Voiture écran verrouillé). Compte Azure à valider par Max | 1 | Kostia, Boris | à faire |
+| — | Écrire la réponse (saisie en cyrillique ou en translittération) | 1 | Lou, Kostia, Boris, Léa | à faire |
+| — | Test de niveau en 2 min et phrases-moules interactives | 1 | Vera, Lou, Kostia, Boris, Léa | à faire |
+| — | Scènes : petits dialogues de 4 à 6 phrases pour les sessions de 15 et 30 min | 1 | Vera, Nadia, Lou, Kostia, Boris, Léa | à faire |
 | — | Revue de phase 1 : bilan, revue des outils (D12), feuille de route de la phase 2 | 1 | Sacha, Max | à faire |
 
 ## Risques identifiés
