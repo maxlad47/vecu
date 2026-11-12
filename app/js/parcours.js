@@ -3,6 +3,7 @@
 
 import { INTERFACE } from "./config.js";
 
+// shortcut: une seule durée retenue par lieu (la dernière), pas d'historique, à revoir si Max veut « la plus fréquente ».
 // Durée proposée pour un lieu : la dernière durée choisie pour ce lieu, sinon la valeur par défaut du lieu.
 export function dureePourLieu(lieu, memoire) {
   const retenue = memoire && memoire[lieu];

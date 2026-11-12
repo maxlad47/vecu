@@ -127,6 +127,7 @@ export function afficherAccueil(racine, ctx, options) {
     ];
   }
 
+  // shortcut: pas d'étape « Comment ? » ni de bouton « Changer » (mission à venir), la façon d'apprendre reste « Phrases du quotidien ».
   // ---------- Étape 3 : Sur quoi ? ----------
   function etape3() {
     const entrees = []; // { input, theme }

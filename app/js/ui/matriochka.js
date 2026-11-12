@@ -10,6 +10,7 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 // Lien entre les 4 états et les boîtes de Leitner (point ouvert 4 de la mission 003, proposition de Kostia à valider par Vera) :
 // boîte 0 ou aucune fiche = pas vue ; boîte 1 sans réussite = vue ; boîte 1 à 3 avec au moins une réussite = en cours ;
 // boîte 4 et plus (BOITE_ACQUIS, la même règle que « Tu sais dire N phrases ») = acquise.
+// shortcut: « en cours » = au moins une réussite en boîtes 1 à 3, sans distinguer « fragile » de « presque acquise » ; à affiner avec Vera.
 export function etatDe(fiche) {
   if (!fiche || fiche.boite < 1) return "pas_vue";
   if (estAcquis(fiche)) return "acquise";

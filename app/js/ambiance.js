@@ -121,6 +121,7 @@ const SECOURS = {
   acquise: '<circle cx="20" cy="28" r="17" fill="var(--accent)" stroke="var(--accent)" stroke-width="2"/><path d="M12 28l6 6 11-13" fill="none" stroke="var(--on-accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'
 };
 
+// shortcut: lecture du SVG par expression régulière (nos fichiers seulement), à remplacer par DOMParser si des SVG venaient d'ailleurs.
 function symboleDe(etat, texteSvg) {
   if (texteSvg) {
     // Le fichier est un <svg viewBox="…">…</svg> : on garde son contenu et son viewBox.
