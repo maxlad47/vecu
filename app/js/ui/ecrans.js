@@ -8,7 +8,7 @@ import { t, texteDuree } from "../textes.js";
 import { texteElement } from "../contenu.js";
 import { poupeePerso } from "./poupee-perso.js";
 import { nomMetier } from "./ecran-personnage.js";
-import { rappelSauvegardeDu, resumeUsage } from "../sauvegarde.js";
+import { rappelSauvegardeDu, statistiquesUsage, compterSituations } from "../sauvegarde.js";
 
 // « Tu sais dire N phrases » (écran de fin et Mes progrès).
 function phrasesSues(n) { return n === 0 ? t("progres.cle0") : n === 1 ? t("progres.cle1") : t("progres.cle", { n }); }
@@ -29,7 +29,7 @@ function boutonRetour(ctx) {
 export function afficherFin(racine, ctx, { bilan, duree, dureeReelle, mode, raison, themes, progres }) {
   const tete = entete(ctx, null, null);
   const vide = raison === "arret" && bilan.cartes === 0;
-  if (!vide) ctx.noterSession(dureeReelle || duree, bilan.cartes); // une fois par fin de session
+  if (!vide) ctx.noterSession(dureeReelle || duree, bilan.cartes, mode); // une fois par fin de session
   const titreTexte = vide ? t("fin.titreVide") : (raison === "arret" ? t("fin.titreArret") : t("fin.titre", { duree: texteDuree(dureeReelle || duree) }));
   const titre = h("h1", { class: "titre-ecran", tabindex: "-1" }, titreTexte);
   const contenu = h("main", { class: "contenu" }, titre);
@@ -164,10 +164,24 @@ export function afficherReglages(racine, ctx) {
       entree.value = "";
     } });
     const importer = h("button", { type: "button", class: "btn-secondaire", onclick: () => entree.click() }, t("sauv.importer"));
-    const usage = resumeUsage(r.usage, maintenant, 7);
     return h("div", { class: "reglage" }, h("h2", { class: "intertitre" }, t("sauv.titre")),
-      h("p", { class: "aide-reglage" }, t("sauv.aide")), exporter, importer, entree, etat,
-      h("p", { class: "aide-reglage" }, t("sauv.usage", { jours: usage.actifs, minutes: usage.minutes })));
+      h("p", { class: "aide-reglage" }, t("sauv.aide")), exporter, importer, entree, etat);
+  }
+  // Statistiques personnelles : calculées ici, sur l'appareil. Rien n'est envoyé.
+  function blocStats() {
+    const u = statistiquesUsage(r.usage, new Date());
+    const sit = compterSituations(ctx.contenu.situations.map((s) => s.ids.filter((id) => ctx.contenu.parId.has(id))), ctx.stockage.fiches);
+    const duree = u.minutes >= 60 ? t("stats.dureeH", { h: Math.floor(u.minutes / 60), m: String(u.minutes % 60).padStart(2, "0") }) : t("duree", { n: u.minutes });
+    const lignes = u.sessions === 0 ? [t("stats.vide")] : [
+      t("stats.jours7", { n: u.actifs7 }), t("stats.jours30", { n: u.actifs30 }),
+      t("stats.temps", { duree }), t(u.sessions === 1 ? "stats.session1" : "stats.sessions", { n: u.sessions }),
+      u.modePrefere ? t("stats.mode", { mode: t("lieu." + u.modePrefere) }) : null,
+      u.serie > 1 ? t("stats.serie", { n: u.serie }) : null,
+      t("stats.situations", { vues: sit.vues, enCours: sit.enCours, acquises: sit.acquises, total: sit.total })
+    ].filter(Boolean);
+    return h("div", { class: "reglage" }, h("h2", { class: "intertitre" }, t("stats.titre")),
+      h("ul", { class: "stats" }, lignes.map((l) => h("li", null, l))),
+      h("p", { class: "aide-reglage" }, t("stats.aide")));
   }
   const tete = entete(ctx, "reglages", t("reglages.titre"));
   const ecran = h("div", { class: "ecran" },
@@ -190,6 +204,7 @@ export function afficherReglages(racine, ctx) {
             h("label", { class: "choix", for: id }, h("span", { class: "coche" }, icone("coche")), h("span", null, libelle))
           ];
         })))),
+      blocStats(),
       blocSauvegarde(),
       h("p", { class: "pied" }, t("reglages.pied"))),
     boutonRetour(ctx));
