@@ -1,7 +1,7 @@
 // Écran du test de niveau : 12 questions à choix, arrêt après 2 erreurs de suite, puis le résultat.
 // Logique dans test-niveau.js ; ici seulement l'affichage et l'écriture des boîtes (une fiche par témoin, dès la réponse).
 
-import { h, icone, vider, focaliser, annoncer } from "./dom.js";
+import { h, icone, vider, focaliser, annoncer, mettre } from "./dom.js";
 import { creerMenu } from "./menu.js";
 import * as audio from "../audio.js";
 import { t } from "../textes.js";
@@ -9,6 +9,25 @@ import { aLire } from "../contenu.js";
 import { AUDIO, INTERFACE } from "../config.js";
 import { ficheVide, appliquerTest } from "../leitner.js";
 import { preparerTest, etatInitial, repondre, estTermine, bilanTest } from "../test-niveau.js";
+
+// Les éléments d'une question. Le bouton Écouter n'existe qu'avec le son (en Silence : absent, rien d'écrit à sa place).
+export function construireQuestion(q, { n, total, sonore, translitteration }) {
+  const titre = h("h1", { class: "consigne", tabindex: "-1" }, t("test.consigne"));
+  const liste = h("ul", { class: "options" });
+  q.options.forEach((o) => {
+    const bouton = h("button", { type: "button", class: "option" + (translitteration ? " avec-translit" : "") },
+      h("span", { class: "texte-option" }, h("span", { class: "ru", lang: "ru" }, o.texte.accent),
+        translitteration && o.texte.translit ? h("p", { class: "translit", lang: "fr" }, o.texte.translit) : null),
+      h("span", { class: "etat" }), h("span", { class: "sr-only sr-etat" }));
+    liste.appendChild(h("li", null, bouton));
+  });
+  const ecoute = sonore
+    ? h("button", { type: "button", class: "btn-ecouter" }, icone("hautParleur"), h("span", { class: "libelle-ecoute" }, t("carte.ecouter")))
+    : null;
+  const noeuds = [h("p", { class: "petit test-progression" }, t("test.progression", { n: n + 1, total })),
+    titre, h("p", { class: "fr-hero test-phrase" }, q.fr), ecoute, liste];
+  return { noeuds, titre, liste, ecoute };
+}
 
 // depuis : "reglages" ou "accueil" (où l'on revient). mode : silence, ecouteurs ou parler.
 export function afficherTest(racine, ctx, { mode, depuis }) {
@@ -54,28 +73,15 @@ export function afficherTest(racine, ctx, { mode, depuis }) {
     const n = etat.reponses.length;
     const q = questions[n];
     vider(contenu); vider(bas);
-    const titre = h("h1", { class: "consigne", tabindex: "-1" }, t("test.consigne"));
-    const liste = h("ul", { class: "options" });
+    const { noeuds, titre, liste, ecoute } = construireQuestion(q, { n, total: questions.length, sonore, translitteration: ctx.reglages().translitteration });
     let repondu = false;
-    q.options.forEach((o) => {
-      const bouton = h("button", { type: "button", class: "option" + (ctx.reglages().translitteration ? " avec-translit" : "") },
-        h("span", { class: "texte-option" }, h("span", { class: "ru", lang: "ru" }, o.texte.accent),
-          ctx.reglages().translitteration && o.texte.translit ? h("p", { class: "translit", lang: "fr" }, o.texte.translit) : null),
-        h("span", { class: "etat" }), h("span", { class: "sr-only sr-etat" }));
-      bouton.addEventListener("click", () => {
-        if (repondu) return;
-        repondu = true;
-        repondreA(q, o, bouton, liste);
-      });
-      liste.appendChild(h("li", null, bouton));
-    });
-    let ecoute = null;
-    if (sonore) {
-      ecoute = h("button", { type: "button", class: "btn-ecouter" }, icone("hautParleur"), h("span", { class: "libelle-ecoute" }, t("carte.ecouter")));
-      ecoute.addEventListener("click", () => { if (ecoute.querySelector(".libelle-ecoute").textContent === t("carte.ecouter")) ecouter(q, ecoute); });
-    }
-    contenu.append(h("p", { class: "petit test-progression" }, t("test.progression", { n: n + 1, total: questions.length })),
-      titre, h("p", { class: "fr-hero test-phrase" }, q.fr), ecoute, liste);
+    liste.querySelectorAll(".option").forEach((bouton, i) => bouton.addEventListener("click", () => {
+      if (repondu) return;
+      repondu = true;
+      repondreA(q, q.options[i], bouton, liste);
+    }));
+    if (ecoute) ecoute.addEventListener("click", () => { if (ecoute.querySelector(".libelle-ecoute").textContent === t("carte.ecouter")) ecouter(q, ecoute); });
+    mettre(contenu, ...noeuds);
     focaliser(titre);
   }
 

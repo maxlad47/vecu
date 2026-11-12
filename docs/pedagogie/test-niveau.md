@@ -21,16 +21,16 @@ Une phrase-témoin par situation. Pour un moule, la question prend le remplaceme
 |---|---|---|---|---|---|---|
 | 1 | cafe | ru-cafe-004 | L'addition, s'il vous plaît. | Счёт, пожалуйста. | ru-cafe-003, ru-cafe-010 | A1, forme fixe |
 | 2 | urgences | ru-urgences-001 | Au secours ! | Помогите! | ru-urgences-005, ru-urgences-003 | A1, forme fixe |
-| 3 | rencontrer | ru-rencontrer-001 | Je ne comprends pas. | Я не понимаю. | ru-rencontrer-004, ru-rencontrer-002 | A1, forme fixe |
+| 3 | rencontrer | ru-rencontrer-001 | Je ne comprends pas. | Я не понимаю. | ru-rencontrer-004, ru-rencontrer-005 (« Очень приятно. ») | A1, forme fixe |
 | 4 | metro | ru-metro-001 (moule, rempl. 0) | Où est le métro ? | Где метро? | Où est la gare ? (ru-metro-001), Où est la sortie ? (ru-metro-001) | A1, un mot change |
 | 5 | courses | ru-courses-001 | Combien ça coûte ? | Сколько это стоит? | ru-courses-003, ru-courses-004 | A1, forme fixe |
 | 6 | pharmacie | ru-pharmacie-004 | J'ai besoin d'un médecin. | Мне нужен врач. | ru-pharmacie-001, ru-pharmacie-009 | A1, accord de нужен |
 | 7 | gouts | ru-gouts-007 | Je n'aime pas ça. | Мне это не нравится. | ru-gouts-001, ru-gouts-009 | A1, négation |
 | 8 | sortir | ru-sortir-002 (moule, rempl. 0) | On va au cinéma ? | Пойдём в кино? | On va au bar ? (ru-sortir-002), On va au parc ? (ru-sortir-002) | A1, accusatif |
 | 9 | presenter | ru-presenter-003 (moule, rempl. 0) | Je travaille dans une banque. | Я работаю в банке. | Je travaille dans la santé (ru-presenter-003), Je travaille dans le commerce (ru-presenter-003) | A1, locatif après в |
-| 10 | hotel | ru-hotel-006 (moule, rempl. 0) | Il n'y a pas de serviettes dans la chambre. | В номере нет полотенец. | Il n'y a pas d'eau chaude… (ru-hotel-006), Il n'y a pas de chauffage… (ru-hotel-006) | Proxy A2, génitif pluriel |
-| 11 | banque | ru-banque-006 (moule, rempl. 0) | Vous avez la monnaie de cent roubles ? | У вас будет сдача со ста рублей? | cinq cents roubles, mille roubles (ru-banque-006) | Proxy A2, génitif après со |
-| 12 | restaurant | ru-restaurant-006 (moule, rempl. 0) | Sans viande, s'il vous plaît. | Без мяса, пожалуйста. | Sans oignons, Sans sauce (ru-restaurant-006) | Proxy A2, génitif après без |
+| 10 | restaurant | ru-restaurant-006 (moule, rempl. 0) | Sans viande, s'il vous plaît. | Без мяса, пожалуйста. | Sans oignons, Sans sauce (ru-restaurant-006) | Formes plus lourdes, génitif après без |
+| 11 | hotel | ru-hotel-006 (moule, rempl. 0) | Il n'y a pas de serviettes dans la chambre. | В номере нет полотенец. | Il n'y a pas d'eau chaude… (ru-hotel-006), Il n'y a pas de chauffage… (ru-hotel-006) | Formes plus lourdes, génitif pluriel |
+| 12 | banque | ru-banque-006 (moule, rempl. 0) | Vous avez la monnaie de cent roubles ? | У вас будет сдача со ста рублей? | cinq cents roubles, mille roubles (ru-banque-006) | Formes plus lourdes, génitif après со |
 
 **Ordre** : les témoins 1 à 6 sont des formes fixes ou un seul accord. Les 7 à 9 demandent un cas simple ou une négation. Les 10 à 12 demandent un génitif. Ce découpage est mon critère grammatical. Ce n'est pas une étiquette du contenu (voir section 7).
 

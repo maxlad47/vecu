@@ -140,13 +140,14 @@ function lancer(duree, mode, options) {
   });
 }
 
-// Lance le test de niveau. mode : celui du parcours, sinon le dernier mode (jamais la Voiture : il faut un écran).
-// Ce toucher autorise l'audio (en Silence, rien ne part).
+// Lance le test de niveau. mode : celui du parcours. Depuis Réglages (pas de mode choisi) : « Je peux parler » si c'était
+// le dernier mode, sinon Écouteurs, pour que le bouton Écouter existe (il ne joue jamais seul). Jamais la Voiture : il faut un écran.
+// Ce toucher autorise l'audio ; en Silence on n'appelle rien.
 function lancerTest(depuis, mode) {
-  const choisi = mode || reglages().dernierMode;
+  const choisi = mode || (reglages().dernierMode === "parler" ? "parler" : "ecouteurs");
   const m = TEST_NIVEAU.modes.includes(choisi) ? choisi : "silence";
   audio.definirModeAudio(m);
-  audio.amorcer();
+  if (m !== "silence") audio.amorcer();
   aller("test", { mode: m, depuis });
 }
 

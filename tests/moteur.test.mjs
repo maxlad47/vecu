@@ -768,6 +768,27 @@ import { construireSauvegarde, lireSauvegarde, ajouterSession, resumeUsage, rapp
   verifier(!["amis", "meteo", "telephone"].some((s) => questions.some((q) => q.situation === s)), "test : amis, meteo, telephone non testées");
   egal(questions.slice(9).map((q) => q.situation), ["restaurant", "hotel", "banque"], "test : ordre des 3 derniers témoins");
 
+  // Aucun nœud texte « null » à l'écran, en Silence comme avec le son (petit faux DOM, juste de quoi construire la question).
+  {
+    class Noeud { constructor(nom) { this.nom = nom; this.enfants = []; this.style = {}; this.attributs = {}; }
+      appendChild(e) { this.enfants.push(e); return e; } setAttribute(k, v) { this.attributs[k] = v; } addEventListener() {} }
+    class Texte extends Noeud { constructor(texte) { super("#texte"); this.texte = texte; } }
+    globalThis.Node = Noeud;
+    globalThis.document = { createElement: (nom) => new Noeud(nom), createTextNode: (x) => new Texte(x) };
+    const textes = (n) => (n instanceof Texte ? [n.texte] : []).concat(...n.enfants.map(textes));
+    const { construireQuestion } = await import("../app/js/ui/ecran-test.js");
+    for (const sonore of [false, true]) {
+      const c = construireQuestion(questions[0], { n: 0, total: 12, sonore, translitteration: true });
+      const tous = [].concat(...c.noeuds.filter(Boolean).map(textes));
+      verifier(!tous.includes("null") && c.noeuds.every((x) => x !== null || !sonore), "test : aucun texte « null » (sonore=" + sonore + ")");
+      verifier((c.ecoute === null) === !sonore, "test : bouton Écouter seulement avec le son (sonore=" + sonore + ")");
+    }
+    // Le piège d'origine : un null passé à append() est écrit comme texte ; mettre() l'ignore.
+    const { mettre } = await import("../app/js/ui/dom.js");
+    const p = mettre(new Noeud("main"), null, new Noeud("x"));
+    verifier(p.enfants.length === 1, "test : mettre() ignore null");
+  }
+
   // Arrêt après 2 erreurs de suite (une erreur isolée ne coupe pas).
   let e = etatInitial();
   e = repondre(repondre(e, false), true);
