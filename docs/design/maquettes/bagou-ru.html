@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Bagou, version russe : planche de maquettes</title>
+<meta name="viewport" content="width=2000">
+<style>
+:root{--bg:#FBF8F2;--surface:#FFFFFF;--text:#1B2340;--text-muted:#4F5A7A;--border:#6E7AA0;--border-subtle:#D5DBEA;--accent:#22408F;--on-accent:#FFFFFF;--accent-soft:#DDE5F6;--laque:#B3261E;--on-laque:#FFFFFF;--laque-soft:#F6D9D5;--or:#C9A227;--or-text:#7A5C00;--page:#E3E7F0;--font:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans","Helvetica Neue",Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:2000px;background:var(--page);font-family:var(--font);color:var(--text)}
+.entete{padding:34px 80px 6px;display:flex;justify-content:space-between;align-items:baseline}
+.entete h1{font:800 30px/1 var(--font);color:var(--accent)}
+.entete p{font:500 16px/1.3 var(--font);color:var(--text-muted)}
+.planche{display:grid;grid-template-columns:repeat(4,390px);column-gap:93px;row-gap:34px;padding:20px 80px 50px}
+.cell{display:flex;flex-direction:column;gap:12px}
+.leg{font:700 17px/1 var(--font);color:var(--text);letter-spacing:.02em}
+.leg span{color:var(--text-muted);font-weight:500}
+.tel{position:relative;width:390px;height:844px;border:8px solid #151A2B;border-radius:46px;background:var(--bg);overflow:hidden;display:flex;flex-direction:column;padding:34px 18px 18px}
+.tel::before{content:"";position:absolute;top:8px;left:50%;margin-left:-45px;width:90px;height:20px;border-radius:12px;background:#151A2B;z-index:5}
+.tel>*{position:relative;z-index:1}
+.i{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.motif{position:absolute!important;top:-24px;right:-34px;width:190px;z-index:0!important}
+/* en-tête */
+.haut{display:flex;justify-content:space-between;align-items:center;height:44px;flex:none}
+.menu{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px 0 12px;border:2px solid var(--accent);border-radius:999px;background:var(--surface);color:var(--accent);font:600 16px/1 var(--font)}
+.marque{display:flex;align-items:center;gap:6px;font:800 22px/1 var(--font);color:var(--accent)}
+.titre-page{font:800 20px/1 var(--font);color:var(--text)}
+.quit{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 6px;font:600 16px/1 var(--font);color:var(--text)}
+.slogan{font:italic 500 15px/1.2 var(--font);color:var(--text-muted);margin-top:6px}
+h2{font:800 28px/1.15 var(--font);margin:14px 0 14px;position:relative}
+/* pastilles */
+.pastilles{display:flex;gap:8px;margin-top:6px}
+.past{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;background:var(--accent-soft);border:2px solid var(--accent);color:var(--accent);font:600 16px/1 var(--font)}
+.info{display:inline-flex;align-items:center;min-height:34px;padding:0 12px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font:600 15px/1 var(--font)}
+/* boutons */
+.btn{min-height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:8px;font:600 18px/1.2 var(--font)}
+.btn-p{background:var(--laque);color:var(--on-laque)}
+.btn-s{background:var(--surface);color:var(--text);border:2px solid var(--border)}
+.btn.deux{flex-direction:column;gap:2px;min-height:68px}
+.btn.deux small{font:400 15px/1.2 var(--font)}
+.bas{margin-top:auto;display:flex;gap:10px}
+.bas .btn-s{width:112px;flex:none}
+.bas .btn-p{flex:1}
+/* cartes de lieu */
+.lieux{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lieu{background:var(--surface);border:2px solid var(--border);border-radius:16px;min-height:112px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;color:var(--accent)}
+.lieu b{display:block;font:700 18px/1.2 var(--font);color:var(--text)}
+.lieu span{display:block;font:400 15px/1.25 var(--font);color:var(--text-muted);margin-top:2px}
+.band{position:absolute!important;left:18px;right:18px;bottom:112px;z-index:0!important}
+/* lignes de choix */
+.choix{display:flex;align-items:center;gap:12px;min-height:64px;background:var(--surface);border:2px solid var(--border);border-radius:14px;padding:0 14px;font:600 20px/1.2 var(--font);margin-bottom:8px}
+.choix small{display:block;font:400 15px/1.25 var(--font);color:var(--text-muted);margin-top:2px}
+.choix.sel{background:var(--accent-soft);border-color:var(--accent);font-weight:700}
+.choix.sel small{color:var(--text-muted)}
+.rond{width:26px;height:26px;border-radius:50%;border:2px solid var(--border);flex:none;display:flex;align-items:center;justify-content:center;color:#fff}
+.case{border-radius:7px}
+.sel .rond{background:var(--accent);border-color:var(--accent)}
+.rond .i{width:16px;height:16px;stroke-width:3}
+.tag{margin-left:auto;font:600 15px/1.2 var(--font);color:var(--text);text-align:right}
+.note{font:400 16px/1.4 var(--font);color:var(--text-muted);margin:6px 2px 0}
+/* thèmes */
+.themes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.themes .choix{margin:0;min-height:56px;padding:0 10px;gap:8px;font:600 16px/1.2 var(--font)}
+.themes .choix.sel{font-weight:700}
+.themes .rond{width:24px;height:24px}
+.facon{display:flex;align-items:center;gap:8px;min-height:52px;margin-top:10px;padding:0 14px;background:var(--surface);border:2px solid var(--border);border-radius:14px;font:400 15px/1.2 var(--font);color:var(--text-muted)}
+.facon b{display:block;font:600 16px/1.2 var(--font);color:var(--text)}
+.facon u{margin-left:auto;font:600 16px/1 var(--font);color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:2px}
+/* voiture */
+.prep{display:flex;align-items:center;gap:16px;font:600 24px/1.2 var(--font);margin-bottom:22px;color:var(--text)}
+.prep .ic{width:56px;height:56px;border-radius:16px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:none}
+.prep .i{width:32px;height:32px}
+.gros{min-height:128px;border-radius:20px;background:var(--laque);color:var(--on-laque);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font:800 32px/1 var(--font)}
+.gros small{font:500 17px/1.2 var(--font)}
+.lien{min-height:44px;display:flex;align-items:center;justify-content:center;gap:6px;font:600 17px/1 var(--font);color:var(--text);margin-top:10px}
+/* phrase */
+.temps{margin-top:12px;height:6px;border-radius:9px;background:var(--border-subtle);overflow:hidden;flex:none}
+.temps i{display:block;width:40%;height:100%;background:var(--accent)}
+.encore{font:500 15px/1 var(--font);color:var(--text-muted);margin-top:6px}
+.carte{margin-top:14px;background:var(--surface);border:2px solid var(--border-subtle);border-radius:24px;padding:18px;position:relative;flex:none}
+.carte .samovar{position:absolute;right:14px;top:-20px;width:74px}
+.fr{font:500 20px/1.3 var(--font);color:var(--text-muted);padding-right:76px}
+.ru{font:600 30px/1.35 var(--font);color:var(--accent);margin-top:8px;overflow-wrap:break-word;hyphens:none}
+.tr{font:italic 400 16px/1.4 var(--font);color:var(--text-muted)}
+.reg{display:inline-flex;align-items:center;margin-top:8px;min-height:28px;padding:0 12px;border:1.5px solid var(--border);border-radius:999px;font:400 15px/1 var(--font);color:var(--text-muted)}
+.ecoute{display:flex;gap:10px;margin-top:12px}
+.ecoute .btn{flex:1;min-height:52px;font-size:17px;color:var(--accent);border:2px solid var(--accent);background:var(--surface)}
+.etat{display:flex;align-items:center;gap:12px;margin-top:12px;padding-top:10px;border-top:2px dashed var(--border-subtle);font:700 17px/1.2 var(--font)}
+.etat small{display:block;font:400 15px/1.25 var(--font);color:var(--text-muted)}
+.moule{margin-top:10px;font:400 15px/1.2 var(--font);color:var(--text-muted)}
+.puces{display:flex;gap:8px;margin-top:4px}
+.puce{min-height:44px;display:inline-flex;align-items:center;padding:0 16px;border:2px solid var(--border);border-radius:999px;background:var(--surface);font:600 18px/1 var(--font);color:var(--text)}
+.rang{margin-top:10px;font:600 15px/1.2 var(--font);color:var(--text)}
+.rang small{font-weight:400;color:var(--text-muted)}
+.poupees{display:flex;align-items:flex-end;gap:5px;margin:4px 0 10px;height:56px}
+/* carnet */
+.select{display:flex;align-items:center;gap:8px;min-height:52px;padding:0 14px;background:var(--surface);border:2px solid var(--border);border-radius:14px;font:700 18px/1.2 var(--font);flex:1}
+.select .i{margin-left:auto;color:var(--accent)}
+.selrow{display:flex;gap:10px;align-items:center}
+.recherche{display:flex;align-items:center;gap:10px;min-height:48px;margin-top:8px;padding:0 14px;background:var(--surface);border:2px solid var(--border);border-radius:14px;font:400 17px/1 var(--font);color:var(--text-muted)}
+.ligne{background:var(--surface);border:2px solid var(--border-subtle);border-radius:16px;padding:10px 12px;margin-top:8px}
+.ligne .ru{font-size:20px;line-height:1.35;margin-top:0}
+.ligne .fr{font-size:15px;padding-right:0;line-height:1.3}
+.ligne .bl{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+.st{display:flex;align-items:center;gap:8px;font:600 15px/1.1 var(--font)}
+.bt{display:flex;gap:8px}
+.bt span{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;border:2px solid var(--accent);border-radius:12px;color:var(--accent);font:600 15px/1 var(--font);background:var(--surface)}
+.bt .i{width:20px;height:20px}
+/* progrès */
+.cle{display:flex;align-items:center;gap:14px;background:var(--surface);border:2px solid var(--border-subtle);border-radius:18px;padding:12px 16px;margin-top:14px}
+.cle b{font:800 24px/1.15 var(--font);display:block}
+.cle small{font:400 15px/1.2 var(--font);color:var(--text-muted)}
+.chiffres{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.chiffre{background:var(--surface);border:2px solid var(--border-subtle);border-radius:14px;padding:8px 12px}
+.chiffre small{display:block;font:400 15px/1.2 var(--font);color:var(--text-muted)}
+.chiffre b{font:800 22px/1.2 var(--font)}
+.pt{font:700 17px/1 var(--font);margin:12px 0 2px}
+.th{padding:5px 2px 0}
+.th div{display:flex;justify-content:space-between;font:600 16px/1.2 var(--font)}
+.th span{font-weight:500;color:var(--text-muted)}
+.barre{height:8px;border-radius:9px;background:var(--border-subtle);margin-top:4px;overflow:hidden}
+.barre i{display:block;height:100%;background:var(--accent)}
+</style></head><body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<!-- icônes -->
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="i-voiture" viewBox="0 0 24 24"><path d="M4 15l1.5-5.5A2 2 0 0 1 7.4 8h9.2a2 2 0 0 1 1.9 1.5L20 15v3h-2.5v-1.5h-11V18H4z"/><path d="M7 12.5h.01M17 12.5h.01"/></symbol>
+<symbol id="i-sansson" viewBox="0 0 24 24"><path d="M3.5 9.5H7L11.5 6v12L7 14.5H3.5z"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></symbol>
+<symbol id="i-casque" viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></symbol>
+<symbol id="i-parler" viewBox="0 0 24 24"><path d="M5 5h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-7l-5 4v-4H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></symbol>
+<symbol id="i-son" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></symbol>
+<symbol id="i-montrer" viewBox="0 0 24 24"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></symbol>
+<symbol id="i-retour" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+<symbol id="i-suite" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+<symbol id="i-coche" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+<symbol id="i-loupe" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+<symbol id="i-bas" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+<symbol id="i-hasard" viewBox="0 0 24 24"><path d="M4 7h3c5 0 5 10 10 10h3M4 17h3c1.5 0 2.5-.8 3.4-2M14 8.5C15 7.5 16 7 17 7h3M18 4.5L20.5 7 18 9.5M18 14.5l2.5 2.5-2.5 2.5"/></symbol>
+<symbol id="i-croix" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-batterie" viewBox="0 0 24 24"><rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21 10.5v3M10.5 9.5l-2 3h4l-2 3"/></symbol>
+<symbol id="i-tel" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M10.5 18h3"/></symbol>
+
+<!-- matriochka : 4 états -->
+<symbol id="d-pas" viewBox="0 0 40 57"><ellipse cx="20" cy="39" rx="16" ry="17" fill="none" stroke="#6E7AA0" stroke-width="2" stroke-dasharray="4 3"/><circle cx="20" cy="16" r="12" fill="none" stroke="#6E7AA0" stroke-width="2" stroke-dasharray="4 3"/></symbol>
+<symbol id="d-vue" viewBox="0 0 40 57"><ellipse cx="20" cy="39" rx="16" ry="17" fill="#fff" stroke="#22408F" stroke-width="2"/><circle cx="20" cy="16" r="12" fill="#fff" stroke="#22408F" stroke-width="2"/><circle cx="20" cy="17" r="6.5" fill="#FBEFE6" stroke="#22408F" stroke-width="1"/><circle cx="17.6" cy="16.5" r=".95" fill="#1B2340"/><circle cx="22.4" cy="16.5" r=".95" fill="#1B2340"/></symbol>
+<symbol id="d-cours" viewBox="0 0 40 57"><ellipse cx="20" cy="39" rx="16" ry="17" fill="#F6D9D5" stroke="#B3261E" stroke-width="2"/><circle cx="20" cy="16" r="12" fill="#DDE5F6" stroke="#B3261E" stroke-width="2"/><circle cx="20" cy="17" r="6.5" fill="#FBEFE6" stroke="#B3261E" stroke-width="1"/><circle cx="17.6" cy="16.5" r=".95" fill="#1B2340"/><circle cx="22.4" cy="16.5" r=".95" fill="#1B2340"/><path d="M6 44Q20 52 34 44" fill="none" stroke="#B3261E" stroke-width="2.4"/><circle cx="20" cy="41" r="3" fill="#B3261E"/></symbol>
+<symbol id="d-acq" viewBox="0 0 40 57"><ellipse cx="20" cy="39" rx="16" ry="17" fill="#B3261E" stroke="#7E1A15" stroke-width="2"/><circle cx="20" cy="16" r="12" fill="#22408F" stroke="#7E1A15" stroke-width="2"/><circle cx="20" cy="17" r="6.5" fill="#FBEFE6"/><circle cx="17.6" cy="16.5" r=".95" fill="#1B2340"/><circle cx="22.4" cy="16.5" r=".95" fill="#1B2340"/><circle cx="16.5" cy="19.6" r="1.3" fill="#E58A86"/><circle cx="23.5" cy="19.6" r="1.3" fill="#E58A86"/><path d="M9 9Q20 1 31 9" fill="none" stroke="#C9A227" stroke-width="2.2"/><circle cx="20" cy="40" r="6" fill="none" stroke="#C9A227" stroke-width="2"/><circle cx="20" cy="40" r="2.2" fill="#C9A227"/></symbol>
+
+<!-- bulbe en forme d'oignon : couleur = fill du <use> -->
+<symbol id="bulbe" viewBox="-30 -50 60 54"><path d="M-11 0C-27 -6 -23 -28 0 -44C23 -28 27 -6 11 0Z"/><path d="M-5 -2C-14 -12 -9 -28 0 -40M5 -2C14 -12 9 -28 0 -40" fill="none" stroke="#FBF8F2" stroke-width="1.5" opacity=".6"/><path d="M0 -44V-49" stroke="#C9A227" stroke-width="2" fill="none"/><circle cx="0" cy="-47" r="1.8" fill="#C9A227" stroke="none"/></symbol>
+
+<!-- samovar -->
+<symbol id="samovar" viewBox="0 0 80 90"><rect x="30" y="2" width="20" height="10" rx="3" fill="#C9A227"/><path d="M18 18h44c4 0 6 3 6 6v30c0 10-12 16-28 16S12 64 12 54V24c0-3 2-6 6-6z" fill="#22408F"/><path d="M20 30h40M20 44h40" stroke="#FBF8F2" stroke-width="2" stroke-dasharray="3 4" fill="none"/><circle cx="40" cy="38" r="7" fill="#FBF8F2"/><circle cx="40" cy="38" r="3" fill="#B3261E"/><path d="M68 40h8v6h-8z" fill="#C9A227"/><rect x="24" y="70" width="32" height="8" rx="2" fill="#C9A227"/><rect x="18" y="78" width="44" height="6" rx="3" fill="#22408F"/></symbol>
+
+<!-- rameau Khokhloma -->
+<symbol id="rameau" viewBox="0 0 160 70"><path d="M4 62C40 62 60 40 100 36S140 20 156 6" fill="none" stroke="#C9A227" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="36" cy="46" rx="14" ry="6" transform="rotate(-35 36 46)" fill="#22408F"/><ellipse cx="68" cy="52" rx="14" ry="6" transform="rotate(30 68 52)" fill="#B9C9EC"/><ellipse cx="96" cy="26" rx="14" ry="6" transform="rotate(-40 96 26)" fill="#22408F"/><ellipse cx="124" cy="34" rx="14" ry="6" transform="rotate(25 124 34)" fill="#B9C9EC"/><circle cx="52" cy="30" r="7" fill="#B3261E"/><circle cx="52" cy="30" r="2" fill="#C9A227"/><circle cx="84" cy="40" r="7" fill="#B3261E"/><circle cx="84" cy="40" r="2" fill="#C9A227"/><circle cx="112" cy="14" r="7" fill="#B3261E"/><circle cx="112" cy="14" r="2" fill="#C9A227"/><circle cx="142" cy="24" r="6" fill="#B3261E"/><circle cx="142" cy="24" r="1.8" fill="#C9A227"/></symbol>
+
+<!-- pharmacie : décor sobre -->
+<symbol id="croix" viewBox="0 0 48 48"><rect x="18" y="6" width="12" height="36" rx="3" fill="#DDE5F6"/><rect x="6" y="18" width="36" height="12" rx="3" fill="#DDE5F6"/><circle cx="24" cy="24" r="4.5" fill="#22408F"/></symbol>
+
+<!-- motif Gjel (trait) -->
+<symbol id="gjel" viewBox="0 0 200 200"><g fill="none" stroke="#9FB2E0" stroke-width="2.2"><circle cx="120" cy="80" r="22"/><circle cx="120" cy="80" r="8" fill="#C9D6F2"/><path d="M120 58c-6-16 6-26 0-40M142 80c16-6 26 6 40 0M120 102c6 16-6 26 0 40M98 80c-16 6-26-6-40 0"/><ellipse cx="160" cy="40" rx="10" ry="18" transform="rotate(40 160 40)"/><ellipse cx="80" cy="130" rx="10" ry="18" transform="rotate(40 80 130)"/><ellipse cx="160" cy="120" rx="10" ry="18" transform="rotate(-40 160 120)"/></g></symbol>
+</defs></svg>
+
+<div class="entete"><h1>Bagou · version russe</h1><p>Mission 003 · planche de maquettes · thème clair · 390 × 844 · chiffres de « Mes progrès » : exemples</p></div>
+
+<div class="planche">
+
+<!-- 1 -->
+<div class="cell"><div class="leg">1 · Je suis où ? <span>avec « Comme la dernière fois »</span></div>
+<div class="tel">
+ <svg class="motif" viewBox="0 0 200 200"><use href="#gjel"/></svg>
+ <div class="haut"><div class="menu"><svg class="i"><use href="#i-menu"/></svg>Menu</div><div class="marque"><svg width="17" height="24" viewBox="0 0 40 57"><use href="#d-acq"/></svg>Bagou</div></div>
+ <div class="slogan">Bagou, ose parler.</div>
+ <h2>Je suis où ?</h2>
+ <div class="lieux">
+  <div class="lieu"><svg class="i"><use href="#i-voiture"/></svg><div><b>En voiture</b><span>Tout à l'oreille</span></div></div>
+  <div class="lieu"><svg class="i"><use href="#i-sansson"/></svg><div><b>Sans son</b><span>Salle d'attente, réunion</span></div></div>
+  <div class="lieu"><svg class="i"><use href="#i-casque"/></svg><div><b>Écouteurs</b><span>Bus, métro, file d'attente</span></div></div>
+  <div class="lieu"><svg class="i"><use href="#i-parler"/></svg><div><b>Je peux parler</b><span>Maison, balade</span></div></div>
+ </div>
+ <svg class="band" viewBox="0 0 354 170" height="170" aria-hidden="true">
+  <rect x="0" y="144" width="354" height="26" fill="#DDE5F6"/>
+  <rect x="34" y="104" width="30" height="42" fill="#B9C9EC"/><use href="#bulbe" x="22" y="62" width="54" height="46.8" fill="#B3261E"/>
+  <rect x="110" y="70" width="34" height="76" fill="#B9C9EC"/><use href="#bulbe" x="92" y="20" width="70" height="60.7" fill="#22408F"/>
+  <rect x="190" y="96" width="30" height="50" fill="#B9C9EC"/><use href="#bulbe" x="177" y="56" width="56" height="48.5" fill="#C9A227"/>
+  <rect x="262" y="112" width="26" height="34" fill="#B9C9EC"/><use href="#bulbe" x="250" y="76" width="50" height="43.3" fill="#22408F"/>
+  <rect x="312" y="124" width="20" height="22" fill="#B9C9EC"/><use href="#bulbe" x="303" y="96" width="38" height="32.9" fill="#B3261E"/>
+ </svg>
+ <div class="bas"><div class="btn btn-p deux" style="flex:1"><span>Comme la dernière fois</span><small>Voiture · 30 min · Au hasard</small></div></div>
+</div></div>
+
+<!-- 2 -->
+<div class="cell"><div class="leg">2 · J'ai combien de temps ? <span>prérempli selon le lieu</span></div>
+<div class="tel">
+ <svg class="motif" viewBox="0 0 200 200" style="opacity:.6"><use href="#gjel"/></svg>
+ <div class="haut"><div class="menu"><svg class="i"><use href="#i-menu"/></svg>Menu</div><div class="marque"><svg width="17" height="24" viewBox="0 0 40 57"><use href="#d-acq"/></svg>Bagou</div></div>
+ <div class="pastilles"><span class="past"><svg class="i" style="width:20px;height:20px;margin-right:6px"><use href="#i-casque"/></svg>Écouteurs</span></div>
+ <h2>J'ai combien de temps ?</h2>
+ <div class="choix"><span class="rond"></span><div>2 min<small>Un coup d'œil</small></div></div>
+ <div class="choix sel"><span class="rond"><svg class="i"><use href="#i-coche"/></svg></span><div>5 min<small>Une pause</small></div><span class="tag">Prérempli pour Écouteurs</span></div>
+ <div class="choix"><span class="rond"></span><div>15 min<small>Un trajet</small></div></div>
+ <div class="choix"><span class="rond"></span><div>30 min<small>Une vraie séance</small></div></div>
+ <p class="note">Touche une autre durée pour changer.</p>
+ <svg viewBox="0 0 160 70" width="180" style="margin:20px 0 0 auto;display:block" aria-hidden="true"><use href="#rameau"/></svg>
+ <div class="bas"><div class="btn btn-s"><svg class="i"><use href="#i-retour"/></svg>Retour</div><div class="btn btn-p">Suite<svg class="i"><use href="#i-suite"/></svg></div></div>
+</div></div>
+
+<!-- 3 -->
+<div class="cell"><div class="leg">3 · Sur quoi ? <span>choix multiple</span></div>
+<div class="tel">
+ <div class="haut"><div class="menu"><svg class="i"><use href="#i-menu"/></svg>Menu</div><div class="marque"><svg width="17" height="24" viewBox="0 0 40 57"><use href="#d-acq"/></svg>Bagou</div></div>
+ <div class="pastilles"><span class="past">Écouteurs</span><span class="past">5 min</span></div>
+ <h2 style="margin-bottom:6px">Sur quoi ?</h2>
+ <div class="choix" style="min-height:56px;margin-bottom:0"><span class="rond case"></span><svg class="i" style="color:var(--accent)"><use href="#i-hasard"/></svg><div style="font-size:18px">Au hasard<small>Je te propose un mélange</small></div></div>
+ <div class="themes">
+  <div class="choix sel"><span class="rond case"><svg class="i"><use href="#i-coche"/></svg></span>Au café</div>
+  <div class="choix"><span class="rond case"></span>Faire les courses</div>
+  <div class="choix"><span class="rond case"></span>Ce que j'aime</div>
+  <div class="choix"><span class="rond case"></span>Sortir</div>
+  <div class="choix"><span class="rond case"></span>Rencontrer quelqu'un</div>
+  <div class="choix sel"><span class="rond case"><svg class="i"><use href="#i-coche"/></svg></span>Métro et directions</div>
+  <div class="choix"><span class="rond case"></span>Pharmacie et santé</div>
+  <div class="choix"><span class="rond case"></span>Se présenter</div>
+  <div class="choix sel"><span class="rond case"><svg class="i"><use href="#i-coche"/></svg></span>Au restaurant</div>
+  <div class="choix"><span class="rond case"></span>Urgences</div>
+ </div>
+ <div class="facon"><div><small style="font:400 15px/1.2 var(--font)">Façon d'apprendre</small><b>Phrases du quotidien</b></div><u>Changer<svg class="i" style="width:18px;height:18px"><use href="#i-suite"/></svg></u></div>
+ <div class="bas" style="padding-top:10px"><div class="btn btn-s"><svg class="i"><use href="#i-retour"/></svg>Retour</div><div class="btn btn-p deux"><span>C'est parti</span><small>3 thèmes choisis</small></div></div>
+</div></div>
+
+<!-- 4 -->
+<div class="cell"><div class="leg">4 · Comment ? <span>facultatif, via « Changer »</span></div>
+<div class="tel">
+ <div class="haut"><div class="menu"><svg class="i"><use href="#i-menu"/></svg>Menu</div><div class="marque"><svg width="17" height="24" viewBox="0 0 40 57"><use href="#d-acq"/></svg>Bagou</div></div>
+ <div class="pastilles"><span class="past">Écouteurs</span><span class="past">5 min</span><span class="past">3 thèmes</span></div>
+ <h2>Comment ?</h2>
+ <div class="choix sel" style="min-height:84px"><span class="rond"><svg class="i"><use href="#i-coche"/></svg></span><div>Phrases du quotidien<small>Des phrases utiles, prêtes à dire</small></div></div>
+ <div class="choix" style="min-height:84px"><span class="rond"></span><div>Verbes<small>Un verbe, dans des phrases vraies</small></div></div>
+ <div class="choix" style="min-height:84px"><span class="rond"></span><div>Vocabulaire<small>Des mots, toujours dans une phrase</small></div></div>
+ <div class="choix" style="min-height:84px"><span class="rond"></span><div>Grammaire<small>Un mécanisme, expliqué en 2 lignes</small></div></div>
+ <svg viewBox="0 0 160 70" width="150" style="margin:8px 0 0 auto;display:block" aria-hidden="true"><use href="#rameau"/></svg>
+ <div class="bas"><div class="btn btn-s"><svg class="i"><use href="#i-retour"/></svg>Retour</div><div class="btn btn-p">C'est parti</div></div>
+</div></div>
+
+<!-- 5 -->
+<div class="cell"><div class="leg">5 · Avant le départ <span>chemin Voiture</span></div>
+<div class="tel">
+ <div class="haut"><div class="menu"><svg class="i"><use href="#i-menu"/></svg>Menu</div><div class="marque"><svg width="17" height="24" viewBox="0 0 40 57"><use href="#d-acq"/></svg>Bagou</div></div>
+ <div class="pastilles"><span class="past">En voiture</span><span class="past">30 min</span><span class="past">Au hasard</span></div>
+ <h2 style="margin-bottom:34px">Avant le départ</h2>
+ <div class="prep"><span class="ic"><svg class="i"><use href="#i-batterie"/></svg></span>Téléphone branché</div>
+ <div class="prep"><span class="ic"><svg class="i"><use href="#i-son"/></svg></span>Volume réglé</div>
+ <div class="prep"><span class="ic"><svg class="i"><use href="#i-tel"/></svg></span>Téléphone posé</div>
+ <div style="margin-top:auto">
+  <div class="gros">Je démarre<small>30 min, tout à l'oreille</small></div>
+  <div class="lien"><svg class="i"><use href="#i-retour"/></svg>Retour</div>
+ </div>
+</div></div>
+
+<!-- 6 -->
+<div class="cell"><div class="leg">6 · Une phrase <span>Au café</span></div>
+<div class="tel">
+ <div class="haut"><div class="menu"><svg class="i"><use href="#i-menu"/></svg>Menu</div><div class="quit"><svg class="i"><use href="#i-croix"/></svg>Quitter</div></div>
+ <div class="pastilles" style="margin-top:8px"><span class="info">Écouteurs</span><span class="info">5 min</span><span class="info">Au café</span></div>
+ <div class="temps"><i></i></div><div class="encore">Encore 3 min</div>
+ <div class="carte">
+  <svg class="samovar" viewBox="0 0 80 90" aria-hidden="true"><use href="#samovar"/></svg>
+  <div class="fr">Un café, s'il vous plaît.</div>
+  <div class="ru" lang="ru">Ко́фе, пожа́луйста.</div>
+  <div class="tr" lang="ru-Latn">kófi, pajálsta</div>
+  <span class="reg">on vouvoie</span>
+  <div class="ecoute"><div class="btn"><svg class="i"><use href="#i-son"/></svg>Écouter</div><div class="btn"><svg class="i"><use href="#i-son"/></svg>Lentement</div></div>
+  <div class="etat"><svg width="28" height="40" viewBox="0 0 40 57" role="img" aria-label="En cours"><use href="#d-cours"/></svg><div>En cours<small>Réussie 2 fois, encore fragile</small></div></div>
+ </div>
+ <div class="moule">Même phrase, autre mot</div>
+ <div class="puces"><span class="puce" lang="ru">Чай</span><span class="puce" lang="ru">Капучи́но</span></div>
+ <div class="rang">Au café <small>· 3 acquises sur 9</small></div>
+ <div class="poupees">
+  <svg width="22" height="31" viewBox="0 0 40 57"><use href="#d-acq"/></svg><svg width="24" height="34" viewBox="0 0 40 57"><use href="#d-acq"/></svg><svg width="26" height="37" viewBox="0 0 40 57"><use href="#d-acq"/></svg><svg width="28" height="40" viewBox="0 0 40 57"><use href="#d-cours"/></svg><svg width="30" height="43" viewBox="0 0 40 57"><use href="#d-cours"/></svg><svg width="32" height="46" viewBox="0 0 40 57"><use href="#d-vue"/></svg><svg width="34" height="49" viewBox="0 0 40 57"><use href="#d-pas"/></svg><svg width="36" height="52" viewBox="0 0 40 57"><use href="#d-pas"/></svg><svg width="38" height="55" viewBox="0 0 40 57"><use href="#d-pas"/></svg>
+ </div>
+ <div class="bas"><div class="btn btn-p" style="min-height:60px">Suivant</div></div>
+</div></div>
+
+<!-- 7 -->
+<div class="cell"><div class="leg">7 · Mon carnet <span>ouvert sur Pharmacie, 4 états</span></div>
+<div class="tel">
+ <div class="haut"><div class="menu"><svg class="i"><use href="#i-menu"/></svg>Menu</div><div class="titre-page">Mon carnet</div></div>
+ <div class="selrow" style="margin-top:10px"><div class="select">Pharmacie et santé<svg class="i"><use href="#i-bas"/></svg></div><svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><use href="#croix"/></svg></div>
+ <div class="recherche"><svg class="i"><use href="#i-loupe"/></svg>Chercher un mot ou une phrase</div>
+ <div class="rang" style="margin-top:8px">Pharmacie et santé <small>· 1 acquise sur 9</small></div>
+ <div class="poupees" style="height:40px;margin:2px 0 0;gap:4px">
+  <svg width="17" height="24" viewBox="0 0 40 57"><use href="#d-acq"/></svg><svg width="18" height="26" viewBox="0 0 40 57"><use href="#d-cours"/></svg><svg width="20" height="28" viewBox="0 0 40 57"><use href="#d-vue"/></svg><svg width="21" height="30" viewBox="0 0 40 57"><use href="#d-pas"/></svg><svg width="22" height="32" viewBox="0 0 40 57"><use href="#d-pas"/></svg><svg width="24" height="34" viewBox="0 0 40 57"><use href="#d-pas"/></svg><svg width="25" height="36" viewBox="0 0 40 57"><use href="#d-pas"/></svg><svg width="27" height="38" viewBox="0 0 40 57"><use href="#d-pas"/></svg><svg width="28" height="40" viewBox="0 0 40 57"><use href="#d-pas"/></svg>
+ </div>
+ <div class="ligne"><div class="ru" lang="ru">Здесь ря́дом есть апте́ка?</div><div class="fr">Il y a une pharmacie près d'ici ?</div>
+  <div class="bl"><div class="st"><svg width="21" height="30" viewBox="0 0 40 57"><use href="#d-acq"/></svg>Acquise</div><div class="bt"><span><svg class="i"><use href="#i-son"/></svg>Écouter</span><span><svg class="i"><use href="#i-montrer"/></svg>Montrer</span></div></div></div>
+ <div class="ligne"><div class="ru" lang="ru">Я пло́хо себя́ чу́вствую.</div><div class="fr">Je ne me sens pas bien.</div>
+  <div class="bl"><div class="st"><svg width="21" height="30" viewBox="0 0 40 57"><use href="#d-cours"/></svg>En cours</div><div class="bt"><span><svg class="i"><use href="#i-son"/></svg>Écouter</span><span><svg class="i"><use href="#i-montrer"/></svg>Montrer</span></div></div></div>
+ <div class="ligne"><div class="ru" lang="ru">У меня́ боли́т голова́.</div><div class="fr">J'ai mal à la tête. · 5 autres mots</div>
+  <div class="bl"><div class="st"><svg width="21" height="30" viewBox="0 0 40 57"><use href="#d-vue"/></svg>Vue</div><div class="bt"><span><svg class="i"><use href="#i-son"/></svg>Écouter</span><span><svg class="i"><use href="#i-montrer"/></svg>Montrer</span></div></div></div>
+ <div class="ligne"><div class="ru" lang="ru">Мне ну́жен врач.</div><div class="fr">J'ai besoin d'un médecin.</div>
+  <div class="bl"><div class="st"><svg width="21" height="30" viewBox="0 0 40 57"><use href="#d-pas"/></svg>Pas vue</div><div class="bt"><span><svg class="i"><use href="#i-son"/></svg>Écouter</span><span><svg class="i"><use href="#i-montrer"/></svg>Montrer</span></div></div></div>
+</div></div>
+
+<!-- 8 -->
+<div class="cell"><div class="leg">8 · Mes progrès <span>sans série ni badge</span></div>
+<div class="tel">
+ <div class="haut"><div class="menu"><svg class="i"><use href="#i-menu"/></svg>Menu</div><div class="titre-page">Mes progrès</div></div>
+ <div class="cle"><svg width="40" height="57" viewBox="0 0 40 57" role="img" aria-label="Acquise"><use href="#d-acq"/></svg><div><b>Tu sais dire 14 phrases</b><small>sur 96</small></div></div>
+ <div class="chiffres">
+  <div class="chiffre"><small>Temps passé</small><b>3 h 20</b></div>
+  <div class="chiffre"><small>Jours pratiqués</small><b>12</b></div>
+  <div class="chiffre"><small>Mode préféré</small><b>Écouteurs</b></div>
+  <div class="chiffre"><small>Durée préférée</small><b>5 min</b></div>
+ </div>
+ <div class="pt">Par thème</div>
+ <div class="th"><div>Au café<span>3 sur 9</span></div><div class="barre"><i style="width:33%"></i></div></div>
+ <div class="th"><div>Faire les courses<span>3 sur 10</span></div><div class="barre"><i style="width:30%"></i></div></div>
+ <div class="th"><div>Ce que j'aime<span>2 sur 9</span></div><div class="barre"><i style="width:22%"></i></div></div>
+ <div class="th"><div>Sortir<span>1 sur 10</span></div><div class="barre"><i style="width:10%"></i></div></div>
+ <div class="th"><div>Rencontrer quelqu'un<span>1 sur 9</span></div><div class="barre"><i style="width:11%"></i></div></div>
+ <div class="th"><div>Métro et directions<span>2 sur 10</span></div><div class="barre"><i style="width:20%"></i></div></div>
+ <div class="th"><div>Pharmacie et santé<span>1 sur 9</span></div><div class="barre"><i style="width:11%"></i></div></div>
+ <div class="th"><div>Se présenter<span>1 sur 10</span></div><div class="barre"><i style="width:10%"></i></div></div>
+ <div class="th"><div>Au restaurant<span>0 sur 10</span></div><div class="barre"><i style="width:0"></i></div></div>
+ <div class="th"><div>Urgences<span>0 sur 10</span></div><div class="barre"><i style="width:0"></i></div></div>
+</div></div>
+
+</div>
+</body></html>
