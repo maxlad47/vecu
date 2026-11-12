@@ -1,4 +1,4 @@
-# État du projet : registre des livrables
+# État du projet Bagou : registre des livrables
 
 Source unique de vérité : ce qui existe, où, et dans quel état. **Chaque agent le lit en premier.** Seul Sacha le met à jour, à la fin de chaque étape.
 
@@ -52,6 +52,7 @@ Dernière mise à jour : 12/11/2026 (clôture de la mission 002), par Sacha.
 | Hébergement de test, relié à GitHub : publication automatique à chaque envoi sur `main` | `netlify.toml` | validé (12/11) |
 | Tests du moteur, indépendants du volume de contenu (`node --test tests/*.test.mjs`) | `tests/moteur.test.mjs` | validé (12/11) |
 | Réserve : Voiture 2 min, onend absent, écart possible au-delà de 20 % (avertissement dans le test) | `tests/moteur.test.mjs` | à revoir (mission audio) |
+| Renommer l'app en « Bagou » (titre, manifeste, textes de l'interface) | `app/` | à faire (prochaine mission interface) |
 | Dette : textes « russe » de l'interface à sortir de `textes.js` vers `index.json` (2e langue) | `app/js/textes.js` | à faire |
 | Limite connue : sur iPhone, l'écran verrouillé coupe la Voiture | — | à revoir (phase 1, fichiers audio) |
 | Badge et script Netlify injectés par l'offre gratuite | — | à revoir (avant lancement public) |

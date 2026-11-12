@@ -1,6 +1,6 @@
-# Vécu : constitution du projet
+# Bagou : constitution du projet
 
-> Nom de code provisoire. Ce fichier est lu par chaque session et chaque agent. Il fait foi.
+> Nom de l'app : **Bagou** (décision de Max, 12/11/2026). « Avoir du bagou » : oser parler, avec aisance. Le nom ne se traduit pas, seul le slogan se traduit (« Bagou, ose parler »). Ancien nom de code : Vécu. Le dépôt garde le nom `vecu`. Ce fichier est lu par chaque session et chaque agent. Il fait foi.
 
 ## Mission
 

@@ -3,6 +3,7 @@
 Format : date — décision — raison. Les plus récentes en haut.
 
 ## 12/11/2026
+- **D15 : l'app s'appelle Bagou** (décision de Max). « Avoir du bagou » : oser parler, avec aisance. Le nom porte l'esprit anti-scolaire du projet. À l'international, le nom reste tel quel et seul le slogan se traduit (« Bagou, dare to speak »). Variante de secours : Bagoo. À faire avant tout lancement public : vérifier la marque (INPI, EUIPO), le nom de domaine et les stores, et contrôler le sens du mot dans les langues visées. Le dépôt garde son nom `vecu`. Le changement de nom dans l'app se fera dans la prochaine mission qui touche l'interface.
 - **D14 : vecu-test.netlify.app est relié au dépôt GitHub** (fait par Max depuis son iPhone). Chaque version envoyée sur `main` se publie automatiquement sur l'adresse de test. Raison : publier sans dépendre du Mac. Garde-fou : on n'envoie sur `main` qu'à la clôture d'une mission, après Boris. Le lancement public reste soumis à l'accord de Max. Première publication automatique : la mission 002.
 - **Mission 002 terminée : 5 nouvelles situations** (métro et directions, pharmacie et santé, se présenter, au restaurant, urgences). Lancée depuis le cloud à la demande de Max, en avance sur la phase 1 parce qu'elle ne dépend pas de son test. Le contenu passe à 10 situations et 96 éléments. Décisions de Sacha :
   - « Je m'appelle ___ » et le métier de l'utilisateur (« Je suis infirmière », demandé par Léa) : en phase 1, avec un réglage « mon prénom » et « mon métier », plutôt qu'une liste de métiers.

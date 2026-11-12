@@ -1,8 +1,8 @@
-# Vécu
+# Bagou
 
 Apprendre une langue avec des phrases de la vraie vie, en 2 minutes comme en 30, en silence comme en voiture, même hors ligne.
 
-*Nom de code provisoire. Projet en phase 0 (prototype).*
+*Ancien nom de code : Vécu. Projet en phase 0 (prototype).*
 
 - Constitution du projet : [`CLAUDE.md`](CLAUDE.md)
 - Pilotage, décisions et feuille de route : [`docs/pilotage.md`](docs/pilotage.md)

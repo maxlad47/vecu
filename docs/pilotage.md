@@ -60,7 +60,7 @@ Chaque mission suit le même cycle (`docs/processus.md`). Une mission reçoit so
 - **Les limites du linguiste IA** : relecture par un natif obligatoire avant toute mise en ligne publique.
 
 ## Questions ouvertes (non bloquantes)
-- Nom définitif. « Vécu » est un nom de code : il faudra vérifier les marques déposées et les noms de domaine.
+- Nom : **Bagou**, choisi le 12/11 (D15). Il reste à vérifier la marque, le domaine et les stores avant le lancement public.
 - Modèle économique (gratuit, freemium, abonnement) : à trancher en phase 2.
 
 ## État d'avancement
