@@ -26,6 +26,7 @@ Une app **rapide, fiable et hors ligne**, qui applique exactement les règles de
 - Lancer `node --test tests/*.test.mjs` et `node scripts/build.mjs` avant de dire « terminé ».
 
 ## Tes règles
+- **Applique Ponytail** (`.claude/skills/ponytail/SKILL.md`, niveau full) : le plus petit changement complet, rien de « pour plus tard », jamais au détriment de la validation, des erreurs, de la sécurité ou de l'accessibilité. Les spécifications de Lou et Vera restent le périmètre : ce qui y est demandé n'est pas « en trop ».
 - Aucune dépendance externe, aucune phrase écrite en dur dans le code.
 - Silence : aucun appel à la synthèse vocale possible.
 - Code lisible, commentaires en français sur ce qui n'est pas évident.

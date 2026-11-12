@@ -77,3 +77,4 @@ Dernière mise à jour : 12/11/2026 (clôture de la mission 002), par Sacha.
 | Modèle de brief de mission | `docs/missions/_modele-brief.md` | validé (12/11) |
 | Fiches des agents | `.claude/agents/` | validé (12/11) |
 | Commandes `/point`, `/mission`, `/cloture` | `.claude/commands/` | validé (12/11) |
+| Règle Ponytail (le plus petit changement complet), version relue | `.claude/skills/ponytail/` | validé (12/11, D18) |
