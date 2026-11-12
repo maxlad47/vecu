@@ -41,11 +41,11 @@ Chaque mission suit le même cycle (`docs/processus.md`). Une mission reçoit so
 |---|---|---|---|---|
 | 001 | Prototype jouable | 0 | tous | fait (11/11) |
 | 002 | 5 nouvelles situations : métro, pharmacie, se présenter, restaurant, urgences | 0 | Vera, Nadia, Boris, Léa | fait (12/11) |
-| 003 | Design Bagou : identité russe, parcours d'accueil, menu, carnet, progrès, matriochka (maquettes, sans toucher à l'app) | 0 | Lou | en cours |
-| 004 | 5 dernières situations : hôtel, au téléphone, chez des amis, banque et argent, le temps qu'il fait (branche à part) | 0 | Vera, Nadia, Boris, Léa | en cours |
+| 003 | Design Bagou : identité russe, parcours d'accueil, menu, carnet, progrès, matriochka (maquettes) | 0 | Lou | fait (12/11) |
+| 004 | 5 dernières situations : hôtel, au téléphone, chez des amis, banque et argent, le temps qu'il fait (branche à part) | 0 | Vera, Nadia, Boris, Léa | fait (12/11), attend l'accord de Max |
+| 005 | Bagou dans l'app : identité, parcours d'accueil, choix des thèmes, menu (branche à part) | 0 | Kostia, Boris, Léa | en cours |
 | — | Test réel par Max, puis bilan | 0 | Max, Sacha | en cours (jusqu'au 25/11 environ) |
 | — | 1. Corrections issues du test | 1 | selon les retours | à faire |
-| — | 2. Bagou dans l'app : nouvelle identité, parcours d'accueil, choix des thèmes, menu (d'après la 003) | 1 | Lou, Kostia, Boris, Léa | à faire |
 | — | 3. Mon carnet et la matriochka | 1 | Lou, Kostia, Boris, Léa | à faire |
 | — | 4. Mes progrès (statistiques locales) | 1 | Lou, Kostia, Boris | à faire |
 | — | 5. Audio pré-généré (compte Azure à valider par Max) | 1 | Kostia, Boris | à faire |
