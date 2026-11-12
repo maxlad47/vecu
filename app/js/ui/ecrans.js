@@ -191,7 +191,7 @@ export function afficherReglages(racine, ctx) {
     h("main", { class: "contenu" },
       cartePersonnage(),
       h("div", { class: "reglage" }, interrupteur, h("p", { class: "aide-reglage", id: "aide-translit" }, t("reglages.translitAide"))),
-      h("div", { class: "reglage" }, universActif, h("p", { class: "aide-reglage", id: "aide-univers" }, t("reglages.universAide"))),
+      (ctx.contenu.univers || []).length ? h("div", { class: "reglage" }, universActif, h("p", { class: "aide-reglage", id: "aide-univers" }, t("reglages.universAide"))) : null,
       segments("genre", t("reglages.genre"), t("reglages.genreAide"),
         [["m", t("genre.m")], ["f", t("genre.f")]], r.genre, (v) => ctx.majReglage("genre", v), "deux texte-long"),
       // Aucun son à l'aperçu : on peut être en Silence.

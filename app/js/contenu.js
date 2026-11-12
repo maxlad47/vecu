@@ -116,7 +116,7 @@ export function preparerContenu(index, fichiers, donnees, dialogues, univers) {
         personnalise: null, gabarit: null, astuce: p.astuce || null, moule: p.moule, ordreLibre: p.ordre_libre === true
       });
     });
-    listeUnivers.push({ id: u.id, titre: (d && d.titre) || u.id, ids });
+    if (ids.length) listeUnivers.push({ id: u.id, titre: (d && d.titre) || u.id, ids }); // un univers sans élément n'existe pas (ni tuile, ni rangée « 0 sur 0 »)
   });
   elements.sort((a, b) => (a.vague - b.vague) || (a.rangSituation - b.rangSituation) || (a.rangPhrase - b.rangPhrase));
   elements.forEach((el, i) => { el.rang = i + 1; });

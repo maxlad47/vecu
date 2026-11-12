@@ -776,7 +776,7 @@ import { construireSauvegarde, lireSauvegarde, ajouterSession, resumeUsage, rapp
   verifier(!JSON.stringify(complet.univers).includes("niveau") && univ.every((e) => e.niveau === undefined), "le niveau n'est pas porté à l'écran (D7)");
   // Un univers illisible est ignoré sans casser le reste.
   const sansUnivers = await chargerContenu("ru", async (c) => { if (c.includes("univers-")) throw new Error("absent"); return lireJson(c); });
-  egal([sansUnivers.univers.every((u) => u.ids.length === 0), sansUnivers.elements.filter((e) => e.univers).length], [true, 0], "fichier d'univers absent : l'app marche sans");
+  egal([sansUnivers.univers.length, sansUnivers.elements.filter((e) => e.univers).length], [0, 0], "fichiers d'univers absents : aucune liste d'univers (donc ni tuile, ni interrupteur, ni rangée « 0 sur 0 »)");
 
   // Seuils d'entrée (themes.md, §3).
   const seuilsVera = { "ru-lieux-001": 10, "ru-lieux-002": 20, "ru-maison-001": 15, "ru-maison-002": 25, "ru-nourriture-001": 20,
@@ -886,6 +886,16 @@ import { construireSauvegarde, lireSauvegarde, ajouterSession, resumeUsage, rapp
   // Personnalisation (prénom, métier) : les univers passent intacts.
   verifier(personnaliser(complet, null).elements.filter((e) => e.univers).length === 10 && personnaliser(complet, null).univers.length === 5, "personnaliser garde les univers");
 
+  // Sauvegarde : l'interrupteur voyage avec le fichier ; une ancienne sauvegarde sans la clé = activé, sans erreur.
+  {
+    const { construireSauvegarde, lireSauvegarde } = await import("../app/js/sauvegarde.js");
+    const fich = new Map();
+    const lu = lireSauvegarde(JSON.stringify(construireSauvegarde(fich, { universInclus: false }, new Date())));
+    egal([lu.ok, lu.reglages.universInclus], [true, false], "sauvegarde : univers décochés restent décochés");
+    const vieux = JSON.stringify({ format: "bagou-sauvegarde", version: 1, fiches: [], reglages: { genre: "f" }, usage: { jours: {} } });
+    const lv = lireSauvegarde(vieux);
+    egal([lv.ok, lv.reglages.universInclus], [true, true], "ancienne sauvegarde sans la clé : univers activés, sans erreur");
+  }
   // Choix d'accueil (R8) : un seul choix, actif par défaut, décochable.
   egal([universInclus(undefined), universInclus({}), universInclus({ universInclus: true }), universInclus({ universInclus: false })], [true, true, true, false], "choix d'accueil « Inclure les univers » : oui par défaut");
 }

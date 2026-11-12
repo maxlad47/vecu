@@ -25,3 +25,9 @@ iPhone réel, rendu de la tuile et de l'interrupteur (aucun navigateur ici), hor
 - Seuil lu au début de session : un univers entre à la session suivante, pas en cours.
 - Voiture autorisée (Vera ne l'interdit pas).
 - Seuils dans `index.json`, limites par durée dans `config.js` (UNIVERS).
+
+## Corrections après QA de Boris (réserves 1 et 2)
+- `universInclus` est dans la sauvegarde ; une ancienne sauvegarde sans la clé donne « activé », sans erreur.
+- Sans fichier d'univers chargé : plus de liste d'univers, donc ni tuile d'accueil, ni interrupteur Réglages, ni rangée « 0 sur 0 ».
+- Tests ajoutés (1072, 0 échec), build OK, publication toujours bloquée. Points 3 et 4 non touchés.
+- À noter : importer une sauvegarde réactive les univers si la clé manque.
