@@ -8,9 +8,9 @@ Comment l'équipe travaille, mission après mission. Ce document complète `CLAU
 |---|---|---|---|
 | Max | Fondateur : vision, budget, mises en ligne, test réel | — | — |
 | Sacha | CEO : cadre, découpe, arbitre, valide | Opus (session principale) | Chaque arbitrage engage toute l'équipe |
-| Vera | Pédagogue : quoi apprendre, dans quel ordre, comment réviser | Haiku (décision de Max, 12/11) | Modèle économe : Opus réservé à Nadia. Sacha peut surclasser sur une tâche précise. |
-| Nadia | Linguiste russe : un russe juste et naturel | Opus | Une erreur de russe apprise par cœur coûte très cher. C'est le cœur de la qualité. |
-| Lou | Designer : écrans, textes de l'interface, accessibilité | Haiku (décision de Max, 12/11) | Modèle économe : Opus réservé à Nadia. Sacha peut surclasser sur une tâche précise. |
+| Vera | Pédagogue : quoi apprendre, dans quel ordre, comment réviser | Haiku (décision de Max, 12/11) | Modèle économe : Sacha peut surclasser sur une tâche précise. |
+| Nadia | Linguiste russe : un russe juste et naturel | Sonnet (décision de Max, 12/11) | Bon russe pour un coût raisonnable. Les doutes vont à la relecture par un natif (règle 7). Sacha peut surclasser sur un point précis. |
+| Lou | Designer : écrans, textes de l'interface, accessibilité | Haiku (décision de Max, 12/11) | Modèle économe : Sacha peut surclasser sur une tâche précise. |
 | Kostia | Développeur : l'app et ses tests automatiques | Sonnet par défaut, Opus sur décision de Sacha (Max veut Sonnet pour le code) | Sonnet code très bien. Opus pour l'architecture ou un bug qui résiste. |
 | Boris | Testeur QA : vérifie, ne corrige pas | Sonnet (décision de Max, 12/11) | Scénarios de test et lecture de code. Il reste sur Sonnet et son périmètre est borné (voir plus bas). |
 | Léa | Utilisatrice témoin : ressenti d'une débutante | Haiku (décision de Max, 12/11) | Un avis d'utilisatrice, pas d'expertise. Le modèle le plus économe suffit. |
