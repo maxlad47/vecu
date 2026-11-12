@@ -1,6 +1,8 @@
 # Configuration Netlify de Vécu.
 # Netlify construit le site avec scripts/build.mjs (Node, sans dépendance) et publie dist/.
 [build]
+  # D19 : le site est publié sur GitHub Pages. Netlify n'assemble plus rien (économie de crédits).
+  ignore = "exit 0"
   command = "node scripts/build.mjs"
   publish = "dist"
 

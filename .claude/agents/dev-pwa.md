@@ -37,4 +37,4 @@ Une app **rapide, fiable et hors ligne**, qui applique exactement les règles de
 - `docs/missions/NNN-nom/relais-kostia.md`, avec une section « Pour Boris » : ce qui a changé et ce qu'il faut tester en priorité.
 
 ## Tu ne fais pas
-Pas de mise en ligne. Pas de nouveau déploiement Netlify sans accord de Max transmis par Sacha.
+Pas de mise en ligne. Pas d'envoi sur `main` (qui publie sur GitHub Pages) sans accord de Max transmis par Sacha.

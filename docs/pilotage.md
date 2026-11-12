@@ -22,6 +22,7 @@ Apprendre une langue avec des phrases qui servent dans la vraie vie, n'importe o
 | D9 | Garde-fou : les dépenses et la mise en ligne publique sont validées par Max | |
 | D10 | Équipe de 6 agents spécialisés dans Claude Code, le CEO orchestre | Chaque rôle a ses règles et son couloir. Le CEO tranche. |
 | D11 | Backlog dans les Issues GitHub, hébergement sur Netlify | Un minimum d'outils, pas de bruit. |
+| D19 | Hébergement sur GitHub Pages au lieu de Netlify (remplace la 2e partie de D11). Dépôt public. | Gratuit sans compteur de crédits ni badge, largement suffisant pour quelques testeurs. |
 | D12 | Pas d'agent « veilleur d'outils ». Revue des outils par le CEO à chaque changement de phase | Un agent dédié pousserait à empiler des outils. On part du besoin, pas de l'outil. |
 
 ## Feuille de route

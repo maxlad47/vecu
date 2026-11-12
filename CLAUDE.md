@@ -61,7 +61,7 @@ Durées proposées : 2, 5, 15 et 30 min. La durée annoncée doit être la duré
 - **Contenu séparé du code** dans `content/<langue>/*.json`. Ajouter une langue, c'est ajouter des fichiers de contenu, sans toucher au code.
 - **Audio** : la synthèse vocale de l'appareil suffit pour les prototypes. Avant le lancement public, il faut des voix natives, enregistrées ou générées.
 - **Mobile d'abord** : tout doit fonctionner d'une main sur un téléphone.
-- **Hébergement** sur Netlify. La mise en ligne publique doit être validée par Max.
+- **Hébergement** sur GitHub Pages (gratuit, publication automatique à chaque envoi sur `main`, D19). La mise en ligne publique doit être validée par Max.
 
 ## Organisation du dépôt
 
