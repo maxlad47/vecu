@@ -158,13 +158,24 @@ function uneLettreDePres(a, b) {
   return a.length > b.length ? reste(a.slice(i + 1), b.slice(i)) : reste(a.slice(i), b.slice(i + 1));
 }
 
+// Latin « à plat » pour comparer deux translittérations : sans diacritiques, casse, ponctuation ni espaces multiples.
+const platLatin = (x) => (x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+  .replace(/[.,!?;:«»"'’…\-]/g, " ").replace(/\s+/g, " ").trim();
+
 // Compare ce que l'utilisateur a écrit à la phrase russe de la carte (texte = texteElement : genre et moule déjà résolus).
-// Ignore casse, ponctuation, accents toniques, ё/е. Renvoie "juste", "faute" (une lettre, sans pénalité) ou "faux".
-// deuxFormes : genre pas encore choisi, on accepte la forme masculine comme la féminine.
+// Ignore casse, ponctuation, accents toniques, ё/е. Accepte le cyrillique, la conversion de lettres latines, ou la
+// translittération affichée par l'app. Renvoie "juste", "faute" (une lettre, sans pénalité) ou "faux".
+// deuxFormes : genre pas encore choisi, on accepte la forme masculine comme la féminine ; sinon l'autre forme est une erreur,
+// même à une lettre près.
 export function comparerSaisie(saisie, texte, deuxFormes) {
-  const s = normaliser(versCyrillique(saisie));
-  if (!s) return "faux";
-  const cibles = [texte.cible].concat(deuxFormes && texte.autre ? [texte.autre.cible] : []).map(normaliser);
-  if (cibles.includes(s)) return "juste";
-  return cibles.some((c) => c.length >= ECRIRE_FAUTE_MIN && uneLettreDePres(s, c)) ? "faute" : "faux";
+  const cyr = normaliser(versCyrillique(saisie)), lat = platLatin(saisie);
+  if (!cyr) return "faux";
+  const formes = (t) => [{ c: normaliser(t.cible), l: platLatin(t.translit) }];
+  const miennes = formes(texte).concat(deuxFormes && texte.autre ? formes(texte.autre) : []);
+  const autres = !deuxFormes && texte.autre ? formes(texte.autre) : [];
+  const egale = (f) => f.c === cyr || (f.l && f.l === lat);
+  const proche = (f) => (f.c.length >= ECRIRE_FAUTE_MIN && uneLettreDePres(cyr, f.c)) || (f.l.length >= ECRIRE_FAUTE_MIN && uneLettreDePres(lat, f.l));
+  if (miennes.some(egale)) return "juste";
+  if (autres.some(egale)) return "faux";
+  return miennes.some(proche) ? "faute" : "faux";
 }

@@ -754,9 +754,6 @@ import { construireSauvegarde, lireSauvegarde, ajouterSession, resumeUsage, rapp
   }
 }
 
-sortie(reussites + " vérifications réussies, " + echecs + " échec(s).");
-if (echecs > 0 && typeof process !== "undefined") process.exitCode = 1; // fait échouer `node --test`
-
 // ---------- Écrire la réponse ----------
 {
   const texteCafe = { cible: "Счёт, пожалуйста.", accent: "Счёт, пожа́луйста.", autre: null };
@@ -803,4 +800,48 @@ if (echecs > 0 && typeof process !== "undefined") process.exitCode = 1; // fait 
   const dernier = new Map(); let deuxDeSuite = 0;
   vues(6, "silence").forEach((c) => { if (c.type === "ecrire" && dernier.get(c.id) === "ecrire") deuxDeSuite++; dernier.set(c.id, c.type); });
   egal(deuxDeSuite, 0, "pas deux cartes Écrire de suite sur la même phrase");
+
+  // Translittération affichée par l'app : taper la translit de chaque phrase doit toujours être juste (tout le contenu).
+  let nbTranslit = 0;
+  for (const e of contenu.elements) {
+    if (e.personnalise) continue;
+    for (const genre of ["m", "f"]) {
+      const nb = e.moule ? e.moule.remplacements.length : 1;
+      for (let r = 0; r < nb; r++) {
+        const tx = texteElement(e, { genre, remplacement: r });
+        if (!tx.translit) continue;
+        nbTranslit++;
+        if (comparerSaisie(tx.translit, tx, false) !== "juste") verifier(false, "translit tapée = juste : " + e.id + " " + genre + " " + r + " « " + tx.translit + " »");
+        if (comparerSaisie(tx.accent, tx, false) !== "juste") verifier(false, "cyrillique accentué = juste : " + e.id);
+      }
+    }
+  }
+  verifier(nbTranslit > 100, "translit testée sur tout le contenu (" + nbTranslit + " formes)");
+  // Mauvais genre : une erreur, même à une lettre près.
+  const proche = { cible: "Я рад.", translit: "ia rat", autre: { cible: "Я рада.", translit: "ia rada" } };
+  egal(comparerSaisie("Я рада", proche, false), "faux", "mauvais genre = faux, pas « presque »");
+  egal(comparerSaisie("Я рада", proche, true), "juste", "genre inconnu : forme féminine acceptée");
+  // Re-passage après une erreur : jamais Écrire sous la boîte 4, jamais deux de suite.
+  {
+    const fiches = new Map(contenu.elements.map((e) => [e.id, Object.assign(ficheVide(e.id), { boite: 5, echeance: "2026-11-11", premiereVue: "2026-09-01" })]));
+    const s = creerSession({ contenu, fiches, mode: "silence", duree: 30, jour: "2026-11-11", genre: "m", aleatoire: aleatoireGraine(3) });
+    const boite = new Map(), dernier = new Map(); let t = 0, c, sous = 0, doublons = 0, nbEcrire = 0;
+    while ((c = s.prochaineCarte(t))) {
+      if (c.type === "ecrire") {
+        nbEcrire++;
+        if ((boite.get(c.id) || 5) < 4) sous++;
+        if (dernier.get(c.id) === "ecrire") doublons++;
+      }
+      dernier.set(c.id, c.type);
+      s.repondre(c, "echec"); // tout est raté : la boîte baisse, les re-passages arrivent
+      boite.set(c.id, Math.max(1, (boite.get(c.id) || 5) - 2));
+      t += c.est;
+    }
+    verifier(nbEcrire > 0, "après erreurs : des cartes Écrire ont bien été jouées");
+    egal([sous, doublons], [0, 0], "re-passage après erreur : pas d'Écrire sous la boîte 4 ni deux de suite");
+  }
 }
+
+sortie(reussites + " vérifications réussies, " + echecs + " échec(s).");
+if (echecs > 0 && typeof process !== "undefined") process.exitCode = 1; // fait échouer `node --test`
+

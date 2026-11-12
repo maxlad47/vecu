@@ -313,6 +313,11 @@ export function creerSession(p) {
     const e = el(choix.id);
     const index = etat.index;
     const ecarts = ecartsDe();
+    // « Écrire » seulement en boîte 4 ou plus et jamais deux fois de suite : le re-passage après une erreur
+    // (la boîte vient de baisser) prend une autre carte.
+    if (choix.type === "ecrire" && (!ecriturePossible(e, fiche(e.id)) || etat.dernierType.get(e.id) === "ecrire")) {
+      choix.type = e.moule ? "moule-theme" : "theme";
+    }
     let etape = null;
     let rattrapage = false;
 
