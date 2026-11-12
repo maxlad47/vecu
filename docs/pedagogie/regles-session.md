@@ -392,8 +392,6 @@ Bilan : 53 cycles, environ 15 min 13 s. Chaque nouvel élément est entendu 6 fo
 
 À l'écran on dit « univers » (le mot « thème » désigne déjà un type d'exercice). Le détail et les seuils sont dans `docs/pedagogie/themes.md`. Règles d'intégration aux sessions, reprises de ce fichier :
 
-Proposition de section 10 à ajouter à `docs/pedagogie/regles-session.md`, sans modifier les sections 0 à 9.
-
 - **R1 (seuil).** Un moule de thème entre seulement quand son seuil du tableau §3 est atteint, et une seule fois dans la file (il suit ensuite les boîtes, comme tout élément).
 - **R2 (fréquence).** Au plus 1 nouvel élément de thème par session de 5 min, au plus 2 par session de 15 ou 30 min. En 2 min : aucun, le quota de 1 nouveau est réservé à la survie.
 - **R3 (mélange).** Un nouvel élément de thème prend la place du prochain nouvel élément de situation. N (section 2) ne change pas. Le bonus de nouveautés (§5.6) ne sert pas aux thèmes.
@@ -401,6 +399,6 @@ Proposition de section 10 à ajouter à `docs/pedagogie/regles-session.md`, sans
 - **R5 (révision).** Un moule de thème se révise selon sa boîte, avec les mêmes types que les autres moules (Moule-sens ou Moule-thème, Boucle rappel en Voiture). Aucune règle nouvelle.
 - **R6 (remplacements).** Rotation de remplacements (§4.4) sans changement : un remplacement par carte, sans répétition immédiate.
 - **R7 (leurres).** Rien à changer en §7 : les moules ne servent pas aux QCM Sens, Thème ou Ordre, donc leurres = autres remplacements du même moule.
-- **R8 (parcours d'accueil).** L'étape « thèmes » existante reçoit un seul choix supplémentaire : « Inclure les thèmes de vocabulaire » (oui par défaut ; décision de Sacha). Pas de choix par thème en v1.
+- **R8 (parcours d'accueil).** L'étape « Sur quoi ? » existante reçoit un seul choix supplémentaire : « Inclure les univers de vocabulaire » (oui par défaut ; décision de Sacha). Pas de choix par thème en v1.
 - **R9 (interdits).** Aucune liste de mots à l'écran, aucune carte qui ne contient qu'un mot. Un thème se voit uniquement dans une phrase.
 
