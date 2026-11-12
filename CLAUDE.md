@@ -30,7 +30,8 @@ Permettre à n'importe qui d'apprendre une langue avec des phrases qui servent d
 | Lou | Designer UX | `designer-ux` |
 | Kostia | Développeur | `dev-pwa` |
 | Boris | Testeur QA | `testeur-qa` |
-| Léa | Utilisatrice témoin | `utilisateur-temoin` |
+
+Léa (utilisatrice témoin simulée) est retirée de l'équipe active le 12/11/2026 (D21) : l'avis d'usage vient de Max et des testeurs réels. Sa fiche est archivée dans `.claude/agents-archives/`.
 
 Max peut appeler chacun par son prénom (« Demande à Vera… ») : le CEO fait intervenir l'agent correspondant.
 
@@ -53,7 +54,8 @@ Durées proposées : 2, 5, 15 et 30 min. La durée annoncée doit être la duré
 4. **Grammaire, verbes et vocabulaire toujours en contexte.** Par défaut, la grammaire n'apparaît qu'en astuce de 2 lignes au moment où elle sert. L'utilisateur peut aussi choisir un angle de travail (Verbes, Vocabulaire, Grammaire) : il pratique alors un verbe, des mots ou un mécanisme **uniquement à travers des phrases utiles**, jamais en liste ni en tableau isolé, avec une explication de 2 lignes au plus. (Règle modifiée par Max le 12/11/2026, D16.)
 5. **Pour le russe** : accent tonique indiqué, translittération disponible, formes masculine et féminine quand le genre de la personne qui parle change la phrase, tutoiement ou vouvoiement signalé.
 6. **Répétition espacée par défaut.** Une phrase vue revient jusqu'à être acquise.
-7. **Aucun contenu public sans relecture** par un locuteur natif humain.
+7. **Aucun contenu public sans relecture** par un locuteur natif humain. Chaque fichier de contenu porte un `statut` : `brouillon` → `valide-nadia` → `releve-natif` → `publie`. `node scripts/verifier-publication.mjs` refuse la mise en ligne publique tant qu'un fichier n'est pas au moins `releve-natif` (D22).
+8. **Rien d'emprunté.** Phrases rédigées par l'équipe, jamais reprises d'un manuel ou d'une appli. Voix : licence vérifiée et notée dans `docs/droits.md` avant tout usage public (D27).
 
 ## Choix techniques
 
@@ -91,6 +93,7 @@ app/                 le site
   "situation": "cafe",
   "titre": "Au café",
   "niveau": "A1",
+  "statut": "valide-nadia",
   "phrases": [
     {
       "id": "ru-cafe-001",

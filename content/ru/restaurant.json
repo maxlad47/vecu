@@ -3,6 +3,7 @@
   "situation": "restaurant",
   "titre": "Au restaurant",
   "niveau": "A1",
+  "statut": "valide-nadia",
   "phrases": [
     {
       "id": "ru-restaurant-001",

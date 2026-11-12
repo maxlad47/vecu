@@ -3,6 +3,7 @@
   "fichier": "personnage",
   "titre": "Mon personnage",
   "niveau": "A1",
+  "statut": "valide-nadia",
   "jeton_prenom": "{prenom}",
   "phrases": [
     {

@@ -13,7 +13,7 @@ Comment l'équipe travaille, mission après mission. Ce document complète `CLAU
 | Lou | Designer : écrans, textes de l'interface, accessibilité | Haiku (décision de Max, 12/11) | Modèle économe : Sacha peut surclasser sur une tâche précise. |
 | Kostia | Développeur : l'app et ses tests automatiques | Sonnet par défaut, Opus sur décision de Sacha (Max veut Sonnet pour le code) | Sonnet code très bien. Opus pour l'architecture ou un bug qui résiste. |
 | Boris | Testeur QA : vérifie, ne corrige pas | Sonnet (décision de Max, 12/11) | Scénarios de test et lecture de code. Il reste sur Sonnet et son périmètre est borné (voir plus bas). |
-| Léa | Utilisatrice témoin : ressenti d'une débutante | Haiku (décision de Max, 12/11) | Un avis d'utilisatrice, pas d'expertise. Le modèle le plus économe suffit. |
+| ~~Léa~~ | Retirée (D21, 12/11/2026) : une testeuse simulée biaise la mesure cherchée. L'avis d'usage vient de Max, puis des 5 testeurs réels. | — | — |
 
 Règle de surclassement : Sacha peut lancer n'importe quel agent sur un modèle plus puissant pour une tâche précise, et le note dans le relais. On ne change pas le modèle par défaut sans décision au journal.
 
@@ -27,8 +27,7 @@ Max : une idée ou un retour
                             └─ Nadia : contenu russe (à partir du relais de Vera)
                                  └─ Kostia : construction (à partir des relais de Vera, Lou et Nadia)
                                       └─ Boris : vérification ──► Kostia corrige si besoin ──► Boris contre-vérifie
-                                           └─ Léa : avis d'usage
-                                                └─ Sacha : validation, journal, état ──► Max teste
+                                           └─ Sacha : validation, journal, état ──► Max teste (puis les testeurs réels)
 ```
 
 Une mission n'appelle que les agents dont elle a besoin. Une mission « 5 nouvelles situations » va de Vera à Nadia, puis à Boris (contrôle du contenu) : ni Lou ni Kostia. Le brief dit qui intervient.
@@ -89,7 +88,32 @@ Une mission est terminée quand :
 - **Envoyer sur `main` publie le site de test** (D14). On n'y envoie donc qu'à la clôture d'une mission, après le verdict de Boris. Un travail en cours va sur une branche à part.
 - Si une mission est interrompue (limite d'utilisation atteinte), Sacha note dans `etat.md` l'étape atteinte, pour que la reprise parte de là et ne recommence rien.
 
-## 7. Économiser la consommation
+## 6 bis. Qui intervient, et seulement sur déclencheur (D20)
+
+| Agent | Lancé seulement quand | Jamais quand |
+|---|---|---|
+| Vera | un lot de contenu ou une règle d'apprentissage change | un correctif d'interface |
+| Nadia | un lot de phrases est prêt (elle valide en lot, pas phrase à phrase) | un changement de code ou de design |
+| Lou | un écran est nouveau ou modifié visuellement | un changement de contenu ou de moteur (le design russe est validé) |
+| Kostia | le brief contient du code | contenu seul |
+| Boris | **une fois**, avant fusion dans `main` | en cours de mission, ou pour un contenu seul sans nouveau format |
+
+Vera rédige, Nadia valide : ce sont deux étapes d'un même duo contenu, un seul relais final. Sacha arbitre et ne produit pas : il ne réécrit ni contenu ni code.
+
+## 7. Économiser la consommation (D23)
+
+Règles chiffrées, vérifiées à la clôture de chaque mission :
+
+1. **Fiche de rôle : 1 page au plus** (60 lignes). Un brief : 25 lignes au plus.
+2. **Sortie d'un agent : 300 mots au plus** pour un relais ; le détail va dans le fichier livré, pas dans la réponse.
+3. **Aucun fichier relu s'il n'a pas changé** : on se fie à `docs/etat.md`. Chaque agent a sa liste de lecture (règle 3 ci-dessus) et s'y tient.
+4. **Opus : 1 à 2 appels par phase** (arbitrage de fin de phase, architecture). Tout le reste en Sonnet ou Haiku.
+5. **Haiku** : brouillons de phrases-moules, formats, checklists, relevés de statut. **Sonnet** : code, russe, QA. 
+6. **Lots plus gros, moins fréquents** : une mission regroupe plusieurs situations ou plusieurs correctifs plutôt qu'une mission par retouche.
+7. **Début de prompt stable** (constitution, fiche de rôle, puis seulement la tâche) pour profiter du cache.
+8. **Compteur** : à chaque `/cloture`, Sacha note dans `docs/journal.md` les tokens par agent. Si un rôle dépasse 20 % de la consommation pour moins de 10 % du livrable, on réduit son périmètre.
+
+Et, en complément :
 
 - Briefs courts et précis : un agent bien cadré lit moins et refait moins.
 - Pas de relecture intégrale « pour vérifier » : Boris vérifie, Sacha lit les relais et le rapport.

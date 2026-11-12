@@ -10,6 +10,7 @@ import { chargerContenu } from "./contenu.js";
 import { personnaliser } from "./personnage.js";
 import { chargerAmbiance } from "./ambiance.js";
 import { ouvrirStockage } from "./stockage.js";
+import { ajouterSession, jourLocal } from "./sauvegarde.js";
 import { calculerJour } from "./leitner.js";
 import { t } from "./textes.js";
 import * as audio from "./audio.js";
@@ -144,7 +145,12 @@ const ctx = {
   get stockage() { return stockage; },
   reglages, majReglage, appliquerTheme, aller, lancer, garde,
   retourAccueil: () => aller("accueil"),
-  jour: () => calculerJour(new Date())
+  jour: () => calculerJour(new Date()),
+  // Mesure d'usage locale : une ligne par jour (sessions, minutes, cartes). Rien ne quitte l'appareil.
+  noterSession: (minutes, cartes) => {
+    if (!stockage) return;
+    majReglage("usage", ajouterSession(stockage.reglages.usage, jourLocal(new Date()), minutes, cartes));
+  }
 };
 
 function enregistrerServiceWorker() {
@@ -177,6 +183,7 @@ function afficherErreurContenu() {
 async function demarrer() {
   enregistrerServiceWorker();
   stockage = await ouvrirStockage();
+  stockage.demanderPersistance(); // au mieux, sans attendre
   appliquerTheme();
   try {
     contenuBase = await chargerContenu(LANGUE_CIBLE);

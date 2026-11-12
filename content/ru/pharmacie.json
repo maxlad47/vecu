@@ -3,6 +3,7 @@
   "situation": "pharmacie",
   "titre": "Pharmacie et santé",
   "niveau": "A1",
+  "statut": "valide-nadia",
   "phrases": [
     {
       "id": "ru-pharmacie-001",

@@ -722,5 +722,37 @@ const ruPrenom = (latin) => convertirPrenom(latin, donneesPerso.prenoms);
 // Durée annoncée à la fin : le temps réel, arrondi à la minute, jamais 0.
 egal([0, 20, 90, 240, 270, 299].map(minutesReelles), [1, 1, 2, 4, 5, 5], "minutesReelles : arrondi à la minute, au moins 1");
 
+
+// ---------- Sauvegarde et usage local (mission 009) ----------
+import { construireSauvegarde, lireSauvegarde, ajouterSession, resumeUsage, rappelSauvegardeDu } from "../app/js/sauvegarde.js";
+{
+  const f = ficheVide("ru-cafe-001");
+  const fiches = new Map([[f.id, f]]);
+  const regs = { genre: "f", apparence: "dark", usage: { jours: {} }, inutile: 1 };
+  const texte = JSON.stringify(construireSauvegarde(fiches, regs, new Date("2026-11-12T10:00:00Z")));
+  const lu = lireSauvegarde(texte);
+  verifier(lu.ok && lu.fiches.length === 1 && lu.reglages.genre === "f" && lu.reglages.inutile === undefined, "sauvegarde : aller-retour correct");
+  verifier(!lireSauvegarde("pas du json").ok && !lireSauvegarde('{"format":"autre"}').ok, "sauvegarde : fichier invalide refusé");
+  verifier(!lireSauvegarde(JSON.stringify({ format: "bagou-sauvegarde", version: 99 })).ok, "sauvegarde : version future refusée");
+  let u = ajouterSession(null, "2026-11-12", 5, 20);
+  u = ajouterSession(u, "2026-11-12", 2, 8);
+  verifier(u.jours["2026-11-12"].sessions === 2 && u.jours["2026-11-12"].minutes === 7, "usage : sessions du même jour cumulées");
+  const r = resumeUsage(u, new Date(2026, 10, 12, 12), 7);
+  verifier(r.actifs === 1 && r.minutes === 7, "usage : résumé sur 7 jours");
+  verifier(rappelSauvegardeDu(null, 3, new Date()) && !rappelSauvegardeDu(null, 0, new Date()), "sauvegarde : rappel seulement s'il y a de la progression");
+  verifier(!rappelSauvegardeDu(new Date().toISOString(), 3, new Date()), "sauvegarde : pas de rappel juste après un export");
+}
+
+// Chaque fichier de contenu porte un statut de relecture valide (mission 009).
+{
+  const { readdirSync, readFileSync } = await import("node:fs");
+  const dossier = new URL("../content/ru/", import.meta.url);
+  const valides = ["brouillon", "valide-nadia", "releve-natif", "publie"];
+  for (const nom of readdirSync(dossier).filter((n) => n.endsWith(".json") && n !== "ambiance.json" && n !== "index.json")) {
+    const d = JSON.parse(readFileSync(new URL(nom, dossier), "utf8"));
+    verifier(valides.includes(d.statut), "statut de relecture valide : " + nom);
+  }
+}
+
 sortie(reussites + " vérifications réussies, " + echecs + " échec(s).");
 if (echecs > 0 && typeof process !== "undefined") process.exitCode = 1; // fait échouer `node --test`

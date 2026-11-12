@@ -3,6 +3,7 @@
   "situation": "urgences",
   "titre": "Urgences",
   "niveau": "A1",
+  "statut": "valide-nadia",
   "phrases": [
     {
       "id": "ru-urgences-001",

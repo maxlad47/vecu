@@ -3,6 +3,7 @@
   "situation": "hotel",
   "titre": "À l'hôtel",
   "niveau": "A1",
+  "statut": "valide-nadia",
   "phrases": [
     {
       "id": "ru-hotel-001",

@@ -3,6 +3,7 @@
   "fichier": "dialogues",
   "titre": "Dialogues à choix",
   "niveau": "A1",
+  "statut": "valide-nadia",
   "version": 1,
   "jetons": {
     "prenom": "{prenom}",

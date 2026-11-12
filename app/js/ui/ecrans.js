@@ -8,6 +8,7 @@ import { t, texteDuree } from "../textes.js";
 import { texteElement } from "../contenu.js";
 import { poupeePerso } from "./poupee-perso.js";
 import { nomMetier } from "./ecran-personnage.js";
+import { rappelSauvegardeDu, resumeUsage } from "../sauvegarde.js";
 
 // « Tu sais dire N phrases » (écran de fin et Mes progrès).
 function phrasesSues(n) { return n === 0 ? t("progres.cle0") : n === 1 ? t("progres.cle1") : t("progres.cle", { n }); }
@@ -28,6 +29,7 @@ function boutonRetour(ctx) {
 export function afficherFin(racine, ctx, { bilan, duree, dureeReelle, mode, raison, themes, progres }) {
   const tete = entete(ctx, null, null);
   const vide = raison === "arret" && bilan.cartes === 0;
+  if (!vide) ctx.noterSession(dureeReelle || duree, bilan.cartes); // une fois par fin de session
   const titreTexte = vide ? t("fin.titreVide") : (raison === "arret" ? t("fin.titreArret") : t("fin.titre", { duree: texteDuree(dureeReelle || duree) }));
   const titre = h("h1", { class: "titre-ecran", tabindex: "-1" }, titreTexte);
   const contenu = h("main", { class: "contenu" }, titre);
@@ -134,6 +136,39 @@ export function afficherReglages(racine, ctx) {
         h("small", null, entree ? t("perso.carte", { metier: nomMetier(entree, r.genre) }) : t("perso.carteVide"))),
       icone("suite"));
   }
+  // Sauvegarde : export / import d'un fichier, rappel après 7 jours, et l'usage de la semaine.
+  function blocSauvegarde() {
+    const etat = h("p", { class: "aide-reglage", role: "status" });
+    const stock = ctx.stockage;
+    const maintenant = new Date();
+    if (rappelSauvegardeDu(r.derniereSauvegarde, stock.fiches.size, maintenant)) etat.textContent = t("sauv.rappel");
+    const exporter = h("button", { type: "button", class: "btn-secondaire", onclick: async () => {
+      const nom = "bagou-sauvegarde-" + maintenant.toISOString().slice(0, 10) + ".json";
+      const fichier = new File([stock.exporter()], nom, { type: "application/json" });
+      try {
+        // Sur iPhone, la feuille de partage permet « Enregistrer dans Fichiers » ou l'envoi par e-mail.
+        if (navigator.canShare && navigator.canShare({ files: [fichier] })) await navigator.share({ files: [fichier] });
+        else {
+          const lien = h("a", { href: URL.createObjectURL(fichier), download: nom });
+          document.body.appendChild(lien); lien.click(); lien.remove();
+        }
+        ctx.majReglage("derniereSauvegarde", new Date().toISOString());
+        etat.textContent = t("sauv.exportOk");
+      } catch (e) { /* partage annulé : rien à signaler */ }
+    } }, t("sauv.exporter"));
+    const entree = h("input", { type: "file", accept: "application/json,.json", hidden: true, onchange: async () => {
+      const f = entree.files && entree.files[0];
+      if (!f) return;
+      const res = stock.importer(await f.text());
+      etat.textContent = res.ok ? t("sauv.importOk", { n: res.nbFiches }) : t("sauv.importErreur");
+      entree.value = "";
+    } });
+    const importer = h("button", { type: "button", class: "btn-secondaire", onclick: () => entree.click() }, t("sauv.importer"));
+    const usage = resumeUsage(r.usage, maintenant, 7);
+    return h("div", { class: "reglage" }, h("h2", { class: "intertitre" }, t("sauv.titre")),
+      h("p", { class: "aide-reglage" }, t("sauv.aide")), exporter, importer, entree, etat,
+      h("p", { class: "aide-reglage" }, t("sauv.usage", { jours: usage.actifs, minutes: usage.minutes })));
+  }
   const tete = entete(ctx, "reglages", t("reglages.titre"));
   const ecran = h("div", { class: "ecran" },
     tete.element,
@@ -155,6 +190,7 @@ export function afficherReglages(racine, ctx) {
             h("label", { class: "choix", for: id }, h("span", { class: "coche" }, icone("coche")), h("span", null, libelle))
           ];
         })))),
+      blocSauvegarde(),
       h("p", { class: "pied" }, t("reglages.pied"))),
     boutonRetour(ctx));
   racine.appendChild(ecran);

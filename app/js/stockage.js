@@ -5,6 +5,7 @@
 
 import { validerFiche } from "./leitner.js";
 import { validerPersonnage } from "./personnage.js";
+import { construireSauvegarde, lireSauvegarde } from "./sauvegarde.js";
 
 const NOM_BASE = "vecu";
 const VERSION_BASE = 1;
@@ -85,9 +86,31 @@ export async function ouvrirStockage() {
     }
   }
 
+  // Demande au navigateur de ne pas vider nos données (Safari le fait pour les sites peu utilisés).
+  // Au mieux : un refus ou l'absence de l'API ne change rien, la sauvegarde par fichier reste le filet.
+  async function demanderPersistance() {
+    try {
+      if (navigator.storage && navigator.storage.persist) return await navigator.storage.persist();
+    } catch (e) { /* tant pis */ }
+    return false;
+  }
+
   return {
     fiches,
     reglages,
+    demanderPersistance,
+    // Texte JSON de la sauvegarde (progression, réglages, personnage, usage).
+    exporter() { return JSON.stringify(construireSauvegarde(fiches, reglages, new Date())); },
+    // Remplace la progression par celle du fichier. Renvoie { ok, nbFiches } ou { ok: false, raison }.
+    importer(texte) {
+      const lu = lireSauvegarde(texte);
+      if (!lu.ok) return lu;
+      lu.fiches.forEach((f) => { fiches.set(f.id, f); ecrire(MAGASIN_PROGRESSION, f); });
+      Object.keys(lu.reglages).forEach((cle) => { reglages[cle] = lu.reglages[cle]; ecrire(MAGASIN_REGLAGES, { cle, valeur: lu.reglages[cle] }); });
+      reglages.usage = lu.usage;
+      ecrire(MAGASIN_REGLAGES, { cle: "usage", valeur: lu.usage });
+      return { ok: true, nbFiches: lu.fiches.length };
+    },
     get persistant() { return !!base; },
     ecrireFiche(fiche) {
       fiches.set(fiche.id, fiche);

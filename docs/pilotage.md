@@ -20,17 +20,26 @@ Apprendre une langue avec des phrases qui servent dans la vraie vie, n'importe o
 | D7 | Niveaux exprimés en situations maîtrisées, alignés en coulisse sur le CECRL (A1 à B2) | Plus motivant qu'une étiquette « A2 ». |
 | D8 | Audio en 3 étapes : voix de l'appareil (phase 0), voix neuronales pré-générées en fichiers audio, via l'offre gratuite d'Azure ou des voix libres (phases 1 et 2), enregistrements d'un natif humain pour les phrases clés (phase 3). Pas de Higgsfield (pas de crédits). | Zéro coût au départ, une qualité qui monte à chaque phase, et des fichiers audio intégrés à l'app, donc identiques sur tous les téléphones et disponibles hors ligne. |
 | D9 | Garde-fou : les dépenses et la mise en ligne publique sont validées par Max | |
-| D10 | Équipe de 6 agents spécialisés dans Claude Code, le CEO orchestre | Chaque rôle a ses règles et son couloir. Le CEO tranche. |
+| D10 | Équipe d'agents (5 depuis D21) spécialisés dans Claude Code, le CEO orchestre | Chaque rôle a ses règles et son couloir. Le CEO tranche. |
 | D11 | Backlog dans les Issues GitHub, hébergement sur Netlify | Un minimum d'outils, pas de bruit. |
 | D19 | Hébergement sur GitHub Pages au lieu de Netlify (remplace la 2e partie de D11). Dépôt public. | Gratuit sans compteur de crédits ni badge, largement suffisant pour quelques testeurs. |
 | D12 | Pas d'agent « veilleur d'outils ». Revue des outils par le CEO à chaque changement de phase | Un agent dédié pousserait à empiler des outils. On part du besoin, pas de l'outil. |
+
+| D20 | Déclencheurs stricts par agent ; Boris une fois avant fusion ; Vera + Nadia forment un duo contenu (12/11/2026) | Moins d'allers-retours et de tokens (`docs/processus.md` §6 bis). |
+| D21 | Léa retirée de l'équipe ; avis d'usage = Max, puis 5 testeurs réels | Un testeur simulé fausse la mesure que l'on cherche. |
+| D22 | Porte de relecture native : statut par fichier de contenu, `scripts/verifier-publication.mjs` | Une faute de russe publiée détruit la confiance. |
+| D23 | Règles de tokens chiffrées (`docs/processus.md` §7) ; Opus 1 à 2 appels par phase | Budget zéro. |
+| D24 | Audits d'une page, avec déclencheurs (`docs/audits.md`) | Pas d'audit sans déclencheur. |
+| D25 | **Périmètre v1** : 15 situations, 4 modes, répétition espacée, hors ligne, personnage, dialogues, carnet. **Reporté après la bêta** : test de niveau, saisie cyrillique (le clavier russe d'iOS suffit), statistiques avancées, nouveaux thèmes de vocabulaire. À confirmer par Max. | Chaque fonction ajoutée avant une semaine d'usage réel est un pari non testé. |
+| D26 | Progression : demande de stockage persistant + export/import d'un fichier + rappel après 7 jours + mesure d'usage locale (jours actifs, minutes, sessions) dans Réglages | Safari peut vider les données d'un site peu utilisé ; sans mesure on ne sait pas si l'app marche. |
+| D27 | Droits, marque, mentions légales : `docs/droits.md`, à vider avant toute mise en ligne publique ; phrases rédigées par l'équipe | Prérequis légal et financier de la phase 3. |
 
 ## Feuille de route
 
 | Phase | Contenu | Critère de passage |
 |---|---|---|
 | **0 : Prototype** | Écran temps et lieu, 5 situations, exercices écrits et audio, mode voiture, répétition espacée simple | Max l'ouvre spontanément pendant 2 semaines |
-| **1 : MVP** | Vraie PWA hors ligne, 15 situations, test de niveau en 2 min, saisie en cyrillique, phrases-moules interactives | Les rapports QA sont « Livrable », l'utilisateur témoin donne au moins 7/10 |
+| **1 : MVP** | Vraie PWA hors ligne, 15 situations, test de niveau en 2 min, saisie en cyrillique, phrases-moules interactives | Les rapports QA sont « Livrable », Max l'ouvre au moins 5 jours sur 7 pendant 2 semaines |
 | **2 : Bêta** | 10 à 20 testeurs de l'entourage, mesure de l'usage, relecture par un natif | La moitié des testeurs reviennent la 2e semaine |
 | **3 : Lancement** | 2e langue, voix natives, mise en ligne publique | Validation de Max |
 
@@ -41,18 +50,27 @@ Chaque mission suit le même cycle (`docs/processus.md`). Une mission reçoit so
 | N° | Mission | Phase | Agents | Statut |
 |---|---|---|---|---|
 | 001 | Prototype jouable | 0 | tous | fait (11/11) |
-| 002 | 5 nouvelles situations : métro, pharmacie, se présenter, restaurant, urgences | 0 | Vera, Nadia, Boris, Léa | fait (12/11) |
+| 002 | 5 nouvelles situations : métro, pharmacie, se présenter, restaurant, urgences | 0 | Vera, Nadia, Boris | fait (12/11) |
 | 003 | Design Bagou : identité russe, parcours d'accueil, menu, carnet, progrès, matriochka (maquettes) | 0 | Lou | fait (12/11) |
-| 004 | 5 dernières situations : hôtel, au téléphone, chez des amis, banque et argent, le temps qu'il fait (branche à part) | 0 | Vera, Nadia, Boris, Léa | fait (12/11), attend l'accord de Max |
-| 005 | Bagou dans l'app : identité, parcours d'accueil, choix des thèmes, menu | 0 | Kostia, Boris, Léa | fait (12/11) |
+| 004 | 5 dernières situations : hôtel, au téléphone, chez des amis, banque et argent, le temps qu'il fait (branche à part) | 0 | Vera, Nadia, Boris | fait (12/11), attend l'accord de Max |
+| 005 | Bagou dans l'app : identité, parcours d'accueil, choix des thèmes, menu | 0 | Kostia, Boris | fait (12/11) |
 | — | Test réel par Max, puis bilan | 0 | Max, Sacha | en cours (jusqu'au 25/11 environ) |
 | — | 1. Corrections issues du test | 1 | selon les retours | à faire |
-| — | 3. Mon carnet et la matriochka | 1 | Lou, Kostia, Boris, Léa | à faire |
+| — | 3. Mon carnet et la matriochka | 1 | Lou, Kostia, Boris | à faire |
 | — | 4. Mes progrès (statistiques locales) | 1 | Lou, Kostia, Boris | à faire |
 | — | 5. Audio pré-généré (compte Azure à valider par Max) | 1 | Kostia, Boris | à faire |
-| — | 6. Les angles : Verbes, Vocabulaire, Grammaire en contexte (D16) | 1 | Vera, Nadia, Lou, Kostia, Boris, Léa | à faire |
+| — | 6. Les angles : Verbes, Vocabulaire, Grammaire en contexte (D16) | 1 | Vera, Nadia, Lou, Kostia, Boris | à faire |
 | — | 7. Écrire la réponse, test de niveau, scènes, réglages prénom et métier, variantes de genre complètes | 1 | à répartir | à faire |
 | — | Revue de phase 1 : bilan, revue des outils (D12), feuille de route de la phase 2 | 1 | Sacha, Max | à faire |
+
+## Plan des 3 prochaines semaines (D25, 12/11/2026)
+Le fond d'abord, le design reste figé.
+- **Semaine 1** : schéma figé (fait : `statut`), périmètre v1 confirmé par Max, nom vérifié (INPI, domaine), sauvegarde et mesure d'usage testées sur iPhone (fait côté code, branche `mission-009-garde-fous`), 3 situations pilotes relues par un natif.
+- **Semaine 2** : test hors ligne réel (app installée, mode avion, 24 h), choix du relecteur natif et de la voix (budget : décision de Max), 15 situations complètes.
+- **Semaine 3** : 5 testeurs réels, lecture des jours actifs, boucle du 15e jour (« situation du jour » avec un mini-défi réel, rappel discret, série qui pardonne un jour d'oubli), corrections.
+
+## Angle de risque principal
+La qualité du russe publié et le retour au 15e jour. Test d'honnêteté : le contenu de Bagou doit battre une simple liste de phrases dans Anki, sinon la proposition tombe. Vérification à la semaine 3 : Max utilise Bagou 5 jours sur 7.
 
 ## Risques identifiés
 - **Le contenu est le vrai chantier**, pas la technique : qualité des phrases, audio natif, variantes. C'est là qu'on met l'effort.
