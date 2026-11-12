@@ -43,7 +43,7 @@ Chaque mission suit le même cycle (`docs/processus.md`). Une mission reçoit so
 | 002 | 5 nouvelles situations : métro, pharmacie, se présenter, restaurant, urgences | 0 | Vera, Nadia, Boris, Léa | fait (12/11) |
 | 003 | Design Bagou : identité russe, parcours d'accueil, menu, carnet, progrès, matriochka (maquettes) | 0 | Lou | fait (12/11) |
 | 004 | 5 dernières situations : hôtel, au téléphone, chez des amis, banque et argent, le temps qu'il fait (branche à part) | 0 | Vera, Nadia, Boris, Léa | fait (12/11), attend l'accord de Max |
-| 005 | Bagou dans l'app : identité, parcours d'accueil, choix des thèmes, menu (branche à part) | 0 | Kostia, Boris, Léa | en cours |
+| 005 | Bagou dans l'app : identité, parcours d'accueil, choix des thèmes, menu | 0 | Kostia, Boris, Léa | fait (12/11) |
 | — | Test réel par Max, puis bilan | 0 | Max, Sacha | en cours (jusqu'au 25/11 environ) |
 | — | 1. Corrections issues du test | 1 | selon les retours | à faire |
 | — | 3. Mon carnet et la matriochka | 1 | Lou, Kostia, Boris, Léa | à faire |

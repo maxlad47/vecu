@@ -10,7 +10,7 @@ Dernière mise à jour : 12/11/2026 (clôture de la mission 002), par Sacha.
 
 - **Phase 0 (prototype)** : mission 1 terminée le 11/11/2026. En ligne pour test sur https://vecu-test.netlify.app (non référencé).
 - **En cours** : 2 semaines de test par Max (critère de passage de la phase 0).
-- **Missions en cours** : 005, Bagou dans l'app (`docs/missions/005-bagou-app/brief.md`, branche `mission-005-bagou-app`), étape 1. Mission 003 (design) : validée par Max le 12/11, planche iPhone dans `docs/design/maquettes/bagou-ru.png`. 004, lot 3 de situations : **terminé sur la branche `mission-004-lot3`** (15 situations, 146 éléments, Boris « Livrable avec réserves » levées, Léa 7/10). En attente de l'accord de Max pour fusionner dans `main` (donc publier) après son bilan.
+- **Missions en cours** : aucune. Dernière mission : 005, Bagou dans l'app (12/11), publiée sur vecu-test.netlify.app. Reste à vérifier par Max sur iPhone : Safari, app installée, passage de Vécu à Bagou. 004, lot 3 de situations : **terminé sur la branche `mission-004-lot3`** (15 situations, 146 éléments, Boris « Livrable avec réserves » levées, Léa 7/10). En attente de l'accord de Max pour fusionner dans `main` (donc publier) après son bilan.
 - Dernière mission terminée : 002 (12/11), en ligne sur vecu-test.netlify.app.
 
 ## Pédagogie (Vera)
@@ -53,7 +53,9 @@ Dernière mise à jour : 12/11/2026 (clôture de la mission 002), par Sacha.
 | Hébergement de test, relié à GitHub : publication automatique à chaque envoi sur `main` | `netlify.toml` | validé (12/11) |
 | Tests du moteur, indépendants du volume de contenu (`node --test tests/*.test.mjs`) | `tests/moteur.test.mjs` | validé (12/11) |
 | Réserve : Voiture 2 min, onend absent, écart possible au-delà de 20 % (avertissement dans le test) | `tests/moteur.test.mjs` | à revoir (mission audio) |
-| Renommer l'app en « Bagou » (titre, manifeste, textes de l'interface) | `app/` | à faire (prochaine mission interface) |
+| Bagou dans l'app : nom, identité Gjel/Khokhloma (clair, sombre), `content/ru/ambiance.json`, parcours en étapes, « Comme la dernière fois », temps prérempli par lieu, choix multiple des thèmes (moteur), Avant le départ en Voiture, menu (Mes progrès, Réglages), matriochkas, durée réelle en fin, état de la pause en Voiture | `app/`, `content/ru/ambiance.json` | validé (12/11, mission 005) |
+| Rapport QA de Bagou dans l'app : « Livrable avec réserves mineures » (levées) | `docs/qa/2026-11-12-bagou-app.md` | validé |
+| Lien entre les 4 états de matriochka et les boîtes Leitner (proposition de Kostia) | `app/js/` | à revoir (Vera) |
 | Dette : textes « russe » de l'interface à sortir de `textes.js` vers `index.json` (2e langue) | `app/js/textes.js` | à faire |
 | Limite connue : sur iPhone, l'écran verrouillé coupe la Voiture | — | à revoir (phase 1, fichiers audio) |
 | Badge et script Netlify injectés par l'offre gratuite | — | à revoir (avant lancement public) |
