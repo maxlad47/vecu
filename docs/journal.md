@@ -96,3 +96,5 @@ Format : date — décision — raison. Les plus récentes en haut.
 - **D12 : pas d'agent veilleur d'outils.** Revue des outils par le CEO à chaque changement de phase, pour ne pas empiler les outils.
 - **D8 révisée : stratégie audio en 3 étapes.** Max n'a pas de crédits Higgsfield. Phase 0 : voix de l'appareil. Phases 1 et 2 : voix neuronales pré-générées (offre gratuite d'Azure, ou voix libres tant que le projet reste non commercial). Phase 3 : enregistrements d'un natif humain pour les phrases clés. La création d'un compte Azure est à valider par Max.
 - **Prochaine mission** : prototype de la phase 0.
+
+- **12/11/2026, clôture de la mission 006 (écrans adaptatifs).** Boris : « Livrable avec réserves » (4 tailles, Silence, thème clair : page sans défilement, aucune cible < 44 px). Léa : 7/10, reviendrait demain. Marge `--reserve-netlify: 40px` supprimée (D19). Non testés : Ordre, À voix haute, Écoute, thème sombre, Safari iOS et app installée (à faire par Max sur iPhone). Reste à revoir : astuce sur 3 lignes à 360×640, taille du rond « Réécouter ». Prochaine mission proposée : audio (Voiture avec écran verrouillé sur iPhone).
