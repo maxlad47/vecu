@@ -109,5 +109,7 @@ app/                 le site
 
 - `variantes` : `{ "m": "...", "f": "..." }` quand la forme dépend du genre de la personne qui parle.
 - `moule` : `{ "modele": "Я люблю ___", "fr": "J'aime ___", "remplacements": [...] }` pour une phrase-moule. `fr` et `cible` portent la phrase avec le premier remplacement. Chaque remplacement est `{ "fr", "cible", "accent", "translit", "phrase_cible", "phrase_accent", "phrase_translit" }` : le morceau qui va dans le trou, puis la phrase complète, déjà accordée. L'app affiche toujours la phrase complète, sans recomposer le texte elle-même.
+- `variantes_fr` (facultatif) : `{ "m": "...", "f": "..." }`, le français complet selon le genre de la personne qui parle. Sur une phrase, ou sur un remplacement de moule (même forme : la phrase française entière). Absent ou `null` : le `fr` vaut pour tous. Genre non choisi : l'app montre les deux formes. S'ajoute à `variantes`, qui ne porte que le russe.
+- `content/<langue>/personnage.json` (clé `personnage` de `index.json`, hors de `situations`) : phrases à prénom (`gabarit` avec le jeton `{prenom}`, `personnalise`, `situation`, `apres`), métiers `m`/`f` qui nourrissent un moule (`element`), domaines, dictionnaire et règles de conversion des prénoms. Lu par `app/js/personnage.js`.
 - `registre` : `"tu"`, `"vous"` ou `"neutre"`.
 - `ordre_libre` (facultatif, `true`) : l'ordre des mots russes est libre dans cette phrase, donc l'exercice Ordre ne la propose pas. Absent, cela vaut `false`.

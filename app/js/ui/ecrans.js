@@ -1,11 +1,13 @@
 // Écrans simples : Fin de session, Mes progrès, Réglages, Pas de voix.
 // Tous ont « Menu » en haut à gauche ; Mes progrès et Réglages ont « Retour » en bas (bagou-ru.md, 5).
 
-import { h, icone, focaliser } from "./dom.js";
+import { h, icone, focaliser, segments } from "./dom.js";
 import { creerMenu } from "./menu.js";
 import { poupee, poupeeColorie, rangeeGigogne, etatDe } from "./matriochka.js";
 import { t, texteDuree } from "../textes.js";
 import { texteElement } from "../contenu.js";
+import { poupeePerso } from "./poupee-perso.js";
+import { nomMetier } from "./ecran-personnage.js";
 
 // « Tu sais dire N phrases » (écran de fin et Mes progrès).
 function phrasesSues(n) { return n === 0 ? t("progres.cle0") : n === 1 ? t("progres.cle1") : t("progres.cle", { n }); }
@@ -81,8 +83,11 @@ export function afficherProgres(racine, ctx) {
   if (videEtat) {
     contenu.appendChild(h("p", { class: "texte" }, t("progres.vide")));
   } else {
-    contenu.appendChild(h("div", { class: "cle-progres" }, poupee("acquise", 56, true),
-      h("div", null, h("b", null, phrasesSues(total)), h("small", null, t("progres.surTotal", { total: ctx.contenu.elements.length })))));
+    // La poupée du haut est le personnage : la toucher ouvre son édition (jamais dans une rangée de progression).
+    const perso = ctx.personnage();
+    contenu.appendChild(h("div", { class: "cle-progres" },
+      h("button", { type: "button", class: "btn-perso", "aria-label": t("perso.titre"), onclick: () => ctx.aller("personnage", { depuis: "progres" }) }, poupeePerso(perso, 56, true)),
+      h("div", null, perso.prenom ? h("small", null, perso.prenom) : null, h("b", null, phrasesSues(total)), h("small", null, t("progres.surTotal", { total: ctx.contenu.elements.length })))));
     // Légende : chaque état = sa forme + son mot (la couleur seule ne dit rien).
     contenu.appendChild(h("ul", { class: "legende-etats" }, ["pas_vue", "vue", "en_cours", "acquise"].map((e) =>
       h("li", null, poupee(e, 28, true), t("etat." + e)))));
@@ -119,24 +124,21 @@ export function afficherReglages(racine, ctx) {
     } },
     h("span", { class: "libelle" }, t("reglages.translit")), h("span", { class: "piste", "aria-hidden": "true" }));
 
-  // Groupe de segments codé en radios natifs.
-  function segments(nom, legende, aide, choix, valeur, surChoix, classe) {
-    return h("div", { class: "reglage" }, h("fieldset", null,
-      h("legend", null, legende),
-      h("p", { class: "aide-reglage" }, aide),
-      h("div", { class: "segments " + classe }, choix.map(([v, libelle]) => {
-        const id = nom + "-" + v;
-        return [
-          h("input", { class: "choix-input", type: "radio", name: nom, id, value: v, checked: v === valeur, onchange: () => surChoix(v) }),
-          h("label", { class: "choix", for: id }, h("span", { class: "coche" }, icone("coche")), h("span", null, libelle))
-        ];
-      }))));
+  // Première ligne : mon personnage (poupée, prénom, métier), touchable.
+  function cartePersonnage() {
+    const perso = ctx.personnage();
+    const entree = (ctx.contenu.donnees && ctx.contenu.donnees.metiers || []).find((m) => m.id === perso.metier);
+    return h("button", { type: "button", class: "carte-perso", onclick: () => ctx.aller("personnage", { depuis: "reglages" }) },
+      poupeePerso(perso, 56, true),
+      h("span", null, h("b", null, perso.prenom || t("perso.titre")),
+        h("small", null, entree ? t("perso.carte", { metier: nomMetier(entree, r.genre) }) : t("perso.carteVide"))),
+      icone("suite"));
   }
-
   const tete = entete(ctx, "reglages", t("reglages.titre"));
   const ecran = h("div", { class: "ecran" },
     tete.element,
     h("main", { class: "contenu" },
+      cartePersonnage(),
       h("div", { class: "reglage" }, interrupteur, h("p", { class: "aide-reglage", id: "aide-translit" }, t("reglages.translitAide"))),
       segments("genre", t("reglages.genre"), t("reglages.genreAide"),
         [["m", t("genre.m")], ["f", t("genre.f")]], r.genre, (v) => ctx.majReglage("genre", v), "deux texte-long"),

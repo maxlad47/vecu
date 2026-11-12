@@ -19,8 +19,9 @@ export function melanger(liste, aleatoire) {
 }
 
 // Vrai si l'Ordre est possible : 3 mots ou plus, et ordre des mots non libre.
+// Jamais sur une phrase à prénom (le prénom n'est pas un mot à ranger).
 export function ordrePossible(el, genre) {
-  if (el.moule || el.ordreLibre) return false;
+  if (el.moule || el.ordreLibre || el.personnalise) return false;
   return motsOrdre(texteElement(el, { genre }).cible).length >= 3;
 }
 

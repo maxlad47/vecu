@@ -25,7 +25,8 @@
             "phrase_fr": "Je suis ingénieur.",
             "phrase_cible": "Я инженер.",
             "phrase_accent": "Я инжене́р.",
-            "phrase_translit": "ia injyniér"
+            "phrase_translit": "ia injyniér",
+            "variantes_fr": { "m": "Je suis ingénieur.", "f": "Je suis ingénieure." }
           },
           {
             "fr": "médecin",
@@ -65,7 +66,8 @@
             "phrase_fr": "Je suis avocat.",
             "phrase_cible": "Я адвокат.",
             "phrase_accent": "Я адвока́т.",
-            "phrase_translit": "ia advakát"
+            "phrase_translit": "ia advakát",
+            "variantes_fr": { "m": "Je suis avocat.", "f": "Je suis avocate." }
           }
         ]
       }
@@ -188,6 +190,7 @@
       "translit": "ia stoudiént",
       "registre": "neutre",
       "variantes": { "m": "Я студент.", "f": "Я студентка." },
+      "variantes_fr": { "m": "Je suis étudiant.", "f": "Je suis étudiante." },
       "astuce": "Une femme dit Я студе́нтка (stoudiéntka).",
       "moule": null
     },

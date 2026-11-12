@@ -17,13 +17,29 @@ export async function chargerContenu(langue, lireJson) {
   for (const situation of index.situations) {
     fichiers[situation.id] = await lire(base + situation.fichier);
   }
-  return preparerContenu(index, fichiers);
+  // Le personnage est facultatif : s'il manque, l'app marche sans (phrases d'exemple).
+  let donnees = null;
+  if (index.personnage) { try { donnees = await lire(base + index.personnage); } catch (e) { donnees = null; } }
+  return preparerContenu(index, fichiers, donnees);
 }
 
 // Transforme les JSON bruts en une liste d'éléments triés selon l'ordre global par vagues
 // (phrases-phase0.md) : clé (vague, rang de la situation, rang de la phrase).
 // Vague 1 = phrases 1 à 3, vague 2 = 4 à 6, vague 3 = 7 et au-delà.
-export function preparerContenu(index, fichiers) {
+// `donnees` (personnage.json, facultatif) : ses phrases à prénom sont glissées dans leur situation,
+// après la phrase `apres` ou à la fin. Sans lui, le résultat est celui d'avant.
+export function preparerContenu(index, fichiers, donnees) {
+  if (donnees && Array.isArray(donnees.phrases)) {
+    fichiers = Object.assign({}, fichiers);
+    donnees.phrases.forEach((p) => {
+      const d = fichiers[p.situation];
+      if (!d || !Array.isArray(d.phrases)) return;
+      const liste = d.phrases.slice();
+      const k = p.apres ? liste.findIndex((x) => x && x.id === p.apres) : -1;
+      liste.splice(k >= 0 ? k + 1 : liste.length, 0, p);
+      fichiers[p.situation] = Object.assign({}, d, { phrases: liste });
+    });
+  }
   const elements = [];
   const situations = [];
   index.situations.forEach((sit, rangSituation) => {
@@ -45,6 +61,9 @@ export function preparerContenu(index, fichiers) {
         translit: p.translit || null,
         registre: p.registre || "neutre",
         variantes: p.variantes || null,
+        variantesFr: p.variantes_fr || null,   // { m, f } : le français change aussi avec le genre
+        personnalise: p.personnalise || null,  // "prenom" ou "prenom+metier" (voir personnage.js)
+        gabarit: p.gabarit || null,
         astuce: p.astuce || null,
         moule: p.moule && Array.isArray(p.moule.remplacements) && p.moule.remplacements.length ? p.moule : null,
         ordreLibre: p.ordre_libre === true
@@ -55,7 +74,7 @@ export function preparerContenu(index, fichiers) {
   elements.sort((a, b) => (a.vague - b.vague) || (a.rangSituation - b.rangSituation) || (a.rangPhrase - b.rangPhrase));
   elements.forEach((el, i) => { el.rang = i + 1; });
   const parId = new Map(elements.map((el) => [el.id, el]));
-  return { langue: index.langue, situations, elements, parId };
+  return { langue: index.langue, situations, elements, parId, donnees: donnees || null };
 }
 
 // Forme d'une variante de genre : une chaîne (le texte) ou un objet { cible, accent, translit }.
@@ -67,24 +86,41 @@ function lireVariante(v) {
 
 // Les textes à afficher ou à dire pour un élément.
 // - moule : la phrase complète du remplacement demandé (jamais reconstruite à partir du modèle) ;
-// - variantes : la forme du genre de l'utilisateur ("m" par défaut).
+// - genre : forme russe (variantes, ou remplacement du personnage « parGenre ») et forme française
+//   (variantes_fr) du genre de l'utilisateur ; "m" tant qu'il n'est pas connu ;
+// - autre : le même texte à l'autre genre si le français ou le russe change, sinon null
+//   (sert à montrer les deux formes tant que le genre n'est pas réglé).
 export function texteElement(el, options) {
   const opts = options || {};
+  const g = opts.genre === "f" ? "f" : "m";
+  let texte;
   if (el.moule) {
     const liste = el.moule.remplacements;
     const i = ((opts.remplacement || 0) % liste.length + liste.length) % liste.length;
-    const r = liste[i];
-    return {
-      fr: r.phrase_fr, cible: r.phrase_cible, accent: r.phrase_accent || r.phrase_cible,
+    const base = liste[i];
+    const r = base.parGenre ? (base.parGenre[g] || base.parGenre.m) : base;
+    texte = {
+      fr: (r.variantes_fr && r.variantes_fr[g]) || r.phrase_fr, cible: r.phrase_cible, accent: r.phrase_accent || r.phrase_cible,
       translit: r.phrase_translit || null,
       morceauFr: r.fr, morceauAccent: r.accent || r.cible, remplacement: i
     };
+  } else {
+    const v = el.variantes ? lireVariante(el.variantes[g]) : null;
+    texte = v
+      ? { fr: el.fr, cible: v.cible, accent: v.accent, translit: v.translit || el.translit }
+      : { fr: el.fr, cible: el.cible, accent: el.accent, translit: el.translit };
+    if (el.variantesFr && el.variantesFr[g]) texte.fr = el.variantesFr[g];
   }
-  if (el.variantes) {
-    const v = lireVariante(el.variantes[opts.genre === "f" ? "f" : "m"]);
-    if (v) return { fr: el.fr, cible: v.cible, accent: v.accent, translit: v.translit || el.translit };
+  if (!opts.sansAutre) {
+    const a = texteElement(el, Object.assign({}, opts, { genre: g === "f" ? "m" : "f", sansAutre: true }));
+    texte.autre = a.fr !== texte.fr || a.cible !== texte.cible ? a : null;
   }
-  return { fr: el.fr, cible: el.cible, accent: el.accent, translit: el.translit };
+  return texte;
+}
+
+// Le texte russe à faire lire par la voix : sans lettres latines (un prénom gardé en latin est affiché, pas lu).
+export function aLire(cible) {
+  return (cible || "").replace(/[A-Za-zÀ-ÿ]+/g, " ").replace(/\s+/g, " ").replace(/\s+([.,!?])/g, "$1").trim();
 }
 
 // L'autre forme de genre (pour la ligne « Au féminin : … » de la Découverte).

@@ -52,6 +52,8 @@ export function aleatoireGraine(graine) {
  *   ailleurs attendent : leur fiche n'est pas touchée, donc aucune pénalité.
  * @param {function} [p.aleatoire] tirage dans [0, 1[
  * @param {function} [p.ecrire]    appelé avec chaque fiche modifiée (pour l'enregistrer)
+ * @param {object}   [p.persoVus]  mots du personnage déjà montrés en Découverte : { cle: true }
+ * @param {function} [p.persoVu]   appelé avec la clé d'un mot du personnage au moment de sa Découverte
  */
 // Minutes réellement passées (pauses exclues), arrondies, au moins 1 : pour dire « 4 min de russe » à la fin.
 export function minutesReelles(secondes) { return Math.max(1, Math.round(secondes / 60)); }
@@ -63,6 +65,8 @@ export function creerSession(p) {
   let genre = p.genre === "f" ? "f" : "m";
   const aleatoire = p.aleatoire || Math.random;
   const ecrire = p.ecrire || function () {};
+  const persoVus = p.persoVus || {};
+  const persoVu = p.persoVu || function () {};
   const duree = String(p.duree);
   const D = REGLES.durees[duree];
   let mode = p.mode;
@@ -89,6 +93,10 @@ export function creerSession(p) {
     })
     .map((e) => e.id);
   const dusAuDepart = new Set(dus);
+  // Moules déjà appris dont le mot du personnage n'a jamais été montré (nouveau métier) : une Découverte
+  // non notée d'abord, sans toucher à la boîte. Un moule jamais vu l'obtient par la Découverte normale.
+  const cleDe = (e) => e.moule.remplacements[0].cle;
+  const persoAVoir = elements.filter((e) => e.moule && e.moule.personnel && !persoVus[cleDe(e)] && fiche(e.id).boite >= 1).map((e) => e.id);
   const nouveauxPossibles = elements.filter((e) => fiche(e.id).boite === 0).map((e) => e.id);
   // Le démarrage prudent des sessions de 2 min compte les phrases vues partout, pas seulement dans les thèmes.
   const nbVus = tousElements.filter((e) => fiche(e.id).boite >= 1).length;
@@ -120,6 +128,8 @@ export function creerSession(p) {
     echecs: [],
     dernierType: new Map(),
     remplacements: new Map(),
+    autresMots: new Map(),   // moule du personnage : dernier mot « autre » joué (1 à n-1)
+    persoFait: new Set(),
     fileF: null,
     introduitsSession: [],
     travailles: new Set(),
@@ -236,6 +246,10 @@ export function creerSession(p) {
     // Un élément plein est ignoré partout ; la contrainte « ≠ dernier » peut être levée (règle F).
     const permis = (id) => !plein(id) && (sansContrainte || id !== etat.dernierElement);
 
+    // P. Nouveau mot du personnage sur un moule déjà appris : une seule Découverte par session
+    const pid = etat.persoFait.size === 0 ? persoAVoir.find((id) => permis(id)) : null;
+    if (pid) return { regle: "P", id: pid, type: mode === "voiture" ? "boucle-decouverte" : "decouverte" };
+
     // A. Rendez-vous échu
     const echus = etat.rendezVous.filter((r) => r.indexMin <= etat.index && permis(r.id));
     const a = plusPetitRdv(echus);
@@ -296,6 +310,7 @@ export function creerSession(p) {
       enJeu.add(e.id);
     }
     if (choix.regle === "E") etat.fileF = choix.fileApres;
+    if (choix.regle === "P") etat.persoFait.add(e.id);
     etat.cartes.set(e.id, nbCartes(e.id) + 1);
 
     // Échelle : programmer l'étape suivante (si l'élément n'est pas plein), ou sortir des actifs.
@@ -312,14 +327,18 @@ export function creerSession(p) {
     }
 
     // Remplacement d'un moule (4.4) : 0 à la découverte, sinon le suivant.
+    // Moule du personnage (indice 0 = son mot) : son mot à la découverte, puis une carte sur deux ;
+    // les autres mots tournent entre ces cartes.
     let remplacement = null;
     if (e.moule) {
       const nb = e.moule.remplacements.length;
+      const precedent = etat.remplacements.has(e.id) ? etat.remplacements.get(e.id) : -1;
       if (TYPES_DECOUVERTE.includes(choix.type)) remplacement = 0;
-      else {
-        const precedent = etat.remplacements.has(e.id) ? etat.remplacements.get(e.id) : -1;
-        remplacement = (precedent + 1) % nb;
-      }
+      else if (!e.moule.personnel || nb < 2) remplacement = (precedent + 1) % nb;
+      else if (precedent === 0) remplacement = (etat.autresMots.get(e.id) || 0) % (nb - 1) + 1;
+      else remplacement = 0;
+      if (e.moule.personnel && remplacement > 0) etat.autresMots.set(e.id, remplacement);
+      if (e.moule.personnel && remplacement === 0 && TYPES_DECOUVERTE.includes(choix.type)) persoVu(cleDe(e));
       etat.remplacements.set(e.id, remplacement);
     }
 
@@ -350,7 +369,7 @@ export function creerSession(p) {
     etat.index += 1;
     etat.dernierType.set(e.id, carte.type);
     etat.travailles.add(e.id);
-    if (dusAuDepart.has(e.id)) etat.dusPasses.add(e.id);
+    if (dusAuDepart.has(e.id) && choix.regle !== "P") etat.dusPasses.add(e.id);
     return carte;
   }
 

@@ -4,11 +4,13 @@
 // IndexedDB ne sert qu'à retrouver les données au lancement suivant.
 
 import { validerFiche } from "./leitner.js";
+import { validerPersonnage } from "./personnage.js";
 
 const NOM_BASE = "vecu";
 const VERSION_BASE = 1;
 const MAGASIN_PROGRESSION = "progression"; // clé : id de l'élément
 const MAGASIN_REGLAGES = "reglages";       // clé : nom du réglage, valeur dans le champ « valeur »
+const CLE_PERSONNAGE = "personnage";       // le personnage (prénom, métier, poupée) vit dans ce magasin, sous cette clé
 const DELAI_OUVERTURE_MS = 1500;           // certains navigateurs privés n'ouvrent jamais la base
 
 // Ouvre la base, ou renvoie null si c'est impossible (sans lever d'erreur).
@@ -51,7 +53,7 @@ function toutLire(base, magasin) {
 /**
  * Ouvre le stockage. Ne rejette jamais.
  * @returns {Promise<{fiches: Map, reglages: object, persistant: boolean,
- *   ecrireFiche: function, ecrireReglage: function}>}
+ *   ecrireFiche: function, ecrireReglage: function, personnage: object, ecrirePersonnage: function}>}
  */
 export async function ouvrirStockage() {
   const fiches = new Map();
@@ -94,6 +96,13 @@ export async function ouvrirStockage() {
     ecrireReglage(cle, valeur) {
       reglages[cle] = valeur;
       ecrire(MAGASIN_REGLAGES, { cle, valeur });
+    },
+    // Toujours un personnage sain (valeur abîmée ou absente = personnage vide).
+    get personnage() { return validerPersonnage(reglages[CLE_PERSONNAGE]); },
+    ecrirePersonnage(p) {
+      const valeur = validerPersonnage(p);
+      reglages[CLE_PERSONNAGE] = valeur;
+      ecrire(MAGASIN_REGLAGES, { cle: CLE_PERSONNAGE, valeur });
     }
   };
 }

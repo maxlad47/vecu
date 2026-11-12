@@ -10,6 +10,7 @@ import { h, icone, focaliser } from "./dom.js";
 import { creerMenu } from "./menu.js";
 import { resumeThemes } from "./accueil.js";
 import { t, texteDuree } from "../textes.js";
+import { aLire } from "../contenu.js";
 import { REGLES } from "../config.js";
 import { creerSession, minutesReelles } from "../moteur.js";
 import { creerHorloge } from "../horloge.js";
@@ -70,6 +71,8 @@ export function afficherVoitureRoute(racine, ctx, { duree, themes }) {
   const session = creerSession({
     contenu: ctx.contenu, fiches: ctx.stockage.fiches, mode: "voiture", duree, jour: ctx.jour(), themes,
     genre: reglages.genre || "m",
+    persoVus: ctx.personnage().vus,
+    persoVu: ctx.persoVu,
     ecrire: (fiche) => ctx.stockage.ecrireFiche(fiche)
   });
   const horloge = creerHorloge();
@@ -131,7 +134,7 @@ export function afficherVoitureRoute(racine, ctx, { duree, themes }) {
   // Un cycle (regles-session.md, section 1, Voiture).
   async function cycle(carte, j) {
     const fr = carte.texte.fr;
-    const ru = carte.texte.cible;
+    const ru = aLire(carte.texte.cible); // un prénom gardé en lettres latines est affiché, pas lu
     if (carte.type === "boucle-decouverte") {
       const d = V.decouverte;
       await dire(fr, "fr", V.rateNormal, j);

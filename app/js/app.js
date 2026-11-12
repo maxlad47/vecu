@@ -7,6 +7,7 @@
 
 import { LANGUE_CIBLE } from "./config.js";
 import { chargerContenu } from "./contenu.js";
+import { personnaliser } from "./personnage.js";
 import { chargerAmbiance } from "./ambiance.js";
 import { ouvrirStockage } from "./stockage.js";
 import { calculerJour } from "./leitner.js";
@@ -15,6 +16,7 @@ import * as audio from "./audio.js";
 import { h, vider } from "./ui/dom.js";
 import { afficherAccueil } from "./ui/accueil.js";
 import { afficherSession } from "./ui/ecran-session.js";
+import { afficherPersonnage } from "./ui/ecran-personnage.js";
 import { afficherAvantDepart, afficherVoitureRoute } from "./ui/voiture.js";
 import { afficherFin, afficherProgres, afficherReglages, afficherSansVoix } from "./ui/ecrans.js";
 
@@ -28,12 +30,14 @@ const ECRANS = {
   fin: afficherFin,
   progres: afficherProgres,
   reglages: afficherReglages,
+  personnage: afficherPersonnage,
   sansVoix: afficherSansVoix
 };
 
 const racine = document.getElementById("app");
 let stockage = null;
-let contenu = null;
+let contenuBase = null;  // contenu tel que chargé
+let contenuPerso = null; // contenu à ses mots (prénom, métier) ; refait quand le personnage change
 let vue = null;          // écran affiché : { retour?(), nettoyer?() }
 let profondeur = 0;      // 0 = accueil, 1 = autre écran (un état d'historique poussé)
 // Jeton de navigation : il change à chaque changement d'écran. Une suite asynchrone
@@ -133,7 +137,10 @@ function lancer(duree, mode, options) {
 }
 
 const ctx = {
-  get contenu() { return contenu; },
+  get contenu() { return contenuPerso || (contenuPerso = personnaliser(contenuBase, stockage.personnage)); },
+  personnage: () => stockage.personnage,
+  majPersonnage: (p) => { stockage.ecrirePersonnage(p); contenuPerso = null; },
+  persoVu: (cle) => { const p = stockage.personnage; p.vus[cle] = true; ctx.majPersonnage(p); },
   get stockage() { return stockage; },
   reglages, majReglage, appliquerTheme, aller, lancer, garde,
   retourAccueil: () => aller("accueil"),
@@ -172,7 +179,7 @@ async function demarrer() {
   stockage = await ouvrirStockage();
   appliquerTheme();
   try {
-    contenu = await chargerContenu(LANGUE_CIBLE);
+    contenuBase = await chargerContenu(LANGUE_CIBLE);
   } catch (e) {
     afficherErreurContenu();
     return;

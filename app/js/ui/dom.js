@@ -112,3 +112,17 @@ export function texteMixte(texte) {
   });
   return span;
 }
+
+// Groupe de choix codé en radios natifs (Réglages, Mon personnage). aide : texte sous la légende (facultatif).
+export function segments(nom, legende, aide, choix, valeur, surChoix, classe) {
+  return h("div", { class: "reglage" }, h("fieldset", null,
+    h("legend", null, legende),
+    aide ? h("p", { class: "aide-reglage" }, aide) : null,
+    h("div", { class: "segments " + classe }, choix.map(([v, libelle]) => {
+      const id = nom + "-" + v;
+      return [
+        h("input", { class: "choix-input", type: "radio", name: nom, id, value: v, checked: v === valeur, onchange: () => surChoix(v) }),
+        h("label", { class: "choix", for: id }, h("span", { class: "coche" }, icone("coche")), h("span", null, libelle))
+      ];
+    }))));
+}

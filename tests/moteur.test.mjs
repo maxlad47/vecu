@@ -5,7 +5,8 @@
 // Les comptes attendus (éléments, moules, rangs) sont calculés depuis content/ru/index.json
 // et les fichiers listés : ajouter une situation ne casse pas ce test.
 
-import { preparerContenu, texteElement } from "../app/js/contenu.js";
+import { preparerContenu, texteElement, aLire } from "../app/js/contenu.js";
+import { convertirPrenom, convertirParRegles, personnaliser, validerPersonnage, reglageManquant } from "../app/js/personnage.js";
 import { REGLES, AUDIO } from "../app/js/config.js";
 import { creerSession, aleatoireGraine, minutesReelles } from "../app/js/moteur.js";
 import { controlerAmbiance, construireCss } from "../app/js/ambiance.js";
@@ -419,6 +420,115 @@ egal(suite.length, 28, "exemple 1 : 28 cartes");
     } catch (e) { ok = false; sortie("exception : " + e); }
     verifier(ok, "session " + mode + " avec fiches corrompues sans plantage");
   }
+}
+
+// ---------- Mission 007 : le personnage ----------
+const donneesPerso = await lireJson("content/ru/personnage.json");
+const contenuP = preparerContenu(index, fichiers, donneesPerso);
+const ruPrenom = (latin) => convertirPrenom(latin, donneesPerso.prenoms);
+{
+  // Prénom : les 25 cas de Nadia (dictionnaire puis règles), et les règles seules hors dictionnaire.
+  const casTests = donneesPerso.prenoms.regles.cas_tests;
+  egal(Object.keys(casTests).length, 25, "25 cas de test de conversion");
+  const sansSignes = (x) => x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const dico = new Set(donneesPerso.prenoms.dictionnaire.map((e) => sansSignes(e.latin)));
+  Object.entries(casTests).forEach(([latin, cible]) => {
+    egal(ruPrenom(latin).cible, cible, "prénom " + latin);
+    if (!dico.has(sansSignes(latin)) && !latin.includes("-")) egal(convertirParRegles(latin, donneesPerso.prenoms.regles), cible.toLowerCase(), "règles seules : " + latin);
+  });
+  egal(ruPrenom("julien").accent, "Жюлье́н", "dictionnaire : accent tonique, sans majuscule ni accent");
+  egal(ruPrenom("Jean-Vincent").cible, "Жан-Венсан", "prénom composé, partie par partie");
+  egal(ruPrenom("Ñandú"), null, "lettre inconnue : on garde le latin");
+  egal(ruPrenom("   "), null, "prénom vide");
+  // Les règles de Nadia lisent aussi les prénoms du dictionnaire sans se contredire (hors exceptions déclarées).
+  const ecarts = donneesPerso.prenoms.dictionnaire.filter((e) => convertirParRegles(e.latin, donneesPerso.prenoms.regles) !== e.cible.toLowerCase()).map((e) => e.latin);
+  verifier(ecarts.length <= 12, "dictionnaire : " + ecarts.length + " prénoms où les règles seules diffèrent (" + ecarts.join(", ") + ")");
+
+  // Validation du personnage.
+  const v = validerPersonnage({ prenom: " " + "x".repeat(30), prenomRu: { cible: "<b>" }, couleurs: "rouge", motif: "x", metier: 7, vus: { a: true, b: 1 } });
+  egal([v.prenom.length, v.prenomRu, v.couleurs, v.motif, v.metier, v.vus], [20, null, "cobalt-or", "fleur", null, { a: true }], "personnage abîmé réparé");
+  egal(validerPersonnage("n'importe quoi").prenom, "", "personnage illisible = personnage vide");
+}
+{
+  // Les phrases du personnage entrent dans leur situation ; sans le fichier, rien ne change.
+  const ids = contenuP.situations.find((x) => x.id === "rencontrer").ids;
+  egal(ids[ids.indexOf("ru-rencontrer-004") + 1], "ru-rencontrer-010", "« Je m'appelle ___ » juste après rencontrer-004");
+  egal(contenuP.elements.length, totalPhrases + donneesPerso.phrases.length, "3 phrases du personnage en plus");
+  egal(contenu.elements.length, totalPhrases, "contenu de base inchangé sans personnage.json");
+
+  const sans = personnaliser(contenuP, null);
+  verifier(!sans.parId.has("ru-presenter-011"), "pas de carte de visite sans métier");
+  verifier(sans.parId.get("ru-rencontrer-010").sansPrenom === true, "sans prénom : phrase d'exemple + « ton prénom ici »");
+  egal(reglageManquant(sans.parId.get("ru-rencontrer-010"), donneesPerso, validerPersonnage(null)), "prenom", "encart prénom");
+  egal(reglageManquant(sans.parId.get("ru-presenter-001"), donneesPerso, validerPersonnage(null)), "metier", "encart métier sur « Je suis ___ »");
+  egal(reglageManquant(sans.parId.get("ru-presenter-003"), donneesPerso, validerPersonnage(null)), null, "pas d'encart sur « Je travaille dans ___ » (domaine déduit du métier)");
+}
+{
+  const perso = { prenom: "Max", prenomRu: ruPrenom("Max"), metier: "infirmier" };
+  const c = personnaliser(contenuP, perso);
+  const el10 = c.parId.get("ru-rencontrer-010");
+  const t10 = texteElement(el10, {});
+  egal([t10.fr, t10.cible, t10.accent, t10.translit], ["Je m'appelle Max.", "Меня зовут Макс.", "Меня́ зову́т Макс.", "miniá zavoút Max"], "prénom dans la phrase (cyrillique dans la cible)");
+  egal(texteElement(c.parId.get("ru-presenter-011"), { genre: "f" }).fr, "Je m'appelle Max, je suis infirmière.", "carte de visite au féminin");
+  egal(texteElement(c.parId.get("ru-presenter-011"), { genre: "f" }).cible, "Меня зовут Макс, я медсестра.", "carte de visite : russe féminin");
+  egal(texteElement(c.parId.get("ru-presenter-011"), { genre: "m" }).cible, "Меня зовут Макс, я медбрат.", "carte de visite : russe masculin");
+  const moule = c.parId.get("ru-presenter-001");
+  egal([moule.moule.personnel, moule.moule.remplacements.length, moule.moule.remplacements[0].cle], [true, 6, "metier:infirmier"], "moule : le métier du personnage en tête");
+  egal(texteElement(moule, { genre: "f", remplacement: 0 }).fr + " | " + texteElement(moule, { genre: "m", remplacement: 0 }).fr, "Je suis infirmière. | Je suis infirmier.", "le français s'accorde au genre (métier)");
+  egal(texteElement(c.parId.get("ru-presenter-003"), { remplacement: 0 }).fr, "Je travaille dans la santé.", "le métier donne le domaine");
+  // Métier déjà dans le moule : pas de doublon.
+  const ing = personnaliser(contenuP, { metier: "ingenieur" }).parId.get("ru-presenter-001");
+  egal([ing.moule.remplacements.length, texteElement(ing, { genre: "f" }).fr], [5, "Je suis ingénieure."], "ingénieur : pas de doublon, accord au féminin");
+  // Prénom gardé en latin : affiché, jamais lu.
+  const latin = personnaliser(contenuP, { prenom: "Zoë" }).parId.get("ru-rencontrer-010");
+  egal([texteElement(latin, {}).cible, aLire(texteElement(latin, {}).cible)], ["Меня зовут Zoë.", "Меня зовут."], "prénom latin : affiché, pas lu");
+  // Genre : les deux formes quand il n'est pas réglé, même si le russe ne change pas.
+  const s008 = texteElement(contenuP.parId.get("ru-sortir-008"), {});
+  egal([s008.fr, s008.autre && s008.autre.fr, s008.autre && s008.autre.cible === s008.cible], ["Désolé, je ne peux pas.", "Désolée, je ne peux pas.", true], "variantes_fr : français seul");
+  egal(texteElement(contenuP.parId.get("ru-metro-002"), { genre: "f" }).cible, "Я заблудилась.", "variantes russes inchangées");
+  egal(texteElement(contenuP.parId.get("ru-cafe-001"), {}).autre, null, "phrase sans genre : pas d'autre forme");
+  egal(texteElement(contenuP.parId.get("ru-rencontrer-005"), { genre: "f" }).fr, "Enchantée.", "Enchantée au féminin");
+}
+{
+  // Tirage du mot du personnage dans le moule « Je suis ___ ».
+  const c = personnaliser(contenuP, { prenom: "Max", prenomRu: ruPrenom("Max"), metier: "infirmier" });
+  const J = "2026-11-11";
+  const jouer = (fiches, persoVus, opts) => {
+    const vus = [], cartes = [], ecrites = [];
+    const s = creerSession(Object.assign({ contenu: c, fiches, mode: "silence", duree: 30, jour: J, genre: "f", themes: ["presenter"], aleatoire: aleatoireGraine(3),
+      persoVus, persoVu: (cle) => vus.push(cle), ecrire: (f) => ecrites.push(f.id) }, opts));
+    let t = 0, carte;
+    while ((carte = s.prochaineCarte(t))) {
+      cartes.push(carte);
+      s.repondre(carte, carte.type.includes("decouverte") ? "non-note" : "reussite");
+      t += carte.est;
+    }
+    return { s, vus, cartes, ecrites };
+  };
+  // Nouveau moule : Découverte avec son mot, puis une carte sur deux.
+  const a = jouer(new Map(), {});
+  const mots = a.cartes.filter((k) => k.id === "ru-presenter-001").map((k) => [k.type, k.remplacement]);
+  egal(mots[0], ["decouverte", 0], "découverte avec le métier du personnage");
+  verifier(mots.length >= 5 && mots.every(([, r], i) => (i % 2 === 0 ? r === 0 : r > 0)), "le métier du personnage une carte sur deux : " + JSON.stringify(mots));
+  egal(a.vus.filter((k) => k === "metier:infirmier").length, 1, "mot du personnage marqué comme vu une fois");
+  // Moule déjà appris, nouveau métier : Découverte non notée d'abord, boîte intacte, une seule fois par session.
+  const dejaVu = (id) => Object.assign(ficheVide(id), { boite: 3, echeance: "2026-11-20", premiereVue: "2026-11-01" });
+  const fiches = new Map([["ru-presenter-001", dejaVu("ru-presenter-001")], ["ru-presenter-003", dejaVu("ru-presenter-003")]]);
+  const b = jouer(fiches, {}, { duree: 5 });
+  egal([b.cartes[0].regle, b.cartes[0].type, b.cartes[0].id, b.cartes[0].remplacement], ["P", "decouverte", "ru-presenter-001", 0], "nouveau métier : Découverte d'abord");
+  egal(b.cartes.filter((k) => k.regle === "P").length, 1, "une seule Découverte du personnage par session");
+  egal([fiches.get("ru-presenter-001").boite, fiches.get("ru-presenter-001").echeance], [3, "2026-11-20"], "Découverte non notée : boîte et échéance intactes");
+  verifier(b.cartes.filter((k) => k.id === "ru-presenter-001").every((k, i) => i > 0 || k.type === "decouverte"), "la 1re carte du moule est non notée");
+  const dejaMontre = jouer(new Map([["ru-presenter-001", dejaVu("ru-presenter-001")]]), { "metier:infirmier": true }, { duree: 5 });
+  verifier(dejaMontre.cartes.every((k) => k.regle !== "P"), "mot déjà montré : pas de nouvelle Découverte");
+  const sansPerso = creerSession({ contenu: contenuP, fiches: new Map([["ru-presenter-001", dejaVu("ru-presenter-001")]]), mode: "silence", duree: 5, jour: J, genre: "f", themes: ["presenter"], aleatoire: aleatoireGraine(3) });
+  verifier(sansPerso.prochaineCarte(0).regle !== "P", "sans métier : jamais de Découverte du personnage");
+  // Un changement de genre ne rend rien « dû » et n'écrit aucune fiche.
+  const f2 = new Map([["ru-metro-002", dejaVu("ru-metro-002")]]);
+  const avant = JSON.stringify([...f2]);
+  const sg = creerSession({ contenu: c, fiches: f2, mode: "silence", duree: 5, jour: J, genre: "m", themes: ["metro"], aleatoire: aleatoireGraine(3) });
+  const dusAvant = sg.dus.length; sg.definirGenre("f");
+  egal([sg.dus.length, JSON.stringify([...f2])], [dusAvant, avant], "changer de genre : aucune phrase due, aucune fiche modifiée");
 }
 
 // Durée annoncée à la fin : le temps réel, arrondi à la minute, jamais 0.

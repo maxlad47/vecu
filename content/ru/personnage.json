@@ -1,0 +1,459 @@
+{
+  "langue": "ru",
+  "fichier": "personnage",
+  "titre": "Mon personnage",
+  "niveau": "A1",
+  "jeton_prenom": "{prenom}",
+  "phrases": [
+    {
+      "id": "ru-rencontrer-010",
+      "situation": "rencontrer",
+      "apres": "ru-rencontrer-004",
+      "personnalise": "prenom",
+      "fr": "Je m'appelle Sacha.",
+      "cible": "Меня зовут Саша.",
+      "accent": "Меня́ зову́т Са́ша.",
+      "translit": "miniá zavoút sácha",
+      "registre": "neutre",
+      "variantes": null,
+      "variantes_fr": null,
+      "astuce": "Mot à mot « on m'appelle Sacha ». Le prénom reste tel quel.",
+      "moule": null,
+      "gabarit": {
+        "fr": "Je m'appelle {prenom}.",
+        "cible": "Меня зовут {prenom}.",
+        "accent": "Меня́ зову́т {prenom}.",
+        "translit": "miniá zavoút {prenom}"
+      }
+    },
+    {
+      "id": "ru-rencontrer-011",
+      "situation": "rencontrer",
+      "personnalise": "prenom",
+      "fr": "Moi, c'est Sacha. Et toi ?",
+      "cible": "Я Саша. А ты?",
+      "accent": "Я Са́ша. А ты?",
+      "translit": "ia sácha. a ty?",
+      "registre": "tu",
+      "variantes": null,
+      "variantes_fr": null,
+      "astuce": "Pas de verbe : Я + prénom. Plus complet : А тебя́ как зову́т ?",
+      "moule": null,
+      "gabarit": {
+        "fr": "Moi, c'est {prenom}. Et toi ?",
+        "cible": "Я {prenom}. А ты?",
+        "accent": "Я {prenom}. А ты?",
+        "translit": "ia {prenom}. a ty?"
+      }
+    },
+    {
+      "id": "ru-presenter-011",
+      "situation": "presenter",
+      "personnalise": "prenom+metier",
+      "fr": "Je m'appelle Sacha, je suis ingénieur.",
+      "cible": "Меня зовут Саша, я инженер.",
+      "accent": "Меня́ зову́т Са́ша, я инжене́р.",
+      "translit": "miniá zavoút sácha, ia injyniér",
+      "registre": "neutre",
+      "variantes": null,
+      "variantes_fr": {
+        "m": "Je m'appelle Sacha, je suis ingénieur.",
+        "f": "Je m'appelle Sacha, je suis ingénieure."
+      },
+      "astuce": null,
+      "moule": null,
+      "gabarit": "carte du métier choisi (metiers[].m|f.carte_*), sinon du domaine choisi (domaines[].carte_*)"
+    }
+  ],
+  "metiers": [
+    {
+      "id": "ingenieur",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": null,
+      "m": {
+        "fr": "ingénieur", "cible": "инженер", "accent": "инжене́р", "translit": "injyniér",
+        "phrase_fr": "Je suis ingénieur.", "phrase_cible": "Я инженер.", "phrase_accent": "Я инжене́р.", "phrase_translit": "ia injyniér",
+        "carte_fr": "Je m'appelle {prenom}, je suis ingénieur.", "carte_cible": "Меня зовут {prenom}, я инженер.", "carte_accent": "Меня́ зову́т {prenom}, я инжене́р.", "carte_translit": "miniá zavoút {prenom}, ia injyniér"
+      },
+      "f": {
+        "fr": "ingénieure", "cible": "инженер", "accent": "инжене́р", "translit": "injyniér",
+        "phrase_fr": "Je suis ingénieure.", "phrase_cible": "Я инженер.", "phrase_accent": "Я инжене́р.", "phrase_translit": "ia injyniér",
+        "carte_fr": "Je m'appelle {prenom}, je suis ingénieure.", "carte_cible": "Меня зовут {prenom}, я инженер.", "carte_accent": "Меня́ зову́т {prenom}, я инжене́р.", "carte_translit": "miniá zavoút {prenom}, ia injyniér"
+      }
+    },
+    {
+      "id": "medecin",
+      "element": "ru-presenter-001",
+      "domaine": "sante",
+      "astuce": null,
+      "m": {
+        "fr": "médecin", "cible": "врач", "accent": "врач", "translit": "vratch",
+        "phrase_fr": "Je suis médecin.", "phrase_cible": "Я врач.", "phrase_accent": "Я врач.", "phrase_translit": "ia vratch",
+        "carte_fr": "Je m'appelle {prenom}, je suis médecin.", "carte_cible": "Меня зовут {prenom}, я врач.", "carte_accent": "Меня́ зову́т {prenom}, я врач.", "carte_translit": "miniá zavoút {prenom}, ia vratch"
+      },
+      "f": {
+        "fr": "médecin", "cible": "врач", "accent": "врач", "translit": "vratch",
+        "phrase_fr": "Je suis médecin.", "phrase_cible": "Я врач.", "phrase_accent": "Я врач.", "phrase_translit": "ia vratch",
+        "carte_fr": "Je m'appelle {prenom}, je suis médecin.", "carte_cible": "Меня зовут {prenom}, я врач.", "carte_accent": "Меня́ зову́т {prenom}, я врач.", "carte_translit": "miniá zavoút {prenom}, ia vratch"
+      }
+    },
+    {
+      "id": "comptable",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": null,
+      "m": {
+        "fr": "comptable", "cible": "бухгалтер", "accent": "бухга́лтер", "translit": "boukháltir",
+        "phrase_fr": "Je suis comptable.", "phrase_cible": "Я бухгалтер.", "phrase_accent": "Я бухга́лтер.", "phrase_translit": "ia boukháltir",
+        "carte_fr": "Je m'appelle {prenom}, je suis comptable.", "carte_cible": "Меня зовут {prenom}, я бухгалтер.", "carte_accent": "Меня́ зову́т {prenom}, я бухга́лтер.", "carte_translit": "miniá zavoút {prenom}, ia boukháltir"
+      },
+      "f": {
+        "fr": "comptable", "cible": "бухгалтер", "accent": "бухга́лтер", "translit": "boukháltir",
+        "phrase_fr": "Je suis comptable.", "phrase_cible": "Я бухгалтер.", "phrase_accent": "Я бухга́лтер.", "phrase_translit": "ia boukháltir",
+        "carte_fr": "Je m'appelle {prenom}, je suis comptable.", "carte_cible": "Меня зовут {prenom}, я бухгалтер.", "carte_accent": "Меня́ зову́т {prenom}, я бухга́лтер.", "carte_translit": "miniá zavoút {prenom}, ia boukháltir"
+      }
+    },
+    {
+      "id": "manager",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": null,
+      "m": {
+        "fr": "manager", "cible": "менеджер", "accent": "ме́неджер", "translit": "ménedjer",
+        "phrase_fr": "Je suis manager.", "phrase_cible": "Я менеджер.", "phrase_accent": "Я ме́неджер.", "phrase_translit": "ia ménedjer",
+        "carte_fr": "Je m'appelle {prenom}, je suis manager.", "carte_cible": "Меня зовут {prenom}, я менеджер.", "carte_accent": "Меня́ зову́т {prenom}, я ме́неджер.", "carte_translit": "miniá zavoút {prenom}, ia ménedjer"
+      },
+      "f": {
+        "fr": "manager", "cible": "менеджер", "accent": "ме́неджер", "translit": "ménedjer",
+        "phrase_fr": "Je suis manager.", "phrase_cible": "Я менеджер.", "phrase_accent": "Я ме́неджер.", "phrase_translit": "ia ménedjer",
+        "carte_fr": "Je m'appelle {prenom}, je suis manager.", "carte_cible": "Меня зовут {prenom}, я менеджер.", "carte_accent": "Меня́ зову́т {prenom}, я ме́неджер.", "carte_translit": "miniá zavoút {prenom}, ia ménedjer"
+      }
+    },
+    {
+      "id": "avocat",
+      "element": "ru-presenter-001",
+      "domaine": null,
+      "astuce": null,
+      "m": {
+        "fr": "avocat", "cible": "адвокат", "accent": "адвока́т", "translit": "advakát",
+        "phrase_fr": "Je suis avocat.", "phrase_cible": "Я адвокат.", "phrase_accent": "Я адвока́т.", "phrase_translit": "ia advakát",
+        "carte_fr": "Je m'appelle {prenom}, je suis avocat.", "carte_cible": "Меня зовут {prenom}, я адвокат.", "carte_accent": "Меня́ зову́т {prenom}, я адвока́т.", "carte_translit": "miniá zavoút {prenom}, ia advakát"
+      },
+      "f": {
+        "fr": "avocate", "cible": "адвокат", "accent": "адвока́т", "translit": "advakát",
+        "phrase_fr": "Je suis avocate.", "phrase_cible": "Я адвокат.", "phrase_accent": "Я адвока́т.", "phrase_translit": "ia advakát",
+        "carte_fr": "Je m'appelle {prenom}, je suis avocate.", "carte_cible": "Меня зовут {prenom}, я адвокат.", "carte_accent": "Меня́ зову́т {prenom}, я адвока́т.", "carte_translit": "miniá zavoút {prenom}, ia advakát"
+      }
+    },
+    {
+      "id": "infirmier",
+      "element": "ru-presenter-001",
+      "domaine": "sante",
+      "astuce": "Mot à mot « frère médical » et « sœur médicale » : deux mots différents.",
+      "m": {
+        "fr": "infirmier", "cible": "медбрат", "accent": "медбра́т", "translit": "midbrát",
+        "phrase_fr": "Je suis infirmier.", "phrase_cible": "Я медбрат.", "phrase_accent": "Я медбра́т.", "phrase_translit": "ia midbrát",
+        "carte_fr": "Je m'appelle {prenom}, je suis infirmier.", "carte_cible": "Меня зовут {prenom}, я медбрат.", "carte_accent": "Меня́ зову́т {prenom}, я медбра́т.", "carte_translit": "miniá zavoút {prenom}, ia midbrát"
+      },
+      "f": {
+        "fr": "infirmière", "cible": "медсестра", "accent": "медсестра́", "translit": "mitsistrá",
+        "phrase_fr": "Je suis infirmière.", "phrase_cible": "Я медсестра.", "phrase_accent": "Я медсестра́.", "phrase_translit": "ia mitsistrá",
+        "carte_fr": "Je m'appelle {prenom}, je suis infirmière.", "carte_cible": "Меня зовут {prenom}, я медсестра.", "carte_accent": "Меня́ зову́т {prenom}, я медсестра́.", "carte_translit": "miniá zavoút {prenom}, ia mitsistrá"
+      }
+    },
+    {
+      "id": "enseignant",
+      "element": "ru-presenter-001",
+      "domaine": "education",
+      "astuce": "Учи́тель, à l'école. À l'université ou pour adultes : преподава́тель.",
+      "m": {
+        "fr": "enseignant", "cible": "учитель", "accent": "учи́тель", "translit": "outchítil",
+        "phrase_fr": "Je suis enseignant.", "phrase_cible": "Я учитель.", "phrase_accent": "Я учи́тель.", "phrase_translit": "ia outchítil",
+        "carte_fr": "Je m'appelle {prenom}, je suis enseignant.", "carte_cible": "Меня зовут {prenom}, я учитель.", "carte_accent": "Меня́ зову́т {prenom}, я учи́тель.", "carte_translit": "miniá zavoút {prenom}, ia outchítil"
+      },
+      "f": {
+        "fr": "enseignante", "cible": "учительница", "accent": "учи́тельница", "translit": "outchítilnitsa",
+        "phrase_fr": "Je suis enseignante.", "phrase_cible": "Я учительница.", "phrase_accent": "Я учи́тельница.", "phrase_translit": "ia outchítilnitsa",
+        "carte_fr": "Je m'appelle {prenom}, je suis enseignante.", "carte_cible": "Меня зовут {prenom}, я учительница.", "carte_accent": "Меня́ зову́т {prenom}, я учи́тельница.", "carte_translit": "miniá zavoút {prenom}, ia outchítilnitsa"
+      }
+    },
+    {
+      "id": "developpeur",
+      "element": "ru-presenter-001",
+      "domaine": "informatique",
+      "astuce": "Beaucoup de femmes disent aussi Я программи́ст. On entend aussi разрабо́тчик.",
+      "m": {
+        "fr": "développeur", "cible": "программист", "accent": "программи́ст", "translit": "pragramíst",
+        "phrase_fr": "Je suis développeur.", "phrase_cible": "Я программист.", "phrase_accent": "Я программи́ст.", "phrase_translit": "ia pragramíst",
+        "carte_fr": "Je m'appelle {prenom}, je suis développeur.", "carte_cible": "Меня зовут {prenom}, я программист.", "carte_accent": "Меня́ зову́т {prenom}, я программи́ст.", "carte_translit": "miniá zavoút {prenom}, ia pragramíst"
+      },
+      "f": {
+        "fr": "développeuse", "cible": "программистка", "accent": "программи́стка", "translit": "pragramístka",
+        "phrase_fr": "Je suis développeuse.", "phrase_cible": "Я программистка.", "phrase_accent": "Я программи́стка.", "phrase_translit": "ia pragramístka",
+        "carte_fr": "Je m'appelle {prenom}, je suis développeuse.", "carte_cible": "Меня зовут {prenom}, я программистка.", "carte_accent": "Меня́ зову́т {prenom}, я программи́стка.", "carte_translit": "miniá zavoút {prenom}, ia pragramístka"
+      }
+    },
+    {
+      "id": "commercial",
+      "element": "ru-presenter-001",
+      "domaine": "commerce",
+      "astuce": "Mot à mot « manager des ventes ». Même forme pour une femme.",
+      "m": {
+        "fr": "commercial", "cible": "менеджер по продажам", "accent": "ме́неджер по прода́жам", "translit": "ménedjer pa pradájam",
+        "phrase_fr": "Je suis commercial.", "phrase_cible": "Я менеджер по продажам.", "phrase_accent": "Я ме́неджер по прода́жам.", "phrase_translit": "ia ménedjer pa pradájam",
+        "carte_fr": "Je m'appelle {prenom}, je suis commercial.", "carte_cible": "Меня зовут {prenom}, я менеджер по продажам.", "carte_accent": "Меня́ зову́т {prenom}, я ме́неджер по прода́жам.", "carte_translit": "miniá zavoút {prenom}, ia ménedjer pa pradájam"
+      },
+      "f": {
+        "fr": "commerciale", "cible": "менеджер по продажам", "accent": "ме́неджер по прода́жам", "translit": "ménedjer pa pradájam",
+        "phrase_fr": "Je suis commerciale.", "phrase_cible": "Я менеджер по продажам.", "phrase_accent": "Я ме́неджер по прода́жам.", "phrase_translit": "ia ménedjer pa pradájam",
+        "carte_fr": "Je m'appelle {prenom}, je suis commerciale.", "carte_cible": "Меня зовут {prenom}, я менеджер по продажам.", "carte_accent": "Меня́ зову́т {prenom}, я ме́неджер по прода́жам.", "carte_translit": "miniá zavoút {prenom}, ia ménedjer pa pradájam"
+      }
+    },
+    {
+      "id": "artisan-batiment",
+      "element": "ru-presenter-001",
+      "domaine": "batiment",
+      "astuce": "Строи́тель vaut pour tous les métiers du chantier. Même forme pour une femme.",
+      "m": {
+        "fr": "artisan du bâtiment", "cible": "строитель", "accent": "строи́тель", "translit": "straítil",
+        "phrase_fr": "Je suis artisan du bâtiment.", "phrase_cible": "Я строитель.", "phrase_accent": "Я строи́тель.", "phrase_translit": "ia straítil",
+        "carte_fr": "Je m'appelle {prenom}, je suis artisan du bâtiment.", "carte_cible": "Меня зовут {prenom}, я строитель.", "carte_accent": "Меня́ зову́т {prenom}, я строи́тель.", "carte_translit": "miniá zavoút {prenom}, ia straítil"
+      },
+      "f": {
+        "fr": "artisane du bâtiment", "cible": "строитель", "accent": "строи́тель", "translit": "straítil",
+        "phrase_fr": "Je suis artisane du bâtiment.", "phrase_cible": "Я строитель.", "phrase_accent": "Я строи́тель.", "phrase_translit": "ia straítil",
+        "carte_fr": "Je m'appelle {prenom}, je suis artisane du bâtiment.", "carte_cible": "Меня зовут {prenom}, я строитель.", "carte_accent": "Меня́ зову́т {prenom}, я строи́тель.", "carte_translit": "miniá zavoút {prenom}, ia straítil"
+      }
+    },
+    {
+      "id": "etudiant",
+      "element": "ru-presenter-006",
+      "domaine": null,
+      "astuce": null,
+      "m": {
+        "fr": "étudiant", "cible": "студент", "accent": "студе́нт", "translit": "stoudiént",
+        "phrase_fr": "Je suis étudiant.", "phrase_cible": "Я студент.", "phrase_accent": "Я студе́нт.", "phrase_translit": "ia stoudiént",
+        "carte_fr": "Je m'appelle {prenom}, je suis étudiant.", "carte_cible": "Меня зовут {prenom}, я студент.", "carte_accent": "Меня́ зову́т {prenom}, я студе́нт.", "carte_translit": "miniá zavoút {prenom}, ia stoudiént"
+      },
+      "f": {
+        "fr": "étudiante", "cible": "студентка", "accent": "студе́нтка", "translit": "stoudiéntka",
+        "phrase_fr": "Je suis étudiante.", "phrase_cible": "Я студентка.", "phrase_accent": "Я студе́нтка.", "phrase_translit": "ia stoudiéntka",
+        "carte_fr": "Je m'appelle {prenom}, je suis étudiante.", "carte_cible": "Меня зовут {prenom}, я студентка.", "carte_accent": "Меня́ зову́т {prenom}, я студе́нтка.", "carte_translit": "miniá zavoút {prenom}, ia stoudiéntka"
+      }
+    },
+    {
+      "id": "a-mon-compte",
+      "element": "ru-presenter-009",
+      "domaine": null,
+      "astuce": null,
+      "m": {
+        "fr": "à mon compte", "cible": "на себя", "accent": "на себя́", "translit": "na sibiá",
+        "phrase_fr": "Je travaille à mon compte.", "phrase_cible": "Я работаю на себя.", "phrase_accent": "Я рабо́таю на себя́.", "phrase_translit": "ia rabótaiou na sibiá",
+        "carte_fr": "Je m'appelle {prenom}, je travaille à mon compte.", "carte_cible": "Меня зовут {prenom}, я работаю на себя.", "carte_accent": "Меня́ зову́т {prenom}, я рабо́таю на себя́.", "carte_translit": "miniá zavoút {prenom}, ia rabótaiou na sibiá"
+      },
+      "f": {
+        "fr": "à mon compte", "cible": "на себя", "accent": "на себя́", "translit": "na sibiá",
+        "phrase_fr": "Je travaille à mon compte.", "phrase_cible": "Я работаю на себя.", "phrase_accent": "Я рабо́таю на себя́.", "phrase_translit": "ia rabótaiou na sibiá",
+        "carte_fr": "Je m'appelle {prenom}, je travaille à mon compte.", "carte_cible": "Меня зовут {prenom}, я работаю на себя.", "carte_accent": "Меня́ зову́т {prenom}, я рабо́таю на себя́.", "carte_translit": "miniá zavoút {prenom}, ia rabótaiou na sibiá"
+      }
+    },
+    {
+      "id": "retraite",
+      "element": "ru-presenter-010",
+      "domaine": null,
+      "astuce": null,
+      "m": {
+        "fr": "retraité", "cible": "на пенсии", "accent": "на пе́нсии", "translit": "na piénsii",
+        "phrase_fr": "Je suis à la retraite.", "phrase_cible": "Я на пенсии.", "phrase_accent": "Я на пе́нсии.", "phrase_translit": "ia na piénsii",
+        "carte_fr": "Je m'appelle {prenom}, je suis à la retraite.", "carte_cible": "Меня зовут {prenom}, я на пенсии.", "carte_accent": "Меня́ зову́т {prenom}, я на пе́нсии.", "carte_translit": "miniá zavoút {prenom}, ia na piénsii"
+      },
+      "f": {
+        "fr": "retraitée", "cible": "на пенсии", "accent": "на пе́нсии", "translit": "na piénsii",
+        "phrase_fr": "Je suis à la retraite.", "phrase_cible": "Я на пенсии.", "phrase_accent": "Я на пе́нсии.", "phrase_translit": "ia na piénsii",
+        "carte_fr": "Je m'appelle {prenom}, je suis à la retraite.", "carte_cible": "Меня зовут {prenom}, я на пенсии.", "carte_accent": "Меня́ зову́т {prenom}, я на пе́нсии.", "carte_translit": "miniá zavoút {prenom}, ia na piénsii"
+      }
+    }
+  ],
+  "domaines": [
+    {
+      "id": "banque", "element": "ru-presenter-003",
+      "fr": "une banque", "cible": "банке", "accent": "ба́нке", "translit": "bánki",
+      "phrase_fr": "Je travaille dans une banque.", "phrase_cible": "Я работаю в банке.", "phrase_accent": "Я рабо́таю в ба́нке.", "phrase_translit": "ia rabótaiou v bánki",
+      "carte_fr": "Je m'appelle {prenom}, je travaille dans une banque.", "carte_cible": "Меня зовут {prenom}, я работаю в банке.", "carte_accent": "Меня́ зову́т {prenom}, я рабо́таю в ба́нке.", "carte_translit": "miniá zavoút {prenom}, ia rabótaiou v bánki"
+    },
+    {
+      "id": "informatique", "element": "ru-presenter-003",
+      "fr": "l'informatique", "cible": "айти", "accent": "айти́", "translit": "aïtí",
+      "phrase_fr": "Je travaille dans l'informatique.", "phrase_cible": "Я работаю в айти.", "phrase_accent": "Я рабо́таю в айти́.", "phrase_translit": "ia rabótaiou v aïtí",
+      "carte_fr": "Je m'appelle {prenom}, je travaille dans l'informatique.", "carte_cible": "Меня зовут {prenom}, я работаю в айти.", "carte_accent": "Меня́ зову́т {prenom}, я рабо́таю в айти́.", "carte_translit": "miniá zavoút {prenom}, ia rabótaiou v aïtí"
+    },
+    {
+      "id": "sante", "element": "ru-presenter-003",
+      "fr": "la santé", "cible": "медицине", "accent": "медици́не", "translit": "miditsýni",
+      "phrase_fr": "Je travaille dans la santé.", "phrase_cible": "Я работаю в медицине.", "phrase_accent": "Я рабо́таю в медици́не.", "phrase_translit": "ia rabótaiou v miditsýni",
+      "carte_fr": "Je m'appelle {prenom}, je travaille dans la santé.", "carte_cible": "Меня зовут {prenom}, я работаю в медицине.", "carte_accent": "Меня́ зову́т {prenom}, я рабо́таю в медици́не.", "carte_translit": "miniá zavoút {prenom}, ia rabótaiou v miditsýni"
+    },
+    {
+      "id": "education", "element": "ru-presenter-003",
+      "fr": "l'éducation", "cible": "образовании", "accent": "образова́нии", "translit": "abrazavánii",
+      "phrase_fr": "Je travaille dans l'éducation.", "phrase_cible": "Я работаю в образовании.", "phrase_accent": "Я рабо́таю в образова́нии.", "phrase_translit": "ia rabótaiou v abrazavánii",
+      "carte_fr": "Je m'appelle {prenom}, je travaille dans l'éducation.", "carte_cible": "Меня зовут {prenom}, я работаю в образовании.", "carte_accent": "Меня́ зову́т {prenom}, я рабо́таю в образова́нии.", "carte_translit": "miniá zavoút {prenom}, ia rabótaiou v abrazavánii"
+    },
+    {
+      "id": "commerce", "element": "ru-presenter-003",
+      "fr": "le commerce", "cible": "торговле", "accent": "торго́вле", "translit": "targóvli",
+      "phrase_fr": "Je travaille dans le commerce.", "phrase_cible": "Я работаю в торговле.", "phrase_accent": "Я рабо́таю в торго́вле.", "phrase_translit": "ia rabótaiou f targóvli",
+      "carte_fr": "Je m'appelle {prenom}, je travaille dans le commerce.", "carte_cible": "Меня зовут {prenom}, я работаю в торговле.", "carte_accent": "Меня́ зову́т {prenom}, я рабо́таю в торго́вле.", "carte_translit": "miniá zavoút {prenom}, ia rabótaiou f targóvli"
+    },
+    {
+      "id": "batiment", "element": "ru-presenter-003",
+      "fr": "le bâtiment", "cible": "строительстве", "accent": "строи́тельстве", "translit": "straítilstvi",
+      "phrase_fr": "Je travaille dans le bâtiment.", "phrase_cible": "Я работаю в строительстве.", "phrase_accent": "Я рабо́таю в строи́тельстве.", "phrase_translit": "ia rabótaiou f straítilstvi",
+      "carte_fr": "Je m'appelle {prenom}, je travaille dans le bâtiment.", "carte_cible": "Меня зовут {prenom}, я работаю в строительстве.", "carte_accent": "Меня́ зову́т {prenom}, я рабо́таю в строи́тельстве.", "carte_translit": "miniá zavoút {prenom}, ia rabótaiou f straítilstvi"
+    }
+  ],
+  "prenoms": {
+    "exemple": { "latin": "Sacha", "cible": "Саша", "accent": "Са́ша" },
+    "comparaison": "minuscules, signes diacritiques retirés ; prénom composé (Jean-Pierre) : chaque partie séparément, trait d'union gardé",
+    "dictionnaire": [
+      { "latin": "Max", "cible": "Макс", "accent": "Макс" },
+      { "latin": "Maxime", "cible": "Максим", "accent": "Макси́м" },
+      { "latin": "Alexandre", "cible": "Александр", "accent": "Алекса́ндр" },
+      { "latin": "Thomas", "cible": "Тома", "accent": "Тома́" },
+      { "latin": "Nicolas", "cible": "Николя", "accent": "Николя́" },
+      { "latin": "Julien", "cible": "Жюльен", "accent": "Жюлье́н" },
+      { "latin": "Pierre", "cible": "Пьер", "accent": "Пьер" },
+      { "latin": "Jean", "cible": "Жан", "accent": "Жан" },
+      { "latin": "Antoine", "cible": "Антуан", "accent": "Антуа́н" },
+      { "latin": "Louis", "cible": "Луи", "accent": "Луи́" },
+      { "latin": "Lucas", "cible": "Люка", "accent": "Люка́" },
+      { "latin": "Paul", "cible": "Поль", "accent": "Поль" },
+      { "latin": "François", "cible": "Франсуа", "accent": "Франсуа́" },
+      { "latin": "Mathieu", "cible": "Матьё", "accent": "Матьё" },
+      { "latin": "Guillaume", "cible": "Гийом", "accent": "Гийо́м" },
+      { "latin": "Laurent", "cible": "Лоран", "accent": "Лора́н" },
+      { "latin": "Olivier", "cible": "Оливье", "accent": "Оливье́" },
+      { "latin": "David", "cible": "Давид", "accent": "Дави́д" },
+      { "latin": "Michel", "cible": "Мишель", "accent": "Мише́ль" },
+      { "latin": "Christophe", "cible": "Кристоф", "accent": "Кристо́ф" },
+      { "latin": "Gilles", "cible": "Жиль", "accent": "Жиль" },
+      { "latin": "Hugo", "cible": "Юго", "accent": "Юго́" },
+      { "latin": "Sacha", "cible": "Саша", "accent": "Са́ша" },
+      { "latin": "Marie", "cible": "Мари", "accent": "Мари́" },
+      { "latin": "Sophie", "cible": "Софи", "accent": "Софи́" },
+      { "latin": "Julie", "cible": "Жюли", "accent": "Жюли́" },
+      { "latin": "Léa", "cible": "Леа", "accent": "Леа́" },
+      { "latin": "Chloé", "cible": "Хлоэ", "accent": "Хлоэ́" },
+      { "latin": "Camille", "cible": "Камиль", "accent": "Ками́ль" },
+      { "latin": "Emma", "cible": "Эмма", "accent": "Э́мма" },
+      { "latin": "Manon", "cible": "Манон", "accent": "Мано́н" },
+      { "latin": "Sarah", "cible": "Сара", "accent": "Са́ра" },
+      { "latin": "Anne", "cible": "Анн", "accent": "Анн" },
+      { "latin": "Claire", "cible": "Клер", "accent": "Клер" },
+      { "latin": "Nathalie", "cible": "Натали", "accent": "Натали́" },
+      { "latin": "Isabelle", "cible": "Изабель", "accent": "Изабе́ль" },
+      { "latin": "Inès", "cible": "Инес", "accent": "Ине́с" },
+      { "latin": "Agnès", "cible": "Аньес", "accent": "Анье́с" },
+      { "latin": "Margaux", "cible": "Марго", "accent": "Марго́" },
+      { "latin": "Alice", "cible": "Алис", "accent": "Али́с" },
+      { "latin": "Clara", "cible": "Клара", "accent": "Кла́ра" }
+    ],
+    "regles": {
+      "principe": "Lire de gauche à droite. À chaque position, la première règle de la liste qui s'applique gagne. Les conditions se lisent sur le prénom latin (après comparaison), pas sur le résultat.",
+      "classes": {
+        "V": "a e i o u y é",
+        "C": "toute autre lettre",
+        "C2": "consonne autre que n et m",
+        "EI": "e i y é",
+        "debut": "début du mot (un h initial ne compte pas)",
+        "fin": "fin du mot"
+      },
+      "normalisation": "à â → a ; î ï → i ; ô ö → o ; û ü → u ; è ê ë → é ; ç reste ç",
+      "table": [
+        { "de": "les", "vers": "ль", "si": "fin" },
+        { "de": "lle", "vers": "ль", "si": "fin" },
+        { "de": "le", "vers": "ль", "si": "fin" },
+        { "de": "ier", "vers": "ье", "si": "fin" },
+        { "de": "aux", "vers": "о", "si": "fin" },
+        { "de": "es", "vers": "", "si": "fin, après C" },
+        { "de": "s", "vers": "", "si": "fin, après V, n ou r" },
+        { "de": "t", "vers": "", "si": "fin, après V, n ou r" },
+        { "de": "d", "vers": "", "si": "fin, après V, n ou r" },
+        { "de": "z", "vers": "", "si": "fin, après V" },
+        { "de": "ie", "vers": "и", "si": "fin" },
+        { "de": "e", "vers": "", "si": "fin" },
+        { "de": "eau", "vers": "о" },
+        { "de": "ieu", "vers": "ьё", "si": "après C" },
+        { "de": "ien", "vers": "ьен", "si": "fin, après C" },
+        { "de": "ill", "vers": "й", "si": "après V" },
+        { "de": "ill", "vers": "ий" },
+        { "de": "ain", "vers": "ен", "si": "suivi de C2 ou fin" },
+        { "de": "ein", "vers": "ен", "si": "suivi de C2 ou fin" },
+        { "de": "chr", "vers": "кр" },
+        { "de": "au", "vers": "о" },
+        { "de": "ou", "vers": "у" },
+        { "de": "oi", "vers": "уа" },
+        { "de": "eu", "vers": "ё" },
+        { "de": "ai", "vers": "е" },
+        { "de": "ei", "vers": "е" },
+        { "de": "an", "vers": "ан", "si": "suivi de C2 ou fin" },
+        { "de": "am", "vers": "ам", "si": "suivi de C2 ou fin" },
+        { "de": "en", "vers": "ан", "si": "suivi de C2 ou fin" },
+        { "de": "em", "vers": "ан", "si": "suivi de C2 ou fin" },
+        { "de": "in", "vers": "ен", "si": "suivi de C2 ou fin" },
+        { "de": "im", "vers": "ен", "si": "suivi de C2 ou fin" },
+        { "de": "un", "vers": "ен", "si": "suivi de C2 ou fin" },
+        { "de": "on", "vers": "он", "si": "suivi de C2 ou fin" },
+        { "de": "ch", "vers": "ш" },
+        { "de": "ph", "vers": "ф" },
+        { "de": "th", "vers": "т" },
+        { "de": "qu", "vers": "к" },
+        { "de": "gu", "vers": "г", "si": "suivi de EI" },
+        { "de": "gn", "vers": "нь" },
+        { "de": "ck", "vers": "к" },
+        { "de": "ll", "vers": "ль" },
+        { "de": "ss", "vers": "с" },
+        { "de": "rr", "vers": "р" },
+        { "de": "tt", "vers": "т" },
+        { "de": "ia", "vers": "ья", "si": "après C" },
+        { "de": "ie", "vers": "ье", "si": "après C" },
+        { "de": "ié", "vers": "ье", "si": "après C" },
+        { "de": "io", "vers": "ьо", "si": "après C" },
+        { "de": "c", "vers": "с", "si": "suivi de EI" },
+        { "de": "c", "vers": "к" },
+        { "de": "ç", "vers": "с" },
+        { "de": "g", "vers": "ж", "si": "suivi de EI" },
+        { "de": "g", "vers": "г" },
+        { "de": "s", "vers": "з", "si": "entre deux V" },
+        { "de": "s", "vers": "с" },
+        { "de": "x", "vers": "кс" },
+        { "de": "j", "vers": "ж" },
+        { "de": "h", "vers": "" },
+        { "de": "w", "vers": "в" },
+        { "de": "y", "vers": "й", "si": "entre deux V" },
+        { "de": "y", "vers": "и" },
+        { "de": "é", "vers": "э", "si": "debut ou après V" },
+        { "de": "é", "vers": "е" },
+        { "de": "e", "vers": "э", "si": "debut" },
+        { "de": "e", "vers": "е" },
+        { "de": "u", "vers": "ю" },
+        { "de": "l", "vers": "ль", "si": "suivi de C ou fin" },
+        { "de": "l", "vers": "л" },
+        { "de": "a", "vers": "а" }, { "de": "b", "vers": "б" }, { "de": "d", "vers": "д" },
+        { "de": "f", "vers": "ф" }, { "de": "i", "vers": "и" }, { "de": "k", "vers": "к" },
+        { "de": "m", "vers": "м" }, { "de": "n", "vers": "н" }, { "de": "o", "vers": "о" },
+        { "de": "p", "vers": "п" }, { "de": "r", "vers": "р" }, { "de": "t", "vers": "т" },
+        { "de": "v", "vers": "в" }, { "de": "z", "vers": "з" }
+      ],
+      "inconnu": "Lettre absente de la table (ñ, ø, ß…) : garder tout le prénom en lettres latines.",
+      "cas_tests": {
+        "Max": "Макс", "Maxime": "Максим", "Thomas": "Тома", "Laurent": "Лоран", "Vincent": "Венсан",
+        "Céline": "Селин", "Pauline": "Полин", "Isabelle": "Изабель", "Charles": "Шарль", "Robert": "Робер",
+        "Benoît": "Бенуа", "Julien": "Жюльен", "Sébastien": "Себастьен", "Hélène": "Элен", "Romain": "Ромен",
+        "Arthur": "Артюр", "Lucie": "Люси", "Mathieu": "Матьё", "François": "Франсуа", "Philippe": "Филипп",
+        "Jean-Pierre": "Жан-Пьер", "Éric": "Эрик", "Claire": "Клер", "Antoine": "Антуан", "Margaux": "Марго"
+      }
+    }
+  }
+}

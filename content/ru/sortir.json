@@ -201,6 +201,7 @@
       "translit": "izviní, ni magoú",
       "registre": "tu",
       "variantes": null,
+      "variantes_fr": { "m": "Désolé, je ne peux pas.", "f": "Désolée, je ne peux pas." },
       "astuce": "Извини́ (excuse-moi), même forme pour lui et elle. À un inconnu : Извини́те.",
       "moule": null,
       "ordre_libre": true

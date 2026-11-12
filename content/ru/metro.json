@@ -78,6 +78,7 @@
       "translit": "ia zabloudílsia",
       "registre": "neutre",
       "variantes": { "m": "Я заблудился.", "f": "Я заблудилась." },
+      "variantes_fr": { "m": "Je suis perdu.", "f": "Je suis perdue." },
       "astuce": "Une femme dit Я заблуди́лась (zabloudílas).",
       "moule": null
     },

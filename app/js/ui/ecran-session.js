@@ -10,7 +10,8 @@ import { t } from "../textes.js";
 import { INTERFACE, AUDIO } from "../config.js";
 import { creerSession, minutesReelles } from "../moteur.js";
 import { creerHorloge } from "../horloge.js";
-import { autreVariante, variante, ponctuationFinale, normaliser, texteElement } from "../contenu.js";
+import { ponctuationFinale, normaliser, texteElement, aLire } from "../contenu.js";
+import { reglageManquant } from "../personnage.js";
 import * as audio from "../audio.js";
 
 const attendre = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -21,6 +22,8 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
   const session = creerSession({
     contenu: ctx.contenu, fiches: ctx.stockage.fiches, mode, duree, jour: ctx.jour(), themes,
     genre: genreReglage() || "m",
+    persoVus: ctx.personnage().vus,
+    persoVu: ctx.persoVu,
     ecrire: (fiche) => ctx.stockage.ecrireFiche(fiche)
   });
   const horloge = creerHorloge();
@@ -63,7 +66,7 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
   function rateBoutons() { return reglages().vitesseVoix === "lente" ? AUDIO.rateLente : AUDIO.rateNormale; }
   function lire(texteCible, rate) {
     if (!sonore()) return Promise.resolve("refuse");
-    derniereLecture = audio.parler(texteCible, { langue: "cible", rate: rate || rateBoutons() });
+    derniereLecture = audio.parler(aLire(texteCible), { langue: "cible", rate: rate || rateBoutons() });
     return derniereLecture;
   }
   const desabonner = audio.surLecture((enCours) => {
@@ -201,29 +204,31 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     const fiche = ctx.stockage.fiches.get(el.id);
     const theme = ctx.contenu.situations.find((x) => x.id === el.situation);
     const decor = decorSituation(el.situation); // discret, en haut à droite, jamais derrière un texte
+    // Genre jamais réglé et phrase qui en dépend (russe ou français) : on montre les deux formes et on pose la question (ecrans-phase0.md, 2.5).
+    const deuxFormes = !genre && !!texte.autre;
+    const autreRu = texte.autre && texte.autre.cible !== texte.cible;
     const carteEl = h("div", { class: "carte-phrase" + (sansDecor(el.situation) ? " sans-decor" : "") }, decor,
-      h("p", { class: "fr-dessus" }, texte.fr));
-    if (el.variantes && !genre) {
-      // Genre jamais réglé : on montre les deux formes et on pose la question (ecrans-phase0.md, 2.5).
-      const m = variante(el, "m"), f = variante(el, "f");
-      mettre(carteEl, h("p", { class: "ru-hero " + classeLongueur(m.cible) }, h("span", { class: "petit" }, t("carte.homme") + " "), h("span", { lang: "ru" }, motsRusses(m.accent))));
-      mettre(carteEl, h("p", { class: "ru-hero " + classeLongueur(f.cible) }, h("span", { class: "petit" }, t("carte.femme") + " "), h("span", { lang: "ru" }, motsRusses(f.accent))));
+      h("p", { class: "fr-dessus" }, deuxFormes && texte.autre.fr !== texte.fr ? texte.fr + " / " + texte.autre.fr : texte.fr));
+    if (deuxFormes && autreRu) {
+      mettre(carteEl, h("p", { class: "ru-hero " + classeLongueur(texte.cible) }, h("span", { class: "petit" }, t("carte.homme") + " "), h("span", { lang: "ru" }, motsRusses(texte.accent))));
+      mettre(carteEl, h("p", { class: "ru-hero " + classeLongueur(texte.autre.cible) }, h("span", { class: "petit" }, t("carte.femme") + " "), h("span", { lang: "ru" }, motsRusses(texte.autre.accent))));
     } else {
       mettre(carteEl, h("p", { class: "ru-hero " + classeLongueur(texte.cible), lang: "ru" }, motsRusses(texte.accent)));
       mettre(carteEl, ligneTranslit(texte.translit, el.registre));
-      if (el.variantes) {
-        const autre = autreVariante(el, genre);
-        if (autre) mettre(carteEl, h("p", { class: "petit" }, t(genre === "f" ? "carte.auMasculin" : "carte.auFeminin", { forme: "" }), h("span", { lang: "ru" }, autre.accent)));
+      if (genre && autreRu) {
+        mettre(carteEl, h("p", { class: "petit" }, t(genre === "f" ? "carte.auMasculin" : "carte.auFeminin", { forme: "" }), h("span", { lang: "ru" }, texte.autre.accent)));
       }
     }
-    if (el.variantes && !genre) mettre(carteEl, badgeRegistre(el.registre)); // sinon, le registre est sur la ligne de la translittération
+    if (el.sansPrenom) mettre(carteEl, h("p", { class: "petit" }, t("perso.prenomIci")));
+    if (el.avecPrenom) mettre(carteEl, h("span", { class: "registre" }, t("perso.avecPrenom")));
+    if (deuxFormes && autreRu) mettre(carteEl, badgeRegistre(el.registre)); // sinon, le registre est sur la ligne de la translittération
     mettre(carteEl, blocAstuce(el.astuce));
-    if (el.variantes && !genre) {
+    if (deuxFormes) {
       const choisir = (g) => {
         ctx.majReglage("genre", g);
         session.definirGenre(g);
         // La phrase affiche maintenant la forme choisie.
-        carte.texte = Object.assign({}, carte.texte, variante(el, g));
+        carte.texte = texteElement(el, { genre: g, remplacement: carte.remplacement || 0 });
         afficherCarte(carte, true);
       };
       mettre(carteEl, h("div", { class: "encart-genre" },
@@ -231,6 +236,16 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
         h("div", { class: "paire" },
           h("button", { type: "button", class: "btn-secondaire", onclick: () => choisir("m") }, t("genre.m")),
           h("button", { type: "button", class: "btn-secondaire", onclick: () => choisir("f") }, t("genre.f")))));
+    }
+    // Phrase qui parle de moi et rien n'est réglé : une invitation discrète, 2 refus et elle disparaît (Réglages reste).
+    const manquant = reglageManquant(el, ctx.contenu.donnees, ctx.personnage());
+    if (manquant && (reglages().persoPlusTard || 0) < 2) {
+      const encart = h("div", { class: "encart-genre" },
+        h("p", null, t("perso.encart")),
+        h("div", { class: "paire" },
+          h("button", { type: "button", class: "btn-secondaire", onclick: () => demanderArret("personnage") }, t("perso.ajouter." + manquant)),
+          h("button", { type: "button", class: "btn-lien", onclick: () => { ctx.majReglage("persoPlusTard", (reglages().persoPlusTard || 0) + 1); encart.remove(); } }, t("perso.plusTard"))));
+      mettre(carteEl, encart);
     }
     if (sonore()) {
       const bouton = (cle, rate, extra) => h("button", Object.assign({ type: "button", class: "btn-ecouter", "data-ecouter": "", "data-repos": t(cle), onclick: () => lire(texte.cible, rate) }, extra),
