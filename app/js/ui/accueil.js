@@ -11,7 +11,7 @@ import { poupee } from "./matriochka.js";
 import { decorAccueil } from "../ambiance.js";
 import { t, texteDuree } from "../textes.js";
 import { INTERFACE } from "../config.js";
-import { dureePourLieu, basculerTheme, dernierChoix, themesValides } from "../parcours.js";
+import { dureePourLieu, basculerTheme, dernierChoix, themesValides, universInclus } from "../parcours.js";
 
 const ICONES_LIEU = { silence: "muet", ecouteurs: "casque", parler: "bulle", voiture: "voiture" };
 // Ordre des cartes de l'étape 1 : En voiture, Sans son / Écouteurs, Je peux parler.
@@ -143,7 +143,7 @@ export function afficherAccueil(racine, ctx, options) {
       return [input, h("label", { class: "choix tuile-theme", for: id }, h("span", { class: "case" }, icone("coche")), h("span", null, s.titre))];
     }));
     // Le seul choix des univers (R8) : actif par défaut, enregistré tout de suite, modifiable aussi dans Réglages.
-    const univers = h("input", { class: "choix-input", type: "checkbox", id: "univers-inclus", checked: reglages().universInclus !== false,
+    const univers = h("input", { class: "choix-input", type: "checkbox", id: "univers-inclus", checked: universInclus(reglages()),
       onchange: () => ctx.majReglage("universInclus", univers.checked) });
     const tuileUnivers = [univers, h("label", { class: "choix tuile-hasard", for: "univers-inclus" },
       h("span", { class: "case" }, icone("coche")),

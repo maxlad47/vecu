@@ -12,6 +12,7 @@ import { resumeThemes } from "./accueil.js";
 import { t, texteDuree } from "../textes.js";
 import { aLire } from "../contenu.js";
 import { REGLES } from "../config.js";
+import { universInclus } from "../parcours.js";
 import { creerSession, minutesReelles } from "../moteur.js";
 import { creerHorloge } from "../horloge.js";
 import * as audio from "../audio.js";
@@ -69,7 +70,7 @@ export function afficherVoitureRoute(racine, ctx, { duree, themes }) {
   audio.definirModeAudio("voiture");
   const reglages = ctx.reglages();
   const session = creerSession({
-    contenu: ctx.contenu, fiches: ctx.stockage.fiches, mode: "voiture", duree, jour: ctx.jour(), themes, univers: reglages.universInclus !== false,
+    contenu: ctx.contenu, fiches: ctx.stockage.fiches, mode: "voiture", duree, jour: ctx.jour(), themes, univers: universInclus(reglages),
     genre: reglages.genre || "m",
     persoVus: ctx.personnage().vus,
     persoVu: ctx.persoVu,

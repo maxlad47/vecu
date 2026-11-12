@@ -12,6 +12,7 @@ import { creerSession, minutesReelles } from "../moteur.js";
 import { creerHorloge } from "../horloge.js";
 import { ponctuationFinale, normaliser, texteElement, aLire } from "../contenu.js";
 import { reglageManquant } from "../personnage.js";
+import { universInclus } from "../parcours.js";
 import { dialoguesProposables } from "../dialogues.js";
 import { carteDialogue } from "./carte-dialogue.js";
 import * as audio from "../audio.js";
@@ -22,7 +23,7 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
   const reglages = () => ctx.reglages();
   const genreReglage = () => reglages().genre; // undefined tant que jamais réglé
   const session = creerSession({
-    contenu: ctx.contenu, fiches: ctx.stockage.fiches, mode, duree, jour: ctx.jour(), themes, univers: reglages().universInclus !== false,
+    contenu: ctx.contenu, fiches: ctx.stockage.fiches, mode, duree, jour: ctx.jour(), themes, univers: universInclus(reglages()),
     genre: genreReglage() || "m",
     persoVus: ctx.personnage().vus,
     persoVu: ctx.persoVu,

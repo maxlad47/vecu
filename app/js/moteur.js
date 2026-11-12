@@ -106,14 +106,13 @@ export function creerSession(p) {
   const cleDe = (e) => e.moule.remplacements[0].cle;
   const persoAVoir = elements.filter((e) => e.moule && e.moule.personnel && !persoVus[cleDe(e)] && fiche(e.id).boite >= 1).map((e) => e.id);
   const nouveauxPossibles = elements.filter((e) => !e.univers && fiche(e.id).boite === 0).map((e) => e.id);
-  // Univers : un élément jamais vu entre quand assez d'éléments de situations ont été introduits (R1), dans l'ordre
-  // des seuils, puis de l'univers, puis du moule (R4). « Introduits » compte aussi ceux de la session en cours.
-  const universNouveaux = elementsUnivers.filter((e) => fiche(e.id).boite === 0)
+  // Univers : un élément jamais vu entre dans la file des nouveaux quand assez d'éléments de situations ont été
+  // introduits avant la session (R1), dans l'ordre des seuils, puis de l'univers, puis du moule (R4).
+  const situationsIntroduites = elementsSituations.filter((e) => fiche(e.id).boite >= 1).length;
+  const universNouveaux = elementsUnivers.filter((e) => fiche(e.id).boite === 0 && e.seuil <= situationsIntroduites)
     .sort((a, b) => (a.seuil - b.seuil) || (a.rangSituation - b.rangSituation) || (a.rangPhrase - b.rangPhrase));
-  const situationsIntroduites = () => elementsSituations.filter((e) => fiche(e.id).boite >= 1).length;
   const limiteUnivers = UNIVERS.parSession[duree] || 0;
-  const universEligibles = (n) => universNouveaux.filter((e) => e.seuil <= n);
-  const universPossibles = Math.min(limiteUnivers, universEligibles(situationsIntroduites()).length);
+  const universPossibles = Math.min(limiteUnivers, universNouveaux.length);
   // Le démarrage prudent des sessions de 2 min compte les phrases vues partout, pas seulement dans les thèmes.
   const nbVus = tousElements.filter((e) => fiche(e.id).boite >= 1).length;
 
@@ -291,7 +290,7 @@ export function creerSession(p) {
     if (a) return { regle: "A", id: a.id, rdv: a, type: resoudreType(a.type, el(a.id)) };
 
     // B. Nouvel élément : un univers d'abord s'il est éligible et sous la limite de la session (R2, R3), sinon la situation suivante
-    const univers = etat.introduitsUnivers < limiteUnivers ? universEligibles(situationsIntroduites()).find((e) => !etat.universVus.has(e.id)) : null;
+    const univers = etat.introduitsUnivers < limiteUnivers ? universNouveaux.find((e) => !etat.universVus.has(e.id)) : null;
     const prochain = univers ? univers.id : nouveauxPossibles[etat.introduitsSituations];
     const resteNouveau = prochain !== undefined;
     const quota = etat.introduits < N;

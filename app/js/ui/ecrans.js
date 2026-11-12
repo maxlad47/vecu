@@ -9,6 +9,7 @@ import { texteElement } from "../contenu.js";
 import { poupeePerso } from "./poupee-perso.js";
 import { nomMetier } from "./ecran-personnage.js";
 import { rappelSauvegardeDu, resumeUsage } from "../sauvegarde.js";
+import { universInclus } from "../parcours.js";
 
 // « Tu sais dire N phrases » (écran de fin et Mes progrès).
 function phrasesSues(n) { return n === 0 ? t("progres.cle0") : n === 1 ? t("progres.cle1") : t("progres.cle", { n }); }
@@ -109,8 +110,8 @@ export function afficherProgres(racine, ctx) {
     };
     // Les univers de vocabulaire ont leur rangée comme les situations (mêmes poupées, mêmes boîtes) :
     // affichés s'ils sont inclus, ou déjà commencés.
-    const universInclus = ctx.reglages().universInclus !== false;
-    const univers = (ctx.contenu.univers || []).filter((u) => universInclus || u.ids.some((id) => etatDe(fiches.get(id)) !== "pas_vue"));
+    const avecUnivers = universInclus(ctx.reglages());
+    const univers = (ctx.contenu.univers || []).filter((u) => avecUnivers || u.ids.some((id) => etatDe(fiches.get(id)) !== "pas_vue"));
     contenu.appendChild(h("div", null, ctx.contenu.situations.concat(univers).map(ligne)));
   }
   racine.appendChild(h("div", { class: "ecran ecran-progres" }, tete.element, contenu, boutonRetour(ctx)));
@@ -132,7 +133,7 @@ export function afficherReglages(racine, ctx) {
     h("span", { class: "libelle" }, t("reglages.translit")), h("span", { class: "piste", "aria-hidden": "true" }));
 
   // Les univers de vocabulaire (même réglage que le choix de l'étape « Sur quoi ? »).
-  const universActif = h("button", { type: "button", role: "switch", class: "interrupteur", "aria-checked": String(r.universInclus !== false),
+  const universActif = h("button", { type: "button", role: "switch", class: "interrupteur", "aria-checked": String(universInclus(r)),
     "aria-describedby": "aide-univers",
     onclick: () => {
       const actif = universActif.getAttribute("aria-checked") !== "true";
