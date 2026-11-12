@@ -300,3 +300,114 @@ Référence de la planche : iPhone 15/16, **393 × 852 px**, coins de 55 px, Dyn
 - Lignes du carnet : « Écouter » et « Montrer » ne rétrécissent jamais et gardent au moins 14 px d'écart avec le mot d'état.
 - Écran 2 : la mention « Prérempli pour Écouteurs » est limitée à 112 px de large (deux lignes), et « Une pause » ne se coupe jamais.
 - Planche : 2 rangées de 4, centrée, écart de 90 px entre les écrans, en largeur comme en hauteur.
+
+---
+
+## 13. Écrans de session adaptatifs (mission 006, 12/11)
+
+Remplace, pour les écrans de session, §8 (contexte, pastilles) et le plancher 59 / 34 px de §12. Décisions de Max : voir `docs/missions/006-ecrans-adaptatifs/brief.md`. Règle d'or : **la page ne défile jamais, la barre d'action est toujours visible, seul le contenu peut défiler.**
+
+### 13.1 Gabarit en 3 zones
+
+`.ecran` de session : `height: 100dvh; overflow: hidden; display: flex; flex-direction: column`. Plus de `min-height: 100vh`.
+
+| Zone | Classe | Hauteur | Comportement |
+|---|---|---|---|
+| A. En-tête | `.entete` | **48 px** + `--haut` | `flex: none`. Une seule ligne. |
+| B. Contenu | `main.contenu` | le reste | `flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain`. Voile de 16 px en bas (dégradé `--bg`) quand ça défile. |
+| C. Barre d'action | `.zone-action` | selon l'exercice, **max 45 dvh** | `flex: none` (plus de `sticky`). Fond `--bg`, filet `--border-subtle` en haut. Padding : 8 px haut, `calc(var(--bas) + var(--reserve-netlify))` bas. |
+
+Variables (`:root`) :
+```css
+--haut: max(env(safe-area-inset-top, 0px), 6px);   /* plus de plancher 59 px, plus de bloc standalone */
+--bas:  max(env(safe-area-inset-bottom, 0px), 10px);
+--marge: max(clamp(16px, 5vw, 20px), env(safe-area-inset-left), env(safe-area-inset-right));
+--reserve-netlify: 40px; /* bandeau « Powered by Netlify » ; passer à 0px quand Max l'a désactivé */
+```
+
+**Zone A, une ligne** (de gauche à droite) : `Menu` (pilule 44 px, icône + mot) · barre de temps (6 px, `flex: 1`, mini 56 px) · `3 min` (15 px, `--text-muted`, `nowrap`) · Son (icône haut-parleur barré seule, 44 × 44, `aria-label` « Couper le son », absent en Silence ou si le son est coupé) · Quitter (icône croix seule, 44 × 44, `aria-label` « Quitter »). Texte visible du temps : « 3 min » ; moins d'une minute : « < 1 min » ; version lue : « Encore 3 min » (`sr-only`). Supprimés de la session : pastilles mode, durée, thèmes (`.contexte`), libellés « Quitter » et « Couper le son ».
+
+**Zone B et C par exercice** (le reste de la phrase au §8 ne change pas) :
+
+| Écran | Zone B (contenu) | Zone C (barre) |
+|---|---|---|
+| Découverte | Consigne ; carte de phrase : français, russe, ligne « translittération + on vouvoie (petit) », astuce 1 à 2 lignes, [Écouter][Lentement] (44 px, si son), état (poupée + mot) ; « Même phrase, autre mot » sur une ligne ; rangée de poupées du thème + « Au café · 3 acquises sur 9 » ; (si genre non réglé : question Homme / Femme dans la carte) | « Suivant » (laque) |
+| Sens | Consigne ; russe, ligne translittération + registre, [Écouter] | 3 réponses en français |
+| Thème | Consigne ; français + registre | 3 réponses en russe (+ translittération) |
+| Moule (sens, thème) | Comme Sens ou Thème, avec le modèle « Я люблю ___ (J'aime ___) » en petit au-dessus | 3 réponses |
+| Ordre | Consigne ; français + registre ; zone réponse ; réserve de tuiles ; message « incomplet » | « Vérifier » |
+| Écoute | Consigne ; rond « Réécouter » | 3 réponses en français |
+| À voix haute | Consigne ; français + registre ; après « Voir » : russe, translittération, astuce, [Écouter] | Avant : « Voir la phrase ». Après : « Tu l'avais ? » (petit, 1 ligne) + [Pas encore][Je l'avais] |
+| Retour après réponse | inchangé (la liste reste visible, réponses figées) | Le panneau **remplace** les réponses : verdict, bonne réponse, astuce, puis « Suivant ». Les infos défilent dans `max-height: 38dvh` ; **« Suivant » est fixe en bas du panneau**, hors de la zone qui défile. |
+| Fin de session | Titre, « Tu sais dire N phrases », durée réelle, rangée de poupées (13.4), liste des phrases | Bouton existant de la fin (inchangé) |
+
+La fin de session garde un en-tête d'une ligne avec « Menu » seul (pas de barre, de son ni de Quitter). Voiture et « Avant le départ » ne changent pas.
+
+### 13.2 Règles fluides
+
+Tout en `clamp(min, fluide, max)`, la fluide prenant le plus petit de la largeur et de la hauteur : `min(x vw, y dvh)`. Planchers : 15 px pour tout texte, 18 px pour le russe.
+
+| Jeton | Valeur | 360 × 640 | 393 × 852 |
+|---|---|---|---|
+| `--fs-ru-hero` | `clamp(1.375rem, min(7.2vw, 3.6dvh), 1.875rem)` | 23 px | 28 px |
+| `--fs-ru-hero-long` | `clamp(1.25rem, min(6.2vw, 3.1dvh), 1.625rem)` | 20 px | 24 px |
+| `--fs-ru-hero-xlong` | `clamp(1.125rem, min(5.4vw, 2.7dvh), 1.375rem)` | 18 px | 21 px |
+| `--fs-fr-hero` | `clamp(1.25rem, min(6vw, 3dvh), 1.5rem)` | 20 px | 24 px |
+| français de la carte (`.fr-dessus`) | `clamp(1.125rem, min(5.4vw, 2.8dvh), 1.375rem)` | 18 px | 22 px |
+| `--fs-ru-option` | `clamp(1.125rem, min(5.2vw, 2.7dvh), 1.375rem)` | 18 px | 21 px |
+| `--fs-option` (français) | `clamp(1rem, min(4.8vw, 2.5dvh), 1.125rem)` | 16 px | 18 px |
+| translittération | `clamp(0.9375rem, 2.2dvh, 1rem)` | 15 px | 16 px |
+| `--fs-button` | `clamp(1rem, 2.6dvh, 1.125rem)` | 16,6 px | 18 px |
+| `--h-bouton` (Suivant, Vérifier, Voir) | `clamp(52px, 8dvh, 60px)` | 52 px | 60 px |
+| `--h-option` | `clamp(52px, 7.6dvh, 64px)` | 52 px | 64 px |
+| `--h-option-ru` (avec translittération) | `clamp(56px, 9dvh, 72px)` | 58 px | 72 px |
+| `--e` (petit espace) | `clamp(6px, 1.2dvh, 12px)` | 7,7 px | 10 px |
+| `--e-grand` | `clamp(10px, 2.2dvh, 20px)` | 14 px | 19 px |
+| Rond « Réécouter » | `clamp(64px, 12dvh, 96px)` (icône 40 %) | 77 px | 96 px |
+| Tuile d'Ordre, zone réponse | tuile `min-height: 44px` ; zone `clamp(48px, 7dvh, 64px)` | 48 px | 60 px |
+
+Remplacent `--fs-*` et `--space-*` dans les écrans de session seulement. Les cibles ne descendent **jamais sous 44 px** (réponses sous 52 px : interdit).
+
+**`@media (max-height: 700px)`** : carte `padding: 12px`, `gap: var(--e)` ; état : sous-texte masqué, poupée 40 → 28 px ; décor de carte 78 → 48 px ; consigne de la Découverte en `sr-only` ; « Tu la reverras » masqué dans le panneau de retour ; padding haut de la barre 6 px.
+
+**`@media (max-height: 600px)`** : décor de carte masqué ; rangée de poupées du thème à 22 px de haut, **le texte « 3 acquises sur 9 » reste** ; astuce en 14 px de padding réduit (jamais coupée) ; rond « Réécouter » 64 px ; `--reserve-netlify` inchangé.
+
+**Ordre de repli quand la place manque** (le premier de la liste est réduit en premier) :
+1. espacements et marges (`clamp`) ;
+2. sous-texte de l'état, poupée d'état à 28 px ;
+3. décor de la carte (48 px, puis masqué à ≤ 600 px) ;
+4. consigne de la Découverte (reste lue à voix par `sr-only`) ;
+5. poupées du thème réduites ;
+6. « Même phrase, autre mot » : l'étiquette passe sur la même ligne que les puces, qui défilent à l'horizontale (`overflow-x: auto`, `scroll-snap`, puces 44 px, voile à droite) ;
+7. en dernier : la zone B défile (voile en bas). **Jamais** la zone C, **jamais** la page, **jamais** de texte coupé par « … ».
+
+Ne se réduit jamais : phrase russe et accent tonique, bouton d'action, cibles 44 px, translittération si le réglage est actif, mot d'état.
+
+### 13.3 Les 4 tailles cibles : barre visible sans défiler
+
+Calcul sur le pire cas (3 réponses). Barre = 8 + 3 × option + 2 × 8 + `--bas` + 40 (Netlify). Contenu = hauteur − `--haut` − 48 − barre. Le Suivant seul est plus bas (barre d'environ 120 px) : si le pire cas passe, il passe.
+
+| Cible | Option | `--haut` / `--bas` (app installée) | Barre | Hauteur de contenu | Barre visible ? |
+|---|---|---|---|---|---|
+| iPhone SE 375 × 667 | 52 | 20 / 10 | 230 | 369 px | Oui |
+| iPhone 15 393 × 852 | 64 | 59 / 34 | 290 | 455 px | Oui |
+| iPhone 15 Pro Max 430 × 932 | 64 | 59 / 34 | 290 | 535 px | Oui |
+| Android 360 × 640 | 52 | 6 / 10 | 230 | 356 px | Oui |
+
+Même chose dans Safari et Chrome, où la barre du navigateur retire de la hauteur (SE environ 553 px, Android environ 560 px) : contenu d'environ 270 px, la barre reste visible, le contenu défile si besoin. `100dvh` (pas `100vh`) est obligatoire.
+
+**Vérification (Boris), sur chaque taille, chaque type d'exercice, mode clair et sombre, avec et sans translittération, phrase russe la plus longue du contenu** : `document.scrollingElement.scrollHeight <= innerHeight` ; `bas du bouton le plus bas <= innerHeight - reserve-netlify` ; aucune cible < 44 px ; le panneau d'erreur (le plus haut) laisse « Suivant » visible ; aucun bandeau vide en haut (le haut de l'en-tête est à `--haut`, pas à 59 px).
+
+### 13.4 La matriochka qui se colorie
+
+Où : la rangée du thème (Découverte), le panneau de retour, la fin de session. La rangée est **une ligne** de poupées de 30 px (22 px à ≤ 600 px) avec 5 px d'écart, la poupée de la phrase en cours soulignée d'un trait cobalt de 3 px ; au-delà de la largeur, elle défile à l'horizontale.
+
+Quand : une réponse ou un « Je l'avais » fait changer l'état de la phrase (ex. Vue → En cours). Dans le panneau de retour, à droite de la ligne du verdict : poupée 28 px + mot du nouvel état (« En cours »), **sans hauteur ajoutée**. À la fin de session, les poupées des phrases qui ont progressé se colorient l'une après l'autre (120 ms de décalage, 6 maximum, les autres changent sans mouvement).
+
+Effet : l'ancienne poupée s'estompe sous la nouvelle (fondu croisé 350 ms, `ease-out`) pendant que la nouvelle fait un léger gonflement 1 → 1,12 → 1 (450 ms au total). Deux SVG superposés ; rien en boucle ; aucun son ; aucune vibration.
+
+Version sans animation (`prefers-reduced-motion: reduce`) : changement immédiat de la poupée, sans fondu ni gonflement. Le mot d'état change au même instant, et une annonce polie (`aria-live="polite"`) lit « Poupée : En cours ». L'information passe toujours par la forme et le mot, pas par la couleur seule.
+
+### 13.5 Accessibilité de la session
+
+Focus : anneau 3 px inchangé, jamais caché par la barre d'action (`scroll-padding-bottom` de la zone B égal à la hauteur de la barre). Le focus d'arrivée reste sur la consigne, puis sur le verdict après une réponse. Contrastes : aucune couleur nouvelle. Silence : Écouter et Réécouter absents du DOM si le son est interdit ; en Silence, la zone A n'a pas d'icône de son.
