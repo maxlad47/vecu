@@ -98,3 +98,5 @@ Format : date — décision — raison. Les plus récentes en haut.
 - **Prochaine mission** : prototype de la phase 0.
 
 - **12/11/2026, clôture de la mission 006 (écrans adaptatifs).** Boris : « Livrable avec réserves » (4 tailles, Silence, thème clair : page sans défilement, aucune cible < 44 px). Léa : 7/10, reviendrait demain. Marge `--reserve-netlify: 40px` supprimée (D19). Non testés : Ordre, À voix haute, Écoute, thème sombre, Safari iOS et app installée (à faire par Max sur iPhone). Reste à revoir : astuce sur 3 lignes à 360×640, taille du rond « Réécouter ». Prochaine mission proposée : audio (Voiture avec écran verrouillé sur iPhone).
+
+- **12/11/2026, idée de Max à garder pour la suite : des thèmes de vocabulaire à choisir.** En plus des situations de vie (café, métro…), l'utilisateur pourra choisir un thème à travailler : métiers, couleurs, moyens de transport, etc. Chaque thème reste en contexte, via des phrases-moules (règle 4 de `CLAUDE.md`), jamais en liste isolée. Il se choisit dans l'étape « thèmes » du parcours d'accueil. À reprendre après la V1 du personnage : les métiers en sont la première brique.
