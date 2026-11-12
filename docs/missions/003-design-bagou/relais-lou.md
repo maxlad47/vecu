@@ -4,6 +4,9 @@
 - `docs/design/bagou-ru.md` : palette Gjel et Khokhloma (clair et sombre, contrastes AA calculés), matriochka, parcours, menu, carnet, progrès, décors, format `ambiance.json`.
 - `docs/design/maquettes/bagou-ru.html` : planche de 8 écrans, thème clair, sans script.
 
+## Retouche iPhone du 12/11
+Écrans en 393 × 852 (Dynamic Island, barre d'état, zones de sécurité 59 px en haut et 34 px en bas, marges de 20 px), contenus recentrés, accent tonique (poids 500, mots insécables), « Une pause » et « Acquise » corrigés, planche centrée 2 × 4. Détail : `bagou-ru.md` §12. Pour Kostia : utiliser `env(safe-area-inset-*)` avec ces planchers.
+
 ## Décisions prises
 - Bouton principal en laque rouge, sélections en cobalt : le rouge reste rare (10 %).
 - Or clair (2,3:1) réservé au décor ; texte or = `#7A5C00`.

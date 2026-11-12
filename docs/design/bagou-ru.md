@@ -78,7 +78,7 @@ Inchangée (pile système, échelle de phase 0, règles du cyrillique et de l'ac
 
 | Élément | Règle |
 |---|---|
-| Phrase russe | `--accent` (cobalt), 600, tailles `--fs-ru-hero*`. **L'accent tonique n'est pas coloré** (le croquis le colorait en rouge : abandonné, un diacritique combinant coloré casse le rendu). |
+| Phrase russe | `--accent` (cobalt), **500** (retouche iPhone : jamais plus de 500 sur du cyrillique accentué, le diacritique se décolle en gras), tailles `--fs-ru-hero*`. **L'accent tonique n'est pas coloré** (le croquis le colorait en rouge : abandonné, un diacritique combinant coloré casse le rendu). |
 | Questions d'accueil (« Je suis où ? ») | 28 px, 800, `--text`. Un seul niveau de titre par écran. |
 | Mot-symbole « Bagou » | 22 px, 800, `--accent`, police système, précédé d'une mini matriochka acquise de 24 px. Slogan « Bagou, ose parler » en 15 px, `--text-muted`, sous l'en-tête de l'accueil seulement. |
 
@@ -281,3 +281,22 @@ Règles de lecture :
 - Mouvement : emboîtement des poupées, ouverture du menu et arrivée des écrans suivent le tableau §5 de `systeme-visuel.md` ; avec « réduire les animations » : apparition directe, aucune transformation.
 - Silence : « Avant le départ », le carnet et la planche de progrès ne jouent aucun son à l'ouverture ; seul un toucher volontaire sur « Écouter » en joue un, et jamais après « Couper le son ».
 - Texte : plancher 15 px, tailles en `rem`, russe en `lang="ru"`.
+
+---
+
+## 12. Format iPhone, zones de sécurité et marges (retouche du 12/11)
+
+Référence de la planche : iPhone 15/16, **393 × 852 px**, coins de 55 px, Dynamic Island (pilule noire 126 × 37 px, à 11 px du haut, centrée).
+
+| Zone | Valeur | Règle |
+|---|---|---|
+| Haut | 59 px | Barre d'état (heure à gauche, réseau, Wi-Fi et batterie à droite) et Dynamic Island. **Aucun contenu, aucun bouton.** Seul un décor sans information peut passer dessous. |
+| Bas | 34 px | Barre d'accueil (trait de 134 × 5 px). **Aucun contenu, aucun bouton.** En CSS : `padding-bottom: max(34px, env(safe-area-inset-bottom))`, `padding-top: max(59px, env(safe-area-inset-top))`. |
+| Côtés | 20 px, égaux | Largeur utile 353 px. Titres, grilles, cartes et boutons s'alignent sur ces marges ; rien ne touche le bord (seuls les décors peuvent déborder, en `aria-hidden`). |
+
+- Les gros boutons du bas occupent toute la largeur utile (353 px) et se posent juste au-dessus de la zone des 34 px.
+- Hauteur utile : 852 − 59 − 34 = 759 px. Chaque écran de la planche y tient sans défilement, sauf le carnet et les progrès, qui défilent si la liste est plus longue.
+- Accent tonique : un mot russe = un bloc insécable (`display:inline-block; white-space:nowrap`), poids 500, `font-synthesis:none`, pour que l'accent ne se détache ni ne chevauche l'espace voisin.
+- Lignes du carnet : « Écouter » et « Montrer » ne rétrécissent jamais et gardent au moins 14 px d'écart avec le mot d'état.
+- Écran 2 : la mention « Prérempli pour Écouteurs » est limitée à 112 px de large (deux lignes), et « Une pause » ne se coupe jamais.
+- Planche : 2 rangées de 4, centrée, écart de 90 px entre les écrans, en largeur comme en hauteur.
