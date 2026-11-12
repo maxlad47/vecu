@@ -2,6 +2,14 @@
 
 Format : date — décision — raison. Les plus récentes en haut.
 
+## 12/11/2026
+- **D13 : réorganisation de l'équipe.** Raison : la mission 1 a atteint la limite d'utilisation de Max en cours de route, et certains agents relisaient ou refaisaient du travail déjà fait.
+  - **Modèles par agent** : Sacha et Nadia sur Opus (arbitrages et justesse du russe), Vera, Lou, Kostia et Boris sur Sonnet, Léa sur Haiku. Kostia peut passer sur Opus pour une tâche d'architecture ou un bug difficile, sur décision de Sacha.
+  - **Anti-doublon** : registre unique `docs/etat.md`, fiche de lecture par agent, relais écrit au format fixe, retouches plutôt que réécritures.
+  - **Rythme constant** : un cycle de mission identique à chaque fois, piloté par `/point`, `/mission` et `/cloture`, et un modèle de brief.
+  - **Feuille de route** : missions 002 à 007 de la phase 1 ajoutées à `pilotage.md`.
+  - **Un seul lieu de travail** : GitHub fait foi, on récupère avant et on envoie après chaque session.
+
 ## 11/11/2026
 - **Max valide une adresse de test sur Netlify** (projet `vecu-test`, offre gratuite, aucune dépense), pour faire tester sa mère, parce que le lien claude.ai ne marche pas pour elle. Ce n'est pas un lancement public : l'adresse est non référencée (`noindex` et `robots.txt`) et on ne la diffuse qu'à l'entourage. La relecture par un natif reste obligatoire avant tout lancement public. Max a installé Node. `scripts/build.mjs` tourne enfin et produit un `dist/` identique à `build.sh`, octet pour octet. Le `netlify.toml` (build avec `build.mjs`, publication de `dist/`, en-tête `X-Robots-Tag: noindex`) est en place et le déploiement a été fait par le CEO. Max a levé la connexion obligatoire à l'équipe Netlify. **https://vecu-test.netlify.app est en ligne et confirmé par Max.** Point noté pour le lancement : le compte gratuit fait injecter par Netlify un badge et un script (`/.netlify/scripts/hud`) dans la page. Ce n'est pas bloquant pour un test en famille, mais il faudra le traiter avant tout lancement public (réglage ou offre payante, à valider par Max).
 - **Retours de Max sur le prototype (Chrome, Mac)** : l’interface est jugée limpide, mais la voix française de la Voiture est mauvaise. Décisions du CEO :

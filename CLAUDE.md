@@ -76,9 +76,11 @@ app/                 le site
 
 ## Façon de travailler
 
-- Le backlog est tenu dans les Issues GitHub.
-- Tout contenu passe par `pedagogue`, puis `linguiste-russe` (ou le linguiste de la langue concernée).
-- Avant chaque livraison, `testeur-qa` vérifie, puis `utilisateur-temoin` donne son avis sur tout ce qui touche l'expérience.
+- **Le processus fait foi : `docs/processus.md`.** Il fixe les modèles par agent, le cycle d'une mission, le format de relais, la définition de « terminé » et les règles anti-doublon.
+- **`docs/etat.md` est le registre unique de ce qui existe.** Chacun le lit en premier. Ce qui est validé ne se refait pas. Seul Sacha le met à jour.
+- **Max pilote avec 3 commandes** : `/point`, `/mission <nom>` (ou `/mission reprise`) et `/cloture`.
+- Les missions prévues sont dans la feuille de route de `docs/pilotage.md`.
+- GitHub fait foi : on récupère la dernière version avant de travailler et on la renvoie à la fin.
 - Langue de travail : le français. Les commits sont petits, clairs et écrits en français.
 
 ## Format du contenu (v0)
