@@ -8,7 +8,7 @@ import {
 } from "./config.js";
 import { ficheVide, estDu, estAcquis, appliquerDecouverte, appliquerResultat, validerFiche } from "./leitner.js";
 import { texteElement } from "./contenu.js";
-import { optionsQcm, optionsMoule, tuilesOrdre, ordrePossible } from "./exercices.js";
+import { optionsQcm, optionsMoule, tuilesOrdre, ordrePossible, ecriturePossible } from "./exercices.js";
 
 const TYPES_DECOUVERTE = ["decouverte", "boucle-decouverte"];
 
@@ -162,18 +162,27 @@ export function creerSession(p) {
     return type;
   }
 
+  // Phrase bien installée : la carte de reconnaissance (Thème, Ordre) devient « Écrire » ; l'oral (Écoute, À voix haute) reste.
+  function ecrireOu(type, e) {
+    return ["theme", "ordre", "moule-theme"].includes(type) && ecriturePossible(e, fiche(e.id)) ? "ecrire" : type;
+  }
+
   // Carte de révision selon la boîte (4.2).
   function typeRevision(e) {
     if (mode === "voiture") return "boucle-rappel";
     const boite = Math.max(1, fiche(e.id).boite);
-    if (e.moule) return boite <= 2 ? "moule-sens" : "moule-theme";
-    return resoudreType(REVISION_PAR_BOITE[mode][Math.min(boite, 6) - 1], e);
+    if (e.moule) return boite <= 2 ? "moule-sens" : ecrireOu("moule-theme", e);
+    return resoudreType(ecrireOu(REVISION_PAR_BOITE[mode][Math.min(boite, 6) - 1], e), e);
   }
 
   // Carte de remplissage (4.3).
   function typeRemplissage(e) {
     if (mode === "voiture") return "boucle-rappel";
-    const dernier = etat.dernierType.get(e.id);
+    let dernier = etat.dernierType.get(e.id);
+    if (dernier === "ecrire") { // pas deux « Écrire » de suite sur la même phrase
+      if (e.moule) return "moule-sens";
+      dernier = "theme";
+    }
     if (e.moule) {
       if (dernier === "moule-sens") return "moule-theme";
       if (dernier === "moule-theme") return "moule-sens";

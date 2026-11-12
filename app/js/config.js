@@ -10,9 +10,9 @@ export const REGLES = {
   "seuilFinAnticipee": 0.8,
   "prolongationPasPlafond": 1,
   "estimations": {
-    "silence":   { "decouverte": 15, "decouverteMoule": 20, "sens": 8,  "theme": 10, "ordre": 15, "moule": 10 },
-    "ecouteurs": { "decouverte": 18, "decouverteMoule": 22, "sens": 10, "theme": 12, "ordre": 16, "ecoute": 10, "moule": 12 },
-    "parler":    { "decouverte": 20, "decouverteMoule": 24, "sens": 10, "theme": 12, "ordre": 16, "ecoute": 10, "voixHaute": 12, "moule": 12 },
+    "silence":   { "decouverte": 15, "decouverteMoule": 20, "sens": 8,  "theme": 10, "ordre": 15, "ecrire": 25, "moule": 10 },
+    "ecouteurs": { "decouverte": 18, "decouverteMoule": 22, "sens": 10, "theme": 12, "ordre": 16, "ecrire": 25, "ecoute": 10, "moule": 12 },
+    "parler":    { "decouverte": 20, "decouverteMoule": 24, "sens": 10, "theme": 12, "ordre": 16, "ecrire": 25, "ecoute": 10, "voixHaute": 12, "moule": 12 },
     "voiture":   { "boucleDecouverte": 18, "boucleRappel": 17, "annonceDebut": 4, "annonceFin": 4 }
   },
   "estRevision": { "silence": 11, "ecouteurs": 12, "parler": 12, "voiture": 17 },
@@ -72,6 +72,9 @@ export const ROTATION_REMPLISSAGE = {
 export const INTERVALLES = [null, 1, 2, 4, 7, 15, 30];
 export const BOITE_MAX = 6;
 export const BOITE_ACQUIS = 4;
+// Écrire la réponse : à partir de cette boîte (phrase bien installée). Sous ECRIRE_FAUTE_MIN lettres, aucune faute tolérée.
+export const BOITE_ECRIRE = 4;
+export const ECRIRE_FAUTE_MIN = 5;
 export const HISTORIQUE_MAX = 20;
 // Le « jour » commence à 4 h du matin (repetition-espacee.md, 1).
 export const DECALAGE_JOUR_HEURES = 4;

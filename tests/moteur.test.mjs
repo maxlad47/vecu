@@ -9,7 +9,7 @@ import { preparerContenu, texteElement, aLire, phrasesNouvelles } from "../app/j
 import { dialoguesProposables, echangeResolu, reponseRetenue } from "../app/js/dialogues.js";
 import { convertirPrenom, convertirParRegles, personnaliser, validerPersonnage, reglageManquant } from "../app/js/personnage.js";
 import { REGLES, AUDIO, DIALOGUE } from "../app/js/config.js";
-import { optionsMoule } from "../app/js/exercices.js";
+import { optionsMoule, comparerSaisie, versCyrillique } from "../app/js/exercices.js";
 import { creerSession, aleatoireGraine, minutesReelles } from "../app/js/moteur.js";
 import { controlerAmbiance, construireCss } from "../app/js/ambiance.js";
 import { dureePourLieu, themesValides, basculerTheme, dernierChoix } from "../app/js/parcours.js";
@@ -146,9 +146,9 @@ egal(suite.length, 28, "exemple 1 : 28 cartes");
 // en russe, 15 car./s en français) et des silences de la boucle.
 {
   const TABLE = {
-    silence:   { decouverte: 15, decouverteMoule: 20, sens: 8,  theme: 10, ordre: 15, "moule-sens": 10, "moule-theme": 10 },
-    ecouteurs: { decouverte: 18, decouverteMoule: 22, sens: 10, theme: 12, ordre: 16, ecoute: 10, "moule-sens": 12, "moule-theme": 12 },
-    parler:    { decouverte: 20, decouverteMoule: 24, sens: 10, theme: 12, ordre: 16, ecoute: 10, "voix-haute": 12, "moule-sens": 12, "moule-theme": 12 }
+    silence:   { decouverte: 15, decouverteMoule: 20, sens: 8,  theme: 10, ordre: 15, ecrire: 25, "moule-sens": 10, "moule-theme": 10 },
+    ecouteurs: { decouverte: 18, decouverteMoule: 22, sens: 10, theme: 12, ordre: 16, ecrire: 25, ecoute: 10, "moule-sens": 12, "moule-theme": 12 },
+    parler:    { decouverte: 20, decouverteMoule: 24, sens: 10, theme: 12, ordre: 16, ecrire: 25, ecoute: 10, "voix-haute": 12, "moule-sens": 12, "moule-theme": 12 }
   };
   const parole = (texte, cps, rate) => texte.length / (cps * rate);
   function dureeSimulee(mode, carte, facteur) {
@@ -756,3 +756,51 @@ import { construireSauvegarde, lireSauvegarde, ajouterSession, resumeUsage, rapp
 
 sortie(reussites + " vérifications réussies, " + echecs + " échec(s).");
 if (echecs > 0 && typeof process !== "undefined") process.exitCode = 1; // fait échouer `node --test`
+
+// ---------- Écrire la réponse ----------
+{
+  const texteCafe = { cible: "Счёт, пожалуйста.", accent: "Счёт, пожа́луйста.", autre: null };
+  egal(versCyrillique("kofe"), "кофе", "translit : e après consonne = е");
+  egal(versCyrillique("Eto"), "это", "translit : e en début de mot = э");
+  egal(versCyrillique("chtchot"), "щот", "translit : chtch = щ");
+  egal(versCyrillique("spasibo, gdie"), "спасибо, где", "translit : ponctuation gardée, ie = е");
+  egal(versCyrillique("Спа́сибо"), "спасибо", "cyrillique tapé : inchangé, accent tonique retiré");
+  egal(comparerSaisie("счет пожалуйста", texteCafe, false), "juste", "ignore ё/е et ponctuation");
+  egal(comparerSaisie("СЧЁТ, ПОЖА́ЛУЙСТА!", texteCafe, false), "juste", "ignore casse, accent tonique, ponctuation");
+  egal(comparerSaisie("spasiba", { cible: "Спасибо.", autre: null }, false), "faute", "translit : une lettre d'écart (о/а réduit)");
+  egal(comparerSaisie("spasibo", { cible: "Спасибо.", autre: null }, false), "juste", "translit exact");
+  egal(comparerSaisie("счет пожалуста", texteCafe, false), "faute", "une lettre en moins = petite faute");
+  egal(comparerSaisie("счет пожалуста тут", texteCafe, false), "faux", "plus d'une lettre = faux");
+  egal(comparerSaisie("   ", texteCafe, false), "faux", "saisie vide = faux");
+  egal(comparerSaisie("нат", { cible: "Нет.", autre: null }, false), "faux", "phrase très courte : aucune faute tolérée");
+  egal(comparerSaisie("da", { cible: "Да.", autre: null }, false), "juste", "translit court exact");
+
+  // Genre : une phrase à variantes m/f.
+  const elGenre = contenu.elements.find((e) => e.variantes && texteElement(e, { genre: "m" }).cible !== texteElement(e, { genre: "f" }).cible);
+  const tm = texteElement(elGenre, { genre: "m" }), tf = texteElement(elGenre, { genre: "f" });
+  egal(comparerSaisie(tm.cible, tm, false), "juste", "genre choisi : sa forme est juste");
+  verifier(comparerSaisie(tf.cible, tm, false) !== "juste", "genre choisi : l'autre forme n'est pas juste");
+  egal(comparerSaisie(tf.cible, tm, true), "juste", "genre non choisi : les deux formes sont acceptées");
+
+  // Moule : la phrase complète de l'occurrence jouée.
+  const elMoule = contenu.elements.find((e) => e.moule && e.moule.remplacements.length > 1);
+  const m0 = texteElement(elMoule, { remplacement: 0 }), m1 = texteElement(elMoule, { remplacement: 1 });
+  egal(comparerSaisie(m1.cible, m1, false), "juste", "moule : phrase complète de l'occurrence");
+  verifier(comparerSaisie(m0.cible, m1, false) !== "juste", "moule : une autre occurrence n'est pas juste");
+
+  // Moteur : « Écrire » seulement pour les boîtes hautes, jamais en Voiture, jamais deux fois de suite sur une phrase.
+  const vues = (boite, mode) => {
+    const fiches = new Map(contenu.elements.map((e) => [e.id, Object.assign(ficheVide(e.id), { boite, echeance: "2026-12-01", premiereVue: "2026-09-01" })]));
+    const s = creerSession({ contenu, fiches, mode, duree: 30, jour: "2026-11-11", genre: "m", aleatoire: aleatoireGraine(7) });
+    const cartes = []; let t = 0, c;
+    while ((c = s.prochaineCarte(t))) { cartes.push(c); s.repondre(c, "reussite"); t += c.est; }
+    return cartes;
+  };
+  verifier(vues(5, "silence").some((c) => c.type === "ecrire"), "boîte 5, Silence : des cartes Écrire");
+  verifier(vues(5, "ecouteurs").some((c) => c.type === "ecrire"), "boîte 5, Écouteurs : des cartes Écrire");
+  verifier(!vues(3, "silence").some((c) => c.type === "ecrire"), "boîte 3 : pas de carte Écrire");
+  verifier(!vues(6, "voiture").some((c) => c.type === "ecrire"), "Voiture : jamais de carte Écrire");
+  const dernier = new Map(); let deuxDeSuite = 0;
+  vues(6, "silence").forEach((c) => { if (c.type === "ecrire" && dernier.get(c.id) === "ecrire") deuxDeSuite++; dernier.set(c.id, c.type); });
+  egal(deuxDeSuite, 0, "pas deux cartes Écrire de suite sur la même phrase");
+}

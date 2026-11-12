@@ -1,7 +1,8 @@
 // Construction des exercices : choix des QCM (2 leurres) et tuiles de l'Ordre.
 // Règles : docs/pedagogie/regles-session.md, section 7. Module pur.
 
-import { texteElement, normaliser, motsOrdre } from "./contenu.js";
+import { texteElement, normaliser, motsOrdre, sansAccent } from "./contenu.js";
+import { BOITE_ECRIRE, ECRIRE_FAUTE_MIN } from "./config.js";
 
 // Tirage uniforme dans une liste.
 function tirer(liste, aleatoire) {
@@ -109,4 +110,61 @@ export function tuilesOrdre(accent, aleatoire) {
     melange = melange.slice(1).concat(melange.slice(0, 1));
   }
   return { reference: mots, tuiles: melange };
+}
+
+// ---------- Écrire la réponse (saisie en cyrillique) ----------
+
+// Vrai si la carte « Écrire » est possible : phrase assez installée (boîte haute), jamais sur une phrase à prénom
+// (le prénom n'est pas à écrire). Le mode (pas de Voiture) est vérifié par le moteur.
+export function ecriturePossible(el, fiche) {
+  return !el.personnalise && !!fiche && fiche.boite >= BOITE_ECRIRE;
+}
+
+// Translittération « à la française » (celle de l'app) vers le cyrillique, pour qui n'a pas le clavier russe.
+// Règles les plus longues d'abord. Les lettres inconnues (et le cyrillique déjà tapé) passent telles quelles.
+// shortcut: les voyelles réduites de la translittération affichée (pajálsta) ne sont pas devinées ; la petite faute
+// d'une lettre en absorbe une, au-delà c'est une erreur : à revoir si les testeurs s'en plaignent.
+const TRANSLIT = [
+  ["chtch", "щ"], ["shch", "щ"], ["tch", "ч"], ["iou", "ю"], ["ia", "я"], ["ya", "я"], ["yu", "ю"], ["io", "ё"], ["yo", "ё"],
+  ["ié", "е"], ["ie", "е"], ["ye", "е"], ["zh", "ж"], ["kh", "х"], ["ts", "ц"], ["ch", "ш"], ["sh", "ш"], ["ou", "у"],
+  ["a", "а"], ["b", "б"], ["v", "в"], ["g", "г"], ["d", "д"], ["j", "ж"], ["z", "з"], ["i", "и"], ["ï", "й"], ["k", "к"],
+  ["l", "л"], ["m", "м"], ["n", "н"], ["o", "о"], ["p", "п"], ["r", "р"], ["s", "с"], ["t", "т"], ["u", "у"], ["f", "ф"],
+  ["h", "х"], ["y", "ы"], ["'", "ь"], ["’", "ь"]
+];
+const VOYELLES_RU = "аеёиоуыэюя";
+export function versCyrillique(saisie) {
+  const mot = sansAccent(saisie || "").toLowerCase().replace(/[áàâ]/g, "a").replace(/[íî]/g, "i").replace(/[óô]/g, "o").replace(/[úû]/g, "u").replace(/ý/g, "y");
+  let sortie = "";
+  for (let i = 0; i < mot.length;) {
+    const regle = TRANSLIT.find(([de]) => mot.startsWith(de, i));
+    if (regle) { sortie += regle[1]; i += regle[0].length; continue; }
+    if (mot[i] === "e" || mot[i] === "é" || mot[i] === "è") {
+      // « э » en début de mot ou après une voyelle (это, этот), « е » après une consonne.
+      const avant = sortie[sortie.length - 1];
+      sortie += !avant || VOYELLES_RU.includes(avant) || !/[а-яё]/.test(avant) ? "э" : "е";
+    } else sortie += mot[i];
+    i++;
+  }
+  return sortie;
+}
+
+// Vrai si a et b diffèrent d'une seule lettre (une en trop, une en moins ou une changée).
+function uneLettreDePres(a, b) {
+  if (Math.abs(a.length - b.length) > 1) return false;
+  let i = 0;
+  while (i < a.length && i < b.length && a[i] === b[i]) i++;
+  const reste = (x, y) => x === y;
+  if (a.length === b.length) return reste(a.slice(i + 1), b.slice(i + 1));
+  return a.length > b.length ? reste(a.slice(i + 1), b.slice(i)) : reste(a.slice(i), b.slice(i + 1));
+}
+
+// Compare ce que l'utilisateur a écrit à la phrase russe de la carte (texte = texteElement : genre et moule déjà résolus).
+// Ignore casse, ponctuation, accents toniques, ё/е. Renvoie "juste", "faute" (une lettre, sans pénalité) ou "faux".
+// deuxFormes : genre pas encore choisi, on accepte la forme masculine comme la féminine.
+export function comparerSaisie(saisie, texte, deuxFormes) {
+  const s = normaliser(versCyrillique(saisie));
+  if (!s) return "faux";
+  const cibles = [texte.cible].concat(deuxFormes && texte.autre ? [texte.autre.cible] : []).map(normaliser);
+  if (cibles.includes(s)) return "juste";
+  return cibles.some((c) => c.length >= ECRIRE_FAUTE_MIN && uneLettreDePres(s, c)) ? "faute" : "faux";
 }
