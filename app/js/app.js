@@ -40,6 +40,8 @@ let profondeur = 0;      // 0 = accueil, 1 = autre écran (un état d'historique
 // (attente des voix, par exemple) vérifie qu'il n'a pas changé avant d'agir : si l'utilisateur
 // est passé à autre chose entre-temps, elle ne fait rien.
 let jetonNavigation = 0;
+let ecranCourant = "accueil";
+let miseAJourPrete = false; // un nouveau service worker a pris la main : recharger dès l'accueil
 
 // Renvoie une fonction qui dit si l'on est toujours sur le même écran, avec la même intention.
 function garde() {
@@ -84,8 +86,16 @@ function aller(nom, params) {
     profondeur = 1;
     historique("pousser");
   }
+  ecranCourant = nom;
   vue = ECRANS[nom](racine, ctx, params || {}) || {};
   try { window.scrollTo(0, 0); } catch (e) { /* rien */ }
+  rechargerSiPret();
+}
+
+// Recharge pour passer à la nouvelle version, seulement à l'accueil (jamais en pleine session).
+// Le rechargement repart sur l'accueil : la progression est déjà dans IndexedDB.
+function rechargerSiPret() {
+  if (miseAJourPrete && ecranCourant === "accueil") location.reload();
 }
 
 // Bouton « retour » du téléphone.
@@ -132,9 +142,20 @@ const ctx = {
 
 function enregistrerServiceWorker() {
   try {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js").catch(() => { /* refusé (aperçu, navigation privée) : l'app marche sans */ });
-    }
+    if (!("serviceWorker" in navigator)) return;
+    // Sans contrôleur au départ, c'est le tout premier enregistrement : pas de rechargement (évite la boucle).
+    const avaitControleur = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (!avaitControleur) return;
+      miseAJourPrete = true;
+      rechargerSiPret();
+    });
+    navigator.serviceWorker.register("sw.js").then((reg) => {
+      // Une app d'écran d'accueil iOS n'est pas rechargée à la réouverture : on demande nous-mêmes.
+      const verifier = () => { try { reg.update().catch(() => { /* refusé ou hors ligne : tant pis */ }); } catch (e) { /* idem */ } };
+      verifier();
+      document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") verifier(); });
+    }).catch(() => { /* refusé (aperçu, navigation privée) : l'app marche sans */ });
   } catch (e) { /* idem */ }
 }
 
