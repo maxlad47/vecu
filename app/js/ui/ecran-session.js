@@ -12,6 +12,7 @@ import { creerSession, minutesReelles } from "../moteur.js";
 import { creerHorloge } from "../horloge.js";
 import { ponctuationFinale, normaliser, texteElement, aLire } from "../contenu.js";
 import { reglageManquant } from "../personnage.js";
+import { comparerSaisie, versCyrillique } from "../exercices.js";
 import { dialoguesProposables } from "../dialogues.js";
 import { carteDialogue } from "./carte-dialogue.js";
 import * as audio from "../audio.js";
@@ -188,7 +189,7 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     zoneCarte.classList.remove("carte"); void zoneCarte.offsetWidth; zoneCarte.classList.add("carte");
     majTemps();
     const rendus = {
-      "decouverte": carteDecouverte, "sens": carteSens, "theme": carteTheme, "ordre": carteOrdre,
+      "decouverte": carteDecouverte, "sens": carteSens, "theme": carteTheme, "ordre": carteOrdre, "ecrire": carteEcrire,
       "ecoute": carteEcoute, "voix-haute": carteVoixHaute, "moule-sens": carteMoule, "moule-theme": carteMoule,
       "dialogue": carteDeDialogue
     };
@@ -338,13 +339,13 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
 
   // Enregistre le résultat puis affiche le panneau de retour (2.8).
   // Le panneau prend la place des réponses : les infos défilent, « Suivant » reste fixe en bas.
-  function resultat(carte, juste) {
+  function resultat(carte, juste, faute) {
     courant.juste = juste;
     const avant = etatDe(ctx.stockage.fiches.get(carte.element.id));
     session.repondre(carte, juste ? "reussite" : "echec");
     const apres = etatDe(ctx.stockage.fiches.get(carte.element.id));
     const texte = carte.texte;
-    const reponseRusse = ["theme", "moule-theme", "ordre"].includes(carte.type);
+    const reponseRusse = ["theme", "moule-theme", "ordre", "ecrire"].includes(carte.type);
     const panneau = h("div", { class: "retour" + (juste ? "" : " est-faux") });
     const infos = h("div", { class: "retour-infos" });
     const verdict = h("p", { class: "verdict " + (juste ? "ok" : "ko"), role: "status", tabindex: "-1" },
@@ -354,6 +355,11 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
       : h("span", { class: "etat-change" }, poupeeColorie(avant, apres, 28, true), motEtat(apres));
     if (etatChange && matchMedia("(prefers-reduced-motion: reduce)").matches) annoncer(t("etat.annonce", { etat: motEtat(apres) }));
     mettre(infos, h("div", { class: "ligne-verdict" }, verdict, etatChange));
+    if (faute) {
+      // Petite faute : comptée juste, mais on montre la bonne écriture.
+      mettre(infos, h("p", { class: "petit" }, t("ecrire.presque")),
+        h("div", { class: "bonne-reponse" }, h("p", { class: "ru", lang: "ru" }, texte.accent), translit(texte.translit)));
+    }
     if (carte.type === "ecoute") {
       // On n'avait pas vu la phrase : on la montre.
       mettre(infos, h("div", { class: "bonne-reponse" }, h("p", { class: "ru", lang: "ru" }, texte.accent), translit(texte.translit)));
@@ -377,7 +383,7 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     zoneBas.appendChild(panneau);
     // Le focus va sur le verdict (annoncé par role="status") ; Entrée passe à la suite.
     focaliser(verdict);
-    if (["sens", "theme", "ordre", "moule-sens", "moule-theme"].includes(carte.type)) lire(texte.cible);
+    if (["sens", "theme", "ordre", "ecrire", "moule-sens", "moule-theme"].includes(carte.type)) lire(texte.cible);
     if (juste) armerAvanceAuto();
   }
 
@@ -413,6 +419,44 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
       badgeRegistre(carte.element.registre));
     mettre(zoneCarte, consigne("theme.consigne"), zone);
     zoneAction(listeOptions(carte, false));
+  }
+
+  // Écrire la réponse : le champ et les boutons sont dans la carte (pas dans la barre fixe du bas),
+  // pour que le clavier de l'iPhone ne les cache pas ; la phrase française reste au-dessus.
+  function carteEcrire(carte) {
+    const texte = carte.texte;
+    const apercu = h("p", { class: "petit apercu-ecrire" });
+    const message = h("p", { class: "petit", role: "status" });
+    const champ = h("input", {
+      type: "text", class: "champ-ecrire", lang: "ru", "aria-label": t("ecrire.champ"), "aria-describedby": "aide-ecrire",
+      autocapitalize: "none", autocorrect: "off", autocomplete: "off", spellcheck: "false", enterkeyhint: "done"
+    });
+    // Lettres latines tapées : on montre en dessous ce qu'elles donnent en cyrillique.
+    champ.addEventListener("input", () => {
+      message.textContent = "";
+      apercu.textContent = /[a-zà-ÿ'’]/i.test(champ.value) ? t("ecrire.lu", { texte: versCyrillique(champ.value) }) : "";
+    });
+    function terminerSaisie(juste, faute) {
+      courant.repondu = true;
+      champ.readOnly = true;
+      champ.blur(); // ferme le clavier : le panneau de retour apparaît en bas
+      champ.classList.add(juste ? "est-juste" : "est-faux");
+      vider(actions);
+      resultat(carte, juste, faute);
+    }
+    const verifier = h("button", { type: "submit", class: "btn-principal" }, t("ecrire.verifier"));
+    const nesaispas = h("button", { type: "button", class: "btn-secondaire", onclick: () => { if (!courant.repondu) terminerSaisie(false, false); } }, t("ecrire.nesaispas"));
+    const actions = h("div", { class: "paire" }, nesaispas, verifier);
+    const formulaire = h("form", { class: "ecrire", novalidate: "", onsubmit: (ev) => {
+      ev.preventDefault();
+      if (courant.repondu) return;
+      if (!champ.value.trim()) { message.textContent = t("ecrire.vide"); champ.focus(); return; }
+      const verdict = comparerSaisie(champ.value, texte, !genreReglage());
+      terminerSaisie(verdict !== "faux", verdict === "faute");
+    } },
+      h("div", { class: "zone-phrase" }, h("p", { class: "fr-hero" }, texte.fr), badgeRegistre(carte.element.registre)),
+      champ, apercu, h("p", { class: "petit", id: "aide-ecrire" }, t("ecrire.aide")), message, actions);
+    mettre(zoneCarte, consigne("ecrire.consigne"), formulaire);
   }
 
   // 3.5 Écoute
