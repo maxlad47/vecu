@@ -68,14 +68,14 @@ function remplacementLeurre(e, ctx) {
 
 // Carte Moule : les 2 leurres sont deux autres occurrences du même moule.
 export function optionsMoule(el, remplacement, ctx) {
-  const bonne = texteElement(el, { remplacement });
+  const bonne = texteElement(el, { genre: ctx.genre, remplacement });
   const dejaPris = [{ fr: normaliser(bonne.fr), ru: normaliser(bonne.cible) }];
   let candidats = el.moule.remplacements.map((_, i) => i).filter((i) => i !== bonne.remplacement);
   const leurres = [];
   while (leurres.length < 2 && candidats.length) {
     const i = tirer(candidats, ctx.aleatoire);
     candidats = candidats.filter((x) => x !== i);
-    const t = texteElement(el, { remplacement: i });
+    const t = texteElement(el, { genre: ctx.genre, remplacement: i });
     const n = { fr: normaliser(t.fr), ru: normaliser(t.cible) };
     if (dejaPris.some((p) => p.fr === n.fr || p.ru === n.ru)) continue;
     dejaPris.push(n);

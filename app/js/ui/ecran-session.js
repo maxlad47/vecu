@@ -239,7 +239,8 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     }
     // Phrase qui parle de moi et rien n'est réglé : une invitation discrète, 2 refus et elle disparaît (Réglages reste).
     const manquant = reglageManquant(el, ctx.contenu.donnees, ctx.personnage());
-    if (manquant && (reglages().persoPlusTard || 0) < 2) {
+    // Tant que la question du genre est posée, l'invitation attend (la carte doit tenir sans défiler).
+    if (manquant && !deuxFormes && (reglages().persoPlusTard || 0) < 2) {
       const encart = h("div", { class: "encart-genre" },
         h("p", null, t("perso.encart")),
         h("div", { class: "paire" },
@@ -254,7 +255,8 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     }
     // Bloc d'état : poupée + mot + sous-texte (la forme et le mot, jamais la couleur seule).
     const etat = etatDe(fiche);
-    mettre(carteEl, h("div", { class: "bloc-etat" }, poupee(etat, 40, true),
+    // Masqué tant que la question du genre est posée : sans cela, la carte déborde sur petit écran.
+    if (!deuxFormes) mettre(carteEl, h("div", { class: "bloc-etat" }, poupee(etat, 40, true),
       h("div", null, motEtat(etat), h("small", null, sousTexteEtat(etat, fiche)))));
 
     mettre(zoneCarte, h("h1", { class: "consigne consigne-decouverte", tabindex: "-1" }, t("decouverte.consigne")), carteEl);

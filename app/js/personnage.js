@@ -153,7 +153,9 @@ function avecPrenom(el, g, perso, exemple) {
 
 // Carte de visite (prénom + métier) : la carte du métier choisi, une forme par genre quand elles diffèrent.
 function carteVisite(el, entree, perso, exemple) {
-  const faire = (r) => avecPrenom(el, { fr: r.carte_fr, cible: r.carte_cible, accent: r.carte_accent, translit: r.carte_translit }, perso, exemple);
+  // L'élément de base (« ingénieur ») ne doit pas imposer ses variantes : seul le métier choisi parle.
+  const base = Object.assign({}, el, { variantes: null, variantesFr: null });
+  const faire = (r) => avecPrenom(base, { fr: r.carte_fr, cible: r.carte_cible, accent: r.carte_accent, translit: r.carte_translit }, perso, exemple);
   const m = faire(entree.m || entree);
   if (!entree.m || !entree.f) return m;
   const f = faire(entree.f);

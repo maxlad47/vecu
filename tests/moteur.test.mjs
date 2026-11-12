@@ -8,6 +8,7 @@
 import { preparerContenu, texteElement, aLire } from "../app/js/contenu.js";
 import { convertirPrenom, convertirParRegles, personnaliser, validerPersonnage, reglageManquant } from "../app/js/personnage.js";
 import { REGLES, AUDIO } from "../app/js/config.js";
+import { optionsMoule } from "../app/js/exercices.js";
 import { creerSession, aleatoireGraine, minutesReelles } from "../app/js/moteur.js";
 import { controlerAmbiance, construireCss } from "../app/js/ambiance.js";
 import { dureePourLieu, themesValides, basculerTheme, dernierChoix } from "../app/js/parcours.js";
@@ -488,6 +489,36 @@ const ruPrenom = (latin) => convertirPrenom(latin, donneesPerso.prenoms);
   egal(texteElement(contenuP.parId.get("ru-metro-002"), { genre: "f" }).cible, "Я заблудилась.", "variantes russes inchangées");
   egal(texteElement(contenuP.parId.get("ru-cafe-001"), {}).autre, null, "phrase sans genre : pas d'autre forme");
   egal(texteElement(contenuP.parId.get("ru-rencontrer-005"), { genre: "f" }).fr, "Enchantée.", "Enchantée au féminin");
+}
+{
+  // Carte de visite : le bon métier, accordé, en français et en russe (5 métiers dont la forme m = f).
+  const liste = donneesPerso.metiers;
+  ["ingenieur", "medecin", "comptable", "manager", "a-mon-compte", "retraite", "infirmier"].forEach((id) => {
+    const c = personnaliser(contenuP, { prenom: "Max", prenomRu: ruPrenom("Max"), metier: id });
+    const el = c.parId.get("ru-presenter-011");
+    const m = liste.find((x) => x.id === id);
+    ["m", "f"].forEach((g) => {
+      const t = texteElement(el, { genre: g });
+      const attendu = m[g].carte_fr.replace("{prenom}", "Max");
+      egal([t.fr, t.cible], [attendu, m[g].carte_cible.replace("{prenom}", "Макс")], "carte de visite " + id + " (" + g + ")");
+    });
+  });
+  // « Même phrase, autre mot » : les options suivent le genre du personnage.
+  const el = personnaliser(contenuP, { metier: "infirmier" }).parId.get("ru-presenter-001");
+  const ctx = (genre) => ({ genre, aleatoire: aleatoireGraine(1), fiche: () => null, elements: [] });
+  ["m", "f"].forEach((g) => {
+    const attendu = el.moule.remplacements.map((_, i) => texteElement(el, { genre: g, remplacement: i }));
+    const opts = optionsMoule(el, 0, ctx(g));
+    opts.forEach((o) => verifier(attendu.some((a) => a.fr === o.texte.fr && a.cible === o.texte.cible), "option accordée (" + g + ") : " + o.texte.fr));
+  });
+  const fem = optionsMoule(el, 0, ctx("f")).map((o) => o.texte.fr + " / " + o.texte.cible);
+  verifier(fem.some((x) => x === "Je suis infirmière. / Я медсестра."), "féminin : « Je suis infirmière. / Я медсестра. »");
+  verifier(!fem.some((x) => /infirmier\.|ingénieur\.|медбрат/.test(x)), "féminin : aucune forme masculine");
+  // Genre jamais répondu : le moteur passe au masculin sans le redemander (l'écran reposera la question à la prochaine carte Découverte à deux formes).
+  const sg = creerSession({ contenu: contenuP, fiches: new Map(), mode: "silence", duree: 5, jour: "2026-11-11", themes: ["presenter"], aleatoire: aleatoireGraine(3) });
+  let carte, vu = false;
+  while ((carte = sg.prochaineCarte(0))) if (carte.id === "ru-presenter-001") { egal(carte.texte.fr.includes("infirmière"), false, "sans genre : masculin"); vu = true; break; }
+  verifier(vu, "la carte « Je suis ___ » est jouée sans genre");
 }
 {
   // Tirage du mot du personnage dans le moule « Je suis ___ ».
