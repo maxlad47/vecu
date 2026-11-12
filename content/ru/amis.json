@@ -1,0 +1,228 @@
+{
+  "langue": "ru",
+  "situation": "amis",
+  "titre": "Chez des amis",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-amis-001",
+      "fr": "Merci pour l'invitation.",
+      "cible": "Спасибо за приглашение.",
+      "accent": "Спаси́бо за приглаше́ние.",
+      "translit": "spassíba za priglachéniie",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    },
+    {
+      "id": "ru-amis-002",
+      "fr": "Tiens, c'est pour toi.",
+      "cible": "Держи, это тебе.",
+      "accent": "Держи́, э́то тебе́.",
+      "translit": "dirjý, éta tibié",
+      "registre": "tu",
+      "variantes": null,
+      "astuce": "Des fleurs ? Toujours en nombre impair : le nombre pair, c'est pour les enterrements.",
+      "moule": null
+    },
+    {
+      "id": "ru-amis-003",
+      "fr": "J'enlève mes chaussures ?",
+      "cible": "Мне разуться?",
+      "accent": "Мне разу́ться?",
+      "translit": "mnie razoútsa?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "On se déchausse presque toujours. On te prêtera sans doute des та́почки (chaussons).",
+      "moule": null
+    },
+    {
+      "id": "ru-amis-004",
+      "fr": "Je peux me laver les mains ?",
+      "cible": "Можно помыть руки?",
+      "accent": "Мо́жно помы́ть ру́ки?",
+      "translit": "mójna pamýt roúki?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Мо́жно + verbe à l'infinitif = « je peux ? ». Pas besoin de я.",
+      "moule": {
+        "modele": "Можно ___?",
+        "fr": "Je peux ___ ?",
+        "remplacements": [
+          {
+            "fr": "me laver les mains",
+            "cible": "помыть руки",
+            "accent": "помы́ть ру́ки",
+            "translit": "pamýt roúki",
+            "phrase_fr": "Je peux me laver les mains ?",
+            "phrase_cible": "Можно помыть руки?",
+            "phrase_accent": "Мо́жно помы́ть ру́ки?",
+            "phrase_translit": "mójna pamýt roúki?"
+          },
+          {
+            "fr": "ouvrir la fenêtre",
+            "cible": "открыть окно",
+            "accent": "откры́ть окно́",
+            "translit": "atkrýt aknó",
+            "phrase_fr": "Je peux ouvrir la fenêtre ?",
+            "phrase_cible": "Можно открыть окно?",
+            "phrase_accent": "Мо́жно откры́ть окно́?",
+            "phrase_translit": "mójna atkrýt aknó?"
+          },
+          {
+            "fr": "charger mon téléphone",
+            "cible": "зарядить телефон",
+            "accent": "заряди́ть телефо́н",
+            "translit": "zaridít tilifón",
+            "phrase_fr": "Je peux charger mon téléphone ?",
+            "phrase_cible": "Можно зарядить телефон?",
+            "phrase_accent": "Мо́жно заряди́ть телефо́н?",
+            "phrase_translit": "mójna zaridít tilifón?"
+          },
+          {
+            "fr": "goûter",
+            "cible": "попробовать",
+            "accent": "попро́бовать",
+            "translit": "papróbavat",
+            "phrase_fr": "Je peux goûter ?",
+            "phrase_cible": "Можно попробовать?",
+            "phrase_accent": "Мо́жно попро́бовать?",
+            "phrase_translit": "mójna papróbavat?"
+          },
+          {
+            "fr": "m'asseoir",
+            "cible": "сесть",
+            "accent": "сесть",
+            "translit": "siest",
+            "phrase_fr": "Je peux m'asseoir ?",
+            "phrase_cible": "Можно сесть?",
+            "phrase_accent": "Мо́жно сесть?",
+            "phrase_translit": "mójna siest?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-amis-005",
+      "fr": "Passe-moi le sel, s'il te plaît.",
+      "cible": "Передай, пожалуйста, соль.",
+      "accent": "Переда́й, пожа́луйста, соль.",
+      "translit": "piridáï, pajálsta, sol",
+      "registre": "tu",
+      "variantes": null,
+      "astuce": "Вода́ devient во́ду, et l'accent bouge. Les autres mots ne changent pas.",
+      "moule": {
+        "modele": "Передай, пожалуйста, ___.",
+        "fr": "Passe-moi ___, s'il te plaît.",
+        "remplacements": [
+          {
+            "fr": "le sel",
+            "cible": "соль",
+            "accent": "соль",
+            "translit": "sol",
+            "phrase_fr": "Passe-moi le sel, s'il te plaît.",
+            "phrase_cible": "Передай, пожалуйста, соль.",
+            "phrase_accent": "Переда́й, пожа́луйста, соль.",
+            "phrase_translit": "piridáï, pajálsta, sol"
+          },
+          {
+            "fr": "le pain",
+            "cible": "хлеб",
+            "accent": "хлеб",
+            "translit": "khliep",
+            "phrase_fr": "Passe-moi le pain, s'il te plaît.",
+            "phrase_cible": "Передай, пожалуйста, хлеб.",
+            "phrase_accent": "Переда́й, пожа́луйста, хлеб.",
+            "phrase_translit": "piridáï, pajálsta, khliep"
+          },
+          {
+            "fr": "l'eau",
+            "cible": "воду",
+            "accent": "во́ду",
+            "translit": "vódou",
+            "phrase_fr": "Passe-moi l'eau, s'il te plaît.",
+            "phrase_cible": "Передай, пожалуйста, воду.",
+            "phrase_accent": "Переда́й, пожа́луйста, во́ду.",
+            "phrase_translit": "piridáï, pajálsta, vódou"
+          },
+          {
+            "fr": "la salade",
+            "cible": "салат",
+            "accent": "сала́т",
+            "translit": "salát",
+            "phrase_fr": "Passe-moi la salade, s'il te plaît.",
+            "phrase_cible": "Передай, пожалуйста, салат.",
+            "phrase_accent": "Переда́й, пожа́луйста, сала́т.",
+            "phrase_translit": "piridáï, pajálsta, salát"
+          },
+          {
+            "fr": "ça",
+            "cible": "вот это",
+            "accent": "вот э́то",
+            "translit": "vot éta",
+            "phrase_fr": "Passe-moi ça, s'il te plaît.",
+            "phrase_cible": "Передай, пожалуйста, вот это.",
+            "phrase_accent": "Переда́й, пожа́луйста, вот э́то.",
+            "phrase_translit": "piridáï, pajálsta, vot éta"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-amis-006",
+      "fr": "À la tienne !",
+      "cible": "За тебя!",
+      "accent": "За тебя́!",
+      "translit": "za tibiá!",
+      "registre": "tu",
+      "variantes": null,
+      "astuce": "En groupe : За нас! (à nous) ou За встре́чу! (à nos retrouvailles).",
+      "moule": null
+    },
+    {
+      "id": "ru-amis-007",
+      "fr": "Je n'ai plus faim, merci.",
+      "cible": "Спасибо, больше не хочу.",
+      "accent": "Спаси́бо, бо́льше не хочу́.",
+      "translit": "spassíba, bólchy ni khatchoú",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "On insistera, c'est la coutume. Répète en souriant, ou dis : Бо́льше не могу́!",
+      "moule": null
+    },
+    {
+      "id": "ru-amis-008",
+      "fr": "Tu veux un coup de main ?",
+      "cible": "Тебе помочь?",
+      "accent": "Тебе́ помо́чь?",
+      "translit": "tibié pamótch?",
+      "registre": "tu",
+      "variantes": null,
+      "astuce": "Mot à mot « t'aider ? ». Aux deux hôtes à la fois : Вам помо́чь?",
+      "moule": null
+    },
+    {
+      "id": "ru-amis-009",
+      "fr": "Il est tard, je dois y aller.",
+      "cible": "Уже поздно, мне пора.",
+      "accent": "Уже́ по́здно, мне пора́.",
+      "translit": "oujé pózna, mnie pará",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Мне пора́ = « c'est l'heure pour moi ». Pas de verbe, donc pas de genre.",
+      "moule": null
+    },
+    {
+      "id": "ru-amis-010",
+      "fr": "Merci pour la soirée, c'était super !",
+      "cible": "Спасибо за вечер, было здорово!",
+      "accent": "Спаси́бо за ве́чер, бы́ло здо́рово!",
+      "translit": "spassíba za viétchir, býla zdórava!",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Здо́рово = super. Avec l'accent sur ро, здоро́во est un « salut ! » familier.",
+      "moule": null
+    }
+  ]
+}

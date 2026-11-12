@@ -1,0 +1,231 @@
+{
+  "langue": "ru",
+  "situation": "telephone",
+  "titre": "Au téléphone",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-telephone-001",
+      "fr": "Allô ?",
+      "cible": "Алло?",
+      "accent": "Алло́?",
+      "translit": "aló?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "On décroche aussi avec Да? ou Слу́шаю (« j'écoute »).",
+      "moule": null
+    },
+    {
+      "id": "ru-telephone-002",
+      "fr": "Je vous entends mal.",
+      "cible": "Вас плохо слышно.",
+      "accent": "Вас пло́хо слы́шно.",
+      "translit": "vas plókha slýchna",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Mot à mot « on vous entend mal ». Plus fort : Погро́мче! Si ça coupe : Вы пропада́ете.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-telephone-003",
+      "fr": "Vous pouvez épeler, s'il vous plaît ?",
+      "cible": "Скажите по буквам, пожалуйста.",
+      "accent": "Скажи́те по бу́квам, пожа́луйста.",
+      "translit": "skajýti pa boúkvam, pajálsta",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Mot à mot « dites par lettres ». On épelle souvent avec des prénoms : Б как Бори́с.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-telephone-004",
+      "fr": "Je peux parler à Ivan ?",
+      "cible": "Можно поговорить с Иваном?",
+      "accent": "Мо́жно поговори́ть с Ива́ном?",
+      "translit": "mójna pagavarít s ivánam?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Après с, le nom change de fin : Ива́н → с Ива́ном. Poli : prénom + patronyme (Ири́на Петро́вна).",
+      "moule": {
+        "modele": "Можно поговорить с ___?",
+        "fr": "Je peux parler ___ ?",
+        "remplacements": [
+          {
+            "fr": "à Ivan",
+            "cible": "Иваном",
+            "accent": "Ива́ном",
+            "translit": "ivánam",
+            "phrase_fr": "Je peux parler à Ivan ?",
+            "phrase_cible": "Можно поговорить с Иваном?",
+            "phrase_accent": "Мо́жно поговори́ть с Ива́ном?",
+            "phrase_translit": "mójna pagavarít s ivánam?"
+          },
+          {
+            "fr": "à Irina Petrovna",
+            "cible": "Ириной Петровной",
+            "accent": "Ири́ной Петро́вной",
+            "translit": "irínaï pitróvnaï",
+            "phrase_fr": "Je peux parler à Irina Petrovna ?",
+            "phrase_cible": "Можно поговорить с Ириной Петровной?",
+            "phrase_accent": "Мо́жно поговори́ть с Ири́ной Петро́вной?",
+            "phrase_translit": "mójna pagavarít s irínaï pitróvnaï?"
+          },
+          {
+            "fr": "au directeur",
+            "cible": "директором",
+            "accent": "дире́ктором",
+            "translit": "diriéktaram",
+            "phrase_fr": "Je peux parler au directeur ?",
+            "phrase_cible": "Можно поговорить с директором?",
+            "phrase_accent": "Мо́жно поговори́ть с дире́ктором?",
+            "phrase_translit": "mójna pagavarít z diriéktaram?"
+          },
+          {
+            "fr": "à la réception",
+            "cible": "администратором",
+            "accent": "администра́тором",
+            "translit": "administrátaram",
+            "phrase_fr": "Je peux parler à la réception ?",
+            "phrase_cible": "Можно поговорить с администратором?",
+            "phrase_accent": "Мо́жно поговори́ть с администра́тором?",
+            "phrase_translit": "mójna pagavarít s administrátaram?"
+          },
+          {
+            "fr": "au médecin",
+            "cible": "врачом",
+            "accent": "врачо́м",
+            "translit": "vratchóm",
+            "phrase_fr": "Je peux parler au médecin ?",
+            "phrase_cible": "Можно поговорить с врачом?",
+            "phrase_accent": "Мо́жно поговори́ть с врачо́м?",
+            "phrase_translit": "mójna pagavarít s vratchóm?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-telephone-005",
+      "fr": "Rappelez-moi demain, s'il vous plaît.",
+      "cible": "Перезвоните мне завтра, пожалуйста.",
+      "accent": "Перезвони́те мне за́втра, пожа́луйста.",
+      "translit": "pirizvaníti mnie záftra, pajálsta",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Перезвони́ть = rappeler, звони́ть = appeler : пере- veut dire « re- ».",
+      "moule": {
+        "modele": "Перезвоните мне ___, пожалуйста.",
+        "fr": "Rappelez-moi ___, s'il vous plaît.",
+        "remplacements": [
+          {
+            "fr": "demain",
+            "cible": "завтра",
+            "accent": "за́втра",
+            "translit": "záftra",
+            "phrase_fr": "Rappelez-moi demain, s'il vous plaît.",
+            "phrase_cible": "Перезвоните мне завтра, пожалуйста.",
+            "phrase_accent": "Перезвони́те мне за́втра, пожа́луйста.",
+            "phrase_translit": "pirizvaníti mnie záftra, pajálsta"
+          },
+          {
+            "fr": "ce soir",
+            "cible": "сегодня вечером",
+            "accent": "сего́дня ве́чером",
+            "translit": "sivódnia viétchiram",
+            "phrase_fr": "Rappelez-moi ce soir, s'il vous plaît.",
+            "phrase_cible": "Перезвоните мне сегодня вечером, пожалуйста.",
+            "phrase_accent": "Перезвони́те мне сего́дня ве́чером, пожа́луйста.",
+            "phrase_translit": "pirizvaníti mnie sivódnia viétchiram, pajálsta"
+          },
+          {
+            "fr": "lundi",
+            "cible": "в понедельник",
+            "accent": "в понеде́льник",
+            "translit": "f panidiélnik",
+            "phrase_fr": "Rappelez-moi lundi, s'il vous plaît.",
+            "phrase_cible": "Перезвоните мне в понедельник, пожалуйста.",
+            "phrase_accent": "Перезвони́те мне в понеде́льник, пожа́луйста.",
+            "phrase_translit": "pirizvaníti mnie f panidiélnik, pajálsta"
+          },
+          {
+            "fr": "dans une heure",
+            "cible": "через час",
+            "accent": "че́рез час",
+            "translit": "tchiéris tchas",
+            "phrase_fr": "Rappelez-moi dans une heure, s'il vous plaît.",
+            "phrase_cible": "Перезвоните мне через час, пожалуйста.",
+            "phrase_accent": "Перезвони́те мне че́рез час, пожа́луйста.",
+            "phrase_translit": "pirizvaníti mnie tchiéris tchas, pajálsta"
+          },
+          {
+            "fr": "plus tard",
+            "cible": "попозже",
+            "accent": "попо́зже",
+            "translit": "papójjy",
+            "phrase_fr": "Rappelez-moi plus tard, s'il vous plaît.",
+            "phrase_cible": "Перезвоните мне попозже, пожалуйста.",
+            "phrase_accent": "Перезвони́те мне попо́зже, пожа́луйста.",
+            "phrase_translit": "pirizvaníti mnie papójjy, pajálsta"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-telephone-006",
+      "fr": "Vous pouvez m'envoyer un SMS ?",
+      "cible": "Можете прислать мне эсэмэску?",
+      "accent": "Мо́жете присла́ть мне эсэмэ́ску?",
+      "translit": "mójyti prislát mnie essemésku?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "À l'oral, un SMS est une эсэмэ́ска. Pour une messagerie : Напиши́те мне (écrivez-moi).",
+      "moule": null
+    },
+    {
+      "id": "ru-telephone-007",
+      "fr": "C'est qui ?",
+      "cible": "Кто это?",
+      "accent": "Кто э́то?",
+      "translit": "kto éta?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Plus poli avec un inconnu : Извини́те, а кто э́то? Le petit а adoucit la question.",
+      "moule": null
+    },
+    {
+      "id": "ru-telephone-008",
+      "fr": "Je vous rappelle plus tard.",
+      "cible": "Я вам перезвоню попозже.",
+      "accent": "Я вам перезвоню́ попо́зже.",
+      "translit": "ia vam pirizvanioú papójjy",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Plus court : Перезвоню́! On laisse tomber я et вам, comme à l'oral.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-telephone-009",
+      "fr": "Vous vous êtes trompé de numéro.",
+      "cible": "Вы ошиблись номером.",
+      "accent": "Вы оши́блись но́мером.",
+      "translit": "vy achýblis nómiram",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "C'est ce qu'on répond à un faux appel. On dit aussi : Вы не туда́ попа́ли.",
+      "moule": null
+    },
+    {
+      "id": "ru-telephone-010",
+      "fr": "Mon numéro, c'est le…",
+      "cible": "Мой номер…",
+      "accent": "Мой но́мер…",
+      "translit": "moï nómir…",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "On dicte par blocs : 123-45-67 se dit « cent vingt-trois, quarante-cinq, soixante-sept ».",
+      "moule": null
+    }
+  ]
+}

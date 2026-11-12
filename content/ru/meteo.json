@@ -1,0 +1,231 @@
+{
+  "langue": "ru",
+  "situation": "meteo",
+  "titre": "Le temps qu'il fait",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-meteo-001",
+      "fr": "Quel temps il fait ?",
+      "cible": "Какая сегодня погода?",
+      "accent": "Кака́я сего́дня пого́да?",
+      "translit": "kakáia sivódnia pagóda?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Пого́да = le temps qu'il fait. Вре́мя, c'est le temps qui passe.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-meteo-002",
+      "fr": "Il fait beau aujourd'hui.",
+      "cible": "Сегодня хорошая погода.",
+      "accent": "Сего́дня хоро́шая пого́да.",
+      "translit": "sivódnia kharóchaia pagóda",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Pas de verbe « faire » : Сего́дня хо́лодно, « aujourd'hui froid ». Doux : тепло́.",
+      "moule": {
+        "modele": "Сегодня ___.",
+        "fr": "Il fait ___ aujourd'hui.",
+        "remplacements": [
+          {
+            "fr": "beau",
+            "cible": "хорошая погода",
+            "accent": "хоро́шая пого́да",
+            "translit": "kharóchaia pagóda",
+            "phrase_fr": "Il fait beau aujourd'hui.",
+            "phrase_cible": "Сегодня хорошая погода.",
+            "phrase_accent": "Сего́дня хоро́шая пого́да.",
+            "phrase_translit": "sivódnia kharóchaia pagóda"
+          },
+          {
+            "fr": "chaud",
+            "cible": "жарко",
+            "accent": "жа́рко",
+            "translit": "járka",
+            "phrase_fr": "Il fait chaud aujourd'hui.",
+            "phrase_cible": "Сегодня жарко.",
+            "phrase_accent": "Сего́дня жа́рко.",
+            "phrase_translit": "sivódnia járka"
+          },
+          {
+            "fr": "froid",
+            "cible": "холодно",
+            "accent": "хо́лодно",
+            "translit": "khóladna",
+            "phrase_fr": "Il fait froid aujourd'hui.",
+            "phrase_cible": "Сегодня холодно.",
+            "phrase_accent": "Сего́дня хо́лодно.",
+            "phrase_translit": "sivódnia khóladna"
+          },
+          {
+            "fr": "frais",
+            "cible": "прохладно",
+            "accent": "прохла́дно",
+            "translit": "prakhládna",
+            "phrase_fr": "Il fait frais aujourd'hui.",
+            "phrase_cible": "Сегодня прохладно.",
+            "phrase_accent": "Сего́дня прохла́дно.",
+            "phrase_translit": "sivódnia prakhládna"
+          },
+          {
+            "fr": "mauvais",
+            "cible": "плохая погода",
+            "accent": "плоха́я пого́да",
+            "translit": "plakháia pagóda",
+            "phrase_fr": "Il fait mauvais aujourd'hui.",
+            "phrase_cible": "Сегодня плохая погода.",
+            "phrase_accent": "Сего́дня плоха́я пого́да.",
+            "phrase_translit": "sivódnia plakháia pagóda"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-meteo-003",
+      "fr": "Il pleut.",
+      "cible": "Идёт дождь.",
+      "accent": "Идёт дождь.",
+      "translit": "idiót docht",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Mot à mot « la pluie marche ». La neige aussi « marche » : Идёт снег.",
+      "moule": null
+    },
+    {
+      "id": "ru-meteo-004",
+      "fr": "Il neige.",
+      "cible": "Идёт снег.",
+      "accent": "Идёт снег.",
+      "translit": "idiót sniek",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "En hiver, sur le trottoir : Ско́льзко! (ça glisse).",
+      "moule": null
+    },
+    {
+      "id": "ru-meteo-005",
+      "fr": "Quel temps il fera demain ?",
+      "cible": "Какая погода будет завтра?",
+      "accent": "Кака́я пого́да бу́дет за́втра?",
+      "translit": "kakáia pagóda boúdit záftra?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Бу́дет = « sera ». Il suffit de l'ajouter pour parler de demain.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-meteo-006",
+      "fr": "Il va pleuvoir ?",
+      "cible": "Будет дождь?",
+      "accent": "Бу́дет дождь?",
+      "translit": "boúdit docht?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Réponse courante : Обеща́ют (mot à mot « ils promettent ») = c'est annoncé.",
+      "moule": {
+        "modele": "Будет ___?",
+        "fr": "Il va ___ ?",
+        "remplacements": [
+          {
+            "fr": "pleuvoir",
+            "cible": "дождь",
+            "accent": "дождь",
+            "translit": "docht",
+            "phrase_fr": "Il va pleuvoir ?",
+            "phrase_cible": "Будет дождь?",
+            "phrase_accent": "Бу́дет дождь?",
+            "phrase_translit": "boúdit docht?"
+          },
+          {
+            "fr": "neiger",
+            "cible": "снег",
+            "accent": "снег",
+            "translit": "sniek",
+            "phrase_fr": "Il va neiger ?",
+            "phrase_cible": "Будет снег?",
+            "phrase_accent": "Бу́дет снег?",
+            "phrase_translit": "boúdit sniek?"
+          },
+          {
+            "fr": "faire froid",
+            "cible": "холодно",
+            "accent": "хо́лодно",
+            "translit": "khóladna",
+            "phrase_fr": "Il va faire froid ?",
+            "phrase_cible": "Будет холодно?",
+            "phrase_accent": "Бу́дет хо́лодно?",
+            "phrase_translit": "boúdit khóladna?"
+          },
+          {
+            "fr": "faire chaud",
+            "cible": "жарко",
+            "accent": "жа́рко",
+            "translit": "járka",
+            "phrase_fr": "Il va faire chaud ?",
+            "phrase_cible": "Будет жарко?",
+            "phrase_accent": "Бу́дет жа́рко?",
+            "phrase_translit": "boúdit járka?"
+          },
+          {
+            "fr": "y avoir de l'orage",
+            "cible": "гроза",
+            "accent": "гроза́",
+            "translit": "grazá",
+            "phrase_fr": "Il va y avoir de l'orage ?",
+            "phrase_cible": "Будет гроза?",
+            "phrase_accent": "Бу́дет гроза́?",
+            "phrase_translit": "boúdit grazá?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-meteo-007",
+      "fr": "J'ai froid.",
+      "cible": "Мне холодно.",
+      "accent": "Мне хо́лодно.",
+      "translit": "mnie khóladna",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Mot à mot « à moi froid » : pas de genre. J'ai chaud : Мне жа́рко.",
+      "moule": null
+    },
+    {
+      "id": "ru-meteo-008",
+      "fr": "Il fait combien de degrés ?",
+      "cible": "Сколько градусов на улице?",
+      "accent": "Ско́лько гра́дусов на у́лице?",
+      "translit": "skólka grádousaf na oúlitsy?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "На у́лице = dehors. Réponse type : Ми́нус пять (moins cinq).",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-meteo-009",
+      "fr": "Il faut un parapluie ?",
+      "cible": "Нужен зонт?",
+      "accent": "Ну́жен зонт?",
+      "translit": "noújyn zont?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "À l'oral, on dit souvent зо́нтик. Ну́жен marche comme dans Ну́жен реце́пт?",
+      "moule": null
+    },
+    {
+      "id": "ru-meteo-010",
+      "fr": "Il fait froid, hein ?",
+      "cible": "Холодно, да?",
+      "accent": "Хо́лодно, да?",
+      "translit": "khóladna, da?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Да? en fin de phrase = « hein ? ». Ça marche partout : Жа́рко, да? Краси́во, да?",
+      "moule": null
+    }
+  ]
+}

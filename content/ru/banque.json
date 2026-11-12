@@ -1,0 +1,231 @@
+{
+  "langue": "ru",
+  "situation": "banque",
+  "titre": "Banque et argent",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-banque-001",
+      "fr": "Il y a un distributeur près d'ici ?",
+      "cible": "Здесь рядом есть банкомат?",
+      "accent": "Здесь ря́дом есть банкома́т?",
+      "translit": "zdies riádam iest bankamát?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Банкома́т = distributeur. Même phrase qu'à la pharmacie, seul le mot change.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-banque-002",
+      "fr": "Ma carte ne passe pas.",
+      "cible": "У меня не проходит карта.",
+      "accent": "У меня́ не прохо́дит ка́рта.",
+      "translit": "ou miniá ni prakhódit kárta",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "À la caisse, tu entendras peut-être : Попро́буйте ещё раз (réessayez).",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-banque-003",
+      "fr": "Je veux retirer de l'argent.",
+      "cible": "Я хочу снять деньги.",
+      "accent": "Я хочу́ снять де́ньги.",
+      "translit": "ia khatchoú sniat diéngui",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Снять = retirer. Sur l'écran du distributeur : Сня́тие нали́чных.",
+      "moule": null
+    },
+    {
+      "id": "ru-banque-004",
+      "fr": "Je veux bloquer ma carte.",
+      "cible": "Я хочу заблокировать карту.",
+      "accent": "Я хочу́ заблоки́ровать ка́рту.",
+      "translit": "ia khatchoú zablakíravat kártou",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Ка́рта devient ка́рту après le verbe : c'est l'objet de l'action.",
+      "moule": null
+    },
+    {
+      "id": "ru-banque-005",
+      "fr": "Le distributeur a avalé ma carte.",
+      "cible": "Банкомат съел мою карту.",
+      "accent": "Банкома́т съел мою́ ка́рту.",
+      "translit": "bankamát sïel maioú kártou",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Mot à mot « a mangé ma carte » : c'est vraiment ce qu'on dit.",
+      "moule": null
+    },
+    {
+      "id": "ru-banque-006",
+      "fr": "Vous avez la monnaie de cent roubles ?",
+      "cible": "У вас будет сдача со ста рублей?",
+      "accent": "У вас бу́дет сда́ча со ста рубле́й?",
+      "translit": "ou vas boúdit sdátcha sa sta roubliéï?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "À dire en tendant un gros billet. Après с, le nombre change : apprends le bloc.",
+      "moule": {
+        "modele": "У вас будет сдача ___?",
+        "fr": "Vous avez la monnaie de ___ ?",
+        "remplacements": [
+          {
+            "fr": "cent roubles",
+            "cible": "со ста рублей",
+            "accent": "со ста рубле́й",
+            "translit": "sa sta roubliéï",
+            "phrase_fr": "Vous avez la monnaie de cent roubles ?",
+            "phrase_cible": "У вас будет сдача со ста рублей?",
+            "phrase_accent": "У вас бу́дет сда́ча со ста рубле́й?",
+            "phrase_translit": "ou vas boúdit sdátcha sa sta roubliéï?"
+          },
+          {
+            "fr": "cinq cents roubles",
+            "cible": "с пятисот рублей",
+            "accent": "с пятисо́т рубле́й",
+            "translit": "s pitissót roubliéï",
+            "phrase_fr": "Vous avez la monnaie de cinq cents roubles ?",
+            "phrase_cible": "У вас будет сдача с пятисот рублей?",
+            "phrase_accent": "У вас бу́дет сда́ча с пятисо́т рубле́й?",
+            "phrase_translit": "ou vas boúdit sdátcha s pitissót roubliéï?"
+          },
+          {
+            "fr": "mille roubles",
+            "cible": "с тысячи",
+            "accent": "с ты́сячи",
+            "translit": "s týssitchi",
+            "phrase_fr": "Vous avez la monnaie de mille roubles ?",
+            "phrase_cible": "У вас будет сдача с тысячи?",
+            "phrase_accent": "У вас бу́дет сда́ча с ты́сячи?",
+            "phrase_translit": "ou vas boúdit sdátcha s týssitchi?"
+          },
+          {
+            "fr": "cinq mille roubles",
+            "cible": "с пяти тысяч",
+            "accent": "с пяти́ ты́сяч",
+            "translit": "s pití týssitch",
+            "phrase_fr": "Vous avez la monnaie de cinq mille roubles ?",
+            "phrase_cible": "У вас будет сдача с пяти тысяч?",
+            "phrase_accent": "У вас бу́дет сда́ча с пяти́ ты́сяч?",
+            "phrase_translit": "ou vas boúdit sdátcha s pití týssitch?"
+          },
+          {
+            "fr": "ce billet",
+            "cible": "с этой купюры",
+            "accent": "с э́той купю́ры",
+            "translit": "s étaï koupioúry",
+            "phrase_fr": "Vous avez la monnaie de ce billet ?",
+            "phrase_cible": "У вас будет сдача с этой купюры?",
+            "phrase_accent": "У вас бу́дет сда́ча с э́той купю́ры?",
+            "phrase_translit": "ou vas boúdit sdátcha s étaï koupioúry?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-banque-007",
+      "fr": "Je peux payer en espèces ?",
+      "cible": "Можно наличными?",
+      "accent": "Мо́жно нали́чными?",
+      "translit": "mójna nalítchnymi?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "C'est le pendant de Мо́жно ка́ртой? Les espèces se disent нали́чные.",
+      "moule": null
+    },
+    {
+      "id": "ru-banque-008",
+      "fr": "Je veux changer cent euros en roubles.",
+      "cible": "Я хочу поменять сто евро на рубли.",
+      "accent": "Я хочу́ поменя́ть сто е́вро на рубли́.",
+      "translit": "ia khatchoú paminiát sto iévra na roublí",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Е́вро ne change jamais de forme. Sur l'enseigne du bureau de change : Обме́н валю́т.",
+      "moule": {
+        "modele": "Я хочу поменять ___ на рубли.",
+        "fr": "Je veux changer ___ en roubles.",
+        "remplacements": [
+          {
+            "fr": "cent euros",
+            "cible": "сто евро",
+            "accent": "сто е́вро",
+            "translit": "sto iévra",
+            "phrase_fr": "Je veux changer cent euros en roubles.",
+            "phrase_cible": "Я хочу поменять сто евро на рубли.",
+            "phrase_accent": "Я хочу́ поменя́ть сто е́вро на рубли́.",
+            "phrase_translit": "ia khatchoú paminiát sto iévra na roublí"
+          },
+          {
+            "fr": "deux cents euros",
+            "cible": "двести евро",
+            "accent": "две́сти е́вро",
+            "translit": "dviésti iévra",
+            "phrase_fr": "Je veux changer deux cents euros en roubles.",
+            "phrase_cible": "Я хочу поменять двести евро на рубли.",
+            "phrase_accent": "Я хочу́ поменя́ть две́сти е́вро на рубли́.",
+            "phrase_translit": "ia khatchoú paminiát dviésti iévra na roublí"
+          },
+          {
+            "fr": "cinq cents euros",
+            "cible": "пятьсот евро",
+            "accent": "пятьсо́т е́вро",
+            "translit": "pitsót iévra",
+            "phrase_fr": "Je veux changer cinq cents euros en roubles.",
+            "phrase_cible": "Я хочу поменять пятьсот евро на рубли.",
+            "phrase_accent": "Я хочу́ поменя́ть пятьсо́т е́вро на рубли́.",
+            "phrase_translit": "ia khatchoú paminiát pitsót iévra na roublí"
+          },
+          {
+            "fr": "cinquante dollars",
+            "cible": "пятьдесят долларов",
+            "accent": "пятьдеся́т до́лларов",
+            "translit": "pidissiát dólaraf",
+            "phrase_fr": "Je veux changer cinquante dollars en roubles.",
+            "phrase_cible": "Я хочу поменять пятьдесят долларов на рубли.",
+            "phrase_accent": "Я хочу́ поменя́ть пятьдеся́т до́лларов на рубли́.",
+            "phrase_translit": "ia khatchoú paminiát pidissiát dólaraf na roublí"
+          },
+          {
+            "fr": "mille euros",
+            "cible": "тысячу евро",
+            "accent": "ты́сячу е́вро",
+            "translit": "týssitchou iévra",
+            "phrase_fr": "Je veux changer mille euros en roubles.",
+            "phrase_cible": "Я хочу поменять тысячу евро на рубли.",
+            "phrase_accent": "Я хочу́ поменя́ть ты́сячу е́вро на рубли́.",
+            "phrase_translit": "ia khatchoú paminiát týssitchou iévra na roublí"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-banque-009",
+      "fr": "Il y a une commission ?",
+      "cible": "Есть комиссия?",
+      "accent": "Есть коми́ссия?",
+      "translit": "iest kamíssiia?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Réponse possible : без коми́ссии (sans commission).",
+      "moule": null
+    },
+    {
+      "id": "ru-banque-010",
+      "fr": "Vous pouvez me donner un reçu ?",
+      "cible": "Дайте, пожалуйста, чек.",
+      "accent": "Да́йте, пожа́луйста, чек.",
+      "translit": "dáïti, pajálsta, tchek",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Чек = reçu, ticket de caisse. L'addition au café, c'est счёт.",
+      "moule": null,
+      "ordre_libre": true
+    }
+  ]
+}
