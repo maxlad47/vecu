@@ -66,9 +66,9 @@ body { --deco-bleu: var(--accent); --deco-rouge: var(--laque); --deco-or: var(--
 /* ===== 2. Base ===== */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; }
-html { height: 100%; }
+html { height: 100%; background-color: var(--bg); overscroll-behavior-y: none; }
 body {
-  background: var(--bg); color: var(--text);
+  background: var(--bg); color: var(--text); overscroll-behavior-y: none;
   font-family: var(--font); font-size: var(--fs-body); line-height: 1.45;
   -webkit-text-size-adjust: 100%;
 }
