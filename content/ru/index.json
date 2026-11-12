@@ -17,6 +17,13 @@
     { "id": "banque", "titre": "Banque et argent", "fichier": "banque.json" },
     { "id": "meteo", "titre": "Le temps qu'il fait", "fichier": "meteo.json" }
   ],
+  "univers": [
+    { "id": "lieux", "fichier": "univers-lieux.json", "seuils": {"ru-lieux-001": 10, "ru-lieux-002": 20} },
+    { "id": "maison", "fichier": "univers-maison.json", "seuils": {"ru-maison-001": 15, "ru-maison-002": 25} },
+    { "id": "nourriture", "fichier": "univers-nourriture.json", "seuils": {"ru-nourriture-001": 20, "ru-nourriture-002": 30} },
+    { "id": "couleurs", "fichier": "univers-couleurs.json", "seuils": {"ru-couleurs-001": 25, "ru-couleurs-002": 35} },
+    { "id": "famille", "fichier": "univers-famille.json", "seuils": {"ru-famille-001": 30, "ru-famille-002": 40} }
+  ],
   "personnage": "personnage.json",
   "dialogues": "dialogues.json"
 }

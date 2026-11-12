@@ -142,6 +142,12 @@ export function afficherAccueil(racine, ctx, options) {
       entrees.push(input);
       return [input, h("label", { class: "choix tuile-theme", for: id }, h("span", { class: "case" }, icone("coche")), h("span", null, s.titre))];
     }));
+    // Le seul choix des univers (R8) : actif par défaut, enregistré tout de suite, modifiable aussi dans Réglages.
+    const univers = h("input", { class: "choix-input", type: "checkbox", id: "univers-inclus", checked: reglages().universInclus !== false,
+      onchange: () => ctx.majReglage("universInclus", univers.checked) });
+    const tuileUnivers = [univers, h("label", { class: "choix tuile-hasard", for: "univers-inclus" },
+      h("span", { class: "case" }, icone("coche")),
+      h("span", null, t("univers.inclure"), h("small", null, t("univers.sous"))))];
     // Cocher un thème décoche « Au hasard » ; tout décocher remet « Au hasard ».
     function majTuiles() {
       hasard.checked = themes.length === 0;
@@ -159,7 +165,7 @@ export function afficherAccueil(racine, ctx, options) {
     }
     majBouton();
     return [
-      h("main", { class: "contenu" }, pastilles(3), titre("themes.question"), tuileHasard, grille),
+      h("main", { class: "contenu" }, pastilles(3), titre("themes.question"), tuileHasard, grille, ctx.contenu.univers && ctx.contenu.univers.length ? tuileUnivers : null),
       barreBas(boutonRetour(2), go)
     ];
   }

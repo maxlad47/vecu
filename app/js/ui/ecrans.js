@@ -93,7 +93,7 @@ export function afficherProgres(racine, ctx) {
     // Légende : chaque état = sa forme + son mot (la couleur seule ne dit rien).
     contenu.appendChild(h("ul", { class: "legende-etats" }, ["pas_vue", "vue", "en_cours", "acquise"].map((e) =>
       h("li", null, poupee(e, 28, true), t("etat." + e)))));
-    contenu.appendChild(h("div", null, ctx.contenu.situations.map((s) => {
+    const ligne = (s) => {
       const ids = s.ids.filter((id) => ctx.contenu.parId.has(id));
       const etats = ids.map((id) => etatDe(fiches.get(id)));
       const nbAcquis = etats.filter((e) => e === "acquise").length;
@@ -106,7 +106,12 @@ export function afficherProgres(racine, ctx) {
           h("span", { class: "nom" }, s.titre),
           h("span", { class: "compte" }, toutAcquis ? t("theme.toutAcquis") : t(nbAcquis > 1 ? "progres.ligne" : "progres.ligne1", { acquises: nbAcquis, total: ids.length }))),
         rangee);
-    })));
+    };
+    // Les univers de vocabulaire ont leur rangée comme les situations (mêmes poupées, mêmes boîtes) :
+    // affichés s'ils sont inclus, ou déjà commencés.
+    const universInclus = ctx.reglages().universInclus !== false;
+    const univers = (ctx.contenu.univers || []).filter((u) => universInclus || u.ids.some((id) => etatDe(fiches.get(id)) !== "pas_vue"));
+    contenu.appendChild(h("div", null, ctx.contenu.situations.concat(univers).map(ligne)));
   }
   racine.appendChild(h("div", { class: "ecran ecran-progres" }, tete.element, contenu, boutonRetour(ctx)));
   focaliser(racine.querySelector("h1"));
@@ -125,6 +130,16 @@ export function afficherReglages(racine, ctx) {
       ctx.majReglage("translitteration", actif);
     } },
     h("span", { class: "libelle" }, t("reglages.translit")), h("span", { class: "piste", "aria-hidden": "true" }));
+
+  // Les univers de vocabulaire (même réglage que le choix de l'étape « Sur quoi ? »).
+  const universActif = h("button", { type: "button", role: "switch", class: "interrupteur", "aria-checked": String(r.universInclus !== false),
+    "aria-describedby": "aide-univers",
+    onclick: () => {
+      const actif = universActif.getAttribute("aria-checked") !== "true";
+      universActif.setAttribute("aria-checked", String(actif));
+      ctx.majReglage("universInclus", actif);
+    } },
+    h("span", { class: "libelle" }, t("reglages.univers")), h("span", { class: "piste", "aria-hidden": "true" }));
 
   // Première ligne : mon personnage (poupée, prénom, métier), touchable.
   function cartePersonnage() {
@@ -175,6 +190,7 @@ export function afficherReglages(racine, ctx) {
     h("main", { class: "contenu" },
       cartePersonnage(),
       h("div", { class: "reglage" }, interrupteur, h("p", { class: "aide-reglage", id: "aide-translit" }, t("reglages.translitAide"))),
+      h("div", { class: "reglage" }, universActif, h("p", { class: "aide-reglage", id: "aide-univers" }, t("reglages.universAide"))),
       segments("genre", t("reglages.genre"), t("reglages.genreAide"),
         [["m", t("genre.m")], ["f", t("genre.f")]], r.genre, (v) => ctx.majReglage("genre", v), "deux texte-long"),
       // Aucun son à l'aperçu : on peut être en Silence.

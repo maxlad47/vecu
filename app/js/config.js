@@ -86,6 +86,12 @@ export const DIALOGUE = {
   reponsesMax: 3
 };
 
+// Univers de vocabulaire (docs/pedagogie/themes.md, règles R1 à R4). Les seuils d'entrée sont dans content/<langue>/index.json.
+// `parSession` : nombre maximum de nouveaux éléments d'univers, par durée (0 en 2 min : le quota de 1 nouveau est réservé à la survie).
+export const UNIVERS = {
+  parSession: { "2": 0, "5": 1, "15": 2, "30": 2 }
+};
+
 // Interface (ecrans-phase0.md).
 export const INTERFACE = {
   avanceAutoMs: 1200,          // après une bonne réponse

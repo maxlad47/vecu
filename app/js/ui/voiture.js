@@ -69,7 +69,7 @@ export function afficherVoitureRoute(racine, ctx, { duree, themes }) {
   audio.definirModeAudio("voiture");
   const reglages = ctx.reglages();
   const session = creerSession({
-    contenu: ctx.contenu, fiches: ctx.stockage.fiches, mode: "voiture", duree, jour: ctx.jour(), themes,
+    contenu: ctx.contenu, fiches: ctx.stockage.fiches, mode: "voiture", duree, jour: ctx.jour(), themes, univers: reglages.universInclus !== false,
     genre: reglages.genre || "m",
     persoVus: ctx.personnage().vus,
     persoVu: ctx.persoVu,

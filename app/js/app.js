@@ -21,7 +21,7 @@ import { afficherPersonnage } from "./ui/ecran-personnage.js";
 import { afficherAvantDepart, afficherVoitureRoute } from "./ui/voiture.js";
 import { afficherFin, afficherProgres, afficherReglages, afficherSansVoix } from "./ui/ecrans.js";
 
-const REGLAGES_PAR_DEFAUT = { translitteration: true, vitesseVoix: "normale", apparence: "auto" };
+const REGLAGES_PAR_DEFAUT = { translitteration: true, vitesseVoix: "normale", apparence: "auto", universInclus: true };
 
 const ECRANS = {
   accueil: afficherAccueil,
