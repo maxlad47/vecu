@@ -211,3 +211,18 @@ Nouveaux points à faire valider par un natif :
 23. **banque-008**, Обме́н валю́т (astuce) ou Обме́н валю́ты sur les enseignes ?
 
 Points devenus caducs : 13 (meteo-006, ancien moule) ; dans le point 16, telephone-007 et telephone-010 ne sont plus concernés (phrases remplacées, sans пожа́луйста).
+
+## Personnage (mission 007, 12/11/2026)
+
+Fichier : `personnage.json` (3 phrases à prénom, 13 métiers m/f, 6 domaines, conversion des prénoms). Conventions inchangées. Le prénom n'est jamais décliné : il est toujours au nominatif (Меня́ зову́т X, Я X).
+
+**À faire valider par un natif** (du doute le plus fort au plus faible)
+
+1. **Prénoms français en cyrillique** : la table de `personnage.json` suit l'usage des médias (Николя́, Жюлье́н, Тома́, accent sur la dernière syllabe). Il faut confirmer : Анн ou А́нна pour Anne, Ками́ль ou Ками́лла pour Camille, Хлоэ́ ou Хло́я pour Chloé, Юго́ ou Гюго́ pour Hugo, Даниэ́ль face à la règle qui donne Даньель, et le double т de Шарло́тт (la règle donne Шарлот).
+2. **ru-rencontrer-011**, Я Са́ша. А ты? pour « Moi, c'est Sacha. Et toi ? » : naturel en soirée, ou plutôt Я Са́ша, а тебя́ как зову́т? (en astuce) ?
+3. **commercial·e** → ме́неджер по прода́жам : c'est ce qu'on dit, ou plutôt Я в прода́жах / Я продаже́ц (familier) ? La forme est longue pour un A1.
+4. **artisan·e du bâtiment** → строи́тель : une femme le dit-elle (sinon Я рабо́таю в строи́тельстве) ? Un artisan dirait-il plutôt ма́стер, отде́лочник ou son métier précis ?
+5. **développeuse** → программи́стка : passe-t-il partout, ou une femme dit-elle d'abord Я программи́ст (registre de -ка) ?
+6. **enseignante** → учи́тельница, et учи́тель face à преподава́тель pour un enseignant d'adultes (le plus probable chez nos utilisateurs).
+7. **Translittération** de медсестра́ (« mitsistrá », д assourdi devant с) et de медбра́т (« midbrát »).
+8. **ru-presenter-011**, Меня́ зову́т X, я Y : la virgule seule (sans и) sonne-t-elle naturelle à l'oral ?

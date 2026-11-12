@@ -8,12 +8,12 @@ Comment l'équipe travaille, mission après mission. Ce document complète `CLAU
 |---|---|---|---|
 | Max | Fondateur : vision, budget, mises en ligne, test réel | — | — |
 | Sacha | CEO : cadre, découpe, arbitre, valide | Opus (session principale) | Chaque arbitrage engage toute l'équipe |
-| Vera | Pédagogue : quoi apprendre, dans quel ordre, comment réviser | Sonnet | Travail structuré, en français, avec des règles claires |
+| Vera | Pédagogue : quoi apprendre, dans quel ordre, comment réviser | Opus (décision de Max, 12/11) | Le contenu est le vrai chantier : une pédagogie fine pèse plus que la vitesse |
 | Nadia | Linguiste russe : un russe juste et naturel | Opus | Une erreur de russe apprise par cœur coûte très cher. C'est le cœur de la qualité. |
-| Lou | Designer : écrans, textes de l'interface, accessibilité | Sonnet | Spécifications précises, peu de raisonnement long |
-| Kostia | Développeur : l'app et ses tests automatiques | Sonnet par défaut, Opus sur décision de Sacha | Sonnet code très bien. Opus pour l'architecture ou un bug qui résiste. |
-| Boris | Testeur QA : vérifie, ne corrige pas | Sonnet | Scénarios de test et lecture de code |
-| Léa | Utilisatrice témoin : ressenti d'une débutante | Haiku | Un avis d'utilisatrice, pas d'expertise. Le modèle le plus économe suffit. |
+| Lou | Designer : écrans, textes de l'interface, accessibilité | Opus (décision de Max, 12/11) | Les choix de design et de textes font l'identité de l'app |
+| Kostia | Développeur : l'app et ses tests automatiques | Sonnet par défaut, Opus sur décision de Sacha (Max veut Sonnet pour le code) | Sonnet code très bien. Opus pour l'architecture ou un bug qui résiste. |
+| Boris | Testeur QA : vérifie, ne corrige pas | Sonnet (décision de Max, 12/11) | Scénarios de test et lecture de code. Il reste sur Sonnet et son périmètre est borné (voir plus bas). |
+| Léa | Utilisatrice témoin : ressenti d'une débutante | Opus (décision de Max, 12/11) | Un avis plus nuancé et plus franc sur le ressenti |
 
 Règle de surclassement : Sacha peut lancer n'importe quel agent sur un modèle plus puissant pour une tâche précise, et le note dans le relais. On ne change pas le modèle par défaut sans décision au journal.
 
@@ -95,3 +95,7 @@ Une mission est terminée quand :
 - Pas de relecture intégrale « pour vérifier » : Boris vérifie, Sacha lit les relais et le rapport.
 - Pas de captures d'écran en série : une capture par écran modifié, pas plus.
 - Les missions longues sont découpées en étapes, pour qu'un arrêt ne fasse rien perdre.
+
+
+## Périmètre de Boris (décision de Max, 12/11/2026)
+Boris est appelé **une seule fois par mission**, après Kostia, avec un périmètre écrit dans le brief : tailles d'écran, modes, durée de session, thèmes. Par défaut : 2 tailles (375×667 et 360×640), Silence et Écouteurs, thème clair, 25 cartes au plus, un seul Chrome à la fois. Le thème sombre, les 4 tailles et les sessions complètes se font en fin de phase, pas à chaque mission. Pas de nouvelle QA pour un changement de contenu seul sans nouveau format. Une contre-vérification après correction se limite aux points signalés.
