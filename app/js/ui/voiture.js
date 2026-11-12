@@ -11,7 +11,7 @@ import { creerMenu } from "./menu.js";
 import { resumeThemes } from "./accueil.js";
 import { t, texteDuree } from "../textes.js";
 import { REGLES } from "../config.js";
-import { creerSession } from "../moteur.js";
+import { creerSession, minutesReelles } from "../moteur.js";
 import { creerHorloge } from "../horloge.js";
 import * as audio from "../audio.js";
 
@@ -92,7 +92,10 @@ export function afficherVoitureRoute(racine, ctx, { duree, themes }) {
     h("span", { class: "cercle" }, h("span", { class: "anneau", "aria-hidden": "true" }), iconeEtat));
   const arreter = h("button", { type: "button", class: "btn-secondaire arreter", onclick: arreterSession }, t("voiture.arreter"));
   arreter.hidden = true;
-  const ecran = h("div", { class: "voiture-route" }, arreter, bouton);
+  // En pause seulement : où on en est (rien à lire quand ça joue).
+  const etatPause = h("div", { class: "etat-pause", "aria-live": "polite" });
+  etatPause.hidden = true;
+  const ecran = h("div", { class: "voiture-route" }, arreter, etatPause, bouton);
   racine.appendChild(ecran);
   focaliser(bouton);
   const desabonner = audio.surLecture((enCours) => ecran.classList.toggle("parle", enCours));
@@ -196,6 +199,12 @@ export function afficherVoitureRoute(racine, ctx, { duree, themes }) {
     bouton.setAttribute("aria-label", t("voiture.reprendre"));
     iconeEtat.replaceChildren(icone("lecture"));
     arreter.hidden = false;
+    const reste = Math.max(0, session.duree - horloge.secondes());
+    etatPause.replaceChildren(
+      h("p", { class: "etat-pause-titre" }, t("voiture.enPause")),
+      h("p", null, t("voiture.phraseN", { n: Math.max(1, session.bilan().cartes) })),
+      h("p", null, reste < 60 ? t("voiture.resteMoins") : t("voiture.reste", { n: Math.ceil(reste / 60) })));
+    etatPause.hidden = false;
   }
   function reprendre() {
     if (!enPause || fini) return;
@@ -205,6 +214,7 @@ export function afficherVoitureRoute(racine, ctx, { duree, themes }) {
     bouton.setAttribute("aria-label", t("voiture.pause"));
     iconeEtat.replaceChildren(icone("pause"));
     arreter.hidden = true;
+    etatPause.hidden = true;
     demanderVerrou();
     // « On reprend. », puis le cycle en cours est rejoué depuis la phrase française.
     dire(t("voiture.dit.reprise"), "fr", V.rateNormal, j).then(() => tourner(j), () => { /* nouvelle pause */ });
@@ -238,7 +248,7 @@ export function afficherVoitureRoute(racine, ctx, { duree, themes }) {
   function terminer(raison) {
     if (fini) return;
     nettoyer();
-    ctx.aller("fin", { bilan: session.bilan(), duree, mode: "voiture", raison, themes });
+    ctx.aller("fin", { bilan: session.bilan(), duree, dureeReelle: minutesReelles(horloge.secondes()), mode: "voiture", raison, themes });
   }
 
   // ---------- Démarrage ----------

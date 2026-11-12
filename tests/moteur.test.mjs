@@ -7,7 +7,7 @@
 
 import { preparerContenu, texteElement } from "../app/js/contenu.js";
 import { REGLES, AUDIO } from "../app/js/config.js";
-import { creerSession, aleatoireGraine } from "../app/js/moteur.js";
+import { creerSession, aleatoireGraine, minutesReelles } from "../app/js/moteur.js";
 import { controlerAmbiance, construireCss } from "../app/js/ambiance.js";
 import { dureePourLieu, themesValides, basculerTheme, dernierChoix } from "../app/js/parcours.js";
 import { ficheVide, ajouterJours, calculerJour, appliquerResultat, validerFiche } from "../app/js/leitner.js";
@@ -420,6 +420,9 @@ egal(suite.length, 28, "exemple 1 : 28 cartes");
     verifier(ok, "session " + mode + " avec fiches corrompues sans plantage");
   }
 }
+
+// Durée annoncée à la fin : le temps réel, arrondi à la minute, jamais 0.
+egal([0, 20, 90, 240, 270, 299].map(minutesReelles), [1, 1, 2, 4, 5, 5], "minutesReelles : arrondi à la minute, au moins 1");
 
 sortie(reussites + " vérifications réussies, " + echecs + " échec(s).");
 if (echecs > 0 && typeof process !== "undefined") process.exitCode = 1; // fait échouer `node --test`

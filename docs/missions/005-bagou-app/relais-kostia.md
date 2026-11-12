@@ -31,3 +31,6 @@ Branche `mission-005-bagou-app`. Tests (`node --test tests/*.test.mjs` : 709 vé
 - `options.bouton` n'est pas du code mort : l'écran de fin (`ecrans.js`, bouton « Encore ») le passe encore. Laissé tel quel ; seul l'accueil ne l'utilise pas.
 - Style inline de `accueil.js` remplacé par la classe `.btn-ligne` (`app.css`).
 - « Mes progrès » : dégradé de 24 px au-dessus de la barre Retour (`.ecran-progres`), purement visuel ; à revoir à 360, 390 et 430 px.
+- Avis de Léa, Mes progrès : « N acquise(s) sur M » (singulier géré) et légende des 4 états (forme + mot, textes `etat.*` existants).
+- Fin de session : titre avec le temps réel (`minutesReelles`, pauses exclues, arrondi, minimum 1, testé) ; « Encore X min » garde la durée choisie.
+- Voiture en pause : « En pause », « Phrase N », « Reste N min » en gros au-dessus du bouton Reprendre ; rien ne s'affiche quand ça joue. Pour Boris : tester à 360 px, et la légende qui passe à la ligne.

@@ -23,10 +23,10 @@ function boutonRetour(ctx) {
 }
 
 // ---------- 6. Fin de session ----------
-export function afficherFin(racine, ctx, { bilan, duree, mode, raison, themes }) {
+export function afficherFin(racine, ctx, { bilan, duree, dureeReelle, mode, raison, themes }) {
   const tete = entete(ctx, null, null);
   const vide = raison === "arret" && bilan.cartes === 0;
-  const titreTexte = vide ? t("fin.titreVide") : (raison === "arret" ? t("fin.titreArret") : t("fin.titre", { duree: texteDuree(duree) }));
+  const titreTexte = vide ? t("fin.titreVide") : (raison === "arret" ? t("fin.titreArret") : t("fin.titre", { duree: texteDuree(dureeReelle || duree) }));
   const titre = h("h1", { class: "titre-ecran", tabindex: "-1" }, titreTexte);
   const contenu = h("main", { class: "contenu" }, titre);
 
@@ -78,6 +78,9 @@ export function afficherProgres(racine, ctx) {
   } else {
     contenu.appendChild(h("div", { class: "cle-progres" }, poupee("acquise", 56, true),
       h("div", null, h("b", null, phrasesSues(total)), h("small", null, t("progres.surTotal", { total: ctx.contenu.elements.length })))));
+    // Légende : chaque état = sa forme + son mot (la couleur seule ne dit rien).
+    contenu.appendChild(h("ul", { class: "legende-etats" }, ["pas_vue", "vue", "en_cours", "acquise"].map((e) =>
+      h("li", null, poupee(e, 28, true), t("etat." + e)))));
     contenu.appendChild(h("div", null, ctx.contenu.situations.map((s) => {
       const ids = s.ids.filter((id) => ctx.contenu.parId.has(id));
       const etats = ids.map((id) => etatDe(fiches.get(id)));
@@ -89,7 +92,7 @@ export function afficherProgres(racine, ctx) {
         h("div", { class: "sr-only" }, t("progres.ligneSr", { titre: s.titre, acquises: nbAcquis, total: ids.length })),
         h("div", { class: "ligne", "aria-hidden": "true" },
           h("span", { class: "nom" }, s.titre),
-          h("span", { class: "compte" }, toutAcquis ? t("theme.toutAcquis") : t("progres.ligne", { acquises: nbAcquis, total: ids.length }))),
+          h("span", { class: "compte" }, toutAcquis ? t("theme.toutAcquis") : t(nbAcquis > 1 ? "progres.ligne" : "progres.ligne1", { acquises: nbAcquis, total: ids.length }))),
         rangee);
     })));
   }

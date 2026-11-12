@@ -53,6 +53,9 @@ export function aleatoireGraine(graine) {
  * @param {function} [p.aleatoire] tirage dans [0, 1[
  * @param {function} [p.ecrire]    appelé avec chaque fiche modifiée (pour l'enregistrer)
  */
+// Minutes réellement passées (pauses exclues), arrondies, au moins 1 : pour dire « 4 min de russe » à la fin.
+export function minutesReelles(secondes) { return Math.max(1, Math.round(secondes / 60)); }
+
 export function creerSession(p) {
   const contenu = p.contenu;
   const fiches = p.fiches;

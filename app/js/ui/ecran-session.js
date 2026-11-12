@@ -9,7 +9,7 @@ import { decorSituation, sansDecor } from "../ambiance.js";
 import { ouvrirFeuille } from "./feuille.js";
 import { t, texteDuree } from "../textes.js";
 import { INTERFACE, AUDIO } from "../config.js";
-import { creerSession } from "../moteur.js";
+import { creerSession, minutesReelles } from "../moteur.js";
 import { creerHorloge } from "../horloge.js";
 import { autreVariante, variante, ponctuationFinale, normaliser, texteElement } from "../contenu.js";
 import * as audio from "../audio.js";
@@ -566,7 +566,7 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     if (fini) return;
     const modeFinal = session.mode;
     nettoyer();
-    ctx.aller("fin", { bilan: session.bilan(), duree, mode: modeFinal, raison, themes });
+    ctx.aller("fin", { bilan: session.bilan(), duree, dureeReelle: minutesReelles(horloge.secondes()), mode: modeFinal, raison, themes });
   }
 
   // ---------- Démarrage ----------

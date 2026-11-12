@@ -366,6 +366,11 @@ details p { margin-top: var(--space-2); }
 /* ===== 10. Voiture ===== */
 .voiture-route { position: fixed; inset: 0; display: flex; flex-direction: column; background: var(--bg); padding: var(--haut) var(--marge) var(--bas); }
 .voiture-route .arreter { margin: var(--space-2) 0 0; width: auto; min-height: 56px; }
+.etat-pause { text-align: center; padding: var(--space-3) 0; font-size: 1.5rem; font-weight: 600; color: var(--text); }
+.etat-pause p { margin: 0 0 var(--space-1); }
+.etat-pause .etat-pause-titre { font-size: 2.25rem; font-weight: 800; }
+.legende-etats { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); margin: var(--space-3) 0; padding: 0; list-style: none; font-size: var(--fs-small); color: var(--text-muted); }
+.legende-etats li { display: flex; align-items: center; gap: 6px; }
 .bouton-pause {
   flex: 1; width: 100%; border: 0; background: var(--bg); color: var(--on-accent);
   display: flex; align-items: center; justify-content: center; cursor: pointer;
