@@ -12,7 +12,7 @@
       "translit": "ia injyniér",
       "registre": "neutre",
       "variantes": null,
-      "astuce": "Pas de verbe ni d'article : Я врач = je suis médecin. Ces métiers se disent pareil pour une femme.",
+      "astuce": "Sans verbe ni article : Я врач = je suis médecin. Même forme pour une femme.",
       "moule": {
         "modele": "Я ___.",
         "fr": "Je suis ___ (métier).",
@@ -78,7 +78,7 @@
       "translit": "kiem vy rabótaiti?",
       "registre": "vous",
       "variantes": null,
-      "astuce": "Plus large : Чем вы занима́етесь? (que faites-vous ?). À un ami : Кем ты рабо́таешь?",
+      "astuce": "Plus large : Чем вы занима́етесь? À un ami : Кем ты рабо́таешь?",
       "moule": null,
       "ordre_libre": true
     },
@@ -90,7 +90,7 @@
       "translit": "ia rabótaiou v bánki",
       "registre": "neutre",
       "variantes": null,
-      "astuce": "В + lieu ou domaine, la fin change : в ба́нке, в медици́не. Pas besoin du nom du métier.",
+      "astuce": "В + lieu ou domaine, la fin change : в ба́нке, в медици́не.",
       "moule": {
         "modele": "Я работаю в ___.",
         "fr": "Je travaille dans ___.",

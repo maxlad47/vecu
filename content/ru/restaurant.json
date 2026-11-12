@@ -12,7 +12,7 @@
       "translit": "stólik na dvaíkh, pajálsta",
       "registre": "vous",
       "variantes": null,
-      "astuce": "Сто́лик = petite table. Ces nombres ont une forme spéciale : на двои́х, на трои́х…",
+      "astuce": "Сто́лик = petite table. Forme spéciale du nombre : на двои́х, на трои́х…",
       "moule": {
         "modele": "Столик на ___, пожалуйста.",
         "fr": "Une table pour ___, s'il vous plaît.",
@@ -200,7 +200,7 @@
       "translit": "mójna razdiélnyï chtchot?",
       "registre": "vous",
       "variantes": null,
-      "astuce": "Mot à mot « une addition séparée, c'est possible ? ». C'est la tournure courante.",
+      "astuce": "Mot à mot « une addition séparée, c'est possible ? ». La tournure courante.",
       "moule": null
     },
     {

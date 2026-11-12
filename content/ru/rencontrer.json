@@ -34,7 +34,7 @@
       "translit": "pamiédlinieie, pajálsta",
       "registre": "vous",
       "variantes": null,
-      "astuce": "Поме́дленнее = « un peu plus lentement » : c'est la forme qui vient spontanément.",
+      "astuce": "Поме́дленнее = « un peu plus lentement » : la forme spontanée.",
       "moule": null
     },
     {
@@ -45,7 +45,7 @@
       "translit": "kak vas zavoút?",
       "registre": "vous",
       "variantes": null,
-      "astuce": "Mot à mot « comment vous appelle-t-on ? ». Pour répondre : Меня́ зову́т + ton prénom.",
+      "astuce": "Mot à mot « comment vous appelle-t-on ? ». Réponse : Меня́ зову́т + prénom.",
       "moule": null,
       "ordre_libre": true
     },
@@ -134,7 +134,7 @@
       "translit": "vy gavaríti pa-anglíïski?",
       "registre": "vous",
       "variantes": null,
-      "astuce": "Parler une langue : говори́ть по-... (mot à mot « à l'anglaise »). À un ami : Ты говори́шь по-...?",
+      "astuce": "По-англи́йски = « à l'anglaise ». À un ami : Ты говори́шь ___?",
       "moule": {
         "modele": "Вы говорите ___?",
         "fr": "Vous parlez ___ ?",

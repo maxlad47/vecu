@@ -1,0 +1,2 @@
+Astuces ramenées à 80 caractères au plus : 21 raccourcies dans vecu-006 (10 situations), 12 dans vecu-lot3 (hotel, telephone, amis, banque, meteo). Seul le champ `astuce` a changé, le sens russe et les exemples clés sont gardés.
+Pour Boris : pas de shell, donc JSON relu à la main sans `node` ; à vérifier avec node (parse et longueur de `astuce`, accent combinant compté comme 1 caractère, comme `.length`). Les plus serrées : meteo-010 (80), gouts-006, gouts-007, sortir-010, pharmacie-005, banque-006 (79).

@@ -67,7 +67,7 @@
       "translit": "tout ráninyï!",
       "registre": "neutre",
       "variantes": null,
-      "astuce": "Pour attirer quelqu'un : Сюда́! (par ici). Pour un malaise, on crie Челове́ку пло́хо!",
+      "astuce": "Pour appeler : Сюда́! (par ici). Pour un malaise : Челове́ку пло́хо!",
       "moule": null
     },
     {
@@ -155,7 +155,7 @@
       "translit": "ia ni magoú naïtí páspart",
       "registre": "neutre",
       "variantes": null,
-      "astuce": "Mot à mot « je ne peux pas trouver ». On dit aussi, sans я : Не могу́ найти́ ___.",
+      "astuce": "Mot à mot « je ne peux pas trouver ». Sans я aussi : Не могу́ найти́ ___.",
       "moule": {
         "modele": "Я не могу найти ___.",
         "fr": "Je ne trouve plus ___.",

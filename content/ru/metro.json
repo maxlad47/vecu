@@ -112,7 +112,7 @@
       "translit": "idiót da vagzála?",
       "registre": "neutre",
       "variantes": null,
-      "astuce": "Идёт = « il va », pour un bus ou un train. En entier : Э́тот авто́бус идёт до ___?",
+      "astuce": "Идёт = « il va » (bus, train). En entier : Э́тот авто́бус идёт до ___?",
       "moule": {
         "modele": "Идёт до ___?",
         "fr": "Ça va jusqu'à ___ ?",
@@ -190,7 +190,7 @@
       "translit": "éta priáma?",
       "registre": "neutre",
       "variantes": null,
-      "astuce": "Tu l'entendras dans la réponse : пря́мо, пото́м напра́во (tout droit, puis à droite).",
+      "astuce": "Réponse type : пря́мо, пото́м напра́во (tout droit, puis à droite).",
       "moule": null
     },
     {
@@ -223,7 +223,7 @@
       "translit": "vy vykhóditi?",
       "registre": "vous",
       "variantes": null,
-      "astuce": "On le demande à qui bloque la porte, avant l'arrêt. En entier : Вы выхо́дите на сле́дующей?",
+      "astuce": "À qui bloque la porte, avant l'arrêt. En entier : Вы выхо́дите на сле́дующей?",
       "moule": null
     }
   ]

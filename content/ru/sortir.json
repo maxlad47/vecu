@@ -12,7 +12,7 @@
       "translit": "daváï!",
       "registre": "tu",
       "variantes": null,
-      "astuce": "La réponse spontanée à une proposition entre amis. Plus neutre, avec tout le monde : Хорошо́.",
+      "astuce": "Entre amis, la réponse spontanée. Avec tout le monde : Хорошо́.",
       "moule": null
     },
     {
@@ -23,7 +23,7 @@
       "translit": "païdióm f kinó?",
       "registre": "tu",
       "variantes": null,
-      "astuce": "Пойдём в + le lieu ? sert pour tous ces lieux. Dit seul, Пойдём! veut dire « on y va ! ».",
+      "astuce": "Пойдём в + le lieu ? Dit seul, Пойдём! veut dire « on y va ! ».",
       "moule": {
         "modele": "Пойдём ___?",
         "fr": "On va ___ ?",
@@ -89,7 +89,7 @@
       "translit": "va skólka?",
       "registre": "neutre",
       "variantes": null,
-      "astuce": "Mot à mot « à combien ? » : c'est la façon courante de demander l'heure d'un rendez-vous.",
+      "astuce": "Mot à mot « à combien ? » : pour l'heure d'un rendez-vous.",
       "moule": null
     },
     {
@@ -201,7 +201,7 @@
       "translit": "izviní, ni magoú",
       "registre": "tu",
       "variantes": null,
-      "astuce": "Извини́ (excuse-moi) se dit pareil au masculin et au féminin. À un inconnu : Извини́те.",
+      "astuce": "Извини́ (excuse-moi), même forme pour lui et elle. À un inconnu : Извини́те.",
       "moule": null,
       "ordre_libre": true
     },
