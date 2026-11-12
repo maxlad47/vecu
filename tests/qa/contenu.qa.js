@@ -2,7 +2,6 @@
 // Lancement depuis la racine du dépôt :
 //   jsc tests/qa/contenu.qa.js
 const out = print;
-const SIT = ["cafe", "courses", "gouts", "sortir", "rencontrer"];
 const ACC = "́";
 const VOY = /[аеёиоуыэюяАЕЁИОУЫЭЮЯ]/g;
 let pb = [];
@@ -35,8 +34,10 @@ let index;
 try { index = JSON.parse(readFile("content/ru/index.json")); } catch (e) { P("index.json invalide : " + e); }
 if (index) {
   if (index.langue !== "ru") P("index.json : langue");
-  const listeIdx = index.situations.map((s) => s.id).join(",");
-  if (listeIdx !== SIT.join(",")) P("index.json : situations/ordre " + listeIdx);
+  // La liste vient d'index.json ; on contrôle seulement qu'elle est non vide et sans doublon.
+  const idsIdx = index.situations.map((s) => s.id);
+  if (!idsIdx.length) P("index.json : aucune situation");
+  if (new Set(idsIdx).size !== idsIdx.length) P("index.json : identifiant de situation en double");
   for (const s of index.situations) {
     if (!chaine(s.titre) || s.fichier !== s.id + ".json") P("index.json : entrée " + JSON.stringify(s));
     let d;

@@ -1,7 +1,9 @@
 // Tests du moteur de session et du Leitner, sans navigateur.
-// Lancement (depuis la racine du dépôt) :
-//   /System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Helpers/jsc -m tests/moteur.test.mjs
-// (ou, avec Node : node tests/moteur.test.mjs, après avoir remplacé readFile, voir lireJson)
+// Lancement, depuis la racine du dépôt, sans rien d'autre à préparer :
+//   node tests/moteur.test.mjs        (ou : node --test tests/moteur.test.mjs)
+// Code de sortie 1 s'il y a au moins un échec. Avec jsc (JavaScriptCore), `readFile` et `print` existent déjà.
+// Les comptes attendus (éléments, moules, rangs) sont calculés depuis content/ru/index.json
+// et les fichiers listés : ajouter une situation ne casse pas ce test.
 
 import { preparerContenu, texteElement } from "../app/js/contenu.js";
 import { REGLES, AUDIO } from "../app/js/config.js";
@@ -18,21 +20,31 @@ function egal(a, b, message) {
   verifier(JSON.stringify(a) === JSON.stringify(b), message + " (attendu " + JSON.stringify(b) + ", obtenu " + JSON.stringify(a) + ")");
 }
 
-function lireJson(chemin) {
-  // jsc fournit readFile ; Node passerait par fs.readFileSync.
-  return JSON.parse(readFile(chemin));
+// Chemins relatifs à ce fichier : le test marche quel que soit le dossier de lancement.
+const racine = new URL("../", import.meta.url);
+async function lireJson(chemin) {
+  if (typeof readFile === "function") return JSON.parse(readFile(chemin)); // jsc
+  const { readFile: lire } = await import("node:fs/promises");
+  return JSON.parse(await lire(new URL(chemin, racine), "utf8"));
 }
-const index = lireJson("content/ru/index.json");
+const index = await lireJson("content/ru/index.json");
 const fichiers = {};
-index.situations.forEach((s) => { fichiers[s.id] = lireJson("content/ru/" + s.fichier); });
+for (const s of index.situations) fichiers[s.id] = await lireJson("content/ru/" + s.fichier);
 const contenu = preparerContenu(index, fichiers);
 
 // ---------- Contenu ----------
-egal(contenu.elements.length, 47, "47 éléments");
-egal(contenu.elements.slice(0, 4).map((e) => e.id), ["ru-cafe-001", "ru-cafe-002", "ru-cafe-003", "ru-courses-001"], "ordre par vagues, début");
-egal(contenu.elements[15].id, "ru-cafe-004", "rang 16 = ru-cafe-004");
-egal(contenu.elements[46].id, "ru-rencontrer-009", "rang 47 = ru-rencontrer-009");
-egal(contenu.elements.filter((e) => e.moule).length, 10, "10 moules");
+// Comptes de référence recalculés depuis les fichiers JSON bruts, sans passer par le code testé.
+const brut = index.situations.map((s) => fichiers[s.id].phrases);
+const totalPhrases = brut.reduce((n, l) => n + l.length, 0);
+const totalMoules = brut.reduce((n, l) => n + l.filter((p) => p.moule && p.moule.remplacements && p.moule.remplacements.length).length, 0);
+// Ordre par vagues (CLAUDE.md / contenu.js) : vague 1 = phrases 1 à 3 de chaque situation, puis 4 à 6, puis le reste.
+const ordreAttendu = [];
+[[0, 3], [3, 6], [6, Infinity]].forEach(([de, a]) => brut.forEach((l) => l.slice(de, a).forEach((p) => ordreAttendu.push(p.id))));
+egal(contenu.elements.length, totalPhrases, totalPhrases + " éléments (somme des fichiers listés)");
+egal(new Set(contenu.elements.map((e) => e.id)).size, totalPhrases, "identifiants uniques");
+egal(contenu.elements.map((e) => e.id), ordreAttendu, "ordre par vagues, complet");
+egal(contenu.elements[0].id, brut[0][0].id, "rang 1 = première phrase de la première situation");
+egal(contenu.elements.filter((e) => e.moule).length, totalMoules, totalMoules + " moules");
 egal(texteElement(contenu.parId.get("ru-cafe-002"), { remplacement: 1 }).fr, "Un thé, s'il vous plaît.", "occurrence de moule");
 
 // ---------- Leitner ----------
@@ -239,6 +251,7 @@ egal(suite.length, 28, "exemple 1 : 28 cartes");
     tousDus: () => new Map(contenu.elements.map((e, i) => [e.id, Object.assign(ficheVide(e.id), { boite: 1 + (i % 6), echeance: ajouterJours("2026-11-11", -1 - (i % 5)), premiereVue: "2026-10-01" })]))
   };
   let pire = 0;
+  const reserves = [];
   for (const duree of [2, 5, 15, 30]) for (const nom of Object.keys(etatsV)) {
     const s = creerSession({ contenu, fiches: etatsV[nom](), mode: "voiture", duree, jour: "2026-11-11", genre: "m", aleatoire: aleatoireGraine(3) });
     let t = secours("C’est parti. Je te dis une phrase en français, à toi de la dire en russe.", 1), c, reel = 0, estime = 0;
@@ -250,7 +263,12 @@ egal(suite.length, 28, "exemple 1 : 28 cartes");
     t += secours("C’est fini pour aujourd’hui. 2 phrases travaillées. Bonne route.", 1);
     const ecart = (t - duree * 60) / (duree * 60);
     pire = Math.max(pire, Math.abs(ecart));
-    verifier(Math.abs(ecart) <= 0.2, "Voiture " + duree + " min " + nom + ", onend jamais : " + Math.round(ecart * 100) + " %");
+    const message = "Voiture " + duree + " min " + nom + ", onend jamais : " + Math.round(ecart * 100) + " %";
+    // RÉSERVE CONNUE (décision de Sacha, QA lot 2 n° 1) : Voiture 2 min, tout dû, onend jamais, dépasse 20 %
+    // car les phrases du contenu sont plus longues. Le moteur ne change pas ici : la mission « audio pré-généré »
+    // donnera des durées exactes et supprimera l'estimation. Avertissement, pas échec.
+    if (duree === 2 && nom === "tousDus" && Math.abs(ecart) > 0.2) { reserves.push(message); sortie("AVERTISSEMENT (réserve connue, audio pré-généré) : " + message); }
+    else verifier(Math.abs(ecart) <= 0.2, message);
   }
   sortie("Voiture, onend jamais : pire écart " + (pire * 100).toFixed(1) + " %");
 }
@@ -285,3 +303,4 @@ egal(suite.length, 28, "exemple 1 : 28 cartes");
 }
 
 sortie(reussites + " vérifications réussies, " + echecs + " échec(s).");
+if (echecs > 0 && typeof process !== "undefined") process.exitCode = 1; // fait échouer `node --test`

@@ -1,0 +1,241 @@
+{
+  "langue": "ru",
+  "situation": "presenter",
+  "titre": "Se présenter",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-presenter-001",
+      "fr": "Je suis ingénieur.",
+      "cible": "Я инженер.",
+      "accent": "Я инжене́р.",
+      "translit": "ia injyniér",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Pas de verbe ni d'article : Я врач = je suis médecin. Ces métiers se disent pareil pour une femme.",
+      "moule": {
+        "modele": "Я ___.",
+        "fr": "Je suis ___ (métier).",
+        "remplacements": [
+          {
+            "fr": "ingénieur",
+            "cible": "инженер",
+            "accent": "инжене́р",
+            "translit": "injyniér",
+            "phrase_fr": "Je suis ingénieur.",
+            "phrase_cible": "Я инженер.",
+            "phrase_accent": "Я инжене́р.",
+            "phrase_translit": "ia injyniér"
+          },
+          {
+            "fr": "médecin",
+            "cible": "врач",
+            "accent": "врач",
+            "translit": "vratch",
+            "phrase_fr": "Je suis médecin.",
+            "phrase_cible": "Я врач.",
+            "phrase_accent": "Я врач.",
+            "phrase_translit": "ia vratch"
+          },
+          {
+            "fr": "comptable",
+            "cible": "бухгалтер",
+            "accent": "бухга́лтер",
+            "translit": "boukháltir",
+            "phrase_fr": "Je suis comptable.",
+            "phrase_cible": "Я бухгалтер.",
+            "phrase_accent": "Я бухга́лтер.",
+            "phrase_translit": "ia boukháltir"
+          },
+          {
+            "fr": "manager",
+            "cible": "менеджер",
+            "accent": "ме́неджер",
+            "translit": "ménedjer",
+            "phrase_fr": "Je suis manager.",
+            "phrase_cible": "Я менеджер.",
+            "phrase_accent": "Я ме́неджер.",
+            "phrase_translit": "ia ménedjer"
+          },
+          {
+            "fr": "avocat",
+            "cible": "адвокат",
+            "accent": "адвока́т",
+            "translit": "advakát",
+            "phrase_fr": "Je suis avocat.",
+            "phrase_cible": "Я адвокат.",
+            "phrase_accent": "Я адвока́т.",
+            "phrase_translit": "ia advakát"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-presenter-002",
+      "fr": "Vous faites quoi dans la vie ?",
+      "cible": "Кем вы работаете?",
+      "accent": "Кем вы рабо́таете?",
+      "translit": "kiem vy rabótaiti?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Plus large : Чем вы занима́етесь? (que faites-vous ?). À un ami : Кем ты рабо́таешь?",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-presenter-003",
+      "fr": "Je travaille dans une banque.",
+      "cible": "Я работаю в банке.",
+      "accent": "Я рабо́таю в ба́нке.",
+      "translit": "ia rabótaiou v bánki",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "В + lieu ou domaine, la fin change : в ба́нке, в медици́не. Pas besoin du nom du métier.",
+      "moule": {
+        "modele": "Я работаю в ___.",
+        "fr": "Je travaille dans ___.",
+        "remplacements": [
+          {
+            "fr": "une banque",
+            "cible": "банке",
+            "accent": "ба́нке",
+            "translit": "bánki",
+            "phrase_fr": "Je travaille dans une banque.",
+            "phrase_cible": "Я работаю в банке.",
+            "phrase_accent": "Я рабо́таю в ба́нке.",
+            "phrase_translit": "ia rabótaiou v bánki"
+          },
+          {
+            "fr": "l'informatique",
+            "cible": "айти",
+            "accent": "айти́",
+            "translit": "aïtí",
+            "phrase_fr": "Je travaille dans l'informatique.",
+            "phrase_cible": "Я работаю в айти.",
+            "phrase_accent": "Я рабо́таю в айти́.",
+            "phrase_translit": "ia rabótaiou v aïtí"
+          },
+          {
+            "fr": "la santé",
+            "cible": "медицине",
+            "accent": "медици́не",
+            "translit": "miditsýni",
+            "phrase_fr": "Je travaille dans la santé.",
+            "phrase_cible": "Я работаю в медицине.",
+            "phrase_accent": "Я рабо́таю в медици́не.",
+            "phrase_translit": "ia rabótaiou v miditsýni"
+          },
+          {
+            "fr": "l'éducation",
+            "cible": "образовании",
+            "accent": "образова́нии",
+            "translit": "abrazavánii",
+            "phrase_fr": "Je travaille dans l'éducation.",
+            "phrase_cible": "Я работаю в образовании.",
+            "phrase_accent": "Я рабо́таю в образова́нии.",
+            "phrase_translit": "ia rabótaiou v abrazavánii"
+          },
+          {
+            "fr": "le commerce",
+            "cible": "торговле",
+            "accent": "торго́вле",
+            "translit": "targóvli",
+            "phrase_fr": "Je travaille dans le commerce.",
+            "phrase_cible": "Я работаю в торговле.",
+            "phrase_accent": "Я рабо́таю в торго́вле.",
+            "phrase_translit": "ia rabótaiou f targóvli"
+          },
+          {
+            "fr": "le bâtiment",
+            "cible": "строительстве",
+            "accent": "строи́тельстве",
+            "translit": "straítilstvi",
+            "phrase_fr": "Je travaille dans le bâtiment.",
+            "phrase_cible": "Я работаю в строительстве.",
+            "phrase_accent": "Я рабо́таю в строи́тельстве.",
+            "phrase_translit": "ia rabótaiou f straítilstvi"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-presenter-004",
+      "fr": "Je suis ici en vacances.",
+      "cible": "Я здесь в отпуске.",
+      "accent": "Я здесь в о́тпуске.",
+      "translit": "ia zdies v ótpouski",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "On dit aussi, plus simplement : Я тут отдыха́ю (je suis en vacances ici).",
+      "moule": null
+    },
+    {
+      "id": "ru-presenter-005",
+      "fr": "Je suis ici pour le travail.",
+      "cible": "Я здесь по работе.",
+      "accent": "Я здесь по рабо́те.",
+      "translit": "ia zdies pa rabóti",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    },
+    {
+      "id": "ru-presenter-006",
+      "fr": "Je suis étudiant.",
+      "cible": "Я студент.",
+      "accent": "Я студе́нт.",
+      "translit": "ia stoudiént",
+      "registre": "neutre",
+      "variantes": { "m": "Я студент.", "f": "Я студентка." },
+      "astuce": "Une femme dit Я студе́нтка (stoudiéntka).",
+      "moule": null
+    },
+    {
+      "id": "ru-presenter-007",
+      "fr": "Je suis ici depuis une semaine.",
+      "cible": "Я здесь уже неделю.",
+      "accent": "Я здесь уже́ неде́лю.",
+      "translit": "ia zdies oujé nidiéliou",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "« Depuis » ne se traduit pas : неде́лю, три дня, ме́сяц (un mois).",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-presenter-008",
+      "fr": "C'est la première fois que je viens ici.",
+      "cible": "Я здесь впервые.",
+      "accent": "Я здесь впервы́е.",
+      "translit": "ia zdies fpirvýie",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "On dit aussi Я здесь в пе́рвый раз.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-presenter-009",
+      "fr": "Je travaille à mon compte.",
+      "cible": "Я работаю на себя.",
+      "accent": "Я рабо́таю на себя́.",
+      "translit": "ia rabótaiou na sibiá",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Mot à mot « je travaille pour moi ».",
+      "moule": null
+    },
+    {
+      "id": "ru-presenter-010",
+      "fr": "Je suis à la retraite.",
+      "cible": "Я на пенсии.",
+      "accent": "Я на пе́нсии.",
+      "translit": "ia na piénsii",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    }
+  ]
+}

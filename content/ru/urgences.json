@@ -1,0 +1,228 @@
+{
+  "langue": "ru",
+  "situation": "urgences",
+  "titre": "Urgences",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-urgences-001",
+      "fr": "Au secours !",
+      "cible": "Помогите!",
+      "accent": "Помоги́те!",
+      "translit": "pamaguíti!",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "C'est le cri figé, lancé à tout le monde. Mot à mot « aidez ! ».",
+      "moule": null
+    },
+    {
+      "id": "ru-urgences-002",
+      "fr": "Appelez une ambulance !",
+      "cible": "Вызовите скорую!",
+      "accent": "Вы́зовите ско́рую!",
+      "translit": "výzaviti skórouiou!",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Ско́рая = l'ambulance (ско́рая по́мощь, en entier). Вы́зовите = faites venir.",
+      "moule": null
+    },
+    {
+      "id": "ru-urgences-003",
+      "fr": "Appelez la police !",
+      "cible": "Вызовите полицию!",
+      "accent": "Вы́зовите поли́цию!",
+      "translit": "výzaviti palítsyiou!",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    },
+    {
+      "id": "ru-urgences-004",
+      "fr": "Aidez-moi, s'il vous plaît !",
+      "cible": "Помогите мне, пожалуйста!",
+      "accent": "Помоги́те мне, пожа́луйста!",
+      "translit": "pamaguíti mnie, pajálsta!",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "À une personne précise. Pour crier à tous, Помоги́те! suffit.",
+      "moule": null
+    },
+    {
+      "id": "ru-urgences-005",
+      "fr": "Au feu !",
+      "cible": "Пожар!",
+      "accent": "Пожа́р!",
+      "translit": "pajár!",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    },
+    {
+      "id": "ru-urgences-006",
+      "fr": "Il y a un blessé ici !",
+      "cible": "Тут раненый!",
+      "accent": "Тут ра́неный!",
+      "translit": "tout ráninyï!",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Pour attirer quelqu'un : Сюда́! (par ici). Pour un malaise, on crie Челове́ку пло́хо!",
+      "moule": null
+    },
+    {
+      "id": "ru-urgences-007",
+      "fr": "Il y a un accident ici.",
+      "cible": "Здесь авария.",
+      "accent": "Здесь ава́рия.",
+      "translit": "zdies avária",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Ава́рия = un accident de la route. Здесь (ici) dit tout de suite où c'est.",
+      "moule": null
+    },
+    {
+      "id": "ru-urgences-008",
+      "fr": "On m'a volé mon portefeuille.",
+      "cible": "У меня украли кошелёк.",
+      "accent": "У меня́ укра́ли кошелёк.",
+      "translit": "ou miniá oukráli kachyliók",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Укра́ли, sans sujet = « on a volé ». Pas de « mon » : у меня́ suffit.",
+      "moule": {
+        "modele": "У меня украли ___.",
+        "fr": "On m'a volé ___.",
+        "remplacements": [
+          {
+            "fr": "mon portefeuille",
+            "cible": "кошелёк",
+            "accent": "кошелёк",
+            "translit": "kachyliók",
+            "phrase_fr": "On m'a volé mon portefeuille.",
+            "phrase_cible": "У меня украли кошелёк.",
+            "phrase_accent": "У меня́ укра́ли кошелёк.",
+            "phrase_translit": "ou miniá oukráli kachyliók"
+          },
+          {
+            "fr": "mon téléphone",
+            "cible": "телефон",
+            "accent": "телефо́н",
+            "translit": "tilifón",
+            "phrase_fr": "On m'a volé mon téléphone.",
+            "phrase_cible": "У меня украли телефон.",
+            "phrase_accent": "У меня́ укра́ли телефо́н.",
+            "phrase_translit": "ou miniá oukráli tilifón"
+          },
+          {
+            "fr": "mon sac",
+            "cible": "сумку",
+            "accent": "су́мку",
+            "translit": "soúmkou",
+            "phrase_fr": "On m'a volé mon sac.",
+            "phrase_cible": "У меня украли сумку.",
+            "phrase_accent": "У меня́ укра́ли су́мку.",
+            "phrase_translit": "ou miniá oukráli soúmkou"
+          },
+          {
+            "fr": "mon passeport",
+            "cible": "паспорт",
+            "accent": "па́спорт",
+            "translit": "páspart",
+            "phrase_fr": "On m'a volé mon passeport.",
+            "phrase_cible": "У меня украли паспорт.",
+            "phrase_accent": "У меня́ укра́ли па́спорт.",
+            "phrase_translit": "ou miniá oukráli páspart"
+          },
+          {
+            "fr": "ma carte bancaire",
+            "cible": "банковскую карту",
+            "accent": "ба́нковскую ка́рту",
+            "translit": "bánkafskouiou kártou",
+            "phrase_fr": "On m'a volé ma carte bancaire.",
+            "phrase_cible": "У меня украли банковскую карту.",
+            "phrase_accent": "У меня́ укра́ли ба́нковскую ка́рту.",
+            "phrase_translit": "ou miniá oukráli bánkafskouiou kártou"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-urgences-009",
+      "fr": "Je ne trouve plus mon passeport.",
+      "cible": "Я не могу найти паспорт.",
+      "accent": "Я не могу́ найти́ па́спорт.",
+      "translit": "ia ni magoú naïtí páspart",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Mot à mot « je ne peux pas trouver ». On dit aussi, sans я : Не могу́ найти́ ___.",
+      "moule": {
+        "modele": "Я не могу найти ___.",
+        "fr": "Je ne trouve plus ___.",
+        "remplacements": [
+          {
+            "fr": "mon passeport",
+            "cible": "паспорт",
+            "accent": "па́спорт",
+            "translit": "páspart",
+            "phrase_fr": "Je ne trouve plus mon passeport.",
+            "phrase_cible": "Я не могу найти паспорт.",
+            "phrase_accent": "Я не могу́ найти́ па́спорт.",
+            "phrase_translit": "ia ni magoú naïtí páspart"
+          },
+          {
+            "fr": "mon téléphone",
+            "cible": "телефон",
+            "accent": "телефо́н",
+            "translit": "tilifón",
+            "phrase_fr": "Je ne trouve plus mon téléphone.",
+            "phrase_cible": "Я не могу найти телефон.",
+            "phrase_accent": "Я не могу́ найти́ телефо́н.",
+            "phrase_translit": "ia ni magoú naïtí tilifón"
+          },
+          {
+            "fr": "mon portefeuille",
+            "cible": "кошелёк",
+            "accent": "кошелёк",
+            "translit": "kachyliók",
+            "phrase_fr": "Je ne trouve plus mon portefeuille.",
+            "phrase_cible": "Я не могу найти кошелёк.",
+            "phrase_accent": "Я не могу́ найти́ кошелёк.",
+            "phrase_translit": "ia ni magoú naïtí kachyliók"
+          },
+          {
+            "fr": "mes clés",
+            "cible": "ключи",
+            "accent": "ключи́",
+            "translit": "klioutchí",
+            "phrase_fr": "Je ne trouve plus mes clés.",
+            "phrase_cible": "Я не могу найти ключи.",
+            "phrase_accent": "Я не могу́ найти́ ключи́.",
+            "phrase_translit": "ia ni magoú naïtí klioutchí"
+          },
+          {
+            "fr": "mon sac",
+            "cible": "сумку",
+            "accent": "су́мку",
+            "translit": "soúmkou",
+            "phrase_fr": "Je ne trouve plus mon sac.",
+            "phrase_cible": "Я не могу найти сумку.",
+            "phrase_accent": "Я не могу́ найти́ су́мку.",
+            "phrase_translit": "ia ni magoú naïtí soúmkou"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-urgences-010",
+      "fr": "Où est l'hôpital le plus proche ?",
+      "cible": "Где ближайшая больница?",
+      "accent": "Где ближа́йшая больни́ца?",
+      "translit": "gdie blijáïchaia balnítsa?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Ближа́йший = le plus proche : ближа́йшая апте́ка, ближа́йшее метро́.",
+      "moule": null
+    }
+  ]
+}

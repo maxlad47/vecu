@@ -5,6 +5,11 @@
     { "id": "courses", "titre": "Faire les courses", "fichier": "courses.json" },
     { "id": "gouts", "titre": "Ce que j'aime", "fichier": "gouts.json" },
     { "id": "sortir", "titre": "Sortir", "fichier": "sortir.json" },
-    { "id": "rencontrer", "titre": "Rencontrer quelqu'un", "fichier": "rencontrer.json" }
+    { "id": "rencontrer", "titre": "Rencontrer quelqu'un", "fichier": "rencontrer.json" },
+    { "id": "metro", "titre": "Métro et directions", "fichier": "metro.json" },
+    { "id": "pharmacie", "titre": "Pharmacie et santé", "fichier": "pharmacie.json" },
+    { "id": "presenter", "titre": "Se présenter", "fichier": "presenter.json" },
+    { "id": "restaurant", "titre": "Au restaurant", "fichier": "restaurant.json" },
+    { "id": "urgences", "titre": "Urgences", "fichier": "urgences.json" }
   ]
 }

@@ -1,0 +1,284 @@
+{
+  "langue": "ru",
+  "situation": "pharmacie",
+  "titre": "Pharmacie et santé",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-pharmacie-001",
+      "fr": "Il y a une pharmacie près d'ici ?",
+      "cible": "Здесь рядом есть аптека?",
+      "accent": "Здесь ря́дом есть апте́ка?",
+      "translit": "zdies riádam iest aptiéka?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Есть = « il y a ». Здесь ря́дом есть ___? marche pour tout ce qu'on cherche.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-pharmacie-002",
+      "fr": "Je ne me sens pas bien.",
+      "cible": "Я плохо себя чувствую.",
+      "accent": "Я пло́хо себя́ чу́вствую.",
+      "translit": "ia plókha sibiá tchoústvouiou",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Plus court et plus fort : Мне пло́хо. Le premier в de чу́вствую est muet.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-pharmacie-003",
+      "fr": "J'ai mal à la tête.",
+      "cible": "У меня болит голова.",
+      "accent": "У меня́ боли́т голова́.",
+      "translit": "ou miniá balít galavá",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Pour un pluriel, боли́т devient боля́т : У меня́ боля́т зу́бы.",
+      "moule": {
+        "modele": "У меня болит ___.",
+        "fr": "J'ai mal à ___.",
+        "remplacements": [
+          {
+            "fr": "la tête",
+            "cible": "голова",
+            "accent": "голова́",
+            "translit": "galavá",
+            "phrase_fr": "J'ai mal à la tête.",
+            "phrase_cible": "У меня болит голова.",
+            "phrase_accent": "У меня́ боли́т голова́.",
+            "phrase_translit": "ou miniá balít galavá"
+          },
+          {
+            "fr": "le ventre",
+            "cible": "живот",
+            "accent": "живо́т",
+            "translit": "jivót",
+            "phrase_fr": "J'ai mal au ventre.",
+            "phrase_cible": "У меня болит живот.",
+            "phrase_accent": "У меня́ боли́т живо́т.",
+            "phrase_translit": "ou miniá balít jivót"
+          },
+          {
+            "fr": "la gorge",
+            "cible": "горло",
+            "accent": "го́рло",
+            "translit": "górla",
+            "phrase_fr": "J'ai mal à la gorge.",
+            "phrase_cible": "У меня болит горло.",
+            "phrase_accent": "У меня́ боли́т го́рло.",
+            "phrase_translit": "ou miniá balít górla"
+          },
+          {
+            "fr": "le dos",
+            "cible": "спина",
+            "accent": "спина́",
+            "translit": "spiná",
+            "phrase_fr": "J'ai mal au dos.",
+            "phrase_cible": "У меня болит спина.",
+            "phrase_accent": "У меня́ боли́т спина́.",
+            "phrase_translit": "ou miniá balít spiná"
+          },
+          {
+            "fr": "les dents",
+            "cible": "зубы",
+            "accent": "зу́бы",
+            "translit": "zoúby",
+            "phrase_fr": "J'ai mal aux dents.",
+            "phrase_cible": "У меня болят зубы.",
+            "phrase_accent": "У меня́ боля́т зу́бы.",
+            "phrase_translit": "ou miniá baliát zoúby"
+          },
+          {
+            "fr": "l'oreille",
+            "cible": "ухо",
+            "accent": "у́хо",
+            "translit": "oúkha",
+            "phrase_fr": "J'ai mal à l'oreille.",
+            "phrase_cible": "У меня болит ухо.",
+            "phrase_accent": "У меня́ боли́т у́хо.",
+            "phrase_translit": "ou miniá balít oúkha"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-pharmacie-004",
+      "fr": "J'ai besoin d'un médecin.",
+      "cible": "Мне нужен врач.",
+      "accent": "Мне ну́жен врач.",
+      "translit": "mnie noújyn vratch",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Ну́жен s'accorde avec la chose, pas avec toi : Мне нужна́ по́мощь (de l'aide).",
+      "moule": null
+    },
+    {
+      "id": "ru-pharmacie-005",
+      "fr": "Je suis allergique aux noix.",
+      "cible": "У меня аллергия на орехи.",
+      "accent": "У меня́ аллерги́я на оре́хи.",
+      "translit": "ou miniá alirguíia na ariékhi",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Mot à mot « allergie sur ». Un mot en -а finit en -у : на клубни́ку (la fraise).",
+      "moule": {
+        "modele": "У меня аллергия на ___.",
+        "fr": "Je suis allergique à ___.",
+        "remplacements": [
+          {
+            "fr": "les noix",
+            "cible": "орехи",
+            "accent": "оре́хи",
+            "translit": "ariékhi",
+            "phrase_fr": "Je suis allergique aux noix.",
+            "phrase_cible": "У меня аллергия на орехи.",
+            "phrase_accent": "У меня́ аллерги́я на оре́хи.",
+            "phrase_translit": "ou miniá alirguíia na ariékhi"
+          },
+          {
+            "fr": "le lait",
+            "cible": "молоко",
+            "accent": "молоко́",
+            "translit": "malakó",
+            "phrase_fr": "Je suis allergique au lait.",
+            "phrase_cible": "У меня аллергия на молоко.",
+            "phrase_accent": "У меня́ аллерги́я на молоко́.",
+            "phrase_translit": "ou miniá alirguíia na malakó"
+          },
+          {
+            "fr": "la pénicilline",
+            "cible": "пенициллин",
+            "accent": "пеницилли́н",
+            "translit": "pinitsylín",
+            "phrase_fr": "Je suis allergique à la pénicilline.",
+            "phrase_cible": "У меня аллергия на пенициллин.",
+            "phrase_accent": "У меня́ аллерги́я на пеницилли́н.",
+            "phrase_translit": "ou miniá alirguíia na pinitsylín"
+          },
+          {
+            "fr": "les piqûres d'abeille",
+            "cible": "укусы пчёл",
+            "accent": "уку́сы пчёл",
+            "translit": "oukoússy ptchol",
+            "phrase_fr": "Je suis allergique aux piqûres d'abeille.",
+            "phrase_cible": "У меня аллергия на укусы пчёл.",
+            "phrase_accent": "У меня́ аллерги́я на уку́сы пчёл.",
+            "phrase_translit": "ou miniá alirguíia na oukoússy ptchol"
+          },
+          {
+            "fr": "le gluten",
+            "cible": "глютен",
+            "accent": "глюте́н",
+            "translit": "glioutién",
+            "phrase_fr": "Je suis allergique au gluten.",
+            "phrase_cible": "У меня аллергия на глютен.",
+            "phrase_accent": "У меня́ аллерги́я на глюте́н.",
+            "phrase_translit": "ou miniá alirguíia na glioutién"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-pharmacie-006",
+      "fr": "Vous avez quelque chose contre le mal de tête ?",
+      "cible": "У вас есть что-нибудь от головной боли?",
+      "accent": "У вас есть что́-нибудь от головно́й бо́ли?",
+      "translit": "ou vas iest chtó-nibout ad galavnóï bóli?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "« Contre » un mal se dit от, et la fin du mot change : apprends le bloc.",
+      "moule": {
+        "modele": "У вас есть что-нибудь от ___?",
+        "fr": "Vous avez quelque chose contre ___ ?",
+        "remplacements": [
+          {
+            "fr": "le mal de tête",
+            "cible": "головной боли",
+            "accent": "головно́й бо́ли",
+            "translit": "galavnóï bóli",
+            "phrase_fr": "Vous avez quelque chose contre le mal de tête ?",
+            "phrase_cible": "У вас есть что-нибудь от головной боли?",
+            "phrase_accent": "У вас есть что́-нибудь от головно́й бо́ли?",
+            "phrase_translit": "ou vas iest chtó-nibout ad galavnóï bóli?"
+          },
+          {
+            "fr": "la toux",
+            "cible": "кашля",
+            "accent": "ка́шля",
+            "translit": "káchlia",
+            "phrase_fr": "Vous avez quelque chose contre la toux ?",
+            "phrase_cible": "У вас есть что-нибудь от кашля?",
+            "phrase_accent": "У вас есть что́-нибудь от ка́шля?",
+            "phrase_translit": "ou vas iest chtó-nibout at káchlia?"
+          },
+          {
+            "fr": "le rhume",
+            "cible": "насморка",
+            "accent": "на́сморка",
+            "translit": "násmarka",
+            "phrase_fr": "Vous avez quelque chose contre le rhume ?",
+            "phrase_cible": "У вас есть что-нибудь от насморка?",
+            "phrase_accent": "У вас есть что́-нибудь от на́сморка?",
+            "phrase_translit": "ou vas iest chtó-nibout at násmarka?"
+          },
+          {
+            "fr": "le mal de gorge",
+            "cible": "боли в горле",
+            "accent": "бо́ли в го́рле",
+            "translit": "bóli v górli",
+            "phrase_fr": "Vous avez quelque chose contre le mal de gorge ?",
+            "phrase_cible": "У вас есть что-нибудь от боли в горле?",
+            "phrase_accent": "У вас есть что́-нибудь от бо́ли в го́рле?",
+            "phrase_translit": "ou vas iest chtó-nibout ad bóli v górli?"
+          },
+          {
+            "fr": "les piqûres de moustique",
+            "cible": "укусов комаров",
+            "accent": "уку́сов комаро́в",
+            "translit": "oukoússaf kamaróf",
+            "phrase_fr": "Vous avez quelque chose contre les piqûres de moustique ?",
+            "phrase_cible": "У вас есть что-нибудь от укусов комаров?",
+            "phrase_accent": "У вас есть что́-нибудь от уку́сов комаро́в?",
+            "phrase_translit": "ou vas iest chtó-nibout at oukoússaf kamaróf?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-pharmacie-007",
+      "fr": "Comment je le prends ?",
+      "cible": "Как это принимать?",
+      "accent": "Как э́то принима́ть?",
+      "translit": "kak éta prinimát?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Принима́ть = prendre un médicament. Брать, c'est prendre un objet.",
+      "moule": null
+    },
+    {
+      "id": "ru-pharmacie-008",
+      "fr": "Il faut une ordonnance ?",
+      "cible": "Нужен рецепт?",
+      "accent": "Ну́жен реце́пт?",
+      "translit": "noújyn ritsépt?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Réponse possible : без реце́пта (sans ordonnance).",
+      "moule": null
+    },
+    {
+      "id": "ru-pharmacie-009",
+      "fr": "J'ai une ordonnance.",
+      "cible": "У меня есть рецепт.",
+      "accent": "У меня́ есть реце́пт.",
+      "translit": "ou miniá iest ritsépt",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    }
+  ]
+}

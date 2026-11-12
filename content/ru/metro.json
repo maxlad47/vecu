@@ -1,0 +1,230 @@
+{
+  "langue": "ru",
+  "situation": "metro",
+  "titre": "Métro et directions",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-metro-001",
+      "fr": "Où est le métro ?",
+      "cible": "Где метро?",
+      "accent": "Где метро́?",
+      "translit": "gdie mitró?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Где + lieu, sans verbe. Pour aborder quelqu'un : Извини́те, где ___?",
+      "moule": {
+        "modele": "Где ___?",
+        "fr": "Où est ___ ?",
+        "remplacements": [
+          {
+            "fr": "le métro",
+            "cible": "метро",
+            "accent": "метро́",
+            "translit": "mitró",
+            "phrase_fr": "Où est le métro ?",
+            "phrase_cible": "Где метро?",
+            "phrase_accent": "Где метро́?",
+            "phrase_translit": "gdie mitró?"
+          },
+          {
+            "fr": "l'arrêt de bus",
+            "cible": "остановка автобуса",
+            "accent": "остано́вка авто́буса",
+            "translit": "astanófka aftóboussa",
+            "phrase_fr": "Où est l'arrêt de bus ?",
+            "phrase_cible": "Где остановка автобуса?",
+            "phrase_accent": "Где остано́вка авто́буса?",
+            "phrase_translit": "gdie astanófka aftóboussa?"
+          },
+          {
+            "fr": "la gare",
+            "cible": "вокзал",
+            "accent": "вокза́л",
+            "translit": "vagzál",
+            "phrase_fr": "Où est la gare ?",
+            "phrase_cible": "Где вокзал?",
+            "phrase_accent": "Где вокза́л?",
+            "phrase_translit": "gdie vagzál?"
+          },
+          {
+            "fr": "la sortie",
+            "cible": "выход",
+            "accent": "вы́ход",
+            "translit": "výkhat",
+            "phrase_fr": "Où est la sortie ?",
+            "phrase_cible": "Где выход?",
+            "phrase_accent": "Где вы́ход?",
+            "phrase_translit": "gdie výkhat?"
+          },
+          {
+            "fr": "le centre-ville",
+            "cible": "центр города",
+            "accent": "центр го́рода",
+            "translit": "tsentr górada",
+            "phrase_fr": "Où est le centre-ville ?",
+            "phrase_cible": "Где центр города?",
+            "phrase_accent": "Где центр го́рода?",
+            "phrase_translit": "gdie tsentr górada?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-metro-002",
+      "fr": "Je suis perdu.",
+      "cible": "Я заблудился.",
+      "accent": "Я заблуди́лся.",
+      "translit": "ia zabloudílsia",
+      "registre": "neutre",
+      "variantes": { "m": "Я заблудился.", "f": "Я заблудилась." },
+      "astuce": "Une femme dit Я заблуди́лась (zabloudílas).",
+      "moule": null
+    },
+    {
+      "id": "ru-metro-003",
+      "fr": "Vous pouvez me montrer sur la carte ?",
+      "cible": "Можете показать на карте?",
+      "accent": "Мо́жете показа́ть на ка́рте?",
+      "translit": "mójyti pakazát na kárti?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": null,
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-metro-004",
+      "fr": "Un billet, s'il vous plaît.",
+      "cible": "Один билет, пожалуйста.",
+      "accent": "Оди́н биле́т, пожа́луйста.",
+      "translit": "adín biliét, pajálsta",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Pour deux : Два биле́та, пожа́луйста.",
+      "moule": null
+    },
+    {
+      "id": "ru-metro-005",
+      "fr": "Ça va jusqu'à la gare ?",
+      "cible": "Идёт до вокзала?",
+      "accent": "Идёт до вокза́ла?",
+      "translit": "idiót da vagzála?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Идёт = « il va », pour un bus ou un train. En entier : Э́тот авто́бус идёт до ___?",
+      "moule": {
+        "modele": "Идёт до ___?",
+        "fr": "Ça va jusqu'à ___ ?",
+        "remplacements": [
+          {
+            "fr": "la gare",
+            "cible": "вокзала",
+            "accent": "вокза́ла",
+            "translit": "vagzála",
+            "phrase_fr": "Ça va jusqu'à la gare ?",
+            "phrase_cible": "Идёт до вокзала?",
+            "phrase_accent": "Идёт до вокза́ла?",
+            "phrase_translit": "idiót da vagzála?"
+          },
+          {
+            "fr": "l'aéroport",
+            "cible": "аэропорта",
+            "accent": "аэропо́рта",
+            "translit": "aerapórta",
+            "phrase_fr": "Ça va jusqu'à l'aéroport ?",
+            "phrase_cible": "Идёт до аэропорта?",
+            "phrase_accent": "Идёт до аэропо́рта?",
+            "phrase_translit": "idiót da aerapórta?"
+          },
+          {
+            "fr": "le centre-ville",
+            "cible": "центра",
+            "accent": "це́нтра",
+            "translit": "tséntra",
+            "phrase_fr": "Ça va jusqu'au centre-ville ?",
+            "phrase_cible": "Идёт до центра?",
+            "phrase_accent": "Идёт до це́нтра?",
+            "phrase_translit": "idiót da tséntra?"
+          },
+          {
+            "fr": "la place Rouge",
+            "cible": "Красной площади",
+            "accent": "Кра́сной пло́щади",
+            "translit": "krásnaï plóchtchidi",
+            "phrase_fr": "Ça va jusqu'à la place Rouge ?",
+            "phrase_cible": "Идёт до Красной площади?",
+            "phrase_accent": "Идёт до Кра́сной пло́щади?",
+            "phrase_translit": "idiót da krásnaï plóchtchidi?"
+          },
+          {
+            "fr": "le musée",
+            "cible": "музея",
+            "accent": "музе́я",
+            "translit": "mouziéia",
+            "phrase_fr": "Ça va jusqu'au musée ?",
+            "phrase_cible": "Идёт до музея?",
+            "phrase_accent": "Идёт до музе́я?",
+            "phrase_translit": "idiót da mouziéia?"
+          }
+        ]
+      },
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-metro-006",
+      "fr": "C'est loin ?",
+      "cible": "Это далеко?",
+      "accent": "Э́то далеко́?",
+      "translit": "éta dalikó?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Réponses possibles : бли́зко (c'est près), ря́дом (juste à côté).",
+      "moule": null
+    },
+    {
+      "id": "ru-metro-007",
+      "fr": "C'est tout droit ?",
+      "cible": "Это прямо?",
+      "accent": "Э́то пря́мо?",
+      "translit": "éta priáma?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Tu l'entendras dans la réponse : пря́мо, пото́м напра́во (tout droit, puis à droite).",
+      "moule": null
+    },
+    {
+      "id": "ru-metro-008",
+      "fr": "C'est à gauche ou à droite ?",
+      "cible": "Это налево или направо?",
+      "accent": "Э́то нале́во и́ли напра́во?",
+      "translit": "éta naliéva íli napráva?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Нале́во = à gauche, напра́во = à droite : retiens-les ensemble.",
+      "moule": null
+    },
+    {
+      "id": "ru-metro-009",
+      "fr": "Quelle est la prochaine station ?",
+      "cible": "Какая следующая станция?",
+      "accent": "Кака́я сле́дующая ста́нция?",
+      "translit": "kakáia sliédouiouchtchaia stántsyia?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Dans le métro, l'annonce dit : Сле́дующая ста́нция… suivi du nom.",
+      "moule": null
+    },
+    {
+      "id": "ru-metro-010",
+      "fr": "Vous descendez ?",
+      "cible": "Вы выходите?",
+      "accent": "Вы выхо́дите?",
+      "translit": "vy vykhóditi?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "On le demande à qui bloque la porte, avant l'arrêt. En entier : Вы выхо́дите на сле́дующей?",
+      "moule": null
+    }
+  ]
+}

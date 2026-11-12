@@ -43,7 +43,9 @@ Chaque mission suit le même cycle (`docs/processus.md`). Une mission reçoit so
 | — | Organisation de l'équipe (modèles, processus, anti-doublon) | 0 | Sacha | fait (12/11) |
 | — | Test réel par Max pendant 2 semaines, puis bilan | 0 | Max, Sacha | en cours (jusqu'au 25/11 environ) |
 | — | Corrections issues du test de Max | 1 | selon les retours | à faire |
-| — | 10 nouvelles situations : métro et directions, pharmacie et santé, se présenter et son métier, restaurant, hôtel, au téléphone, chez des amis, urgences, banque et argent, le temps qu'il fait | 1 | Vera, Nadia, Boris | à faire |
+| 002 | 5 nouvelles situations : métro et directions, pharmacie et santé, se présenter, restaurant, urgences | 0 (avance sur la 1) | Vera, Nadia, Boris, Léa | fait (12/11) |
+| — | 5 nouvelles situations : hôtel, au téléphone, chez des amis, banque et argent, le temps qu'il fait | 1 | Vera, Nadia, Boris | à faire |
+| — | Réglages « mon prénom » et « mon métier », variantes de genre complètes | 1 | Vera, Nadia, Lou, Kostia, Boris | à faire |
 | — | Audio pré-généré (voix de qualité, Voiture écran verrouillé). Compte Azure à valider par Max | 1 | Kostia, Boris | à faire |
 | — | Écrire la réponse (saisie en cyrillique ou en translittération) | 1 | Lou, Kostia, Boris, Léa | à faire |
 | — | Test de niveau en 2 min et phrases-moules interactives | 1 | Vera, Lou, Kostia, Boris, Léa | à faire |

@@ -89,6 +89,49 @@ Les points sont classés du doute le plus fort au plus faible.
 
 Soit 15 points à faire valider, dont 13 phrases précises.
 
+### Lot 2 (mission 002, 12/11/2026)
+
+Fichiers : `metro.json`, `pharmacie.json`, `presenter.json`, `restaurant.json`, `urgences.json`. Les conventions ci-dessus s'appliquent sans changement.
+
+**Adaptations (une ligne de raison chacune)**
+
+- **metro-001** « la station de métro » → метро́ : Где метро́? est ce qu'on dit, et le `fr` devient « le métro ».
+- **metro-005** « Ça va jusqu'à ___ ? » → Идёт до ___? (до + génitif). Corrigé le 12/11 : Э́то до ___? sonnait peu naturel (QA). Le sujet (bus, train) est sous-entendu, comme à l'oral.
+- **presenter-001** « informaticien » remplacé par « manager » (ме́неджер) : программи́стка est courant pour une femme, et l'informatique est déjà dans presenter-003.
+- **presenter-002** → Кем вы рабо́таете? ; Чем вы занима́етесь? est donné en astuce (plus large, et peut amener une réponse sur les loisirs).
+- **presenter-003** « l'informatique » → в айти́ : forme orale. À l'écrit, on voit surtout « в IT », que la synthèse vocale risque de mal lire.
+- **restaurant-009** « On paie séparément » → Мо́жно разде́льный счёт? : la demande se fait sur l'addition.
+- **restaurant-010** « C'était délicieux » → Всё бы́ло о́чень вку́сно : c'est la formule qu'on dit au serveur.
+- **urgences-004** « Aidez-moi ! » → Помоги́те мне, пожа́луйста! et `fr` aligné (« s'il vous plaît ») : sinon la phrase serait identique à urgences-001.
+- **urgences-006** « Il y a un blessé ici ! » → Тут ра́неный! Corrigé le 12/11 : Челове́к ра́нен sonnait communiqué (QA). Тут (plus oral que здесь) en fait un cri.
+- **urgences-007** « Il y a un accident ici » → Здесь ава́рия : le `fr` est passé au présent le 12/11 pour suivre le russe. Ава́рия vaut pour la route.
+- **pharmacie-005** « Je suis allergique à ___ » → У меня́ аллерги́я на ___ (на + accusatif). Les 5 morceaux ne changent pas à l'accusatif (inanimés masculins, neutre, pluriels).
+- **presenter-003** : `fr` « dans une banque » (12/11). в ба́нке dit les deux, « une » ou « la ».
+- **Variantes** (metro-002, presenter-006) : le format v0 ne porte que `cible` pour m et f. L'accent et la translittération de la forme féminine sont donc dans l'`astuce`.
+
+**À faire valider par un natif** (du doute le plus fort au plus faible)
+
+1. **metro-005**, Идёт до вокза́ла? (remplace Э́то до вокза́ла? le 12/11) : il faut confirmer que la forme sans sujet passe à la porte d'un bus, et si, pour le métro, on dit plutôt Я дое́ду до ___? L'ordre До вокза́ла идёт? me semble aussi naturel, d'où `ordre_libre`.
+2. **urgences-006**, Тут ра́неный! (remplace Челове́к ра́нен le 12/11) : il faut confirmer que c'est bien ce que crie un passant et que ça ne sonne pas militaire, face à Есть ра́неные! (proposé par Boris) ou Тут челове́к ра́нен! Il faut aussi vérifier Сюда́! et Челове́ку пло́хо! (en astuce).
+3. **urgences-007**, Здесь ава́рия : il faut choisir entre Тут ава́рия, Произошла́ ава́рия ou autre chose au téléphone, et savoir si ава́рия convient hors de la route (sinon несча́стный слу́чай).
+4. **presenter-001** : il faut confirmer qu'une femme dit naturellement Я инжене́р, Я бухга́лтер, Я адвока́т, Я ме́неджер, et vérifier la translittération « ménedjer » (е dur des mots d'emprunt) et « boukháltir » (г muet).
+5. **pharmacie-006**, la translittération de от devant une consonne sonore (« ad galavnóï », « ad bóli »). Il faut aussi trancher entre от на́сморка et от просту́ды pour « le rhume », et entre от бо́ли в го́рле et от го́рла (plus oral).
+6. **restaurant-009**, Мо́жно разде́льный счёт? : il faut le comparer à Посчита́йте отде́льно, пожа́луйста ou à Мы пла́тим отде́льно.
+7. **presenter-003**, в айти́ (orthographe, et usage face à в IT) et в образова́нии (naturel, ou в сфе́ре образова́ния ?).
+8. **metro-002**, la translittération de заблуди́лся : « -lsia » ou « -lsa » ?
+9. **Translittérations** à vérifier : пло́щади (« plóchtchidi », а atone après щ), сле́дующая (« sliédouiouchtchaia »), ста́нция et поли́цию (ц + и noté « tsy »), медици́не (« miditsýni »), без (« biz », et « bis » devant une sourde).
+10. **pharmacie-007**, Как э́то принима́ть? : un natif dirait-il plutôt Как его́ принима́ть? quand on lui tend la boîte ?
+11. **presenter-004**, Я здесь в о́тпуске : faut-il garder cette phrase en principale, ou Я тут отдыха́ю (en astuce) est-elle plus spontanée ?
+12. **ordre_libre** mis sur metro-003, pharmacie-001, pharmacie-002, presenter-002, presenter-007 et presenter-008 : il faut confirmer que l'autre ordre se dit aussi naturellement dans chaque cas.
+13. **Registre** de pharmacie-008 (Ну́жен реце́пт?), restaurant-003 et restaurant-009 : il n'y a aucune marque de vous, et j'ai gardé le registre de la situation (comme cafe-005).
+
+Ajoutés aux corrections du 12/11 :
+
+14. **pharmacie-005**, на уку́сы пчёл : il faut savoir si l'on dit plutôt аллерги́я на пчёл, на пчели́ный яд ou на уку́сы насеко́мых. Il faut aussi vérifier на молоко́ face à на лакто́зу, l'ordre naturel (У меня́ аллерги́я на ___ ou На ___ у меня́ аллерги́я), et si la phrase sert vraiment à la pharmacie.
+15. **pharmacie-005**, translittérations : глюте́н (« glioutién », т mou ou dur comme dans кафе ?), пеницилли́н (« pinitsylín », ц + и), пчёл (« ptchol »).
+16. **pharmacie-005**, astuce « Un mot en -а finit en -у : на клубни́ку » : l'exemple de la fraise est-il une allergie courante, ou faut-il un autre mot en -а ?
+17. **metro-005**, la translittération « idiót » d'идёт : elle est juste, mais elle peut faire sourire un francophone. Faut-il la garder ?
+
 ## Astuces raccourcies (11/11/2026)
 
 Règle du CEO : une astuce = 2 phrases courtes au plus, et 110 caractères au plus (espaces compris, accents combinants U+0301 comptés).

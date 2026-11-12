@@ -3,6 +3,15 @@
 Format : date — décision — raison. Les plus récentes en haut.
 
 ## 12/11/2026
+- **Mission 002 terminée : 5 nouvelles situations** (métro et directions, pharmacie et santé, se présenter, au restaurant, urgences). Lancée depuis le cloud à la demande de Max, en avance sur la phase 1 parce qu'elle ne dépend pas de son test. Le contenu passe à 10 situations et 96 éléments. Décisions de Sacha :
+  - « Je m'appelle ___ » et le métier de l'utilisateur (« Je suis infirmière », demandé par Léa) : en phase 1, avec un réglage « mon prénom » et « mon métier », plutôt qu'une liste de métiers.
+  - Allergie : la phrase devient un moule « Je suis allergique à ___ » (noix, lait, pénicilline, piqûres d'abeille, gluten), demande de Léa, raison de sécurité.
+  - 5 phrases reprises par Nadia après la QA (urgences-006 et 007, metro-005 et 010, presenter-003).
+  - Variantes de genre : accent et translittération du féminin dans l'astuce pour l'instant. Évolution du format en phase 1.
+  - « Au feu ! », « Je suis à la retraite » : gardées, l'app est pour tout le monde.
+  - Tests rendus indépendants du volume de contenu (Kostia). Le cas Voiture 2 min sans `onend` devient un avertissement, réglé par la mission audio.
+  - Contre-vérification faite par Sacha (parse JSON, 620 vérifications, build à 10 situations) plutôt que par Boris, pour économiser la consommation : les corrections étaient ponctuelles.
+  - Avis de Léa : 7/10. Verdict de Boris : « Livrable avec réserves ».
 - **D13 : réorganisation de l'équipe.** Raison : la mission 1 a atteint la limite d'utilisation de Max en cours de route, et certains agents relisaient ou refaisaient du travail déjà fait.
   - **Modèles par agent** : Sacha et Nadia sur Opus (arbitrages et justesse du russe), Vera, Lou, Kostia et Boris sur Sonnet, Léa sur Haiku. Kostia peut passer sur Opus pour une tâche d'architecture ou un bug difficile, sur décision de Sacha.
   - **Anti-doublon** : registre unique `docs/etat.md`, fiche de lecture par agent, relais écrit au format fixe, retouches plutôt que réécritures.

@@ -1,0 +1,218 @@
+{
+  "langue": "ru",
+  "situation": "restaurant",
+  "titre": "Au restaurant",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-restaurant-001",
+      "fr": "Une table pour deux personnes, s'il vous plaît.",
+      "cible": "Столик на двоих, пожалуйста.",
+      "accent": "Сто́лик на двои́х, пожа́луйста.",
+      "translit": "stólik na dvaíkh, pajálsta",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Сто́лик = petite table. Ces nombres ont une forme spéciale : на двои́х, на трои́х…",
+      "moule": {
+        "modele": "Столик на ___, пожалуйста.",
+        "fr": "Une table pour ___, s'il vous plaît.",
+        "remplacements": [
+          {
+            "fr": "deux personnes",
+            "cible": "двоих",
+            "accent": "двои́х",
+            "translit": "dvaíkh",
+            "phrase_fr": "Une table pour deux personnes, s'il vous plaît.",
+            "phrase_cible": "Столик на двоих, пожалуйста.",
+            "phrase_accent": "Сто́лик на двои́х, пожа́луйста.",
+            "phrase_translit": "stólik na dvaíkh, pajálsta"
+          },
+          {
+            "fr": "trois personnes",
+            "cible": "троих",
+            "accent": "трои́х",
+            "translit": "traíkh",
+            "phrase_fr": "Une table pour trois personnes, s'il vous plaît.",
+            "phrase_cible": "Столик на троих, пожалуйста.",
+            "phrase_accent": "Сто́лик на трои́х, пожа́луйста.",
+            "phrase_translit": "stólik na traíkh, pajálsta"
+          },
+          {
+            "fr": "quatre personnes",
+            "cible": "четверых",
+            "accent": "четверы́х",
+            "translit": "tchitvirýkh",
+            "phrase_fr": "Une table pour quatre personnes, s'il vous plaît.",
+            "phrase_cible": "Столик на четверых, пожалуйста.",
+            "phrase_accent": "Сто́лик на четверы́х, пожа́луйста.",
+            "phrase_translit": "stólik na tchitvirýkh, pajálsta"
+          },
+          {
+            "fr": "cinq personnes",
+            "cible": "пятерых",
+            "accent": "пятеры́х",
+            "translit": "pitirýkh",
+            "phrase_fr": "Une table pour cinq personnes, s'il vous plaît.",
+            "phrase_cible": "Столик на пятерых, пожалуйста.",
+            "phrase_accent": "Сто́лик на пятеры́х, пожа́луйста.",
+            "phrase_translit": "stólik na pitirýkh, pajálsta"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-restaurant-002",
+      "fr": "Le menu, s'il vous plaît.",
+      "cible": "Меню, пожалуйста.",
+      "accent": "Меню́, пожа́луйста.",
+      "translit": "minioú, pajálsta",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Tout aussi courant : Мо́жно меню́? (je peux avoir le menu ?)",
+      "moule": null
+    },
+    {
+      "id": "ru-restaurant-003",
+      "fr": "On peut commander ?",
+      "cible": "Можно заказать?",
+      "accent": "Мо́жно заказа́ть?",
+      "translit": "mójna zakazát?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    },
+    {
+      "id": "ru-restaurant-004",
+      "fr": "C'est quoi, ça ?",
+      "cible": "Что это?",
+      "accent": "Что э́то?",
+      "translit": "chto éta?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    },
+    {
+      "id": "ru-restaurant-005",
+      "fr": "Qu'est-ce que vous recommandez ?",
+      "cible": "Что вы посоветуете?",
+      "accent": "Что вы посове́туете?",
+      "translit": "chto vy passaviétouiti?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": null,
+      "moule": null
+    },
+    {
+      "id": "ru-restaurant-006",
+      "fr": "Sans viande, s'il vous plaît.",
+      "cible": "Без мяса, пожалуйста.",
+      "accent": "Без мя́са, пожа́луйста.",
+      "translit": "biz miássa, pajálsta",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Без + la chose, dont la fin change : без мя́са, без лу́ка. Apprends le bloc.",
+      "moule": {
+        "modele": "Без ___, пожалуйста.",
+        "fr": "Sans ___, s'il vous plaît.",
+        "remplacements": [
+          {
+            "fr": "viande",
+            "cible": "мяса",
+            "accent": "мя́са",
+            "translit": "miássa",
+            "phrase_fr": "Sans viande, s'il vous plaît.",
+            "phrase_cible": "Без мяса, пожалуйста.",
+            "phrase_accent": "Без мя́са, пожа́луйста.",
+            "phrase_translit": "biz miássa, pajálsta"
+          },
+          {
+            "fr": "oignons",
+            "cible": "лука",
+            "accent": "лу́ка",
+            "translit": "loúka",
+            "phrase_fr": "Sans oignons, s'il vous plaît.",
+            "phrase_cible": "Без лука, пожалуйста.",
+            "phrase_accent": "Без лу́ка, пожа́луйста.",
+            "phrase_translit": "biz loúka, pajálsta"
+          },
+          {
+            "fr": "sauce",
+            "cible": "соуса",
+            "accent": "со́уса",
+            "translit": "sóoussa",
+            "phrase_fr": "Sans sauce, s'il vous plaît.",
+            "phrase_cible": "Без соуса, пожалуйста.",
+            "phrase_accent": "Без со́уса, пожа́луйста.",
+            "phrase_translit": "bis sóoussa, pajálsta"
+          },
+          {
+            "fr": "sucre",
+            "cible": "сахара",
+            "accent": "са́хара",
+            "translit": "sákhara",
+            "phrase_fr": "Sans sucre, s'il vous plaît.",
+            "phrase_cible": "Без сахара, пожалуйста.",
+            "phrase_accent": "Без са́хара, пожа́луйста.",
+            "phrase_translit": "bis sákhara, pajálsta"
+          },
+          {
+            "fr": "glaçons",
+            "cible": "льда",
+            "accent": "льда",
+            "translit": "lda",
+            "phrase_fr": "Sans glaçons, s'il vous plaît.",
+            "phrase_cible": "Без льда, пожалуйста.",
+            "phrase_accent": "Без льда, пожа́луйста.",
+            "phrase_translit": "biz lda, pajálsta"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-restaurant-007",
+      "fr": "Je ne mange pas de viande.",
+      "cible": "Я не ем мясо.",
+      "accent": "Я не ем мя́со.",
+      "translit": "ia ni iem miássa",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Même tournure : Я не ем ры́бу (poisson), Я не ем свини́ну (porc).",
+      "moule": null
+    },
+    {
+      "id": "ru-restaurant-008",
+      "fr": "Il y a une erreur.",
+      "cible": "Здесь ошибка.",
+      "accent": "Здесь оши́бка.",
+      "translit": "zdies achýpka",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Plus doux : Ка́жется, здесь оши́бка (il me semble qu'il y a une erreur).",
+      "moule": null
+    },
+    {
+      "id": "ru-restaurant-009",
+      "fr": "On paie séparément, s'il vous plaît.",
+      "cible": "Можно раздельный счёт?",
+      "accent": "Мо́жно разде́льный счёт?",
+      "translit": "mójna razdiélnyï chtchot?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Mot à mot « une addition séparée, c'est possible ? ». C'est la tournure courante.",
+      "moule": null
+    },
+    {
+      "id": "ru-restaurant-010",
+      "fr": "C'était délicieux.",
+      "cible": "Всё было очень вкусно.",
+      "accent": "Всё бы́ло о́чень вку́сно.",
+      "translit": "fsio býla ótchin fkoúsna",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Mot à mot « tout était très bon ». Бы́ло ne change pas selon qui parle.",
+      "moule": null
+    }
+  ]
+}

@@ -23,7 +23,7 @@ Une app **rapide, fiable et hors ligne**, qui applique exactement les règles de
 ## Tes tâches
 - Construire ou modifier les écrans et la logique demandés, par petites retouches.
 - Ajouter ou mettre à jour les tests de `tests/moteur.test.mjs` pour toute règle de calcul touchée (durées, Leitner, composition).
-- Lancer `node --test tests/` et `node scripts/build.mjs` avant de dire « terminé ».
+- Lancer `node --test tests/*.test.mjs` et `node scripts/build.mjs` avant de dire « terminé ».
 
 ## Tes règles
 - Aucune dépendance externe, aucune phrase écrite en dur dans le code.
