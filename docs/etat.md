@@ -4,13 +4,13 @@ Source unique de vérité : ce qui existe, où, et dans quel état. **Chaque age
 
 Statuts : **validé** (ne se refait pas, on complète ou on corrige) · **livré** (en attente de validation) · **à revoir** (un problème est connu) · **à faire**.
 
-Dernière mise à jour : 12/11/2026 (clôture de la mission 007), par Sacha.
+Dernière mise à jour : 12/11/2026 (clôture de la mission 008), par Sacha.
 
 ## Où en est-on
 
 - **Phase 0 (prototype)** : mission 1 terminée le 11/11/2026. En ligne pour test sur https://maxlad47.github.io/vecu/ (non référencé, D19). L'ancienne adresse vecu-test.netlify.app est figée.
 - **En cours** : 2 semaines de test par Max (critère de passage de la phase 0).
-- **Missions en cours** : aucune. Dernière : 007, personnage personnalisable (12/11), QA Boris « Livrable » après contre-vérification, Léa 6/10, en ligne pour test (avec le lot 3 : 15 situations). À vérifier par Max sur iPhone : création du personnage, accords au féminin et au masculin, Réglages, Écouteurs. Dernière mission : 006, écrans adaptatifs (12/11), QA Boris « Livrable avec réserves », Léa 7/10. Reste à vérifier par Max sur iPhone : Safari et app installée (zones sûres, bande du haut). Avant : 005, Bagou dans l'app (12/11). Reste à vérifier par Max sur iPhone : passage de Vécu à Bagou. 004, lot 3 de situations : **terminé sur la branche `mission-004-lot3`** (15 situations, 146 éléments, Boris « Livrable avec réserves » levées, Léa 7/10). En attente de l'accord de Max pour fusionner dans `main` (donc publier) après son bilan.
+- **Missions en cours** : aucune. Dernière : 008, métiers élargis (43) et dialogues à choix (4) mélangés aux sessions (12/11), QA Boris « Livrable avec réserves », Léa 6/10, en ligne pour test. À vérifier par Max sur iPhone : les dialogues voisin et soirée (prénom et métier dans la scène), la scène qui défile de quelques pixels après une erreur, la liste de métiers. Dernière : 007, personnage personnalisable (12/11), QA Boris « Livrable » après contre-vérification, Léa 6/10, en ligne pour test (avec le lot 3 : 15 situations). À vérifier par Max sur iPhone : création du personnage, accords au féminin et au masculin, Réglages, Écouteurs. Dernière mission : 006, écrans adaptatifs (12/11), QA Boris « Livrable avec réserves », Léa 7/10. Reste à vérifier par Max sur iPhone : Safari et app installée (zones sûres, bande du haut). Avant : 005, Bagou dans l'app (12/11). Reste à vérifier par Max sur iPhone : passage de Vécu à Bagou. 004, lot 3 de situations : **terminé sur la branche `mission-004-lot3`** (15 situations, 146 éléments, Boris « Livrable avec réserves » levées, Léa 7/10). En attente de l'accord de Max pour fusionner dans `main` (donc publier) après son bilan.
 - Dernière mission terminée : 002 (12/11), en ligne sur vecu-test.netlify.app.
 
 ## Pédagogie (Vera)
@@ -60,6 +60,9 @@ Dernière mise à jour : 12/11/2026 (clôture de la mission 007), par Sacha.
 | Personnage personnalisable : prénom (cyrillique auto), genre une seule fois, métier (13), poupée neutre (4 couleurs, 3 motifs), français accordé au genre (`variantes_fr`), mécanisme réglage → moule générique (mission 007) | `app/js/personnage.js`, `content/ru/personnage.json`, `docs/design/personnage.md`, `docs/pedagogie/personnage.md` | validé (12/11) |
 | Rapport QA du personnage : « Livrable » (reste : Écouteurs, hors ligne réel, effacement non testés) | `docs/qa/2026-11-12-personnage.md` | validé |
 | Personnage, à faire : mini-poupée de l'en-tête d'accueil ; carte « Mon personnage » qui allonge Réglages (bouton Normale/Lente coupé selon Léa) ; libellés « Corriger » et « Garder en lettres latines » à clarifier ; « Анн » à revoir en « Анна » ; thèmes de vocabulaire (couleurs, transports…) à choisir | `app/`, `content/ru/` | à faire |
+| Dialogues à choix mélangés aux sessions (carte Dialogue, jetons prénom/métier, genre, Leitner, pas en 2 min ni en Voiture) et liste de 43 métiers en 9 catégories (mission 008) | `app/js/`, `content/ru/dialogues.json`, `content/ru/personnage.json`, `docs/design/dialogues.md`, `docs/pedagogie/dialogues.md` | validé (12/11) |
+| Rapport QA des dialogues : « Livrable avec réserves » (iPhone réel, sombre, Je peux parler, hors ligne réel non testés) | `docs/qa/2026-11-12-dialogues.md` | validé |
+| Dialogues, à faire : seulement 4 dialogues (café, voisin, soirée, hôtel) : en écrire d'autres ; prénom et métier absents du dialogue café (Léa : le personnage ne sert pas partout) ; scène qui défile de quelques pixels à 360×640 ; aide « On dirait plutôt » à revoir ; relecture natif des dialogues (19 doutes) | `content/ru/`, `app/` | à faire |
 | Rapport QA de Bagou dans l'app : « Livrable avec réserves mineures » (levées) | `docs/qa/2026-11-12-bagou-app.md` | validé |
 | Lien entre les 4 états de matriochka et les boîtes Leitner (proposition de Kostia) | `app/js/` | à revoir (Vera) |
 | Dette : textes « russe » de l'interface à sortir de `textes.js` vers `index.json` (2e langue) | `app/js/textes.js` | à faire |

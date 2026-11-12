@@ -251,3 +251,6 @@ Fichiers : `personnage.json` (43 métiers en 9 catégories, dont 30 nouveaux, ch
 16. **Soirée**, Встре́тимся попо́зже в ба́ре ? (« On se retrouve au bar tout à l'heure ? ») et la réponse Да, до ско́рого ! (ou Дава́й, уви́димся !) ; Ого́, ты говори́шь по-ру́сски ? comme réaction.
 17. **Translittérations** : farmatséft, fiziatirapiéft, pradafchtchítsa (в devant щ), káminchtchik, oubórchtchik nómiraf, satsyálnyï (ци), machiníst, eliktrík, stamatólak, bibliatiékar, vaspitátilnitsa, dvinátsat (двена́дцать), chtó-nibout ichtchó (что́-нибудь ещё), atsioúda (отсю́да), fstriétimsia.
 18. **Rappel Lou/Vera** : Vous / ты des répliques « fausses » de registre (D3, vous au lieu de ты) : le russe est juste, c'est le registre qui est faux.
+
+**Correction du 12/11 (QA de Boris, problème 1)** : le voisin ne donne plus de prénom (Paul / Поль retiré, `role_fr` « Le voisin »), pour qu'un utilisateur prénommé Paul ne se réponde pas à lui-même. Sa réplique devient Здра́вствуйте, я ваш сосе́д. Я живу́ ря́дом.
+19. **Dialogue du voisin**, Я ваш сосе́д. Я живу́ ря́дом : un peu redondant (« voisin » et « à côté »). Naturel tel quel, ou plutôt Я ваш сосе́д, живу́ напро́тив / Я из сосе́дней кварти́ры ? Le point 11 reste ouvert. La suite А как вас зову́т ? (sans prénom donné avant) passe-t-elle ? Translittération « sassiét » à vérifier.

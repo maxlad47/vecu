@@ -138,17 +138,17 @@
       "titre": "Sur le palier",
       "scene_fr": "Tu croises un voisin sur le palier.",
       "registre": "vous",
-      "partenaire": { "role_fr": "Paul, le voisin" },
+      "partenaire": { "role_fr": "Le voisin" },
       "exige": ["metier"],
       "depend_du_genre": true,
       "echanges": [
         {
           "id": "e1",
           "partenaire": {
-            "fr": "Bonjour, je m'appelle Paul. J'habite à côté.",
-            "cible": "Здравствуйте, меня зовут Поль. Я живу рядом.",
-            "accent": "Здра́вствуйте, меня́ зову́т Поль. Я живу́ ря́дом.",
-            "translit": "zdrástvouïti, miniá zavoút pol. ia jyvoú riádam"
+            "fr": "Bonjour, je suis votre voisin. J'habite à côté.",
+            "cible": "Здравствуйте, я ваш сосед. Я живу рядом.",
+            "accent": "Здра́вствуйте, я ваш сосе́д. Я живу́ ря́дом.",
+            "translit": "zdrástvouïti, ia vach sassiét. ia jyvoú riádam"
           },
           "si_faux": "a",
           "reponses": [
