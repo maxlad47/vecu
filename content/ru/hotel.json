@@ -1,0 +1,232 @@
+{
+  "langue": "ru",
+  "situation": "hotel",
+  "titre": "À l'hôtel",
+  "niveau": "A1",
+  "phrases": [
+    {
+      "id": "ru-hotel-001",
+      "fr": "J'ai une réservation.",
+      "cible": "У меня бронь.",
+      "accent": "У меня́ бронь.",
+      "translit": "ou miniá bron",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Pour donner votre nom : У меня́ бронь на и́мя… (au nom de…).",
+      "moule": null
+    },
+    {
+      "id": "ru-hotel-002",
+      "fr": "Je reste une nuit.",
+      "cible": "Я здесь на одну ночь.",
+      "accent": "Я здесь на одну́ ночь.",
+      "translit": "ia zdies na adnoú notch",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Une durée se dit avec на (на неде́лю). « Jusqu'à » se dit до (до суббо́ты).",
+      "moule": {
+        "modele": "Я здесь ___.",
+        "fr": "Je reste ___.",
+        "remplacements": [
+          {
+            "fr": "une nuit",
+            "cible": "на одну ночь",
+            "accent": "на одну́ ночь",
+            "translit": "na adnoú notch",
+            "phrase_fr": "Je reste une nuit.",
+            "phrase_cible": "Я здесь на одну ночь.",
+            "phrase_accent": "Я здесь на одну́ ночь.",
+            "phrase_translit": "ia zdies na adnoú notch"
+          },
+          {
+            "fr": "deux nuits",
+            "cible": "на две ночи",
+            "accent": "на две но́чи",
+            "translit": "na dvie nótchi",
+            "phrase_fr": "Je reste deux nuits.",
+            "phrase_cible": "Я здесь на две ночи.",
+            "phrase_accent": "Я здесь на две но́чи.",
+            "phrase_translit": "ia zdies na dvie nótchi"
+          },
+          {
+            "fr": "trois nuits",
+            "cible": "на три ночи",
+            "accent": "на три но́чи",
+            "translit": "na tri nótchi",
+            "phrase_fr": "Je reste trois nuits.",
+            "phrase_cible": "Я здесь на три ночи.",
+            "phrase_accent": "Я здесь на три но́чи.",
+            "phrase_translit": "ia zdies na tri nótchi"
+          },
+          {
+            "fr": "une semaine",
+            "cible": "на неделю",
+            "accent": "на неде́лю",
+            "translit": "na nidiéliou",
+            "phrase_fr": "Je reste une semaine.",
+            "phrase_cible": "Я здесь на неделю.",
+            "phrase_accent": "Я здесь на неде́лю.",
+            "phrase_translit": "ia zdies na nidiéliou"
+          },
+          {
+            "fr": "jusqu'à samedi",
+            "cible": "до субботы",
+            "accent": "до суббо́ты",
+            "translit": "da soubóty",
+            "phrase_fr": "Je reste jusqu'à samedi.",
+            "phrase_cible": "Я здесь до субботы.",
+            "phrase_accent": "Я здесь до суббо́ты.",
+            "phrase_translit": "ia zdies da soubóty"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-hotel-003",
+      "fr": "Ma clé ne marche pas.",
+      "cible": "У меня не работает ключ.",
+      "accent": "У меня́ не рабо́тает ключ.",
+      "translit": "ou miniá ni rabótaït klioutch",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Pour une carte-clé : У меня́ не рабо́тает ка́рта.",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-hotel-004",
+      "fr": "Quel est le mot de passe du wifi ?",
+      "cible": "Какой пароль от вайфая?",
+      "accent": "Како́й паро́ль от вайфа́я?",
+      "translit": "kakóï paról at vaïfáia?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Mot à mot « le mot de passe depuis le wifi » : ici, « de » se dit от.",
+      "moule": null
+    },
+    {
+      "id": "ru-hotel-005",
+      "fr": "À quelle heure est le petit-déjeuner ?",
+      "cible": "Во сколько завтрак?",
+      "accent": "Во ско́лько за́втрак?",
+      "translit": "va skólka záftrak?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Réponse type : с семи́ до десяти́ (de 7 h à 10 h).",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-hotel-006",
+      "fr": "Il n'y a pas de serviettes dans la chambre.",
+      "cible": "В номере нет полотенец.",
+      "accent": "В но́мере нет полоте́нец.",
+      "translit": "v nómiri niet palatiénits",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Chambre d'hôtel = но́мер, comme « numéro ». Ко́мната = pièce chez soi.",
+      "moule": {
+        "modele": "В номере нет ___.",
+        "fr": "Il n'y a pas ___ dans la chambre.",
+        "remplacements": [
+          {
+            "fr": "de serviettes",
+            "cible": "полотенец",
+            "accent": "полоте́нец",
+            "translit": "palatiénits",
+            "phrase_fr": "Il n'y a pas de serviettes dans la chambre.",
+            "phrase_cible": "В номере нет полотенец.",
+            "phrase_accent": "В но́мере нет полоте́нец.",
+            "phrase_translit": "v nómiri niet palatiénits"
+          },
+          {
+            "fr": "d'eau chaude",
+            "cible": "горячей воды",
+            "accent": "горя́чей воды́",
+            "translit": "gariátchiï vadý",
+            "phrase_fr": "Il n'y a pas d'eau chaude dans la chambre.",
+            "phrase_cible": "В номере нет горячей воды.",
+            "phrase_accent": "В но́мере нет горя́чей воды́.",
+            "phrase_translit": "v nómiri niet gariátchiï vadý"
+          },
+          {
+            "fr": "de papier toilette",
+            "cible": "туалетной бумаги",
+            "accent": "туале́тной бума́ги",
+            "translit": "toualiétnaï boumágui",
+            "phrase_fr": "Il n'y a pas de papier toilette dans la chambre.",
+            "phrase_cible": "В номере нет туалетной бумаги.",
+            "phrase_accent": "В но́мере нет туале́тной бума́ги.",
+            "phrase_translit": "v nómiri niet toualiétnaï boumágui"
+          },
+          {
+            "fr": "de savon",
+            "cible": "мыла",
+            "accent": "мы́ла",
+            "translit": "mýla",
+            "phrase_fr": "Il n'y a pas de savon dans la chambre.",
+            "phrase_cible": "В номере нет мыла.",
+            "phrase_accent": "В но́мере нет мы́ла.",
+            "phrase_translit": "v nómiri niet mýla"
+          },
+          {
+            "fr": "de chauffage",
+            "cible": "отопления",
+            "accent": "отопле́ния",
+            "translit": "atapliéniia",
+            "phrase_fr": "Il n'y a pas de chauffage dans la chambre.",
+            "phrase_cible": "В номере нет отопления.",
+            "phrase_accent": "В но́мере нет отопле́ния.",
+            "phrase_translit": "v nómiri niet atapliéniia"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-hotel-007",
+      "fr": "Je peux laisser mes bagages ici ?",
+      "cible": "Можно оставить здесь багаж?",
+      "accent": "Мо́жно оста́вить здесь бага́ж?",
+      "translit": "mójna astávit zdies bagách?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Plus courant encore : Мо́жно оста́вить ве́щи? (mes affaires).",
+      "moule": null,
+      "ordre_libre": true
+    },
+    {
+      "id": "ru-hotel-008",
+      "fr": "Vous pouvez appeler un taxi ?",
+      "cible": "Вы можете вызвать такси?",
+      "accent": "Вы мо́жете вы́звать такси́?",
+      "translit": "vy mójyti výzvat taksí?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Вы́звать = faire venir (un taxi, un médecin). Téléphoner, c'est звони́ть.",
+      "moule": null
+    },
+    {
+      "id": "ru-hotel-009",
+      "fr": "Il y a une chambre plus calme ?",
+      "cible": "У вас есть номер потише?",
+      "accent": "У вас есть но́мер поти́ше?",
+      "translit": "ou vas iest nómir patíchy?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Поти́ше vient de ти́хо (calme) : по- ajoute « un peu plus ».",
+      "moule": null
+    },
+    {
+      "id": "ru-hotel-010",
+      "fr": "Je pars demain matin.",
+      "cible": "Я уезжаю завтра утром.",
+      "accent": "Я уезжа́ю за́втра у́тром.",
+      "translit": "ia ouijjáiou záftra oútram",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Libérer la chambre : вы́езд. Во ско́лько вы́езд? (à quelle heure ?)",
+      "moule": null,
+      "ordre_libre": true
+    }
+  ]
+}

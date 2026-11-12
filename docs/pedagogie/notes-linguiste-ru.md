@@ -142,3 +142,72 @@ Règle du CEO : une astuce = 2 phrases courtes au plus, et 110 caractères au pl
 - **Vérification** : recherche `"astuce": "[^"]{111,}"` dans `content/ru/` : 0 résultat. La plus longue (cafe-009) fait 99 caractères ; 36 astuces au total.
 - **Limite** : à environ 40 caractères par ligne, 110 caractères donnent encore 3 lignes à 360 px. Les astuces de 90 à 99 caractères (cafe-009, rencontrer-007, sortir-001) restent sur 3 lignes.
 - **Nouveau point pour le natif** : gouts-006, dire que « Я люблю́ твою́ соба́ку » sonne trop fort est-il juste, ou la phrase passe-t-elle entre amis ?
+
+## Lot 3 (mission 004, 12/11/2026)
+
+Fichiers : `hotel.json`, `telephone.json`, `amis.json`, `banque.json`, `meteo.json` (50 éléments, 10 moules, 50 remplacements). Les conventions ci-dessus s'appliquent sans changement. `variantes` : `null` partout, aucune phrase ne dépend du genre de la personne qui parle.
+
+**Adaptations (une ligne de raison chacune)**
+
+- **hotel-002** « Je reste ___ » → Я здесь ___ (« je suis ici pour… ») : le trou porte la préposition (на одну́ ночь, до суббо́ты). L'astuce de Vera (« sans préposition pour une nuit ») ne vaut pas pour le russe : réécrite (на pour une durée, до pour « jusqu'à »).
+- **hotel-006** : astuce réécrite. Après нет, les terminaisons varient (мы́ла, воды́, полоте́нец) : il n'y a pas « une seule règle ». Ajout : la chambre d'hôtel se dit но́мер, pas ко́мната.
+- **hotel-010** : Я уезжа́ю (je quitte la ville) ; le mot d'hôtel вы́езд (départ) est mis en astuce.
+- **telephone-003** « Vous pouvez épeler » → Скажи́те по бу́квам (impératif poli, réflexe natif, comme rencontrer-002). Le `fr` est gardé.
+- **telephone-004** : « Madame Petrova » → Ири́на Петро́вна (prénom + patronyme) : госпожа́ ne se dit pas au téléphone. « La réception » → с администра́тором, la personne qu'on demande.
+- **telephone-006** « SMS » → эсэмэ́ска (oral). Écrire « СМС » risquait une mauvaise lecture par la synthèse vocale. Присла́ть évite le doublon avec courses-003 (Мо́жете написа́ть?).
+- **telephone-007** et **banque-010** : impératif poli (Говори́те погро́мче / Да́йте чек), le `fr` « Vous pouvez… ? » est gardé.
+- **telephone-009** « Ce n'est pas le bon numéro » → Вы оши́блись но́мером (formule figée, plurielle, donc sans genre). Le `fr` devient « Vous vous êtes trompé de numéro. », registre vous (au lieu de neutre). C'est ce qu'on répond à l'appel d'un inconnu.
+- **amis-002** « Tiens » → Держи́ (impératif tu).
+- **amis-003** « Je peux enlever mes chaussures ? » → Мне разу́ться? (« je me déchausse ? ») : on ne demande pas la permission, on se déchausse presque toujours. `fr` : « J'enlève mes chaussures ? ». La forme distingue aussi la phrase du moule amis-004.
+- **amis-004** (arbitrage de Sacha, remplacements loin de cafe-005 et hotel-007) : « prendre un verre d'eau » → « me laver les mains » (l'eau est déjà dans amis-005, et Буты́лку воды́ dans cafe-002) ; « aider » → « goûter » (Мо́жно помо́чь? sonne bancal, un natif dit Тебе́ помо́чь?, mis en astuce).
+- **amis-005** : вода́ → во́ду, l'accent bouge (signalé en astuce).
+- **amis-007** « Je n'ai plus faim » → Спаси́бо, бо́льше не хочу́ (« je n'en veux plus ») : Я сыт / сыта́ dépend du genre.
+- **amis-009** Мне пора́ et **amis-010** бы́ло здо́рово : impersonnels, sans genre. Astuce sur здо́рово / здоро́во (super / salut).
+- **banque-005** « avaler » → съел (« a mangé ») : c'est le mot courant.
+- **banque-006** « la monnaie de ___ » → У вас бу́дет сда́ча ___? (quand on paie avec un gros billet). La préposition est dans le trou, car с devient со devant ста.
+- **banque-008** : astuce de Vera réécrite. Е́вро est invariable ; seuls les dollars changent (до́лларов).
+- **meteo-002** : « beau » et « mauvais » → хоро́шая / плоха́я пого́да ; « chaud » → жа́рко (тепло́, « doux », en astuce).
+- **meteo-006** : « du soleil » → со́лнечно (adverbe), « du vent » → си́льный ве́тер, `fr` « beaucoup de vent » : За́втра бу́дет ве́тер sonne incomplet.
+- **meteo-008** : на у́лице (« dehors ») ajouté, c'est ainsi qu'on demande la température.
+
+**À faire valider par un natif** (du doute le plus fort au plus faible)
+
+1. **banque-006**, У вас бу́дет сда́ча со ста рубле́й? : il faut confirmer que la tournure convient pour tous les montants (100 roubles est petit), si l'on dit с ты́сячи ou с ты́сячи рубле́й, с пяти́ ты́сяч ou с пятиты́сячной, et s'il faut plutôt Мо́жете разменя́ть ___? quand on n'achète rien.
+2. **telephone-003**, Скажи́те по бу́квам : faut-il préférer Продикту́йте по бу́квам ? L'astuce dit qu'on épelle avec des prénoms (Б как Бори́с) : l'usage est-il encore courant ?
+3. **telephone-006**, эсэмэ́ска : registre (trop familier face à un inconnu ?), et l'usage réel face à Напиши́те мне в Телегра́м / WhatsApp.
+4. **amis-006**, За тебя́! pour « À la tienne ! » : convient-il au simple fait de trinquer, ou seulement pour porter un toast à une personne ? Faut-il mettre За нас! ou Бу́дем! en phrase principale ?
+5. **hotel-002**, Я здесь на две но́чи : naturel à la réception ? Autres possibilités : Я у вас на две но́чи, Я на две но́чи, Я остановлю́сь на две но́чи.
+6. **hotel-001**, У меня́ бронь : бронь (oral) est-il accepté face à un réceptionniste, ou faut-il У меня́ забронирован но́мер ? Avec ou sans есть ?
+7. **hotel-004**, паро́ль от вайфа́я : la déclinaison вайфа́я se dit-elle, ou garde-t-on паро́ль от Wi-Fi (invariable) ?
+8. **amis-003**, Мне разу́ться? : l'invité dit-il plutôt Разува́ться? ou Мо́жно не разува́ться? (dans le cas inverse) ?
+9. **telephone-004** : с администра́тором pour « la réception » (ou с ресе́пшеном ?) ; naturel de Мо́жно поговори́ть с ___? face au très oral Мо́жно Ива́на?
+10. **amis-007**, Спаси́бо, бо́льше не хочу́ : assez poli face à l'hôtesse, ou faut-il Спаси́бо, я бо́льше не могу́ / Всё о́чень вку́сно, но… ?
+11. **banque-002**, Не прохо́дит ка́рта : ou plutôt Не прохо́дит опла́та ? Et Попро́буйте ещё раз en astuce.
+12. **hotel-010**, Я уезжа́ю ou Я выезжа́ю за́втра у́тром ? Et Во ско́лько вы́езд? en astuce.
+13. **meteo-006**, mélange adverbe / nom après бу́дет (со́лнечно, дождь, си́льный ве́тер, гроза́) : chaque phrase est-elle naturelle ?
+14. **amis-002**, l'astuce sur les fleurs en nombre impair : à confirmer telle quelle.
+15. **Translittérations** à vérifier : уезжа́ю (« ouijjáiou »), попо́зже (« papójjy »), съел (« sïel »), ты́сячи (« týssitchi »), пятьдеся́т (« pidissiát »), пятьсо́т (« pitsót »), е́вро (« iévra »), дождь (« docht »), приглаше́ние (« priglachéniie »), эсэмэ́ску (« essemésku »), с дире́ктором (« z diriéktaram », с voisé devant д).
+16. **ordre_libre** avec пожа́луйста au milieu ou à la fin (telephone-003, telephone-007, telephone-010, banque-010) : les deux places se disent, d'où `true`. Il faut confirmer, et décider si la règle vaut pour les lots précédents.
+17. **Registre** de hotel-001, hotel-007, banque-009 : aucune marque de vous, j'ai gardé le registre de la situation (comme cafe-005).
+
+**Corrections du 12/11 (QA de Boris, retours de Léa, arbitrage de Sacha)**
+
+Adaptations :
+- **telephone-004** : la préposition française passe dans le trou (« à Ivan », « au directeur », « au médecin »), `moule.fr` devient « Je peux parler ___ ? ». Parenthèse « (Madame Petrova) » retirée ; l'astuce donne Ири́на Петро́вна comme modèle poli.
+- **telephone-007** « Vous pouvez parler plus fort ? » remplacée par « C'est qui ? » → Кто э́то? (phrase la plus faible : même besoin que telephone-002). Погро́мче! passe dans l'astuce de telephone-002.
+- **telephone-010** « Notez mon numéro » → « Mon numéro, c'est le… » → Мой но́мер… (registre neutre). Astuce : on dicte par blocs (123-45-67).
+- **hotel-006** : « de » passe dans le trou (« d'eau chaude »). Astuce sans déclinaison : но́мер / ко́мната.
+- **banque-008** : astuce sans déclinaison (е́вро invariable, enseigne Обме́н валю́т).
+- **amis-008** « Tu habites ici depuis longtemps ? » → « Tu veux un coup de main ? » → Тебе́ помо́чь? Aucun doublon avec `rencontrer`. L'astuce d'amis-004, qui donnait déjà Тебе́ помо́чь?, est réécrite (« Pas besoin de я »).
+- **meteo-006** : moule « Il va ___ ? » → Бу́дет ___? (дождь, снег, хо́лодно, жа́рко, гроза́). Le moule « Demain, il y aura ___ » sort ; meteo-005 garde за́втра.
+- **meteo-010** « On a de la chance avec la météo ! » → « Il fait froid, hein ? » → Хо́лодно, да? J'ai retiré « aujourd'hui » : Сего́дня хо́лодно est déjà un remplacement de meteo-002.
+
+Nouveaux points à faire valider par un natif :
+18. **telephone-007**, Кто э́то? au téléphone : trop sec face à un inconnu ? L'astuce propose Извини́те, а кто э́то? ; faut-il plutôt А кто говори́т? ou С кем я говорю́?
+19. **telephone-010**, Мой но́мер… : un natif dit-il Мой но́мер… ou Запи́сывайте:… ? Et la dictée par blocs (3-2-2) est-elle bien la norme pour un portable (8-916-…) ?
+20. **meteo-006**, Бу́дет дождь? face à Дождь бу́дет? (plus oral ?) et Обеща́ют en réponse (astuce). Бу́дет хо́лодно? / Бу́дет жа́рко? sont-ils naturels sans за́втра ?
+21. **meteo-010**, Хо́лодно, да? : naturel pour lancer la conversation, ou plutôt Ну и хо́лод! / Ну и холодры́га! ? QCM : proche de meteo-002 (Сего́дня хо́лодно) et meteo-007 (Мне хо́лодно), à surveiller avec Léa.
+22. **amis-008**, Тебе́ помо́чь? : naturel pour proposer d'aider à table ou en cuisine (ou Помо́чь чем-нибудь?) ; Вам помо́чь? pour deux hôtes, à confirmer.
+23. **banque-008**, Обме́н валю́т (astuce) ou Обме́н валю́ты sur les enseignes ?
+
+Points devenus caducs : 13 (meteo-006, ancien moule) ; dans le point 16, telephone-007 et telephone-010 ne sont plus concernés (phrases remplacées, sans пожа́луйста).

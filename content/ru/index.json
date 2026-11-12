@@ -10,6 +10,11 @@
     { "id": "pharmacie", "titre": "Pharmacie et santé", "fichier": "pharmacie.json" },
     { "id": "presenter", "titre": "Se présenter", "fichier": "presenter.json" },
     { "id": "restaurant", "titre": "Au restaurant", "fichier": "restaurant.json" },
-    { "id": "urgences", "titre": "Urgences", "fichier": "urgences.json" }
+    { "id": "urgences", "titre": "Urgences", "fichier": "urgences.json" },
+    { "id": "hotel", "titre": "À l'hôtel", "fichier": "hotel.json" },
+    { "id": "telephone", "titre": "Au téléphone", "fichier": "telephone.json" },
+    { "id": "amis", "titre": "Chez des amis", "fichier": "amis.json" },
+    { "id": "banque", "titre": "Banque et argent", "fichier": "banque.json" },
+    { "id": "meteo", "titre": "Le temps qu'il fait", "fichier": "meteo.json" }
   ]
 }
