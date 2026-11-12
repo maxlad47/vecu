@@ -10,7 +10,7 @@ Dernière mise à jour : 12/11/2026 (clôture de la mission 002), par Sacha.
 
 - **Phase 0 (prototype)** : mission 1 terminée le 11/11/2026. En ligne pour test sur https://vecu-test.netlify.app (non référencé).
 - **En cours** : 2 semaines de test par Max (critère de passage de la phase 0).
-- **Missions en cours** : 003, design Bagou (`docs/missions/003-design-bagou/brief.md`), étape 1. 004, lot 3 de situations (`docs/missions/004-lot3/brief.md`, branche `mission-004-lot3`), étape 1.
+- **Missions en cours** : 003, design Bagou (`docs/missions/003-design-bagou/brief.md`), étape 1. 004, lot 3 de situations : **terminé sur la branche `mission-004-lot3`** (15 situations, 146 éléments, Boris « Livrable avec réserves » levées, Léa 7/10). En attente de l'accord de Max pour fusionner dans `main` (donc publier) après son bilan.
 - Dernière mission terminée : 002 (12/11), en ligne sur vecu-test.netlify.app.
 
 ## Pédagogie (Vera)
@@ -22,7 +22,7 @@ Dernière mise à jour : 12/11/2026 (clôture de la mission 002), par Sacha.
 | Répétition espacée (Leitner) | `docs/pedagogie/repetition-espacee.md` | validé |
 | Lot 2 : métro, pharmacie, se présenter, restaurant, urgences (49 éléments, 11 moules) | `docs/pedagogie/phrases-lot2.md` | validé (12/11) |
 | Réglage « mon prénom » et « mon métier » (Je m'appelle ___, Je suis infirmière…) | backlog phase 1 | à faire |
-| Lot 3 : hôtel, au téléphone, chez des amis, banque et argent, le temps qu'il fait | backlog | à faire |
+| Lot 3 : hôtel, au téléphone, chez des amis, banque et argent, le temps qu'il fait (50 éléments) | branche `mission-004-lot3`, `docs/pedagogie/phrases-lot3.md` | livré (attend l'accord de Max) |
 | Remarques sur rencontrer-007 et courses-002 | backlog | à revoir |
 
 ## Contenu russe (Nadia)
