@@ -1,6 +1,6 @@
 # Vécu : document de pilotage
 
-Dernière mise à jour : 11/11/2026, par le CEO (mission 1 livrée)
+Dernière mise à jour : 12/11/2026 (soir), par le CEO (décisions de Max : périmètre v1, objectif, relecture, voix)
 
 ## Vision
 Apprendre une langue avec des phrases qui servent dans la vraie vie, n'importe où, n'importe quand, au rythme et selon les contraintes de chacun.
@@ -30,7 +30,10 @@ Apprendre une langue avec des phrases qui servent dans la vraie vie, n'importe o
 | D22 | Porte de relecture native : statut par fichier de contenu, `scripts/verifier-publication.mjs` | Une faute de russe publiée détruit la confiance. |
 | D23 | Règles de tokens chiffrées (`docs/processus.md` §7) ; Opus 1 à 2 appels par phase | Budget zéro. |
 | D24 | Audits d'une page, avec déclencheurs (`docs/audits.md`) | Pas d'audit sans déclencheur. |
-| D25 | **Périmètre v1** : 15 situations, 4 modes, répétition espacée, hors ligne, personnage, dialogues, carnet. **Reporté après la bêta** : test de niveau, saisie cyrillique (le clavier russe d'iOS suffit), statistiques avancées, nouveaux thèmes de vocabulaire. À confirmer par Max. | Chaque fonction ajoutée avant une semaine d'usage réel est un pari non testé. |
+| D25 | **Périmètre v1 (révisé par Max le 12/11/2026 au soir)** : 15 situations, 4 modes, répétition espacée, hors ligne, personnage, dialogues, carnet **et** les quatre fonctions que Sacha proposait de reporter : statistiques avancées, saisie cyrillique, thèmes de vocabulaire, test de niveau. Max les garde toutes dans la v1. Ordre de construction : voir D28. | Décision du fondateur. Risque assumé : une v1 plus longue avant la bêta ; il est réduit par l'ordre D28 (une fonction à la fois, chacune testée par Max avant la suivante). |
+| D28 | **Ordre des 4 fonctions de la v1** : 1. statistiques avancées, 2. saisie cyrillique, 3. thèmes de vocabulaire, 4. test de niveau (proposé par Sacha le 12/11, à valider par Max) | 1 : petite (la mesure d'usage et les maquettes existent déjà) et elle dit si Max revient. 2 : surtout du code, utile à son apprentissage. 3 : gros chantier de contenu (Vera, Nadia, relecture native), donc lancé tôt mais après les deux premières. 4 : en dernier, car il faut assez de contenu étiqueté par niveau pour qu'il place vraiment quelqu'un. |
+| D29 | **Objectif** : outil personnel d'abord (Max et 5 testeurs au plus). La décision « produit public » se prend après la bêta (12/11/2026, Max) | Évite de payer marque, droits et voix avant d'avoir mesuré l'usage réel. |
+| D30 | **Relecture native : gratuite**, par un natif de l'entourage de Max ou de ses cours de russe. **Voix : on garde la voix de l'appareil**, le compte Azure est repoussé (12/11/2026, Max) | Budget zéro. La porte D22 reste fermée tant qu'aucun fichier n'est « releve-natif ». |
 | D26 | Progression : demande de stockage persistant + export/import d'un fichier + rappel après 7 jours + mesure d'usage locale (jours actifs, minutes, sessions) dans Réglages | Safari peut vider les données d'un site peu utilisé ; sans mesure on ne sait pas si l'app marche. |
 | D27 | Droits, marque, mentions légales : `docs/droits.md`, à vider avant toute mise en ligne publique ; phrases rédigées par l'équipe | Prérequis légal et financier de la phase 3. |
 
@@ -57,15 +60,18 @@ Chaque mission suit le même cycle (`docs/processus.md`). Une mission reçoit so
 | — | Test réel par Max, puis bilan | 0 | Max, Sacha | en cours (jusqu'au 25/11 environ) |
 | — | 1. Corrections issues du test | 1 | selon les retours | à faire |
 | — | 3. Mon carnet et la matriochka | 1 | Lou, Kostia, Boris | à faire |
-| — | 4. Mes progrès (statistiques locales) | 1 | Lou, Kostia, Boris | à faire |
-| — | 5. Audio pré-généré (compte Azure à valider par Max) | 1 | Kostia, Boris | à faire |
+| — | 4. Mes progrès : statistiques avancées (fonction n° 1 de D28) | 1 | Lou, Kostia, Boris | à faire, après le test de Max |
+| — | 5. Audio pré-généré | 1 | Kostia, Boris | repoussé (D30 : voix de l'appareil pour l'instant) |
 | — | 6. Les angles : Verbes, Vocabulaire, Grammaire en contexte (D16) | 1 | Vera, Nadia, Lou, Kostia, Boris | à faire |
-| — | 7. Écrire la réponse, test de niveau, scènes, réglages prénom et métier, variantes de genre complètes | 1 | à répartir | à faire |
+| — | 7a. Saisie en cyrillique, « écrire la réponse » (fonction n° 2 de D28) | 1 | Kostia, Boris | à faire |
+| — | 7b. Thèmes de vocabulaire (fonction n° 3 de D28) | 1 | Vera, Nadia, Lou, Kostia, Boris | à faire |
+| — | 7c. Test de niveau en 2 min (fonction n° 4 de D28) | 1 | Vera, Kostia, Boris | à faire |
+| — | 7d. Scènes, variantes de genre complètes | 1 | à répartir | à faire |
 | — | Revue de phase 1 : bilan, revue des outils (D12), feuille de route de la phase 2 | 1 | Sacha, Max | à faire |
 
 ## Plan des 3 prochaines semaines (D25, 12/11/2026)
 Le fond d'abord, le design reste figé.
-- **Semaine 1** : schéma figé (fait : `statut`), périmètre v1 confirmé par Max, nom vérifié (INPI, domaine), sauvegarde et mesure d'usage testées sur iPhone (fait côté code, branche `mission-009-garde-fous`), 3 situations pilotes relues par un natif.
+- **Semaine 1** : schéma figé (fait : `statut`), périmètre v1 décidé par Max (fait, D25 révisée), nom vérifié (recherche web faite le 12/11 : **conflit possible, voir Questions ouvertes** ; INPI à vérifier à la main), sauvegarde et mesure d'usage testées sur iPhone (code fusionné dans `main` le 12/11, test de Max à faire), 3 situations pilotes à faire relire par un natif de l'entourage de Max (D30) : **café, se présenter, métro** (proposition de Sacha : les plus utiles dès le jour 1).
 - **Semaine 2** : test hors ligne réel (app installée, mode avion, 24 h), choix du relecteur natif et de la voix (budget : décision de Max), 15 situations complètes.
 - **Semaine 3** : 5 testeurs réels, lecture des jours actifs, boucle du 15e jour (« situation du jour » avec un mini-défi réel, rappel discret, série qui pardonne un jour d'oubli), corrections.
 
@@ -80,7 +86,7 @@ La qualité du russe publié et le retour au 15e jour. Test d'honnêteté : le c
 - **Les limites du linguiste IA** : relecture par un natif obligatoire avant toute mise en ligne publique.
 
 ## Questions ouvertes (non bloquantes)
-- Nom : **Bagou**, choisi le 12/11 (D15). Il reste à vérifier la marque, le domaine et les stores avant le lancement public.
+- Nom : **Bagou**, choisi le 12/11 (D15). **Alerte du 12/11 soir** : une société parisienne nommée Bagou (site bagou.co) affiche pour mission d'aider étudiants, entrepreneurs et collaborateurs à gagner en confiance à l'oral, dans la catégorie formation. Même nom, mission voisine. Une société de vêtements nommée BAGOU existe aussi à Rennes (autre secteur). Non vérifié : l'état exact de leurs marques à l'INPI (la base ne se consulte pas depuis ici). Sans conséquence pour un outil perso (D29) ; à trancher par Max avant toute mise en ligne publique : garder le nom, ou en chercher un autre.
 - Modèle économique (gratuit, freemium, abonnement) : à trancher en phase 2.
 
 ## État d'avancement

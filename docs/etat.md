@@ -4,7 +4,7 @@ Source unique de vérité : ce qui existe, où, et dans quel état. **Chaque age
 
 Statuts : **validé** (ne se refait pas, on complète ou on corrige) · **livré** (en attente de validation) · **à revoir** (un problème est connu) · **à faire**.
 
-Dernière mise à jour : 12/11/2026 (mission 009 sur branche, non fusionnée), par Sacha.
+Dernière mise à jour : 12/11/2026 (soir, mission 009 fusionnée dans `main`), par Sacha.
 
 ## Où en est-on
 
@@ -13,7 +13,7 @@ Dernière mise à jour : 12/11/2026 (mission 009 sur branche, non fusionnée), p
 - **Missions en cours** : aucune. Dernière : 008, métiers élargis (43) et dialogues à choix (4) mélangés aux sessions (12/11), QA Boris « Livrable avec réserves », Léa 6/10, en ligne pour test. À vérifier par Max sur iPhone : les dialogues voisin et soirée (prénom et métier dans la scène), la scène qui défile de quelques pixels après une erreur, la liste de métiers. Dernière : 007, personnage personnalisable (12/11), QA Boris « Livrable » après contre-vérification, Léa 6/10, en ligne pour test (avec le lot 3 : 15 situations). À vérifier par Max sur iPhone : création du personnage, accords au féminin et au masculin, Réglages, Écouteurs. Dernière mission : 006, écrans adaptatifs (12/11), QA Boris « Livrable avec réserves », Léa 7/10. Reste à vérifier par Max sur iPhone : Safari et app installée (zones sûres, bande du haut). Avant : 005, Bagou dans l'app (12/11). Reste à vérifier par Max sur iPhone : passage de Vécu à Bagou. 004, lot 3 de situations : **terminé sur la branche `mission-004-lot3`** (15 situations, 146 éléments, Boris « Livrable avec réserves » levées, Léa 7/10). En attente de l'accord de Max pour fusionner dans `main` (donc publier) après son bilan.
 - Dernière mission terminée : 002 (12/11), en ligne sur vecu-test.netlify.app.
 
-## Garde-fous (mission 009, branche `mission-009-garde-fous`)
+## Garde-fous (mission 009, fusionnée dans `main` le 12/11/2026 au soir, en ligne pour le test de Max)
 
 | Livrable | Fichier | Statut |
 |---|---|---|
