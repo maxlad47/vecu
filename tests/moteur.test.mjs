@@ -725,7 +725,7 @@ egal([0, 20, 90, 240, 270, 299].map(minutesReelles), [1, 1, 2, 4, 5, 5], "minute
 
 
 // ---------- Sauvegarde et usage local (mission 009) ----------
-import { construireSauvegarde, lireSauvegarde, ajouterSession, resumeUsage, rappelSauvegardeDu, statistiquesUsage, compterSituations, validerUsage } from "../app/js/sauvegarde.js";
+import { construireSauvegarde, lireSauvegarde, ajouterSession, resumeUsage, rappelSauvegardeDu, jourLocal, statistiquesUsage, compterSituations, validerUsage } from "../app/js/sauvegarde.js";
 {
   const f = ficheVide("ru-cafe-001");
   const fiches = new Map([[f.id, f]]);
@@ -765,6 +765,15 @@ import { construireSauvegarde, lireSauvegarde, ajouterSession, resumeUsage, rapp
   verifier(statistiquesUsage(m, midi(12)).modePrefere === "ecouteurs", "stats : mode préféré = le plus fréquent");
   verifier(statistiquesUsage(usageDe([12]), midi(12)).modePrefere === null, "stats : sans mode enregistré, pas de mode préféré");
   verifier(validerUsage({ jours: { "2026-11-12": { sessions: 1, minutes: 5, cartes: 3 } } }).jours["2026-11-12"].sessions === 1, "usage : ancien format sans modes accepté");
+  // Heure d'été : 10 jours consécutifs actifs, vus à 00:30 le jour du changement (23 h), en Europe/Paris.
+  // Le test ne vaut que si Node tourne avec TZ=Europe/Paris ; sinon il vérifie au moins le cas sans changement d'heure.
+  for (const [a, m, j] of [[2027, 2, 28], [2027, 2, 29], [2027, 9, 31], [2026, 9, 25]]) { // mars et octobre 2027 (changements), octobre 2026 (jour du changement 25/10)
+    const maintenant = new Date(a, m, j, 0, 30);
+    const jours = {};
+    for (let i = 0; i < 10; i++) jours[jourLocal(new Date(a, m, j - i, 12))] = { sessions: 1, minutes: 5, cartes: 1 };
+    const st = statistiquesUsage({ jours }, maintenant);
+    verifier(st.actifs30 === 10 && st.serie === 10 && resumeUsage({ jours }, maintenant, 30).actifs === 10, "heure d'été : 10 jours consécutifs comptés (" + a + "-" + (m + 1) + "-" + j + ")");
+  }
   // Situations : A acquise, B en cours, C pas vue, D vide (ignorée).
   const fiche = (id, boite) => Object.assign(ficheVide(id), { boite });
   const fiches = new Map([["a1", fiche("a1", BOITE_ACQUIS)], ["a2", fiche("a2", BOITE_ACQUIS)], ["b1", fiche("b1", 1)], ["b2", fiche("b2", 0)]]);

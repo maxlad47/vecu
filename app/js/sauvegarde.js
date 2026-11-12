@@ -82,6 +82,11 @@ export function ajouterSession(usage, jour, minutes, cartes, mode) {
   return base;
 }
 
+// Le jour local reculé de i jours, en jours calendaires (pas de 24 h : l'heure d'été en fait des jours de 23 h ou 25 h).
+function jourIl(maintenant, i) {
+  return jourIso(new Date(maintenant.getFullYear(), maintenant.getMonth(), maintenant.getDate() - i, 12));
+}
+
 function jourIso(date) {
   const d = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
   return d.toISOString().slice(0, 10);
@@ -92,7 +97,7 @@ export function resumeUsage(usage, maintenant, nbJours) {
   const jours = validerUsage(usage).jours;
   let actifs = 0, minutes = 0, sessions = 0;
   for (let i = 0; i < nbJours; i++) {
-    const cle = jourIso(new Date(maintenant.getTime() - i * 86400000));
+    const cle = jourIl(maintenant, i);
     if (jours[cle]) { actifs++; minutes += jours[cle].minutes; sessions += jours[cle].sessions; }
   }
   return { actifs, minutes, sessions };
@@ -107,7 +112,7 @@ export function jourLocal(date) { return jourIso(date); }
  */
 export function statistiquesUsage(usage, maintenant) {
   const jours = validerUsage(usage).jours;
-  const actif = (i) => !!jours[jourIso(new Date(maintenant.getTime() - i * 86400000))];
+  const actif = (i) => !!jours[jourIl(maintenant, i)];
   const sur = (n) => { let c = 0; for (let i = 0; i < n; i++) if (actif(i)) c++; return c; };
   let serie = 0, oublis = 0;
   for (let i = actif(0) ? 0 : 1; i <= GARDER_JOURS && oublis < 2; i++) {

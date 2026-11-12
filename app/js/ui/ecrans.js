@@ -162,6 +162,7 @@ export function afficherReglages(racine, ctx) {
       const res = stock.importer(await f.text());
       etat.textContent = res.ok ? t("sauv.importOk", { n: res.nbFiches }) : t("sauv.importErreur");
       entree.value = "";
+      if (res.ok) blocStatsEl.replaceWith(blocStats()); // les chiffres suivent la sauvegarde importée
     } });
     const importer = h("button", { type: "button", class: "btn-secondaire", onclick: () => entree.click() }, t("sauv.importer"));
     return h("div", { class: "reglage" }, h("h2", { class: "intertitre" }, t("sauv.titre")),
@@ -169,7 +170,7 @@ export function afficherReglages(racine, ctx) {
   }
   // Statistiques personnelles : calculées ici, sur l'appareil. Rien n'est envoyé.
   function blocStats() {
-    const u = statistiquesUsage(r.usage, new Date());
+    const u = statistiquesUsage(ctx.stockage.reglages.usage, new Date()); // lu dans le stockage : à jour après un import
     const sit = compterSituations(ctx.contenu.situations.map((s) => s.ids.filter((id) => ctx.contenu.parId.has(id))), ctx.stockage.fiches);
     const duree = u.minutes >= 60 ? t("stats.dureeH", { h: Math.floor(u.minutes / 60), m: String(u.minutes % 60).padStart(2, "0") }) : t("duree", { n: u.minutes });
     const lignes = u.sessions === 0 ? [t("stats.vide")] : [
@@ -179,10 +180,14 @@ export function afficherReglages(racine, ctx) {
       u.serie > 1 ? t("stats.serie", { n: u.serie }) : null,
       t("stats.situations", { vues: sit.vues, enCours: sit.enCours, acquises: sit.acquises, total: sit.total })
     ].filter(Boolean);
-    return h("div", { class: "reglage" }, h("h2", { class: "intertitre" }, t("stats.titre")),
+    const el = h("div", { class: "reglage" }, h("h2", { class: "intertitre" }, t("stats.titre")),
       h("ul", { class: "stats" }, lignes.map((l) => h("li", null, l))),
       h("p", { class: "aide-reglage" }, t("stats.aide")));
+    blocStatsEl = el;
+    return el;
   }
+  let blocStatsEl;
+  blocStats();
   const tete = entete(ctx, "reglages", t("reglages.titre"));
   const ecran = h("div", { class: "ecran" },
     tete.element,
@@ -204,7 +209,7 @@ export function afficherReglages(racine, ctx) {
             h("label", { class: "choix", for: id }, h("span", { class: "coche" }, icone("coche")), h("span", null, libelle))
           ];
         })))),
-      blocStats(),
+      blocStatsEl,
       blocSauvegarde(),
       h("p", { class: "pied" }, t("reglages.pied"))),
     boutonRetour(ctx));
