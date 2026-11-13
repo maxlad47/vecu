@@ -906,7 +906,7 @@ details p { margin: 0 0 var(--space-3); }
 .russe .btn-lien { padding: 0 var(--space-2); min-width: 44px; font-size: var(--fs-small); }
 .poupee-perso { display: block; }
 .poupee-grande { display: flex; justify-content: center; margin: 0; }
-.poupee-grande .poupee-perso { height: clamp(96px, 19dvh, 140px); width: auto; }
+.poupee-grande .poupee-perso { height: clamp(120px, 24dvh, 190px); width: auto; }
 .nom-perso { text-align: center; font-weight: 800; font-size: var(--fs-t3); letter-spacing: -0.03em; margin: 0 0 var(--space-2); overflow-wrap: anywhere; }
 .pastilles-couleur { display: flex; gap: var(--space-3); justify-content: space-between; }
 .pastille-couleur { position: relative; display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; flex: none;

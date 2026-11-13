@@ -336,9 +336,13 @@ egal(suite.length, 28, "exemple 1 : 28 cartes");
   verifier(!controlerAmbiance(null).ok, "pas de fichier lisible : refusé");
   const css = construireCss(amb);
   verifier(css.includes("--laque:#B3261E") && css.includes("prefers-color-scheme: dark") && css.includes("body.theme-voiture"), "CSS d'ambiance : clair, sombre et Voiture");
-  for (const f of ["bulbes", "samovar", "rameau", "croix", "panier", "pont", "tasses", "lustres", "bouleau", "pelmeni", "poupee-acquise"]) {
+  // Budget par fichier : 3 Ko pour les décors simples ; 6 Ko pour la matriochka peinte et 16 Ko pour la place Rouge,
+  // dessins détaillés demandés par Max (D34), chargés une seule fois et gardés hors ligne.
+  const BUDGET = { "poupee-acquise": 6144, "place-rouge": 16384 };
+  for (const f of ["bulbes", "samovar", "rameau", "croix", "panier", "pont", "tasses", "lustres", "bouleau", "pelmeni", "poupee-acquise", "place-rouge"]) {
     const svg = typeof readFile === "function" ? readFile("content/ru/ambiance/" + f + ".svg") : (await (await import("node:fs/promises")).readFile(new URL("content/ru/ambiance/" + f + ".svg", racine), "utf8"));
-    verifier(!/#[0-9a-fA-F]{3,6}\b/.test(svg) && svg.length < 3072, "SVG " + f + " : aucune couleur en dur, moins de 3 Ko");
+    const max = BUDGET[f] || 3072;
+    verifier(!/#[0-9a-fA-F]{3,6}\b/.test(svg) && svg.length < max, "SVG " + f + " : aucune couleur en dur, moins de " + Math.round(max / 1024) + " Ko");
   }
 }
 
