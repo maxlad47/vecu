@@ -290,28 +290,125 @@ span.past { cursor: default; }
 
 /* ===== 6. Accueil ===== */
 .contenu-accueil { display: flex; flex-direction: column; }
-/* Étape 1 : les lieux en tuiles de couleur pleine, comme les catégories d'Apple Musique. */
+/* Étape 1 : les lieux. Trois essais d'accueil (mission 015) : A pochettes, B affiche, C phrase du jour. */
 .lieux { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .carte-lieu {
-  position: relative; overflow: hidden; aspect-ratio: 1 / 0.92; min-height: 128px; padding: 14px 14px 13px;
-  display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start;
-  border: 0; border-radius: var(--radius-l); text-align: left; cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  box-shadow: 0 16px 30px -22px color-mix(in srgb, var(--text) 70%, transparent);
-  transition: transform 260ms var(--ressort);
+  position: relative; display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+  padding: 0; border: 0; background: none; color: var(--text); cursor: pointer;
+  -webkit-tap-highlight-color: transparent; transition: transform 260ms var(--ressort);
   animation: surgit 520ms var(--ressort) both;
 }
 .carte-lieu:nth-child(2) { animation-delay: 40ms; }
 .carte-lieu:nth-child(3) { animation-delay: 80ms; }
 .carte-lieu:nth-child(4) { animation-delay: 120ms; }
 .carte-lieu:active { transform: scale(0.96); }
-#lieu-voiture { background: var(--accent); color: var(--on-accent); }
-#lieu-silence { background: var(--text); color: var(--bg); }
-#lieu-ecouteurs { background: var(--laque); color: var(--on-laque); }
-#lieu-parler { background: var(--or); color: var(--sur-or); }
-.carte-lieu svg.icon { width: 30px; height: 30px; stroke-width: 2.2; }
-.carte-lieu .lieu-nom { margin: 0; display: block; font-weight: 800; font-size: var(--fs-t3); line-height: 1.1; letter-spacing: -0.03em; }
-.carte-lieu .lieu-ex { display: block; margin-top: 3px; font-size: var(--fs-small); font-weight: 500; line-height: 1.25; }
+.carte-lieu .lieu-textes { display: block; }
+.carte-lieu .lieu-nom { margin: 0; display: block; font-weight: 700; font-size: var(--fs-body); line-height: 1.2; letter-spacing: -0.02em; }
+.carte-lieu .lieu-ex { display: block; margin-top: 2px; font-size: var(--fs-small); font-weight: 500; line-height: 1.25; color: var(--text-muted); }
+/* Couleurs propres à chaque lieu (pastilles d'icône, capsules). */
+body {
+  --c-voiture: var(--accent); --sur-voiture: var(--on-accent);
+  --c-silence: var(--text); --sur-silence: var(--bg);
+  --c-ecouteurs: var(--laque); --sur-ecouteurs: var(--on-laque);
+  --c-parler: var(--or); --sur-parler: var(--sur-or);
+}
+.pastille-lieu {
+  width: 40px; height: 40px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: 11px;
+}
+.pastille-lieu svg.icon { width: 22px; height: 22px; stroke-width: 2.2; }
+#lieu-voiture .pastille-lieu { background: var(--c-voiture); color: var(--sur-voiture); }
+#lieu-silence .pastille-lieu { background: var(--c-silence); color: var(--sur-silence); }
+#lieu-ecouteurs .pastille-lieu { background: var(--c-ecouteurs); color: var(--sur-ecouteurs); }
+#lieu-parler .pastille-lieu { background: var(--c-parler); color: var(--sur-parler); }
+
+/* A. Pochettes : une grille d'albums. L'illustration russe du lieu sur un fond teinté, le nom dessous. */
+.lieux-pochettes { gap: 20px 14px; }
+.accueil-a .carte-lieu { gap: 10px; }
+.pochette {
+  position: relative; display: block; width: 100%; aspect-ratio: 1; overflow: hidden; border-radius: 18px;
+  box-shadow: 0 16px 28px -20px color-mix(in srgb, var(--text) 70%, transparent);
+}
+.pochette-voiture { background: linear-gradient(165deg, color-mix(in srgb, var(--laque) 14%, var(--bg)), color-mix(in srgb, var(--laque) 34%, var(--bg))); }
+.pochette-silence { background: linear-gradient(165deg, color-mix(in srgb, var(--accent) 12%, var(--bg)), color-mix(in srgb, var(--accent) 30%, var(--bg))); }
+.pochette-ecouteurs { background: linear-gradient(165deg, color-mix(in srgb, var(--accent) 30%, var(--bg)), color-mix(in srgb, var(--accent) 58%, var(--bg))); }
+.pochette-parler { background: linear-gradient(165deg, color-mix(in srgb, var(--or) 20%, var(--bg)), color-mix(in srgb, var(--or) 46%, var(--bg))); }
+.pochette .art-lieu { position: absolute; left: 12%; right: 12%; bottom: 8%; top: 26%; display: flex; align-items: flex-end; justify-content: center; }
+.pochette .art-lieu svg { width: 100%; height: 100%; }
+.pochette .pastille-lieu { position: absolute; top: 10px; left: 10px; width: 36px; height: 36px; border-radius: 50%; }
+.pochette .pastille-lieu svg.icon { width: 19px; height: 19px; }
+/* Mini-lecteur d'Apple Musique : la reprise en un geste, flottant au-dessus du bas de l'écran. */
+.zone-mini { background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.mini-lecteur {
+  width: 100%; min-height: 72px; padding: 8px 10px 8px 8px; display: flex; align-items: center; gap: 12px;
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8); backdrop-filter: blur(24px) saturate(1.8);
+  border: 0; border-radius: 20px; box-shadow: var(--ombre-haute); color: var(--text); text-align: left; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; transition: transform 240ms var(--ressort);
+  animation: monte 560ms var(--ressort) 160ms both;
+}
+.mini-lecteur:active { transform: scale(0.98); }
+.mini-lecteur .vignette { width: 56px; height: 56px; flex: none; padding: 6px; border-radius: 12px; background: linear-gradient(165deg, var(--scene-a), var(--scene-b)); --deco-bleu: var(--sur-scene); --deco-bleu-pale: color-mix(in srgb, var(--sur-scene) 40%, transparent); }
+.mini-lecteur .vignette svg { width: 100%; height: 100%; }
+.mini-lecteur .textes { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.mini-lecteur .libelle { font-weight: 700; font-size: var(--fs-body); letter-spacing: -0.02em; }
+.mini-lecteur .sous { font-size: var(--fs-small); color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mini-lecteur .lecture { width: 46px; height: 46px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--laque); color: var(--on-laque); }
+.mini-lecteur .lecture svg.icon, .btn-affiche svg.icon { width: 20px; height: 20px; fill: currentColor; margin-left: 3px; }
+
+/* B. Affiche : une grande scène cobalt en tête (marque, bulbes, reprise), puis les lieux en liste de l'iPhone. */
+.affiche {
+  position: relative; overflow: hidden; min-height: 330px; margin-top: var(--space-2); padding: 22px;
+  display: flex; flex-direction: column; align-items: flex-start;
+  background: linear-gradient(165deg, var(--scene-a), var(--scene-b)); color: var(--sur-scene);
+  border-radius: var(--radius-xl); box-shadow: var(--ombre-scene);
+  animation: arrive 560ms var(--ressort) both;
+  --deco-bleu: color-mix(in srgb, var(--sur-scene) 92%, transparent);
+  --deco-bleu-pale: color-mix(in srgb, var(--sur-scene) 28%, transparent);
+}
+.affiche .decor-accueil { position: absolute; right: -4px; bottom: 76px; width: 62%; margin: 0; padding: 0; display: block; opacity: 0.95; }
+.affiche .decor-accueil svg { max-height: none; max-width: none; width: 100%; height: auto; }
+.affiche-titre { position: relative; max-width: 9ch; font-size: 2.75rem; font-weight: 800; line-height: 1; letter-spacing: -0.04em; }
+.ecran:has(.accueil-b) .entete .marque { visibility: hidden; } /* la marque est déjà sur l'affiche */
+.affiche-sous { position: relative; margin-top: 6px; font-size: var(--fs-t3); font-weight: 600; letter-spacing: -0.02em; color: var(--sur-scene-doux); }
+.btn-affiche {
+  position: relative; margin-top: auto; align-self: stretch; min-height: 60px; padding: 8px 18px 8px 16px; display: flex; align-items: center; gap: 10px;
+  background: var(--sur-scene); color: var(--scene-a); border: 0; border-radius: var(--radius-pill); text-align: left; cursor: pointer;
+  box-shadow: 0 12px 24px -14px rgba(0,0,0,0.5); transition: transform 240ms var(--ressort);
+}
+.btn-affiche:active { transform: scale(0.96); }
+.btn-affiche .textes { display: flex; flex-direction: column; }
+.btn-affiche .libelle { font-weight: 800; font-size: var(--fs-body); letter-spacing: -0.02em; line-height: 1.15; }
+.btn-affiche .sous { font-size: var(--fs-small); font-weight: 600; opacity: 0.85; }
+.accueil-b .titre-etape, .accueil-c .titre-etape { font-size: var(--fs-t1); margin: var(--space-5) 0 var(--space-3); }
+.lieux-liste {
+  display: flex; flex-direction: column; gap: 0; background: var(--surface); border-radius: var(--radius-l); box-shadow: var(--ombre-carte); overflow: hidden;
+}
+.accueil-b .carte-lieu { flex-direction: row; align-items: center; gap: 14px; min-height: 70px; padding: 10px 14px; border-radius: 0; animation-name: fondu; }
+.accueil-b .carte-lieu + .carte-lieu::before { content: ""; position: absolute; top: 0; left: 68px; right: 0; height: 1px; background: var(--filet); }
+.accueil-b .carte-lieu:active { transform: none; background: var(--gris); }
+.accueil-b .lieu-textes { flex: 1; min-width: 0; }
+.chevron { color: var(--text-muted); display: flex; }
+.chevron svg.icon { width: 18px; height: 18px; stroke-width: 2.6; }
+
+/* C. Phrase du jour : on entre par une phrase russe, puis les lieux en capsules de couleur pleine. */
+.phrase-jour {
+  margin-top: var(--space-2); padding: 22px; display: flex; flex-direction: column; gap: 6px;
+  background: linear-gradient(165deg, var(--scene-a), var(--scene-b)); color: var(--sur-scene);
+  border-radius: var(--radius-xl); box-shadow: var(--ombre-scene); animation: arrive 560ms var(--ressort) both;
+}
+.phrase-jour-titre { font-size: var(--fs-small); font-weight: 700; color: var(--sur-scene-doux); margin-bottom: 18px; }
+.phrase-jour .ru-hero { font-size: clamp(2rem, 10vw, 2.75rem); line-height: 1.1; }
+.phrase-jour .translit, .phrase-jour .fr-dessus { color: var(--sur-scene-doux); }
+.phrase-jour .fr-dessus { margin-top: 10px; font-size: var(--fs-t3); font-weight: 600; letter-spacing: -0.02em; }
+.lieux-capsules { gap: 10px; }
+.accueil-c .carte-lieu { flex-direction: row; align-items: center; gap: 10px; min-height: 64px; padding: 0 16px; border-radius: 20px; font-weight: 700; }
+.accueil-c .carte-lieu svg.icon { width: 24px; height: 24px; stroke-width: 2.2; }
+.accueil-c .carte-lieu .lieu-nom { font-size: var(--fs-body); line-height: 1.15; }
+.accueil-c #lieu-voiture { background: var(--c-voiture); color: var(--sur-voiture); }
+.accueil-c #lieu-silence { background: var(--c-silence); color: var(--sur-silence); }
+.accueil-c #lieu-ecouteurs { background: var(--c-ecouteurs); color: var(--sur-ecouteurs); }
+.accueil-c #lieu-parler { background: var(--c-parler); color: var(--sur-parler); }
+.btn-principal .textes { display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .btn-ici-aide { margin-top: var(--space-3); }
 .decor { pointer-events: none; }
 .decor svg { display: block; width: 100%; height: auto; }
@@ -455,6 +552,8 @@ button.badge { min-height: 44px; cursor: pointer; }
 .zone-phrase:has(.ru-hero) .translit, .zone-phrase:has(.ru-hero) .registre, .zone-phrase:has(.ru-hero) .petit,
 .zone-phrase:has(.ru-hero) .etiquette-moule, .zone-phrase:has(.ru-hero) .fr-dessus { color: var(--sur-scene-doux); }
 .zone-phrase:has(.btn-reecouter) { align-items: center; }
+/* Quand le russe est sur la carte, le français repasse au second plan. */
+.zone-phrase:has(.ru-hero) .fr-hero, .ecran-session .zone-phrase:has(.ru-hero) .fr-hero { font-size: var(--fs-t3); font-weight: 600; letter-spacing: -0.02em; color: var(--sur-scene-doux); }
 .fr-dessus { color: var(--text-muted); font-size: var(--fs-body); }
 .ru-hero { font-size: var(--fs-ru-hero); font-weight: 700; color: inherit; line-height: 1.16; letter-spacing: 0; }
 .ru-hero.long { font-size: var(--fs-ru-hero-long); }
@@ -523,11 +622,12 @@ button.badge { min-height: 44px; cursor: pointer; }
 .carte-phrase > :not(.ru-hero):not(.ligne-translit):not(.fr-dessus):not(.decor-carte) { order: 4; }
 .carte-phrase .translit, .carte-phrase .registre, .carte-phrase .petit, .carte-phrase .fr-dessus { color: var(--sur-scene-doux); }
 /* Ce qui se pose sur une carte « en lecture » devient translucide, dans la couleur de la carte. */
-.zone-phrase:has(.ru-hero) .astuce { box-shadow: none; background: color-mix(in srgb, var(--sur-scene) 14%, transparent); color: var(--sur-scene); }
+.zone-phrase:has(.ru-hero) .astuce, .ecran-session .zone-phrase:has(.ru-hero) .astuce, .ecran-session .carte-phrase .astuce { box-shadow: none; background: none; padding: 0; color: var(--sur-scene-doux); }
 .zone-phrase:has(.ru-hero) .astuce strong { color: var(--sur-scene); }
 .zone-phrase:has(.ru-hero) .btn-ecouter { background: var(--sur-scene); color: var(--scene-a); }
 .zone-phrase:has(.ru-hero) .badge { background: color-mix(in srgb, var(--sur-scene) 16%, transparent); color: var(--sur-scene); }
-.carte-phrase .astuce { box-shadow: none; background: color-mix(in srgb, var(--sur-scene) 14%, transparent); color: var(--sur-scene); }
+/* Dans la carte : l'astuce et l'état sont des lignes de texte, pas des boîtes dans la boîte. */
+.carte-phrase .astuce { box-shadow: none; background: none; padding: 0; margin-top: var(--space-2); color: var(--sur-scene-doux); }
 .carte-phrase .astuce strong { color: var(--sur-scene); }
 .carte-phrase .btn-lien { color: var(--sur-scene); }
 .carte-phrase .btn-secondaire { background: color-mix(in srgb, var(--sur-scene) 16%, transparent); color: var(--sur-scene); }
@@ -537,8 +637,8 @@ button.badge { min-height: 44px; cursor: pointer; }
 .boutons-ecoute .btn-ecouter:last-child { background: color-mix(in srgb, var(--sur-scene) 16%, transparent); color: var(--sur-scene); }
 /* État de la phrase : une ligne translucide dans la carte. */
 .bloc-etat {
-  display: flex; align-items: center; gap: 12px; margin-top: var(--space-2); padding: 12px 14px;
-  background: color-mix(in srgb, var(--sur-scene) 12%, transparent); border-radius: var(--radius-m);
+  display: flex; align-items: center; gap: 12px; margin-top: var(--space-2); padding: 12px 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--sur-scene) 22%, transparent);
   font-weight: 700; font-size: var(--fs-body); line-height: 1.2; letter-spacing: -0.015em;
 }
 .bloc-etat small { display: block; margin-top: 2px; font-size: var(--fs-small); font-weight: 500; letter-spacing: -0.01em; color: var(--sur-scene-doux); line-height: 1.25; }
@@ -634,6 +734,7 @@ button.badge { min-height: 44px; cursor: pointer; }
 .verdict:focus { outline: none; }
 .bonne-reponse .ru { font-size: var(--fs-ru-option); font-weight: 600; line-height: 1.3; }
 .bonne-reponse .fr { font-size: var(--fs-option); font-weight: 600; }
+.bonne-reponse [lang="ru"].petit { font-size: var(--fs-ru-option); font-weight: 600; color: var(--text); }
 .retour .astuce { margin: 0; background: var(--gris); box-shadow: none; }
 .question-voix { text-align: center; }
 .ligne-verdict { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
@@ -811,7 +912,7 @@ details p { margin: 0 0 var(--space-3); }
 .ecran-session .carte-phrase .fr-dessus { font-size: clamp(1.0625rem, min(5vw, 2.6dvh), 1.25rem); margin-top: 0; }
 .ecran-session .astuce { margin-top: 0; padding: 10px 14px; font-size: var(--fs-small); line-height: 1.35; }
 .ecran-session .boutons-ecoute { margin-top: 0; }
-.ecran-session .bloc-etat { margin-top: 0; padding: 10px 12px; font-size: var(--fs-small); }
+.ecran-session .bloc-etat { margin-top: 0; padding: 10px 0 0; font-size: var(--fs-small); }
 .ecran-session .autre-mot { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--e-grand); }
 .ecran-session .autre-mot .etiquette-moule { flex: none; }
 .ecran-session .puces {
@@ -840,7 +941,8 @@ details p { margin: 0 0 var(--space-3); }
   .zone-action { padding-top: var(--space-2); }
   .ligne-choix { min-height: 62px; }
   .ligne-choix .chiffre { font-size: 2.25rem; }
-  .carte-lieu { aspect-ratio: auto; min-height: 112px; }
+  .affiche { min-height: 240px; }
+  .affiche-titre { font-size: 2.75rem; }
   .decor-accueil svg { max-height: 80px; }
   .ecran-session .carte-phrase .decor-carte { display: none; }
   .ecran-session .bloc-etat small, .ecran-session .retour .reverra { display: none; }
