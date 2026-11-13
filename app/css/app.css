@@ -844,3 +844,25 @@ legend { font-size: 1.0625rem; font-weight: 700; }
 .choix-themes > summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 .choix-themes .themes { margin-top: var(--space-3); }
 @media (prefers-reduced-motion: reduce) { .choix-themes > summary svg.icon { transition: none; } }
+
+/* Corrections QA (Boris, 13/11/2026) */
+/* 1. Le décor (samovar…) ne recouvre plus la phrase russe : la place est réservée à droite de la première ligne. */
+.carte-phrase .ru-hero { padding-right: 64px; }
+@media (max-height: 700px) { .carte-phrase .ru-hero { padding-right: 52px; } }
+@media (max-height: 600px) { .carte-phrase .ru-hero { padding-right: 0; } }
+/* 2. Écrans à 360×640 : titre d'étape moins haut, pour que « J'ai combien de temps ? » ne défile pas. */
+@media (max-height: 700px) {
+  .titre-etape { font-size: 1.625rem; margin: var(--space-2) 0 var(--space-3); }
+  .contenu { padding-top: var(--space-3); }
+  .zone-action { padding-top: var(--space-3); }
+  .ligne-choix { min-height: 56px; }
+  .lignes { gap: var(--space-2); }
+}
+/* 3. Le russe de Sens et d'Ordre se lit aussi bien que celui de Découverte. */
+.ecran-session {
+  --fs-ru-hero: clamp(1.625rem, min(8.4vw, 4.4dvh), 2.25rem);
+  --fs-ru-hero-long: clamp(1.5rem, min(7vw, 3.8dvh), 2rem);
+  --fs-ru-hero-xlong: clamp(1.25rem, min(6vw, 3.2dvh), 1.625rem);
+}
+.ecran-session .tuile, .ecran-session .ponctuation { font-size: 1.375rem; }
+.astuce, .retour .astuce { text-wrap: pretty; }

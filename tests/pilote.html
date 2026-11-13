@@ -26,6 +26,7 @@ const params = new URLSearchParams(location.search);
 const scenario = params.get("s") || "accueil";
 const theme = params.get("theme") || "light";
 const iframe = document.getElementById("app");
+if (params.get("h")) iframe.style.height = params.get("h") + "px"; // simule un écran plus bas (ex. h=640)
 const journal = [];
 const rapport = { scenario, erreurs: [], appelsSynthese: 0, acces: 0, parles: [] };
 const pause = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -131,6 +132,13 @@ const scenarios = {
   async accueil() { await charger(); },
   async accueil2() { await charger(); await parcours("silence", 15); await pause(300); await charger(); rapport.boutonPret = $("#derniere-fois") && $("#derniere-fois").textContent; rapport.idb = await lireReglages(); },
   async etape3() { await charger(); await cliquer($("#lieu-silence")); if ($("#passer-test")) await cliquer($("#passer-test")); await cliquer($("#duree-5")); await cliquer($("#suite")); await pause(400); },
+  async duree() { await charger(); await cliquer($("#lieu-silence")); if ($("#passer-test")) await cliquer($("#passer-test")); await pause(300);
+    const e = doc.documentElement; rapport.page = { defile: e.scrollHeight > e.clientHeight + 1, scroll: e.scrollHeight, fenetre: e.clientHeight };
+    const c = doc.querySelector(".contenu"); rapport.contenu = c ? { scroll: c.scrollHeight, client: c.clientHeight } : null; },
+  async chevauche() { await charger(); await demarrer("silence");
+    const d = doc.querySelector(".decor-carte"), r = doc.querySelector(".carte-phrase .ru-hero[lang=ru], .carte-phrase .ru-hero [lang=ru]");
+    if (d && r) { const g = doc.createRange(); g.selectNodeContents(r); const a = d.getBoundingClientRect(), b = g.getBoundingClientRect(); rapport.chevauche = !(b.right <= a.left || b.left >= a.right || b.bottom <= a.top || b.top >= a.bottom); rapport.rects = { decor: [a.left, a.top, a.right, a.bottom].map(Math.round), russe: [b.left, b.top, b.right, b.bottom].map(Math.round) }; }
+    else rapport.chevauche = "decor ou russe absent"; },
   async decouverte() { await charger(); await demarrer("silence"); },
   async sens() { await charger(); await demarrer("silence"); await jusqua("Ça veut dire"); },
   async theme() { await charger(); await demarrer("silence"); await jusqua("Comment on dit"); },

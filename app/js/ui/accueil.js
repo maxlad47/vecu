@@ -183,7 +183,9 @@ export function afficherAccueil(racine, ctx, options) {
       h("main", { class: "contenu" }, pastilles(3), titre("themes.question"), tuileHasard,
         h("details", { class: "choix-themes", open: themes.length > 0 },
           h("summary", null, t("themes.choisir"), icone("suite")),
-          grille, ctx.contenu.univers && ctx.contenu.univers.length ? tuileUnivers : null)),
+          grille),
+        // Le choix des mots par sujet reste visible : il est actif par défaut, on ne le cache pas dans le dépliant.
+        ctx.contenu.univers && ctx.contenu.univers.length ? tuileUnivers : null),
       barreBas(boutonRetour(2), go)
     ];
   }
