@@ -147,9 +147,9 @@ const ctx = {
   retourAccueil: () => aller("accueil"),
   jour: () => calculerJour(new Date()),
   // Mesure d'usage locale : une ligne par jour (sessions, minutes, cartes). Rien ne quitte l'appareil.
-  noterSession: (minutes, cartes) => {
+  noterSession: (minutes, cartes, mode) => {
     if (!stockage) return;
-    majReglage("usage", ajouterSession(stockage.reglages.usage, jourLocal(new Date()), minutes, cartes));
+    majReglage("usage", ajouterSession(stockage.reglages.usage, jourLocal(new Date()), minutes, cartes, mode));
   }
 };
 

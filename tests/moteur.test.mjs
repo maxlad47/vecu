@@ -13,6 +13,7 @@ import { optionsMoule } from "../app/js/exercices.js";
 import { creerSession, aleatoireGraine, minutesReelles } from "../app/js/moteur.js";
 import { controlerAmbiance, construireCss } from "../app/js/ambiance.js";
 import { dureePourLieu, themesValides, basculerTheme, dernierChoix } from "../app/js/parcours.js";
+import { BOITE_ACQUIS } from "../app/js/config.js";
 import { ficheVide, ajouterJours, calculerJour, appliquerResultat, validerFiche } from "../app/js/leitner.js";
 
 const sortie = typeof print === "function" ? print : console.log;
@@ -724,7 +725,7 @@ egal([0, 20, 90, 240, 270, 299].map(minutesReelles), [1, 1, 2, 4, 5, 5], "minute
 
 
 // ---------- Sauvegarde et usage local (mission 009) ----------
-import { construireSauvegarde, lireSauvegarde, ajouterSession, resumeUsage, rappelSauvegardeDu } from "../app/js/sauvegarde.js";
+import { construireSauvegarde, lireSauvegarde, ajouterSession, resumeUsage, rappelSauvegardeDu, jourLocal, statistiquesUsage, compterSituations, validerUsage } from "../app/js/sauvegarde.js";
 {
   const f = ficheVide("ru-cafe-001");
   const fiches = new Map([[f.id, f]]);
@@ -741,6 +742,43 @@ import { construireSauvegarde, lireSauvegarde, ajouterSession, resumeUsage, rapp
   verifier(r.actifs === 1 && r.minutes === 7, "usage : résumé sur 7 jours");
   verifier(rappelSauvegardeDu(null, 3, new Date()) && !rappelSauvegardeDu(null, 0, new Date()), "sauvegarde : rappel seulement s'il y a de la progression");
   verifier(!rappelSauvegardeDu(new Date().toISOString(), 3, new Date()), "sauvegarde : pas de rappel juste après un export");
+}
+
+// ---------- Statistiques personnelles (mission 010) ----------
+{
+  const midi = (j) => new Date(2026, 10, j, 12); // novembre 2026
+  const cle = (j) => "2026-11-" + String(j).padStart(2, "0");
+  const usageDe = (js, mode) => js.reduce((u, j) => ajouterSession(u, cle(j), 5, 10, mode), null);
+  let s = statistiquesUsage(null, midi(12));
+  verifier(s.actifs7 === 0 && s.sessions === 0 && s.serie === 0 && s.modePrefere === null, "stats : historique vide sans erreur");
+  s = statistiquesUsage(usageDe([12, 10, 3]), midi(12));
+  verifier(s.actifs7 === 2 && s.actifs30 === 3 && s.minutes === 15 && s.sessions === 3, "stats : jours actifs 7 et 30, minutes, sessions");
+  verifier(statistiquesUsage(usageDe([12, 11, 10]), midi(12)).serie === 3, "série : jours consécutifs");
+  verifier(statistiquesUsage(usageDe([12, 10, 9]), midi(12)).serie === 3, "série : un jour d'oubli est pardonné");
+  verifier(statistiquesUsage(usageDe([12, 9, 8]), midi(12)).serie === 1, "série : deux jours d'oubli la cassent");
+  verifier(statistiquesUsage(usageDe([11, 10]), midi(12)).serie === 2, "série : aujourd'hui sans session n'est pas un oubli");
+  verifier(statistiquesUsage(usageDe([9, 8]), midi(12)).serie === 0, "série : trois jours sans session, plus de série");
+  let m = ajouterSession(null, cle(12), 5, 10, "voiture");
+  m = ajouterSession(m, cle(11), 5, 10, "ecouteurs");
+  m = ajouterSession(m, cle(10), 5, 10, "ecouteurs");
+  m = ajouterSession(m, cle(10), 5, 10, "inconnu");
+  verifier(statistiquesUsage(m, midi(12)).modePrefere === "ecouteurs", "stats : mode préféré = le plus fréquent");
+  verifier(statistiquesUsage(usageDe([12]), midi(12)).modePrefere === null, "stats : sans mode enregistré, pas de mode préféré");
+  verifier(validerUsage({ jours: { "2026-11-12": { sessions: 1, minutes: 5, cartes: 3 } } }).jours["2026-11-12"].sessions === 1, "usage : ancien format sans modes accepté");
+  // Heure d'été : 10 jours consécutifs actifs, vus à 00:30 le jour du changement (23 h), en Europe/Paris.
+  // Le test ne vaut que si Node tourne avec TZ=Europe/Paris ; sinon il vérifie au moins le cas sans changement d'heure.
+  for (const [a, m, j] of [[2027, 2, 28], [2027, 2, 29], [2027, 9, 31], [2026, 9, 25]]) { // mars et octobre 2027 (changements), octobre 2026 (jour du changement 25/10)
+    const maintenant = new Date(a, m, j, 0, 30);
+    const jours = {};
+    for (let i = 0; i < 10; i++) jours[jourLocal(new Date(a, m, j - i, 12))] = { sessions: 1, minutes: 5, cartes: 1 };
+    const st = statistiquesUsage({ jours }, maintenant);
+    verifier(st.actifs30 === 10 && st.serie === 10 && resumeUsage({ jours }, maintenant, 30).actifs === 10, "heure d'été : 10 jours consécutifs comptés (" + a + "-" + (m + 1) + "-" + j + ")");
+  }
+  // Situations : A acquise, B en cours, C pas vue, D vide (ignorée).
+  const fiche = (id, boite) => Object.assign(ficheVide(id), { boite });
+  const fiches = new Map([["a1", fiche("a1", BOITE_ACQUIS)], ["a2", fiche("a2", BOITE_ACQUIS)], ["b1", fiche("b1", 1)], ["b2", fiche("b2", 0)]]);
+  const c = compterSituations([["a1", "a2"], ["b1", "b2"], ["c1"], []], fiches);
+  verifier(c.vues === 2 && c.acquises === 1 && c.enCours === 1 && c.total === 4, "situations : vues, en cours, acquises");
 }
 
 // Chaque fichier de contenu porte un statut de relecture valide (mission 009).
