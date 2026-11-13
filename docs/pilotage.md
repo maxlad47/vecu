@@ -60,12 +60,12 @@ Chaque mission suit le même cycle (`docs/processus.md`). Une mission reçoit so
 | — | Test réel par Max, puis bilan | 0 | Max, Sacha | en cours (jusqu'au 25/11 environ) |
 | — | 1. Corrections issues du test | 1 | selon les retours | à faire |
 | — | 3. Mon carnet et la matriochka | 1 | Lou, Kostia, Boris | à faire |
-| 010 | Mes progrès : statistiques avancées (fonction n° 1 de D28) | 1 | Kostia, Boris | fait sur la branche `mission-010-statistiques` (13/11), Boris « Livrable avec réserves » corrigées, attend le test de Max |
+| 010 | Mes progrès : statistiques avancées (fonction n° 1 de D28) | 1 | Kostia, Boris | fait, fusionné dans `main` le 13/11 (branche `mission-010-statistiques`) (13/11), Boris « Livrable avec réserves » corrigées, attend le test de Max |
 | — | 5. Audio pré-généré | 1 | Kostia, Boris | repoussé (D30 : voix de l'appareil pour l'instant) |
 | — | 6. Les angles : Verbes, Vocabulaire, Grammaire en contexte (D16) | 1 | Vera, Nadia, Lou, Kostia, Boris | à faire |
-| 011 | Saisie en cyrillique, « écrire la réponse » (fonction n° 2 de D28) | 1 | Kostia, Boris | fait sur la branche `mission-011-cyrillique`, contre-vérifié « Livrable avec réserves mineures » (translittération féminine : voir mission 7d), attend le test de Max |
-| 012 | Univers de vocabulaire : 5 univers, 10 moules, 50 remplacements (fonction n° 3 de D28) | 1 | Vera, Nadia, Kostia, Boris | fait sur la branche `mission-012-themes`, Boris « Livrable avec réserves » corrigées, russe `valide-nadia` : à faire relire par un natif, attend le test de Max |
-| 013 | Test de niveau en 2 min (fonction n° 4 de D28) | 1 | Vera, Nadia, Kostia, Boris | fait sur la branche `mission-013-niveau`, Boris « Livrable avec réserves » corrigées, attend le test de Max |
+| 011 | Saisie en cyrillique, « écrire la réponse » (fonction n° 2 de D28) | 1 | Kostia, Boris | fait, fusionné dans `main` le 13/11 (branche `mission-011-cyrillique`), contre-vérifié « Livrable avec réserves mineures » (translittération féminine : voir mission 7d), attend le test de Max |
+| 012 | Univers de vocabulaire : 5 univers, 10 moules, 50 remplacements (fonction n° 3 de D28) | 1 | Vera, Nadia, Kostia, Boris | fait, fusionné dans `main` le 13/11 (branche `mission-012-themes`), Boris « Livrable avec réserves » corrigées, russe `valide-nadia` : à faire relire par un natif, attend le test de Max |
+| 013 | Test de niveau en 2 min (fonction n° 4 de D28) | 1 | Vera, Nadia, Kostia, Boris | fait, fusionné dans `main` le 13/11 (branche `mission-013-niveau`), Boris « Livrable avec réserves » corrigées, attend le test de Max |
 | — | 7d. Scènes, variantes de genre complètes (dont translittération féminine propre : voir QA 011) | 1 | à répartir | à faire |
 | — | Revue de phase 1 : bilan, revue des outils (D12), feuille de route de la phase 2 | 1 | Sacha, Max | à faire |
 
