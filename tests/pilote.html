@@ -96,6 +96,7 @@ async function viaMenu(texte) {
 }
 async function parcours(lieu, duree) {
   await cliquer($("#lieu-" + lieu));
+  if ($("#passer-test")) await cliquer($("#passer-test")); // test de niveau (mission 013) : proposé à un nouvel utilisateur, on le passe
   await cliquer($("#duree-" + (duree || 5)));
   await cliquer($("#suite"));
   if (lieu !== "voiture") await cliquer($("#c-est-parti"));
@@ -129,6 +130,7 @@ async function jusqua(texteConsigne, max) {
 const scenarios = {
   async accueil() { await charger(); },
   async accueil2() { await charger(); await parcours("silence", 15); await pause(300); await charger(); rapport.boutonPret = $("#derniere-fois") && $("#derniere-fois").textContent; rapport.idb = await lireReglages(); },
+  async etape3() { await charger(); await cliquer($("#lieu-silence")); if ($("#passer-test")) await cliquer($("#passer-test")); await cliquer($("#duree-5")); await cliquer($("#suite")); await pause(400); },
   async decouverte() { await charger(); await demarrer("silence"); },
   async sens() { await charger(); await demarrer("silence"); await jusqua("Ça veut dire"); },
   async theme() { await charger(); await demarrer("silence"); await jusqua("Comment on dit"); },

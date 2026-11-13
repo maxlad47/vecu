@@ -179,7 +179,11 @@ export function afficherAccueil(racine, ctx, options) {
     }
     majBouton();
     return [
-      h("main", { class: "contenu" }, pastilles(3), titre("themes.question"), tuileHasard, grille, ctx.contenu.univers && ctx.contenu.univers.length ? tuileUnivers : null),
+      // Deux niveaux : « Au hasard » (par défaut) tout de suite, la liste des thèmes seulement si on la déplie.
+      h("main", { class: "contenu" }, pastilles(3), titre("themes.question"), tuileHasard,
+        h("details", { class: "choix-themes", open: themes.length > 0 },
+          h("summary", null, t("themes.choisir"), icone("suite")),
+          grille, ctx.contenu.univers && ctx.contenu.univers.length ? tuileUnivers : null)),
       barreBas(boutonRetour(2), go)
     ];
   }

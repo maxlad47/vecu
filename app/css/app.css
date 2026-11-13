@@ -783,8 +783,8 @@ legend { font-size: 1.0625rem; font-weight: 700; }
 .carte-phrase .ru-hero { order: 1; align-self: stretch; margin: 0; font-size: clamp(2rem, 9vw, 2.5rem); font-weight: 500; line-height: 1.3; }
 .carte-phrase .ru-hero.long { font-size: clamp(1.625rem, 7vw, 2rem); }
 .carte-phrase .ru-hero.xlong { font-size: clamp(1.375rem, 6vw, 1.625rem); }
-.ecran-session .carte-phrase .ru-hero { font-size: clamp(1.75rem, min(8vw, 4.4dvh), 2.5rem); }
-.ecran-session .carte-phrase .ru-hero.long { font-size: clamp(1.5rem, min(6.6vw, 3.6dvh), 2rem); }
+.ecran-session .carte-phrase .ru-hero { font-size: clamp(1.875rem, min(10vw, 5.2dvh), 2.75rem); }
+.ecran-session .carte-phrase .ru-hero.long { font-size: clamp(1.625rem, min(8vw, 4.2dvh), 2.25rem); }
 .ecran-session .carte-phrase .ru-hero.xlong { font-size: clamp(1.25rem, min(5.6vw, 3dvh), 1.625rem); }
 .carte-phrase .ligne-translit { order: 2; }
 .carte-phrase .fr-dessus, .ecran-session .carte-phrase .fr-dessus { order: 3; align-self: stretch; padding-right: 0; font-size: 1.125rem; font-weight: 500; color: var(--text-muted); letter-spacing: 0; }
@@ -833,3 +833,14 @@ legend { font-size: 1.0625rem; font-weight: 700; }
   .btn-principal, .choix, .option, .carte-lieu, .btn-reecouter .rond { transition: none !important; }
   .btn-principal:active, .choix:active, .option:active, .carte-lieu:active { transform: none; }
 }
+
+/* Étape 3 : « Je choisis mes thèmes » déplie la liste (distill : un seul choix visible par défaut). */
+.choix-themes { margin-top: var(--space-4); border-top: 0; padding-top: 0; }
+.choix-themes > summary { min-height: 52px; padding: 0 var(--space-3); justify-content: space-between; font-weight: 700;
+  background: var(--surface); border: 2px solid var(--border); border-radius: var(--r-m); }
+.choix-themes > summary::before, .choix-themes[open] > summary::before { content: none; }
+.choix-themes > summary svg.icon { transition: transform 160ms var(--ease); }
+.choix-themes[open] > summary svg.icon { transform: rotate(90deg); }
+.choix-themes > summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.choix-themes .themes { margin-top: var(--space-3); }
+@media (prefers-reduced-motion: reduce) { .choix-themes > summary svg.icon { transition: none; } }
