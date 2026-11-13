@@ -9,7 +9,10 @@ Décision de Sacha, sur demande de Max : deux skills installés, avec des défau
 | Impeccable (pbakaus) | `c4cd192` | `.claude/skills/impeccable/` (SKILL.md et `reference/` seulement) | Apache 2.0 | `critique`, `audit`, `polish` sur un écran à réviser, avec Lou |
 | Hallmark (Nutlope) | `04977e1` | `.claude/skills/hallmark/` (SKILL.md, `references/`, `scripts/sloplint.mjs`) | MIT | `audit` nommé seulement, et `sloplint` en mode statique |
 
-## Ce qui n'est pas installé, et pourquoi
+## Mise à jour D33 (13/11/2026) : le skill fait foi
+Sur instruction de Max (« fais tout avec le skill, ne décide pas de retirer des éléments »), le lanceur, les 4 sous-agents et le hook d'Impeccable sont installés (`.claude/skills/impeccable/scripts/`, `.claude/agents/impeccable-*.md`, `.claude/settings.json`). Le binaire se télécharge au premier lancement, vérifié par empreinte (`engine-checksums.txt`), et n'est pas versionné. Télémétrie : `DO_NOT_TRACK=1` à exporter avant tout lancement. Les puces « non installé » ci-dessous qui concernent le lanceur, le hook et la CLI sont donc **caduques**. Reste exclu par la consigne : tout changement de couleur ou de fond.
+
+## Ce qui n'était pas installé en D31, et pourquoi
 
 - **Launcher et binaire d'Impeccable** : il télécharge un binaire au premier lancement. Non intégré : le skill se rabat sur les fichiers `PRODUCT.md` et `DESIGN.md`, prévu par lui-même.
 - **Hook d'Impeccable** (`.claude/settings.json`) : il s'exécute à chaque modification. Non intégré, pour ne pas ajouter de code qui tourne sans être demandé.

@@ -198,7 +198,6 @@ button.badge { min-height: 44px; cursor: pointer; }
 
 /* ===== 7. Cartes ===== */
 .contenu.carte { display: flex; flex-direction: column; animation: arrive 200ms ease-out; }
-@keyframes arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 .consigne { font-size: var(--fs-small); font-weight: 600; color: var(--text-muted); }
 .consigne:focus { outline: none; }
 .zone-phrase { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -232,7 +231,7 @@ button.badge { min-height: 44px; cursor: pointer; }
 .btn-reecouter:focus-visible .rond { outline: 3px solid var(--focus); outline-offset: 3px; }
 .astuce {
   margin-top: var(--space-3); padding: var(--space-3) var(--space-4); text-align: left; width: 100%;
-  background: var(--surface); border-left: 4px solid var(--accent); border-radius: var(--radius-s);
+  background: var(--accent-soft); border-radius: var(--radius-s);
 }
 .astuce strong { display: inline; font-size: var(--fs-small); font-weight: 700; color: var(--accent); }
 .astuce strong::after { content: "\00A0: "; }
@@ -502,7 +501,6 @@ span.past { cursor: default; }
   background: var(--surface); border: 2px solid var(--border-subtle); border-radius: 24px;
   display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
 }
-.carte-phrase.sans-decor { border-top: 4px solid var(--deco-bleu); }
 .carte-phrase .decor-carte { position: absolute; top: -20px; right: 14px; width: 78px; }
 .carte-phrase .fr-dessus { align-self: stretch; text-align: left; padding-right: 84px; font-size: 1.375rem; font-weight: 500; line-height: 1.3; }
 .carte-phrase .ru-hero { text-align: left; align-self: stretch; margin-top: 4px; }
@@ -753,104 +751,84 @@ span.past { cursor: default; }
 .test-resultat p { margin-bottom: var(--space-3); }
 
 
-/* ===== 16. Refonte du design (mission 014, D32) =====
-   Nouvelle langue visuelle « laque » : surfaces qui flottent, formes très arrondies, ombres douces,
-   boutons tactiles, titres plus affirmés. Couleurs et fond : INCHANGÉS (aucune couleur en dur ici,
-   tout passe par les tokens de la section 1 et de content/ru/ambiance.json).
-   Pour revenir à l'ancien rendu : supprimer cette section. */
+/* ===== 16. Refonte du design (mission 014, D32) : « matriochka » =====
+   Parti pris : la phrase russe est seule au centre, sans boîte. La forme vient de la poupée gigogne
+   (haut très rond, bas plus tenu). Ombre réservée à 2 objets : le bouton principal et les volets.
+   Couleurs et fond : INCHANGÉS (tout passe par les tokens). Pour revenir en arrière : supprimer cette section. */
 :root {
-  --r-s: 12px; --r-m: 18px; --r-l: 28px; --r-xl: 32px;
-  --ombre-1: 0 1px 2px color-mix(in srgb, var(--text) 10%, transparent), 0 6px 16px -8px color-mix(in srgb, var(--text) 22%, transparent);
-  --ombre-2: 0 2px 4px color-mix(in srgb, var(--text) 8%, transparent), 0 18px 36px -16px color-mix(in srgb, var(--text) 32%, transparent);
+  --r-s: 12px; --r-m: 16px; --r-l: 28px;
+  --r-poupee: 36px 36px 16px 16px;
+  --ombre-volet: 0 -16px 28px -18px color-mix(in srgb, var(--text) 30%, transparent);
   --ombre-laque: 0 2px 0 color-mix(in srgb, var(--laque) 70%, var(--text)), 0 12px 22px -10px color-mix(in srgb, var(--laque) 70%, transparent);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 html { accent-color: var(--accent); scrollbar-color: var(--border) transparent; }
-body { letter-spacing: -0.005em; font-feature-settings: "tnum" 1, "kern" 1; }
 ::selection { background: var(--accent-soft); color: var(--text); }
 input, textarea { caret-color: var(--laque); }
 h1, h2, .titre-etape, .titre-ecran, .test-bilan { text-wrap: balance; }
+.compteur, .compte, .cle-progres b { font-variant-numeric: tabular-nums; }
 
-/* Colonne et en-tête : plus d'air, marque affirmée */
-.entete { min-height: 56px; }
-.marque { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; gap: var(--space-2); }
-.slogan { padding: var(--space-2) var(--marge) 0; font-size: var(--fs-body); }
-.contenu { padding-top: var(--space-5); }
-.titre-etape { font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin: var(--space-4) 0 var(--space-4); }
-.titre-ecran { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.025em; }
+/* Typographie : trois rôles nets. Le russe garde un interlignage large pour l'accent tonique, jamais de tracking négatif. */
+.marque { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+.titre-etape { font-size: 2rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin: var(--space-4) 0; }
+.titre-ecran { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; }
 legend { font-size: 1.0625rem; font-weight: 700; }
+[lang="ru"], .ru-hero, .ru { letter-spacing: 0; }
+.slogan { padding: var(--space-2) var(--marge) 0; font-size: var(--fs-body); }
+.entete { min-height: 56px; }
 
-/* Barre d'action : une base flottante, sans filet */
-.zone-action { padding-top: var(--space-4); box-shadow: 0 -14px 20px -14px color-mix(in srgb, var(--text) 18%, transparent); }
-.ecran-session .zone-action { border-top: 0; box-shadow: 0 -14px 20px -14px color-mix(in srgb, var(--text) 18%, transparent); }
+/* Distiller la carte de phrase : le russe d'abord et grand, la traduction en retrait, rien d'autre en concurrence */
+.carte-phrase, .carte-phrase.sans-decor { background: transparent; border: 0; box-shadow: none; border-radius: 0; padding: var(--space-4) 0; gap: var(--space-3); }
+.ecran-session .carte-phrase { padding: var(--e-grand) 0; border-radius: 0; gap: var(--e); }
+.carte-phrase .ru-hero { order: 1; align-self: stretch; margin: 0; font-size: clamp(2rem, 9vw, 2.5rem); font-weight: 500; line-height: 1.3; }
+.carte-phrase .ru-hero.long { font-size: clamp(1.625rem, 7vw, 2rem); }
+.carte-phrase .ru-hero.xlong { font-size: clamp(1.375rem, 6vw, 1.625rem); }
+.ecran-session .carte-phrase .ru-hero { font-size: clamp(1.75rem, min(8vw, 4.4dvh), 2.5rem); }
+.ecran-session .carte-phrase .ru-hero.long { font-size: clamp(1.5rem, min(6.6vw, 3.6dvh), 2rem); }
+.ecran-session .carte-phrase .ru-hero.xlong { font-size: clamp(1.25rem, min(5.6vw, 3dvh), 1.625rem); }
+.carte-phrase .ligne-translit { order: 2; }
+.carte-phrase .fr-dessus, .ecran-session .carte-phrase .fr-dessus { order: 3; align-self: stretch; padding-right: 0; font-size: 1.125rem; font-weight: 500; color: var(--text-muted); letter-spacing: 0; }
+.carte-phrase .decor-carte { top: 0; right: 0; width: 56px; }
+.carte-phrase > :not(.ru-hero):not(.ligne-translit):not(.fr-dessus) { order: 4; }
+.bloc-etat { border-top: 1px solid var(--border-subtle); border-top-style: solid; }
+.astuce { border: 0; border-radius: var(--r-s); background: var(--accent-soft); }
 
-/* Boutons : tactiles, un seul rouge laqué par écran */
-.btn-principal {
-  border: 0; border-radius: var(--r-m); box-shadow: var(--ombre-laque);
-  font-weight: 700; letter-spacing: -0.01em;
-  transition: transform 160ms var(--ease), box-shadow 160ms var(--ease), filter 160ms;
-}
-.btn-principal:active { transform: translateY(2px) scale(0.99); box-shadow: 0 0 0 color-mix(in srgb, var(--laque) 70%, var(--text)), 0 4px 10px -6px color-mix(in srgb, var(--laque) 70%, transparent); filter: none; }
+/* Boutons : un seul objet ombré, le bouton principal laqué */
+.btn-principal { border: 0; border-radius: var(--r-m); box-shadow: var(--ombre-laque); font-weight: 700; transition: transform 160ms var(--ease), box-shadow 160ms var(--ease); }
+.btn-principal:active { transform: translateY(2px); box-shadow: 0 0 0 color-mix(in srgb, var(--laque) 70%, var(--text)); filter: none; }
 .btn-principal[aria-disabled="true"] { box-shadow: none; }
 .retour.est-faux .btn-principal { box-shadow: 0 2px 0 color-mix(in srgb, var(--accent) 70%, var(--text)), 0 12px 22px -10px color-mix(in srgb, var(--accent) 70%, transparent); }
-.btn-secondaire { border: 2px solid var(--border); border-radius: var(--r-m); background: var(--surface); box-shadow: var(--ombre-1); font-weight: 700; }
-.btn-secondaire:active { transform: translateY(1px); box-shadow: none; }
-.btn-ecouter { border-radius: var(--r-m); box-shadow: var(--ombre-1); }
-.btn-reecouter .rond { box-shadow: var(--ombre-2); transition: transform 160ms var(--ease); }
+.btn-secondaire, .btn-ecouter { border-radius: var(--r-m); font-weight: 700; }
+.boutons-ecoute .btn-ecouter:first-child { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.btn-reecouter .rond { transition: transform 160ms var(--ease); }
 .btn-reecouter:active .rond { transform: scale(0.95); }
 
-/* Choix : segments, lieux, durées, thèmes en tuiles douces */
-.choix { border-radius: var(--r-m); border-width: 2px; box-shadow: var(--ombre-1); transition: background-color 160ms, border-color 160ms, transform 160ms var(--ease); }
-.choix:active { transform: scale(0.985); }
-.choix-input:checked + .choix { box-shadow: none; }
-.carte-lieu { border-radius: var(--r-l); box-shadow: var(--ombre-1); transition: transform 160ms var(--ease), box-shadow 160ms; }
-.carte-lieu:active { transform: scale(0.97); box-shadow: none; }
+/* Formes : tout ce qui se touche est un aplat à contour de 2 px, sans ombre. La poupée donne la silhouette des grandes cartes. */
+.choix, .option, .tuile, .past, .puce, .badge, .btn-menu, .champ, .champ-ecrire { box-shadow: none; }
+.choix, .option { border-radius: var(--r-m); transition: background-color 160ms, border-color 160ms, transform 160ms var(--ease); }
+.choix:active, .option:not([aria-disabled="true"]):active { transform: scale(0.985); }
+.carte-lieu { border-radius: var(--r-poupee); box-shadow: none; padding: var(--space-4) var(--space-3); transition: transform 160ms var(--ease); }
+.carte-lieu:active { transform: scale(0.97); }
 .lieux { gap: var(--space-3); }
-.ligne-choix, .tuile-hasard, .tuile-theme { border-radius: var(--r-m); }
 .lignes { gap: var(--space-3); }
-.past, .puce, .badge, .btn-menu { box-shadow: var(--ombre-1); }
-.past, .btn-menu { border-width: 2px; }
+.ligne-choix, .tuile-hasard, .tuile-theme { border-radius: var(--r-m); }
+.cle-progres, .carte-perso { border: 0; border-radius: var(--r-poupee); background: var(--accent-soft); box-shadow: none; }
+.bulle, .categorie-metiers > summary { border-radius: var(--r-m); box-shadow: none; }
+.preparatifs .ic { border-radius: var(--r-poupee); }
+.barre { height: 8px; }
 
-/* La carte de phrase est la scène : grande, posée, sans cadre dur */
-.carte-phrase { border: 0; border-radius: var(--r-xl); padding: var(--space-5) var(--space-4); box-shadow: var(--ombre-2); }
-.carte-phrase.sans-decor { border-top: 0; box-shadow: var(--ombre-2), inset 0 4px 0 var(--deco-bleu); }
-.ecran-session .carte-phrase { border-radius: var(--r-l); padding: clamp(16px, 2.8dvh, 24px) var(--space-4); }
-.ru-hero { font-weight: 500; letter-spacing: -0.01em; }
-.fr-hero, .carte-phrase .fr-dessus { letter-spacing: -0.015em; }
-.bloc-etat { border-top-style: solid; border-top-width: 1px; }
-.astuce { border-left: 0; border-radius: var(--r-s); background: var(--accent-soft); box-shadow: none; }
-.carte-phrase .astuce, .retour .astuce { background: var(--accent-soft); }
-
-/* Réponses : cartes flottantes, état par contour + icône + texte */
-.option { border-radius: var(--r-m); box-shadow: var(--ombre-1); transition: background-color 160ms, border-color 160ms, transform 160ms var(--ease), box-shadow 160ms; }
-.option:not([aria-disabled="true"]):active { transform: scale(0.985); box-shadow: none; }
-.option.est-juste, .option.est-faux { box-shadow: none; }
-.tuile { border-radius: var(--r-s); box-shadow: var(--ombre-1); }
-.zone-reponse { border-bottom-style: solid; border-bottom-width: 2px; }
-.champ-ecrire, .champ { border-radius: var(--r-m); }
-
-/* Panneau de retour et feuille du bas : volets arrondis, ombre vers le haut */
-.retour { border-top: 0; border-radius: var(--r-l) var(--r-l) 0 0; box-shadow: 0 -18px 30px -18px color-mix(in srgb, var(--text) 30%, transparent); }
+/* Volets (retour, feuille, menu) : le seul autre endroit où l'ombre sert, pour séparer deux plans */
+.zone-action, .ecran-session .zone-action { border-top: 0; box-shadow: var(--ombre-volet); }
+.retour { border-top: 0; border-radius: var(--r-l) var(--r-l) 0 0; box-shadow: var(--ombre-volet); }
 .ecran-session .retour { border-radius: var(--r-l) var(--r-l) 0 0; }
-.feuille { border-radius: var(--r-xl) var(--r-xl) 0 0; box-shadow: var(--ombre-2); }
-.liste-menu { border: 0; border-radius: var(--r-l); box-shadow: var(--ombre-2); }
+.feuille { border-radius: var(--r-l) var(--r-l) 0 0; box-shadow: var(--ombre-volet); }
+.liste-menu { border: 2px solid var(--border); border-radius: var(--r-l); box-shadow: none; }
 .liste-menu a:active, .liste-menu button.entree:active { background: var(--accent-soft); }
 
-/* Progression et listes */
-.barre { height: 8px; }
-.cle-progres { border: 0; border-radius: var(--r-l); box-shadow: var(--ombre-1); }
-.carte-perso { border: 0; border-radius: var(--r-l); box-shadow: var(--ombre-1); }
-.categorie-metiers > summary { border-radius: var(--r-m); box-shadow: var(--ombre-1); }
-.preparatifs .ic { border-radius: var(--r-m); }
-.bulle { border-radius: var(--r-m); box-shadow: var(--ombre-1); }
-
-/* Voiture : un grand disque, calme */
-.cercle { box-shadow: var(--ombre-2); }
-
-/* Un seul moment de mouvement : l'arrivée d'une carte, avec un ressort doux */
-.contenu.carte { animation: arrive 360ms var(--ease) both; }
-@keyframes arrive { from { opacity: 0; transform: translateY(14px) scale(0.985); } to { opacity: 1; transform: none; } }
-.retour { animation: monte 320ms var(--ease) both; }
+/* Mouvement : une arrivée de carte sobre, et un seul panneau qui monte. Réservé au changement d'état. */
+.contenu.carte { animation: arrive 280ms var(--ease) both; }
+@keyframes arrive { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.retour { animation: monte 260ms var(--ease) both; }
 @media (prefers-reduced-motion: reduce) {
   .btn-principal, .choix, .option, .carte-lieu, .btn-reecouter .rond { transition: none !important; }
   .btn-principal:active, .choix:active, .option:active, .carte-lieu:active { transform: none; }
