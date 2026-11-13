@@ -63,7 +63,7 @@ body { --deco-bleu: var(--accent); --deco-rouge: var(--laque); --deco-or: var(--
 
 /* ===== 2. Base ===== */
 *, *::before, *::after { box-sizing: border-box; }
-html, body { margin: 0; }
+html, body { margin: 0; overflow-x: clip; }
 html { height: 100%; background-color: var(--bg); overscroll-behavior-y: none; }
 body {
   background: var(--bg); color: var(--text); overscroll-behavior-y: none;
@@ -751,3 +751,107 @@ span.past { cursor: default; }
 .test-phrase { margin: var(--space-3) 0; }
 .test-bilan { font-size: var(--fs-title); font-weight: 700; line-height: 1.25; margin: 0 0 var(--space-3); }
 .test-resultat p { margin-bottom: var(--space-3); }
+
+
+/* ===== 16. Refonte du design (mission 014, D32) =====
+   Nouvelle langue visuelle « laque » : surfaces qui flottent, formes très arrondies, ombres douces,
+   boutons tactiles, titres plus affirmés. Couleurs et fond : INCHANGÉS (aucune couleur en dur ici,
+   tout passe par les tokens de la section 1 et de content/ru/ambiance.json).
+   Pour revenir à l'ancien rendu : supprimer cette section. */
+:root {
+  --r-s: 12px; --r-m: 18px; --r-l: 28px; --r-xl: 32px;
+  --ombre-1: 0 1px 2px color-mix(in srgb, var(--text) 10%, transparent), 0 6px 16px -8px color-mix(in srgb, var(--text) 22%, transparent);
+  --ombre-2: 0 2px 4px color-mix(in srgb, var(--text) 8%, transparent), 0 18px 36px -16px color-mix(in srgb, var(--text) 32%, transparent);
+  --ombre-laque: 0 2px 0 color-mix(in srgb, var(--laque) 70%, var(--text)), 0 12px 22px -10px color-mix(in srgb, var(--laque) 70%, transparent);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+html { accent-color: var(--accent); scrollbar-color: var(--border) transparent; }
+body { letter-spacing: -0.005em; font-feature-settings: "tnum" 1, "kern" 1; }
+::selection { background: var(--accent-soft); color: var(--text); }
+input, textarea { caret-color: var(--laque); }
+h1, h2, .titre-etape, .titre-ecran, .test-bilan { text-wrap: balance; }
+
+/* Colonne et en-tête : plus d'air, marque affirmée */
+.entete { min-height: 56px; }
+.marque { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; gap: var(--space-2); }
+.slogan { padding: var(--space-2) var(--marge) 0; font-size: var(--fs-body); }
+.contenu { padding-top: var(--space-5); }
+.titre-etape { font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin: var(--space-4) 0 var(--space-4); }
+.titre-ecran { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.025em; }
+legend { font-size: 1.0625rem; font-weight: 700; }
+
+/* Barre d'action : une base flottante, sans filet */
+.zone-action { padding-top: var(--space-4); box-shadow: 0 -14px 20px -14px color-mix(in srgb, var(--text) 18%, transparent); }
+.ecran-session .zone-action { border-top: 0; box-shadow: 0 -14px 20px -14px color-mix(in srgb, var(--text) 18%, transparent); }
+
+/* Boutons : tactiles, un seul rouge laqué par écran */
+.btn-principal {
+  border: 0; border-radius: var(--r-m); box-shadow: var(--ombre-laque);
+  font-weight: 700; letter-spacing: -0.01em;
+  transition: transform 160ms var(--ease), box-shadow 160ms var(--ease), filter 160ms;
+}
+.btn-principal:active { transform: translateY(2px) scale(0.99); box-shadow: 0 0 0 color-mix(in srgb, var(--laque) 70%, var(--text)), 0 4px 10px -6px color-mix(in srgb, var(--laque) 70%, transparent); filter: none; }
+.btn-principal[aria-disabled="true"] { box-shadow: none; }
+.retour.est-faux .btn-principal { box-shadow: 0 2px 0 color-mix(in srgb, var(--accent) 70%, var(--text)), 0 12px 22px -10px color-mix(in srgb, var(--accent) 70%, transparent); }
+.btn-secondaire { border: 2px solid var(--border); border-radius: var(--r-m); background: var(--surface); box-shadow: var(--ombre-1); font-weight: 700; }
+.btn-secondaire:active { transform: translateY(1px); box-shadow: none; }
+.btn-ecouter { border-radius: var(--r-m); box-shadow: var(--ombre-1); }
+.btn-reecouter .rond { box-shadow: var(--ombre-2); transition: transform 160ms var(--ease); }
+.btn-reecouter:active .rond { transform: scale(0.95); }
+
+/* Choix : segments, lieux, durées, thèmes en tuiles douces */
+.choix { border-radius: var(--r-m); border-width: 2px; box-shadow: var(--ombre-1); transition: background-color 160ms, border-color 160ms, transform 160ms var(--ease); }
+.choix:active { transform: scale(0.985); }
+.choix-input:checked + .choix { box-shadow: none; }
+.carte-lieu { border-radius: var(--r-l); box-shadow: var(--ombre-1); transition: transform 160ms var(--ease), box-shadow 160ms; }
+.carte-lieu:active { transform: scale(0.97); box-shadow: none; }
+.lieux { gap: var(--space-3); }
+.ligne-choix, .tuile-hasard, .tuile-theme { border-radius: var(--r-m); }
+.lignes { gap: var(--space-3); }
+.past, .puce, .badge, .btn-menu { box-shadow: var(--ombre-1); }
+.past, .btn-menu { border-width: 2px; }
+
+/* La carte de phrase est la scène : grande, posée, sans cadre dur */
+.carte-phrase { border: 0; border-radius: var(--r-xl); padding: var(--space-5) var(--space-4); box-shadow: var(--ombre-2); }
+.carte-phrase.sans-decor { border-top: 0; box-shadow: var(--ombre-2), inset 0 4px 0 var(--deco-bleu); }
+.ecran-session .carte-phrase { border-radius: var(--r-l); padding: clamp(16px, 2.8dvh, 24px) var(--space-4); }
+.ru-hero { font-weight: 500; letter-spacing: -0.01em; }
+.fr-hero, .carte-phrase .fr-dessus { letter-spacing: -0.015em; }
+.bloc-etat { border-top-style: solid; border-top-width: 1px; }
+.astuce { border-left: 0; border-radius: var(--r-s); background: var(--accent-soft); box-shadow: none; }
+.carte-phrase .astuce, .retour .astuce { background: var(--accent-soft); }
+
+/* Réponses : cartes flottantes, état par contour + icône + texte */
+.option { border-radius: var(--r-m); box-shadow: var(--ombre-1); transition: background-color 160ms, border-color 160ms, transform 160ms var(--ease), box-shadow 160ms; }
+.option:not([aria-disabled="true"]):active { transform: scale(0.985); box-shadow: none; }
+.option.est-juste, .option.est-faux { box-shadow: none; }
+.tuile { border-radius: var(--r-s); box-shadow: var(--ombre-1); }
+.zone-reponse { border-bottom-style: solid; border-bottom-width: 2px; }
+.champ-ecrire, .champ { border-radius: var(--r-m); }
+
+/* Panneau de retour et feuille du bas : volets arrondis, ombre vers le haut */
+.retour { border-top: 0; border-radius: var(--r-l) var(--r-l) 0 0; box-shadow: 0 -18px 30px -18px color-mix(in srgb, var(--text) 30%, transparent); }
+.ecran-session .retour { border-radius: var(--r-l) var(--r-l) 0 0; }
+.feuille { border-radius: var(--r-xl) var(--r-xl) 0 0; box-shadow: var(--ombre-2); }
+.liste-menu { border: 0; border-radius: var(--r-l); box-shadow: var(--ombre-2); }
+.liste-menu a:active, .liste-menu button.entree:active { background: var(--accent-soft); }
+
+/* Progression et listes */
+.barre { height: 8px; }
+.cle-progres { border: 0; border-radius: var(--r-l); box-shadow: var(--ombre-1); }
+.carte-perso { border: 0; border-radius: var(--r-l); box-shadow: var(--ombre-1); }
+.categorie-metiers > summary { border-radius: var(--r-m); box-shadow: var(--ombre-1); }
+.preparatifs .ic { border-radius: var(--r-m); }
+.bulle { border-radius: var(--r-m); box-shadow: var(--ombre-1); }
+
+/* Voiture : un grand disque, calme */
+.cercle { box-shadow: var(--ombre-2); }
+
+/* Un seul moment de mouvement : l'arrivée d'une carte, avec un ressort doux */
+.contenu.carte { animation: arrive 360ms var(--ease) both; }
+@keyframes arrive { from { opacity: 0; transform: translateY(14px) scale(0.985); } to { opacity: 1; transform: none; } }
+.retour { animation: monte 320ms var(--ease) both; }
+@media (prefers-reduced-motion: reduce) {
+  .btn-principal, .choix, .option, .carte-lieu, .btn-reecouter .rond { transition: none !important; }
+  .btn-principal:active, .choix:active, .option:active, .carte-lieu:active { transform: none; }
+}

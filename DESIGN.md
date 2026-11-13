@@ -1,6 +1,8 @@
 # Bagou : système de design (contrat pour les outils)
 
-Ce fichier résume la ligne visuelle **validée** (Lou, 11/11/2026). Il sert de contrat aux skills de design (Impeccable, Hallmark). Le détail et les vérifications de contraste sont dans `docs/design/systeme-visuel.md`. **Si une valeur change, elle change aux deux endroits.** Ce qui est validé ne se refait pas : on complète ou on corrige, on ne réinvente pas.
+**Décision D32 (Max, 13/11/2026) : seules les couleurs et le fond sont figés.** Tout le reste (formes, typographie, espacements, ombres, composition, mouvement) peut être refait. Les valeurs de couleur de ce fichier, `content/ru/ambiance.json` et le fonctionnement de l'app ne changent pas.
+
+Ce fichier résume la ligne visuelle de départ (Lou, 11/11/2026). Il sert de contrat aux skills de design (Impeccable, Hallmark). Le détail et les vérifications de contraste sont dans `docs/design/systeme-visuel.md`. **Si une valeur change, elle change aux deux endroits.** Ce qui est validé ne se refait pas : on complète ou on corrige, on ne réinvente pas.
 
 ## Couleurs (tokens CSS obligatoires)
 

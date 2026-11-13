@@ -23,7 +23,7 @@ Décision de Sacha, sur demande de Max : deux skills installés, avec des défau
 
 1. **Ligne visuelle** : `PRODUCT.md` et `DESIGN.md` font foi pour les outils. `docs/design/systeme-visuel.md` fait foi pour les détails. Toute modification se fait aux deux endroits.
 2. **Lou reste propriétaire du design.** Impeccable et Hallmark sont des contrôles et des propositions : Lou décide, Sacha tranche.
-3. **Interdit sans décision de Max** : `redesign` (Hallmark), `typeset`, `layout`, `bolder`, `quieter`, `colorize` et `live` (Impeccable). Ces commandes réécrivent un design validé.
+3. **Décision de Max (13/11/2026, D32) : refonte libre du design, sauf les couleurs et le fond.** Toutes les commandes sont permises (`typeset`, `layout`, `bolder`, `quieter`, `redesign`…), à une condition : aucun changement de palette (tokens et `content/ru/ambiance.json`) ni de fond (porcelaine, fonctionnement, contenu). `colorize` reste exclu, et `live` reste interdit (il lance `claude` sans garde-fous).
 4. **Hallmark ne se déclenche jamais seul.** Son skill l'interdit sur un design existant, sauf si l'on le nomme (`/hallmark audit <chemin>`).
 5. **Sloplint, mode statique** : `node .claude/skills/hallmark/scripts/sloplint.mjs <chemin> --scope app`. Lecture seule, sans réseau.
 6. **Un écran touché passe par Lou**, selon le déclencheur de `docs/processus.md` (6 bis). Pas de correction visuelle hors mission.
@@ -44,4 +44,4 @@ Résultat brut : 37 échecs, 31 signalements, 4 avertissements. Après lecture d
 3. `.barre > span` anime `width` (règle 10a). Léger, à passer en `transform: scaleX`. Correction de Kostia.
 4. Une trentaine d'espacements hors de l'échelle 4 px (6 px, 10 px, 14 px, 22 px…) et des valeurs en dur alors qu'un token existe. Dérive du système, sans gravité. Décision de Lou : ajuster l'échelle ou les valeurs, pas les deux.
 
-**À ne pas faire** : la commande `redesign` d'Hallmark, et les commandes de retouche d'Impeccable, qui réécriraient un design validé.
+**Règle levée** : `redesign` et les commandes de retouche sont permis depuis D32, hors couleurs et fond.
