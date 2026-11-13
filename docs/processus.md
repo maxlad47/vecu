@@ -78,14 +78,15 @@ Une mission est terminée quand :
 - chaque agent prévu a livré son relais ;
 - le verdict de Boris est « Livrable » ou « Livrable avec réserves » acceptées par Sacha ;
 - Sacha a mis à jour `docs/etat.md` et `docs/journal.md` ;
-- le travail est sauvegardé sur GitHub (branche `main`) ;
+- le travail est committé sur la branche de travail, et poussé sur GitHub après l'accord de Max ; `main` n'est mis à jour qu'avec son accord ;
 - Max a reçu un lien de test ou un résumé.
 
 ## 6. Un seul lieu de travail
 
-- **Le dépôt GitHub fait foi.** Une session (Mac ou cloud) commence par récupérer la dernière version et finit par l'envoyer sur GitHub. Rien ne reste uniquement sur une machine.
-- Sur le Mac : GitHub Desktop, **Fetch / Pull** avant de lancer Claude Code, **Commit / Push** à la fin.
-- **Envoyer sur `main` publie le site de test** (D14). On n'y envoie donc qu'à la clôture d'une mission, après le verdict de Boris. Un travail en cours va sur une branche à part.
+- **Le dépôt GitHub fait foi.** Une session (Mac, cloud ou Claude mobile) commence par lire la dernière version et finit par committer son travail sur la branche de travail. Le push vers GitHub attend l'accord de Max (voir ci-dessous). Rien ne reste uniquement dans une session de chat.
+- Sur le Mac : GitHub Desktop, **Fetch / Pull** avant de lancer Claude Code, **Commit** sur la branche de travail à la fin. **Push** seulement après l'accord de Max.
+- **`main` est la version publiée** (GitHub Pages, D19). Aucun push sur `main`, aucune fusion et aucune publication sans l'accord explicite de Max (D35). Une fois l'accord donné, la branche de travail est fusionnée dans `main`, après le verdict de Boris.
+- **Une seule branche de travail active à la fois.** Le verrou de `docs/etat.md` indique la branche et la session qui l'utilisent. Une session ne commence pas sur une branche verrouillée par une autre.
 - Si une mission est interrompue (limite d'utilisation atteinte), Sacha note dans `etat.md` l'étape atteinte, pour que la reprise parte de là et ne recommence rien.
 
 ## 6 bis. Qui intervient, et seulement sur déclencheur (D20)

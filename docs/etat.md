@@ -6,6 +6,22 @@ Statuts : **validé** (ne se refait pas, on complète ou on corrige) · **livré
 
 Dernière mise à jour : 13/11/2026 (midi, refonte design mission 014 fusionnée dans `main` et publiée), par Sacha.
 
+## Reprise (à lire en premier)
+
+Mis à jour à chaque fin de session. Chaque ligne porte son niveau de certitude : **vérifié**, **hypothèse** ou **en attente**.
+
+- **Branche publiée** : `main`, commit `4406832` (vérifié sur GitHub). Le site https://maxlad47.github.io/vecu/ est déclaré en ligne par le journal (D19) ; je ne l'ai pas re-testé. *Vérifié pour le commit, déclaré pour le site.*
+- **Verrou** (branche de travail et session qui l'utilise) : `continuite-mobile-mac`, branche locale de `vecu-mobile` sur le Mac, non poussée. Session Mac. *Vérifié.*
+- **Mission en cours** : aucune. Dernière mission terminée : refonte design (mission 014). *Vérifié.*
+- **Dernière action** : création de la branche locale `continuite-mobile-mac` à partir de `4406832`, puis corrections de la procédure (commandes `/cloture`, `/point`, `/mission`, `CLAUDE.md`, `docs/processus.md`). Ces modifications ne sont pas committées. *Vérifié en local.*
+- **Prochaine action précise** : Max teste la v1 sur iPhone réel et dit ce qu'il veut lancer ensuite. Aucune tâche d'équipe avant ce retour.
+- **En attente de Max** :
+  - le test sur iPhone réel ;
+  - l'accord pour toute publication ou fusion sur `main` ;
+  - le remplissage de `docs/droits.md` (marque, voix, mentions légales) ;
+  - la confirmation du plan des 3 semaines (D25).
+- **Hypothèse à confirmer** : la source de GitHub Pages est « GitHub Actions ». Ce réglage ne se lit pas dans le dépôt.
+
 ## Où en est-on
 
 - **Phase 0 (prototype)** : mission 1 terminée le 11/11/2026. En ligne pour test sur https://maxlad47.github.io/vecu/ (non référencé, D19). L'ancienne adresse vecu-test.netlify.app est figée.
