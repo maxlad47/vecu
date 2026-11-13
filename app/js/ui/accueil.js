@@ -5,18 +5,15 @@
 // avec « Comme la dernière fois » ; la pastille de thèmes de « Avant le départ » ramène à l'étape 3).
 // Pas d'étape « Comment ? » pour l'instant (mission à venir).
 
-import { h, icone, focaliser, vider } from "./dom.js";
+import { h, icone, focaliser, vider, motsRusses } from "./dom.js";
 import { creerMenu } from "./menu.js";
 import { poupee } from "./matriochka.js";
-import { decorAccueil, decorSituation } from "../ambiance.js";
 import { t, texteDuree } from "../textes.js";
 import { INTERFACE } from "../config.js";
 import { testDisponible } from "../test-niveau.js";
 import { dureePourLieu, basculerTheme, dernierChoix, themesValides, universInclus } from "../parcours.js";
 
 const ICONES_LIEU = { silence: "muet", ecouteurs: "casque", parler: "bulle", voiture: "voiture" };
-// Ordre des cartes de l'étape 1 : En voiture, Sans son / Écouteurs, Je peux parler.
-const ORDRE_LIEUX = ["voiture", "silence", "ecouteurs", "parler"];
 
 // « Au hasard », le titre du thème, ou « 3 thèmes » (pastilles, résumés).
 export function resumeThemes(themes, situations) {
@@ -74,24 +71,17 @@ export function afficherAccueil(racine, ctx, options) {
   }
 
   // ---------- Étape 1 : Je suis où ? ----------
-  // ESSAI (mission 015) : trois accueils à comparer, choisis par localStorage « bagou-essai-accueil » (a, b, c).
-  // Une fois le choix de Max fait, on ne garde que le sien et cet aiguillage disparaît.
-  const ESSAI = (() => { try { return localStorage.getItem("bagou-essai-accueil") || "a"; } catch (e) { return "a"; } })();
-  // Illustration de chaque lieu, prise dans les décors de l'ambiance (pont, tasses, lustres du métro, bouleau).
-  const ART_LIEU = { voiture: "sortir", silence: "rencontrer", ecouteurs: "metro", parler: "presenter" };
-
-  function boutonDerniere(classe, contenuAvant) {
+  // Accueil « Phrase du jour » (D34, choix de Max) : on entre par une phrase russe, puis on dit où l'on est.
+  function boutonDerniere() {
     const libelle = h("span", { class: "libelle" }, t("accueil.derniere"));
     const sous = h("span", { class: "sous" }, t("accueil.derniereSous", {
       lieu: t("lieu." + dernier.lieu + ".court"), duree: texteDuree(dernier.duree), themes: resumeThemes(dernier.themes, situations) }));
     // 1 appui : relance exactement le dernier choix (lieu, durée, thèmes).
-    return h("button", { type: "button", class: classe, id: "derniere-fois",
-      onclick: () => lancerSession(dernier.lieu, dernier.duree, dernier.themes, libelle, sous) },
-      contenuAvant || null, h("span", { class: "textes" }, libelle, sous),
-      classe.includes("mini-lecteur") ? h("span", { class: "lecture" }, icone("lecture")) : null);
+    return h("button", { type: "button", class: "btn-principal deux-lignes", id: "derniere-fois",
+      onclick: () => lancerSession(dernier.lieu, dernier.duree, dernier.themes, libelle, sous) }, libelle, sous);
   }
 
-  // Phrase du jour (essai C) : une phrase simple, la même toute la journée, tirée des situations.
+  // Une phrase simple, la même toute la journée (jour local), tirée des situations.
   function phraseDuJour() {
     const simples = ctx.contenu.elements.filter((e) => !e.univers && !e.moule && !e.variantes && !e.personnalise && e.cible && e.cible.length < 34);
     if (!simples.length) return null;
@@ -100,46 +90,20 @@ export function afficherAccueil(racine, ctx, options) {
   }
 
   function etape1() {
-    const lieu = (m, contenu) => h("button", { type: "button", class: "carte-lieu", id: "lieu-" + m, onclick: () => choisirLieu(m) }, contenu);
-    const textes = (m) => h("span", { class: "lieu-textes" }, h("span", { class: "lieu-nom" }, t("lieu." + m)), h("span", { class: "lieu-ex" }, t("lieu." + m + ".ex")));
-    let contenu, bas = null;
-
-    if (ESSAI === "b") {
-      // B. L'affiche : une grande scène en tête (la marque, la reprise en un geste), puis les lieux en liste.
-      const decor = decorAccueil();
-      const affiche = h("section", { class: "affiche", "aria-label": t("accueil.marque") },
-        decor, h("p", { class: "affiche-titre" }, t("accueil.slogan")),
-        dernier ? boutonDerniere("btn-affiche", icone("lecture")) : null);
-      const liste = h("div", { class: "lieux lieux-liste" }, ORDRE_LIEUX.map((m) => lieu(m, [
-        h("span", { class: "pastille-lieu" }, icone(ICONES_LIEU[m])), textes(m), h("span", { class: "chevron" }, icone("suite"))])));
-      contenu = h("main", { class: "contenu contenu-accueil accueil-b" }, affiche, titre("accueil.qLieu"), liste);
-    } else if (ESSAI === "c") {
-      // C. La phrase du jour : on entre dans l'app par une phrase russe, puis on dit où l'on est.
-      const p = phraseDuJour();
-      const translitOk = reglages().translitteration !== false;
-      const scene = p ? h("section", { class: "phrase-jour" },
-        h("p", { class: "phrase-jour-titre" }, t("accueil.phraseJour")),
-        h("p", { class: "ru-hero", lang: "ru" }, p.accent),
-        translitOk && p.translit ? h("p", { class: "translit", lang: "ru-Latn" }, p.translit) : null,
-        h("p", { class: "fr-dessus" }, p.fr)) : null;
-      const grille = h("div", { class: "lieux lieux-capsules" }, ORDRE_LIEUX.map((m) => lieu(m, [icone(ICONES_LIEU[m]), h("span", { class: "lieu-nom" }, t("lieu." + m))])));
-      contenu = h("main", { class: "contenu contenu-accueil accueil-c" }, scene, titre("accueil.qLieu"), grille);
-      if (dernier) bas = h("div", { class: "zone-action" }, boutonDerniere("btn-principal deux-lignes"));
-    } else {
-      // A. Les pochettes : chaque lieu a son illustration, comme une bibliothèque d'albums ; la reprise en mini-lecteur.
-      const grille = h("div", { class: "lieux lieux-pochettes" }, ORDRE_LIEUX.map((m) => {
-        const art = decorSituation(ART_LIEU[m]);
-        if (art) art.className = "decor art-lieu";
-        return lieu(m, [h("span", { class: "pochette pochette-" + m }, art, h("span", { class: "pastille-lieu" }, icone(ICONES_LIEU[m]))), textes(m)]);
-      }));
-      contenu = h("main", { class: "contenu contenu-accueil accueil-a" }, titre("accueil.qLieu"), grille);
-      if (dernier) {
-        const vignette = decorAccueil();
-        if (vignette) vignette.className = "decor vignette";
-        bas = h("div", { class: "zone-action zone-mini" }, boutonDerniere("mini-lecteur", vignette));
-      }
-    }
-    return [contenu, bas];
+    const p = phraseDuJour();
+    const avecTranslit = reglages().translitteration !== false;
+    const scene = p ? h("section", { class: "phrase-jour" },
+      h("p", { class: "phrase-jour-titre" }, t("accueil.phraseJour")),
+      h("p", { class: "ru-hero", lang: "ru" }, motsRusses(p.accent)),
+      avecTranslit && p.translit ? h("p", { class: "translit", lang: "ru-Latn" }, p.translit) : null,
+      h("p", { class: "fr-dessus" }, p.fr)) : null;
+    // Les lieux en drapeau (idée de Max) : bande blanche (Sans son, Écouteurs), bande bleue (Je peux parler),
+    // bande rouge (En voiture). L'ordre du DOM suit l'ordre visuel.
+    const lieux = h("div", { class: "lieux drapeau" }, ["silence", "ecouteurs", "parler", "voiture"].map((m) =>
+      h("button", { type: "button", class: "carte-lieu", id: "lieu-" + m, onclick: () => choisirLieu(m) },
+        icone(ICONES_LIEU[m]), h("span", { class: "lieu-nom" }, t("lieu." + m)))));
+    const contenu = h("main", { class: "contenu contenu-accueil" }, scene, titre("accueil.qLieu"), lieux);
+    return [contenu, dernier ? h("div", { class: "zone-action" }, boutonDerniere()) : null];
   }
   function choisirLieu(m) {
     // Même lieu : on garde la durée déjà choisie. Autre lieu : durée préremplie de ce lieu (mémoire par lieu).
