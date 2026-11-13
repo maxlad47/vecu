@@ -102,3 +102,4 @@ Dernière mise à jour : 12/11/2026 (soir, mission 009 fusionnée dans `main`), 
 | Fiches des agents | `.claude/agents/` | validé (12/11) |
 | Commandes `/point`, `/mission`, `/cloture` | `.claude/commands/` | validé (12/11) |
 | Règle Ponytail (le plus petit changement complet), version relue | `.claude/skills/ponytail/` | validé (12/11, D18) |
+| Outils de design : Impeccable (retouche, critique), Hallmark (audit nommé seulement), règles d'usage | `.claude/skills/`, `PRODUCT.md`, `DESIGN.md`, `docs/design/outils.md` | livré, branche `mission-014-outils-design`, à valider par Max (D31) |
