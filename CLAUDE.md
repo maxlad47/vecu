@@ -63,7 +63,7 @@ Durées proposées : 2, 5, 15 et 30 min. La durée annoncée doit être la duré
 - **Contenu séparé du code** dans `content/<langue>/*.json`. Ajouter une langue, c'est ajouter des fichiers de contenu, sans toucher au code.
 - **Audio** : la synthèse vocale de l'appareil suffit pour les prototypes. Avant le lancement public, il faut des voix natives, enregistrées ou générées.
 - **Mobile d'abord** : tout doit fonctionner d'une main sur un téléphone.
-- **Hébergement** sur GitHub Pages (gratuit, publication automatique à chaque envoi sur `main`, D19). La mise en ligne publique doit être validée par Max.
+- **Hébergement** sur GitHub Pages (gratuit, D19). Pages se publie à chaque envoi sur `main` : donc aucun envoi sur `main` sans l'accord de Max. La mise en ligne publique doit aussi être validée par Max.
 
 ## Organisation du dépôt
 
@@ -82,8 +82,31 @@ app/                 le site
 - **`docs/etat.md` est le registre unique de ce qui existe.** Chacun le lit en premier. Ce qui est validé ne se refait pas. Seul Sacha le met à jour.
 - **Max pilote avec 3 commandes** : `/point`, `/mission <nom>` (ou `/mission reprise`) et `/cloture`.
 - Les missions prévues sont dans la feuille de route de `docs/pilotage.md`.
-- GitHub fait foi : on récupère la dernière version avant de travailler et on la renvoie à la fin.
 - Langue de travail : le français. Les commits sont petits, clairs et écrits en français.
+
+## Reprendre et poursuivre le projet (Mac, cloud, Claude mobile)
+
+Le dépôt GitHub est la seule mémoire partagée. Rien d'important ne vit dans une session de chat ni dans la mémoire locale du Mac (D35).
+
+**Au début de chaque session**
+1. Lire, dans cet ordre : la section « Reprise » en tête de `docs/etat.md`, puis `docs/processus.md`, la feuille de route de `docs/pilotage.md`, et les 10 dernières entrées de `docs/journal.md`. Ne rien relire d'autre pour faire le point.
+2. Vérifier la branche et le « verrou » de `docs/etat.md`. Sur le Mac (Claude Code) : `git branch --show-current`. Sur mobile, où Git n'est pas disponible : lire la branche indiquée dans « Reprise ». Si la branche est `main`, si elle ne correspond pas à celle notée, ou si le verrou est tenu par une autre session, s'arrêter et le dire à Max. Sur mobile, toujours demander confirmation à Max avant d'écrire.
+3. Travailler sur la dernière version de GitHub : Fetch / Pull sur le Mac, lecture du dépôt sur mobile ou dans le cloud.
+4. Ne pas refaire ce qui est « validé » dans `docs/etat.md`.
+
+**Pendant la session**
+- Consigner une décision importante dans `docs/journal.md` au moment où elle est prise : date, décision, raison.
+- Distinguer dans les notes trois choses : **vérifié** (testé, ou lu dans le code), **hypothèse** (à confirmer), **en attente** (décision de Max).
+
+**À la fin, ou avant toute interruption**
+1. Mettre à jour la section « Reprise » de `docs/etat.md` : branche de travail, verrou, dernière action, **prochaine action précise** (fichier et étape), points en attente de Max.
+2. Enregistrer le travail en commit local sur la branche de travail, jamais sur `main`. Un commit local ne publie rien.
+
+**Règles de publication**
+- `main` est la version publiée. Aucun push sur `main`, aucune fusion dans `main` et aucune publication sans l'accord explicite de Max, donné pour chaque opération.
+- Tout push distant (sur n'importe quelle branche) attend l'accord de Max.
+- Les branches de travail ne déclenchent pas GitHub Pages : le workflow ne se lance que sur un envoi sur `main`. Il peut aussi être lancé à la main (`workflow_dispatch`), donc ne jamais le lancer sans accord de Max.
+- Une seule branche de travail active à la fois. Le verrou de `docs/etat.md` indique laquelle, et qui l'utilise, pour que deux sessions ne s'écrasent pas.
 
 ## Format du contenu (v0)
 
