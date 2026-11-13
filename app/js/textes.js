@@ -95,6 +95,7 @@ const T = {
   "duree": "{n} min",
   "duree.sr": "{n} minutes",
   "accueil.go": "C’est parti",
+  "accueil.expression": "L’expression du jour",
   "voix.prepare": "Je prépare la voix…",
   "session.quitter": "Arrêter la session",
   "session.reste": "encore {n}\u00A0min",

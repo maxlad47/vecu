@@ -5,7 +5,7 @@
 // avec « Comme la dernière fois » ; la pastille de thèmes de « Avant le départ » ramène à l'étape 3).
 // Pas d'étape « Comment ? » pour l'instant (mission à venir).
 
-import { h, icone, focaliser, vider } from "./dom.js";
+import { h, icone, focaliser, vider, motsRusses, texteMixte } from "./dom.js";
 import { creerMenu } from "./menu.js";
 import { poupee } from "./matriochka.js";
 import { decorAccueil } from "../ambiance.js";
@@ -15,8 +15,6 @@ import { testDisponible } from "../test-niveau.js";
 import { dureePourLieu, basculerTheme, dernierChoix, themesValides, universInclus } from "../parcours.js";
 
 const ICONES_LIEU = { silence: "muet", ecouteurs: "casque", parler: "bulle", voiture: "voiture" };
-// Ordre des cartes de l'étape 1 : En voiture, Sans son / Écouteurs, Je peux parler.
-const ORDRE_LIEUX = ["voiture", "silence", "ecouteurs", "parler"];
 
 // « Au hasard », le titre du thème, ou « 3 thèmes » (pastilles, résumés).
 export function resumeThemes(themes, situations) {
@@ -74,23 +72,47 @@ export function afficherAccueil(racine, ctx, options) {
   }
 
   // ---------- Étape 1 : Je suis où ? ----------
+  // Accueil « Affiche » (D34, choix de Max) : une grande scène bleue avec l'expression russe du jour
+  // et la place Rouge, la reprise en un geste posée sur la place, puis les lieux en liste.
+  // Ordre des lieux : En voiture, Sans son, Écouteurs, Je peux parler.
+  const ORDRE_LIEUX = ["voiture", "silence", "ecouteurs", "parler"];
+
+  function boutonDerniere() {
+    const libelle = h("span", { class: "libelle" }, t("accueil.derniere"));
+    const sous = h("span", { class: "sous" }, t("accueil.derniereSous", {
+      lieu: t("lieu." + dernier.lieu + ".court"), duree: texteDuree(dernier.duree), themes: resumeThemes(dernier.themes, situations) }));
+    // 1 appui : relance exactement le dernier choix (lieu, durée, thèmes).
+    return h("button", { type: "button", class: "btn-affiche", id: "derniere-fois",
+      onclick: () => lancerSession(dernier.lieu, dernier.duree, dernier.themes, libelle, sous) },
+      icone("lecture"), h("span", { class: "textes" }, libelle, sous));
+  }
+
+  // Une expression familière par jour (content/<langue>/expressions.json), la même toute la journée (jour local).
+  function expressionDuJour() {
+    const liste = ctx.contenu.expressions || [];
+    if (!liste.length) return null;
+    const jour = Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 864e5);
+    return liste[jour % liste.length];
+  }
+
   function etape1() {
-    const cartes = ORDRE_LIEUX.map((m) => h("button", { type: "button", class: "carte-lieu", id: "lieu-" + m, onclick: () => choisirLieu(m) },
-      icone(ICONES_LIEU[m]),
-      h("span", null, h("span", { class: "lieu-nom" }, t("lieu." + m)), h("span", { class: "lieu-ex" }, t("lieu." + m + ".ex")))));
-    const decor = decorAccueil();
-    const contenu = h("main", { class: "contenu contenu-accueil" }, titre("accueil.qLieu"), h("div", { class: "lieux" }, cartes), decor);
-    let bas = null;
-    if (dernier) {
-      const libelle = h("span", { class: "libelle" }, t("accueil.derniere"));
-      const sous = h("span", { class: "sous" }, t("accueil.derniereSous", {
-        lieu: t("lieu." + dernier.lieu + ".court"), duree: texteDuree(dernier.duree), themes: resumeThemes(dernier.themes, situations) }));
-      // 1 appui : relance exactement le dernier choix (lieu, durée, thèmes).
-      const bouton = h("button", { type: "button", class: "btn-principal deux-lignes", id: "derniere-fois",
-        onclick: () => lancerSession(dernier.lieu, dernier.duree, dernier.themes, libelle, sous) }, libelle, sous);
-      bas = h("div", { class: "zone-action" }, bouton);
-    }
-    return [h("p", { class: "slogan" }, t("accueil.slogan")), contenu, bas];
+    const e = expressionDuJour();
+    const avecTranslit = reglages().translitteration !== false;
+    const texte = e ? h("div", { class: "affiche-texte" },
+      h("p", { class: "affiche-etiquette" }, t("accueil.expression")),
+      h("p", { class: "affiche-ru", lang: "ru" }, motsRusses(e.accent || e.cible)),
+      avecTranslit && e.translit ? h("p", { class: "affiche-translit", lang: "ru-Latn" }, e.translit) : null,
+      h("p", { class: "affiche-fr" }, e.fr),
+      e.note ? h("p", { class: "affiche-note" }, texteMixte(e.note)) : null)
+      : h("div", { class: "affiche-texte" }, h("p", { class: "affiche-ru" }, t("accueil.slogan")));
+    const affiche = h("section", { class: "affiche" + (dernier ? " avec-reprise" : ""), "aria-label": t("accueil.expression") },
+      texte, decorAccueil(), dernier ? boutonDerniere() : null);
+    const liste = h("div", { class: "lieux" }, ORDRE_LIEUX.map((m) =>
+      h("button", { type: "button", class: "carte-lieu", id: "lieu-" + m, onclick: () => choisirLieu(m) },
+        h("span", { class: "pastille-lieu" }, icone(ICONES_LIEU[m])),
+        h("span", { class: "lieu-textes" }, h("span", { class: "lieu-nom" }, t("lieu." + m)), h("span", { class: "lieu-ex" }, t("lieu." + m + ".ex"))),
+        h("span", { class: "chevron" }, icone("suite")))));
+    return [h("main", { class: "contenu contenu-accueil" }, affiche, titre("accueil.qLieu"), liste)];
   }
   function choisirLieu(m) {
     // Même lieu : on garde la durée déjà choisie. Autre lieu : durée préremplie de ce lieu (mémoire par lieu).
@@ -112,7 +134,9 @@ export function afficherAccueil(racine, ctx, options) {
           h("label", { class: "choix ligne-choix", for: id },
             h("span", { class: "rond" }, icone("coche")),
             h("span", { class: "texte-ligne" },
-              h("span", { "aria-hidden": "true" }, texteDuree(n)),
+              // Le chiffre en très gros, l'unité à côté : « 15 » puis « min » (le texte lu reste « 15 minutes »).
+              h("span", { class: "duree-vis", "aria-hidden": "true" },
+                h("b", { class: "chiffre" }, String(n)), h("span", { class: "unite" }, texteDuree(n).replace(String(n), "").trim())),
               h("span", { class: "sr-only" }, t("duree.sr", { n })),
               h("small", null, t("duree." + n + ".sous"))),
             n === prerempli ? h("span", { class: "etiquette" }, t("duree.prerempli", { lieu: t("lieu." + lieu + ".court") })) : null)
