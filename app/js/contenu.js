@@ -28,7 +28,11 @@ export async function chargerContenu(langue, lireJson) {
   for (const u of (Array.isArray(index.univers) ? index.univers : [])) {
     try { univers[u.id] = await lire(base + u.fichier); } catch (e) { /* cet univers manque : on continue */ }
   }
-  return preparerContenu(index, fichiers, donnees, dialogues, univers);
+  const contenu = preparerContenu(index, fichiers, donnees, dialogues, univers);
+  // Le test de niveau est facultatif aussi : sans lui, l'app ne le propose pas.
+  contenu.test = null;
+  if (index.test) { try { contenu.test = await lire(base + index.test); } catch (e) { contenu.test = null; } }
+  return contenu;
 }
 
 // Répliques justes `nouveau: true` des dialogues → phrases au format v0 : elles rejoignent leur situation

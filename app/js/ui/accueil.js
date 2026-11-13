@@ -11,6 +11,7 @@ import { poupee } from "./matriochka.js";
 import { decorAccueil } from "../ambiance.js";
 import { t, texteDuree } from "../textes.js";
 import { INTERFACE } from "../config.js";
+import { testDisponible } from "../test-niveau.js";
 import { dureePourLieu, basculerTheme, dernierChoix, themesValides, universInclus } from "../parcours.js";
 
 const ICONES_LIEU = { silence: "muet", ecouteurs: "casque", parler: "bulle", voiture: "voiture" };
@@ -35,6 +36,7 @@ export function afficherAccueil(racine, ctx, options) {
   let lieu = opts.choix && INTERFACE.modes.includes(opts.choix.lieu) ? opts.choix.lieu : null;
   let duree = opts.choix && INTERFACE.dureesProposees.includes(opts.choix.duree) ? opts.choix.duree : null;
   let themes = opts.choix ? themesValides(opts.choix.themes, situations) : [];
+  if (etape === 2 && lieu && duree === null) duree = dureePourLieu(lieu, reglages().dureeParLieu); // retour du test de niveau
   let enPreparation = false;
   const menu = creerMenu(ctx, {});
 
@@ -94,7 +96,8 @@ export function afficherAccueil(racine, ctx, options) {
     // Même lieu : on garde la durée déjà choisie. Autre lieu : durée préremplie de ce lieu (mémoire par lieu).
     if (m !== lieu || duree === null) duree = dureePourLieu(m, reglages().dureeParLieu);
     lieu = m;
-    etape = 2;
+    // Test de niveau : proposé une seule fois, à un nouvel utilisateur, jamais en Voiture (il faut un écran).
+    etape = m !== "voiture" && !reglages().testNiveauPropose && ctx.stockage.fiches.size === 0 && testDisponible(ctx.contenu) ? "test" : 2;
     dessiner();
   }
 
@@ -123,6 +126,17 @@ export function afficherAccueil(racine, ctx, options) {
     return [
       h("main", { class: "contenu" }, pastilles(2), titre("accueil.qTemps"), lignes, h("p", { class: "consigne-etape" }, t("duree.consigne"))),
       barreBas(boutonRetour(1), suite)
+    ];
+  }
+
+  // ---------- Étape facultative : test de niveau (« Passer » toujours possible) ----------
+  function etapeTest() {
+    const vu = () => ctx.majReglage("testNiveauPropose", true);
+    return [
+      h("main", { class: "contenu" }, pastilles(1), titre("test.proposeTitre"), h("p", { class: "texte" }, t("test.proposeTexte"))),
+      h("div", { class: "zone-action" },
+        h("button", { type: "button", class: "btn-principal", id: "faire-test", onclick: () => { vu(); ctx.lancerTest("accueil", lieu); } }, t("test.faire")),
+        h("button", { type: "button", class: "btn-secondaire", id: "passer-test", onclick: () => { vu(); etape = 2; dessiner(); } }, t("test.passer")))
     ];
   }
 
@@ -173,7 +187,7 @@ export function afficherAccueil(racine, ctx, options) {
   // ---------- Dessin ----------
   function dessiner() {
     vider(racine);
-    const parties = etape === 3 ? etape3() : etape === 2 && lieu ? etape2() : (etape = 1, etape1());
+    const parties = etape === "test" && lieu ? etapeTest() : etape === 3 ? etape3() : etape === 2 && lieu ? etape2() : (etape = 1, etape1());
     racine.appendChild(h("div", { class: "ecran" }, entete(), parties));
     focaliser(racine.querySelector(".titre-etape"));
   }

@@ -108,6 +108,11 @@ export const INTERFACE = {
   modes: ["silence", "ecouteurs", "parler", "voiture"]
 };
 
+// Test de niveau (docs/pedagogie/test-niveau.md) : arrêt après 2 erreurs de suite ;
+// à partir de `seuilEleve` réussites, le résultat rappelle que le contenu s’arrête à ce niveau (hasard : 4 sur 12 en moyenne).
+// Boîtes de départ : réussi = 2, raté = 1, non testé = 0. Modes : jamais la Voiture (il faut un écran).
+export const TEST_NIVEAU = { erreursDeSuite: 2, seuilEleve: 8, boiteReussi: 2, boiteRate: 1, modes: ["silence", "ecouteurs", "parler"] };
+
 // Audio hors voiture : vitesses du bouton « Écouter ».
 export const AUDIO = {
   rateNormale: 1.0,

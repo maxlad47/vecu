@@ -25,5 +25,6 @@
     { "id": "famille", "fichier": "univers-famille.json", "seuils": {"ru-famille-001": 30, "ru-famille-002": 40} }
   ],
   "personnage": "personnage.json",
-  "dialogues": "dialogues.json"
+  "dialogues": "dialogues.json",
+  "test": "test-niveau.json"
 }
