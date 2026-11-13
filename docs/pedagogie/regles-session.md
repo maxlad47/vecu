@@ -387,3 +387,18 @@ Nouveaux (rangs 10 à 13) : N1 = sortir-001 « D'accord ! », N2 = sortir-002, l
 | - | 909 | arrêt | | Annonce de fin | t ≥ 900 |
 
 Bilan : 53 cycles, environ 15 min 13 s. Chaque nouvel élément est entendu 6 fois (1 découverte, 2 rappels d'échelle, 3 rappels de remplissage). Chaque élément déjà vu est entendu 3 ou 4 fois. Les promotions par la Voiture sont plafonnées à la boîte 3 (voir `repetition-espacee.md`).
+
+## 11. Univers de vocabulaire (mission 012)
+
+À l'écran on dit « univers » (le mot « thème » désigne déjà un type d'exercice). Le détail et les seuils sont dans `docs/pedagogie/themes.md`. Règles d'intégration aux sessions, reprises de ce fichier :
+
+- **R1 (seuil).** Un moule de thème entre seulement quand son seuil du tableau §3 est atteint, et une seule fois dans la file (il suit ensuite les boîtes, comme tout élément).
+- **R2 (fréquence).** Au plus 1 nouvel élément de thème par session de 5 min, au plus 2 par session de 15 ou 30 min. En 2 min : aucun, le quota de 1 nouveau est réservé à la survie.
+- **R3 (mélange).** Un nouvel élément de thème prend la place du prochain nouvel élément de situation. N (section 2) ne change pas. Le bonus de nouveautés (§5.6) ne sert pas aux thèmes.
+- **R4 (ordre).** Entre les thèmes, l'ordre du tableau §3 ; au sein d'un thème, le moule 1 avant le moule 2.
+- **R5 (révision).** Un moule de thème se révise selon sa boîte, avec les mêmes types que les autres moules (Moule-sens ou Moule-thème, Boucle rappel en Voiture). Aucune règle nouvelle.
+- **R6 (remplacements).** Rotation de remplacements (§4.4) sans changement : un remplacement par carte, sans répétition immédiate.
+- **R7 (leurres).** Rien à changer en §7 : les moules ne servent pas aux QCM Sens, Thème ou Ordre, donc leurres = autres remplacements du même moule.
+- **R8 (parcours d'accueil).** L'étape « Sur quoi ? » existante reçoit un seul choix supplémentaire : « Inclure les univers de vocabulaire » (oui par défaut ; décision de Sacha). Pas de choix par thème en v1.
+- **R9 (interdits).** Aucune liste de mots à l'écran, aucune carte qui ne contient qu'un mot. Un thème se voit uniquement dans une phrase.
+

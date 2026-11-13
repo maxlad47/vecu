@@ -23,7 +23,12 @@ export async function chargerContenu(langue, lireJson) {
   // Les dialogues sont facultatifs aussi : sans eux, pas de carte Dialogue.
   let dialogues = null;
   if (index.dialogues) { try { dialogues = await lire(base + index.dialogues); } catch (e) { dialogues = null; } }
-  return preparerContenu(index, fichiers, donnees, dialogues);
+  // Les univers de vocabulaire sont facultatifs : un fichier illisible est ignoré, le reste de l'app marche.
+  const univers = {};
+  for (const u of (Array.isArray(index.univers) ? index.univers : [])) {
+    try { univers[u.id] = await lire(base + u.fichier); } catch (e) { /* cet univers manque : on continue */ }
+  }
+  return preparerContenu(index, fichiers, donnees, dialogues, univers);
 }
 
 // Répliques justes `nouveau: true` des dialogues → phrases au format v0 : elles rejoignent leur situation
@@ -47,7 +52,10 @@ export function phrasesNouvelles(brut) {
 // `donnees` (personnage.json, facultatif) : ses phrases à prénom sont glissées dans leur situation,
 // après la phrase `apres` ou à la fin. Sans lui, le résultat est celui d'avant.
 // `dialogues` (dialogues.json, facultatif) : ses nouvelles répliques s'ajoutent de même, et il reste dans `contenu.dialogues`.
-export function preparerContenu(index, fichiers, donnees, dialogues) {
+// `univers` (facultatif) : { id: fichier } pour chaque entrée de `index.univers`. Leurs éléments (des moules) ne sont
+// PAS rangés dans les vagues des situations : ils viennent en dernier, marqués `univers` et `seuil` (nombre d'éléments
+// de situations à avoir introduits avant leur entrée), et le moteur les fait entrer un par un (docs/pedagogie/themes.md).
+export function preparerContenu(index, fichiers, donnees, dialogues, univers) {
   const ajouts = [...((donnees && donnees.phrases) || []), ...phrasesNouvelles(dialogues)];
   if (ajouts.length) {
     fichiers = Object.assign({}, fichiers);
@@ -91,10 +99,29 @@ export function preparerContenu(index, fichiers, donnees, dialogues) {
     });
     situations.push({ id: sit.id, titre: (donnees && donnees.titre) || sit.titre, ids });
   });
+  const listeUnivers = [];
+  (Array.isArray(index.univers) ? index.univers : []).forEach((u, rangUnivers) => {
+    const d = univers && univers[u.id];
+    const phrases = (d && Array.isArray(d.phrases)) ? d.phrases : [];
+    const ids = [];
+    phrases.forEach((p, rangPhrase) => {
+      // Un univers ne contient que des moules : sans remplacement, l'élément serait une liste de mots isolée (R9).
+      if (!p || !p.id || !p.moule || !Array.isArray(p.moule.remplacements) || !p.moule.remplacements.length) return;
+      ids.push(p.id);
+      const seuil = u.seuils && Number.isFinite(u.seuils[p.id]) ? u.seuils[p.id] : Infinity; // sans seuil : n'entre jamais
+      elements.push({
+        id: p.id, situation: u.id, univers: u.id, seuil, rangSituation: index.situations.length + rangUnivers, rangPhrase, vague: 4,
+        fr: p.fr, cible: p.cible, accent: p.accent || p.cible, translit: p.translit || null,
+        registre: p.registre || "neutre", variantes: p.variantes || null, variantesFr: p.variantes_fr || null,
+        personnalise: null, gabarit: null, astuce: p.astuce || null, moule: p.moule, ordreLibre: p.ordre_libre === true
+      });
+    });
+    if (ids.length) listeUnivers.push({ id: u.id, titre: (d && d.titre) || u.id, ids }); // un univers sans élément n'existe pas (ni tuile, ni rangée « 0 sur 0 »)
+  });
   elements.sort((a, b) => (a.vague - b.vague) || (a.rangSituation - b.rangSituation) || (a.rangPhrase - b.rangPhrase));
   elements.forEach((el, i) => { el.rang = i + 1; });
   const parId = new Map(elements.map((el) => [el.id, el]));
-  return { langue: index.langue, situations, elements, parId, donnees: donnees || null, dialogues: (dialogues && dialogues.dialogues) || [] };
+  return { langue: index.langue, situations, univers: listeUnivers, elements, parId, donnees: donnees || null, dialogues: (dialogues && dialogues.dialogues) || [] };
 }
 
 // Forme d'une variante de genre : une chaîne (le texte) ou un objet { cible, accent, translit }.

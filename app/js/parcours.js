@@ -26,6 +26,11 @@ export function basculerTheme(themes, id, situations) {
   return themesValides(nouveau, situations);
 }
 
+// Choix « Inclure les univers de vocabulaire » (R8) : actif tant que l'utilisateur ne l'a pas décoché (réglage absent = oui).
+export function universInclus(reglages) {
+  return !reglages || reglages.universInclus !== false;
+}
+
 // Dernier choix mémorisé, ou null au premier lancement (pas de bouton « Comme la dernière fois »).
 export function dernierChoix(reglages, situations) {
   if (!reglages || !INTERFACE.modes.includes(reglages.dernierMode) || !INTERFACE.dureesProposees.includes(reglages.dernierDuree)) return null;

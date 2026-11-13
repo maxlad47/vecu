@@ -1,0 +1,141 @@
+{
+  "langue": "ru",
+  "situation": "lieux",
+  "titre": "Univers : les lieux de la ville",
+  "niveau": "A1",
+  "statut": "valide-nadia",
+  "phrases": [
+    {
+      "id": "ru-lieux-001",
+      "fr": "Je cherche la poste.",
+      "cible": "Я ищу почту.",
+      "accent": "Я ищу́ по́чту.",
+      "translit": "ia ichtchoú pótchtou",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Après ищу́, по́чта devient по́чту (-а → -у). Банк et ры́нок ne changent pas.",
+      "moule": {
+        "modele": "Я ищу ___.",
+        "fr": "Je cherche ___.",
+        "remplacements": [
+          {
+            "fr": "la poste",
+            "cible": "почту",
+            "accent": "по́чту",
+            "translit": "pótchtou",
+            "phrase_fr": "Je cherche la poste.",
+            "phrase_cible": "Я ищу почту.",
+            "phrase_accent": "Я ищу́ по́чту.",
+            "phrase_translit": "ia ichtchoú pótchtou"
+          },
+          {
+            "fr": "la banque",
+            "cible": "банк",
+            "accent": "банк",
+            "translit": "bank",
+            "phrase_fr": "Je cherche la banque.",
+            "phrase_cible": "Я ищу банк.",
+            "phrase_accent": "Я ищу́ банк.",
+            "phrase_translit": "ia ichtchoú bank"
+          },
+          {
+            "fr": "la boulangerie",
+            "cible": "булочную",
+            "accent": "бу́лочную",
+            "translit": "boúlachnouiou",
+            "phrase_fr": "Je cherche la boulangerie.",
+            "phrase_cible": "Я ищу булочную.",
+            "phrase_accent": "Я ищу́ бу́лочную.",
+            "phrase_translit": "ia ichtchoú boúlachnouiou"
+          },
+          {
+            "fr": "le supermarché",
+            "cible": "супермаркет",
+            "accent": "суперма́ркет",
+            "translit": "soupirmárkit",
+            "phrase_fr": "Je cherche le supermarché.",
+            "phrase_cible": "Я ищу супермаркет.",
+            "phrase_accent": "Я ищу́ суперма́ркет.",
+            "phrase_translit": "ia ichtchoú soupirmárkit"
+          },
+          {
+            "fr": "le marché",
+            "cible": "рынок",
+            "accent": "ры́нок",
+            "translit": "rýnak",
+            "phrase_fr": "Je cherche le marché.",
+            "phrase_cible": "Я ищу рынок.",
+            "phrase_accent": "Я ищу́ ры́нок.",
+            "phrase_translit": "ia ichtchoú rýnak"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-lieux-002",
+      "fr": "C'est à côté de la gare ?",
+      "cible": "Это рядом с вокзалом?",
+      "accent": "Э́то ря́дом с вокза́лом?",
+      "translit": "éta riádam s vagzálam?",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Ря́дом с veut -ом, -ем ou -ей à la fin : вокза́л → вокза́лом, музе́й → музе́ем.",
+      "moule": {
+        "modele": "Это рядом с ___?",
+        "fr": "C'est à côté de ___ ?",
+        "remplacements": [
+          {
+            "fr": "la gare",
+            "cible": "вокзалом",
+            "accent": "вокза́лом",
+            "translit": "vagzálam",
+            "phrase_fr": "C'est à côté de la gare ?",
+            "phrase_cible": "Это рядом с вокзалом?",
+            "phrase_accent": "Э́то ря́дом с вокза́лом?",
+            "phrase_translit": "éta riádam s vagzálam?"
+          },
+          {
+            "fr": "la mairie",
+            "cible": "мэрией",
+            "accent": "мэ́рией",
+            "translit": "mériieï",
+            "phrase_fr": "C'est à côté de la mairie ?",
+            "phrase_cible": "Это рядом с мэрией?",
+            "phrase_accent": "Э́то ря́дом с мэ́рией?",
+            "phrase_translit": "éta riádam s mériieï?"
+          },
+          {
+            "fr": "le musée",
+            "cible": "музеем",
+            "accent": "музе́ем",
+            "translit": "mouziéïm",
+            "phrase_fr": "C'est à côté du musée ?",
+            "phrase_cible": "Это рядом с музеем?",
+            "phrase_accent": "Э́то ря́дом с музе́ем?",
+            "phrase_translit": "éta riádam s mouziéïm?"
+          },
+          {
+            "fr": "la place",
+            "cible": "площадью",
+            "accent": "пло́щадью",
+            "translit": "plóchtchidiou",
+            "phrase_fr": "C'est à côté de la place ?",
+            "phrase_cible": "Это рядом с площадью?",
+            "phrase_accent": "Э́то ря́дом с пло́щадью?",
+            "phrase_translit": "éta riádam s plóchtchidiou?"
+          },
+          {
+            "fr": "l'hôpital",
+            "cible": "больницей",
+            "accent": "больни́цей",
+            "translit": "balnítsyï",
+            "phrase_fr": "C'est à côté de l'hôpital ?",
+            "phrase_cible": "Это рядом с больницей?",
+            "phrase_accent": "Э́то ря́дом с больни́цей?",
+            "phrase_translit": "éta riádam z balnítsyï?"
+          }
+        ]
+      }
+    }
+  ]
+}

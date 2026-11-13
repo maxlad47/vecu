@@ -1,0 +1,142 @@
+{
+  "langue": "ru",
+  "situation": "couleurs",
+  "titre": "Univers : couleurs et tailles",
+  "niveau": "A1",
+  "statut": "valide-nadia",
+  "phrases": [
+    {
+      "id": "ru-couleurs-001",
+      "fr": "Vous l'avez en noir ?",
+      "cible": "У вас это есть в чёрном цвете?",
+      "accent": "У вас э́то есть в чёрном цве́те?",
+      "translit": "ou vas éta iest f tchórnam tsviéti?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Цвет est masculin : la couleur finit en -ом / -ем pour tout vêtement (в чёрном, в си́нем).",
+      "moule": {
+        "modele": "У вас это есть в ___ цвете?",
+        "fr": "Vous l'avez en ___ ?",
+        "remplacements": [
+          {
+            "fr": "noir",
+            "cible": "чёрном",
+            "accent": "чёрном",
+            "translit": "tchórnam",
+            "phrase_fr": "Vous l'avez en noir ?",
+            "phrase_cible": "У вас это есть в чёрном цвете?",
+            "phrase_accent": "У вас э́то есть в чёрном цве́те?",
+            "phrase_translit": "ou vas éta iest f tchórnam tsviéti?"
+          },
+          {
+            "fr": "blanc",
+            "cible": "белом",
+            "accent": "бе́лом",
+            "translit": "biélam",
+            "phrase_fr": "Vous l'avez en blanc ?",
+            "phrase_cible": "У вас это есть в белом цвете?",
+            "phrase_accent": "У вас э́то есть в бе́лом цве́те?",
+            "phrase_translit": "ou vas éta iest v biélam tsviéti?"
+          },
+          {
+            "fr": "rouge",
+            "cible": "красном",
+            "accent": "кра́сном",
+            "translit": "krásnam",
+            "phrase_fr": "Vous l'avez en rouge ?",
+            "phrase_cible": "У вас это есть в красном цвете?",
+            "phrase_accent": "У вас э́то есть в кра́сном цве́те?",
+            "phrase_translit": "ou vas éta iest f krásnam tsviéti?"
+          },
+          {
+            "fr": "bleu",
+            "cible": "синем",
+            "accent": "си́нем",
+            "translit": "sínim",
+            "phrase_fr": "Vous l'avez en bleu ?",
+            "phrase_cible": "У вас это есть в синем цвете?",
+            "phrase_accent": "У вас э́то есть в си́нем цве́те?",
+            "phrase_translit": "ou vas éta iest f sínim tsviéti?"
+          },
+          {
+            "fr": "vert",
+            "cible": "зелёном",
+            "accent": "зелёном",
+            "translit": "ziliónam",
+            "phrase_fr": "Vous l'avez en vert ?",
+            "phrase_cible": "У вас это есть в зелёном цвете?",
+            "phrase_accent": "У вас э́то есть в зелёном цве́те?",
+            "phrase_translit": "ou vas éta iest v ziliónam tsviéti?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-couleurs-002",
+      "fr": "C'est trop grand.",
+      "cible": "Мне это велико.",
+      "accent": "Мне э́то велико́.",
+      "translit": "mnie éta vilikó",
+      "registre": "neutre",
+      "variantes": null,
+      "astuce": "Велико́, мало́, тесно́… disent déjà « trop » : pas de сли́шком. Valable pour tout vêtement.",
+      "moule": {
+        "modele": "Мне это ___.",
+        "fr": "C'est trop ___.",
+        "remplacements": [
+          {
+            "fr": "grand",
+            "cible": "велико",
+            "accent": "велико́",
+            "translit": "vilikó",
+            "phrase_fr": "C'est trop grand.",
+            "phrase_cible": "Мне это велико.",
+            "phrase_accent": "Мне э́то велико́.",
+            "phrase_translit": "mnie éta vilikó"
+          },
+          {
+            "fr": "petit",
+            "cible": "мало",
+            "accent": "мало́",
+            "translit": "maló",
+            "phrase_fr": "C'est trop petit.",
+            "phrase_cible": "Мне это мало.",
+            "phrase_accent": "Мне э́то мало́.",
+            "phrase_translit": "mnie éta maló"
+          },
+          {
+            "fr": "long",
+            "cible": "длинно",
+            "accent": "длинно́",
+            "translit": "dlinnó",
+            "phrase_fr": "C'est trop long.",
+            "phrase_cible": "Мне это длинно.",
+            "phrase_accent": "Мне э́то длинно́.",
+            "phrase_translit": "mnie éta dlinnó"
+          },
+          {
+            "fr": "court",
+            "cible": "коротко",
+            "accent": "коротко́",
+            "translit": "karatkó",
+            "phrase_fr": "C'est trop court.",
+            "phrase_cible": "Мне это коротко.",
+            "phrase_accent": "Мне э́то коротко́.",
+            "phrase_translit": "mnie éta karatkó"
+          },
+          {
+            "fr": "serré",
+            "cible": "тесно",
+            "accent": "тесно́",
+            "translit": "tisnó",
+            "phrase_fr": "C'est trop serré.",
+            "phrase_cible": "Мне это тесно.",
+            "phrase_accent": "Мне э́то тесно́.",
+            "phrase_translit": "mnie éta tisnó"
+          }
+        ]
+      },
+      "ordre_libre": true
+    }
+  ]
+}

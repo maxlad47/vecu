@@ -878,6 +878,153 @@ import { construireSauvegarde, lireSauvegarde, ajouterSession, resumeUsage, rapp
     verifier(nbEcrire > 0, "après erreurs : des cartes Écrire ont bien été jouées");
     egal([sous, doublons], [0, 0], "re-passage après erreur : pas d'Écrire sous la boîte 4 ni deux de suite");
   }
+
+}
+
+// ---------- Univers de vocabulaire (mission 012) ----------
+{
+  const { chargerContenu } = await import("../app/js/contenu.js");
+  const { universInclus } = await import("../app/js/parcours.js");
+  const complet = await chargerContenu("ru", lireJson); // chemins relatifs à la racine, comme dans l'app
+  const univ = complet.elements.filter((e) => e.univers);
+
+  // Chargement : 5 univers, 10 moules, 50 remplacements affichés tels quels (rien n'est recomposé).
+  egal(index.univers.length, 5, "index.json déclare 5 univers, hors de « situations »");
+  verifier(!index.situations.some((x) => index.univers.some((u) => u.id === x.id)), "un univers n'est pas une situation");
+  egal(complet.univers.map((u) => u.id), ["lieux", "maison", "nourriture", "couleurs", "famille"], "5 univers chargés, dans l'ordre");
+  egal(univ.length, 10, "10 moules d'univers");
+  egal(univ.reduce((n, e) => n + e.moule.remplacements.length, 0), 50, "50 remplacements");
+  egal(new Set(complet.elements.map((e) => e.id)).size, complet.elements.length, "identifiants uniques avec les univers");
+  verifier(univ.every((e) => e.variantes === null && e.moule.remplacements.every((r) => r.phrase_cible && r.phrase_accent && r.phrase_translit && r.phrase_fr)), "univers : variantes null, phrases complètes");
+  verifier(univ.every((e) => e.rang > complet.elements.filter((x) => !x.univers).length), "les univers viennent après toutes les situations dans l'ordre global");
+  const rLieux = univ.find((e) => e.id === "ru-lieux-001").moule.remplacements[1];
+  egal(texteElement(univ.find((e) => e.id === "ru-lieux-001"), { remplacement: 1 }).accent, rLieux.phrase_accent, "la phrase du remplacement est affichée telle quelle");
+  verifier(complet.univers.every((u) => u.ids.length === 2 && u.titre), "chaque univers a 2 moules et un titre");
+  verifier(!JSON.stringify(complet.univers).includes("niveau") && univ.every((e) => e.niveau === undefined), "le niveau n'est pas porté à l'écran (D7)");
+  // Un univers illisible est ignoré sans casser le reste.
+  const sansUnivers = await chargerContenu("ru", async (c) => { if (c.includes("univers-")) throw new Error("absent"); return lireJson(c); });
+  egal([sansUnivers.univers.length, sansUnivers.elements.filter((e) => e.univers).length], [0, 0], "fichiers d'univers absents : aucune liste d'univers (donc ni tuile, ni interrupteur, ni rangée « 0 sur 0 »)");
+
+  // Seuils d'entrée (themes.md, §3).
+  const seuilsVera = { "ru-lieux-001": 10, "ru-lieux-002": 20, "ru-maison-001": 15, "ru-maison-002": 25, "ru-nourriture-001": 20,
+    "ru-nourriture-002": 30, "ru-couleurs-001": 25, "ru-couleurs-002": 35, "ru-famille-001": 30, "ru-famille-002": 40 };
+  egal(Object.fromEntries(univ.map((e) => [e.id, e.seuil])), seuilsVera, "seuils d'entrée des 10 moules");
+
+  const J = "2026-11-20";
+  const sit = complet.elements.filter((e) => !e.univers);
+  // n éléments de situations déjà introduits (boîte 1, échéance lointaine : rien n'est dû).
+  const fichesAvec = (n, extra) => {
+    const m = new Map();
+    sit.slice(0, n).forEach((e) => m.set(e.id, Object.assign(ficheVide(e.id), { boite: 1, echeance: "2026-12-30", premiereVue: "2026-11-10" })));
+    (extra || []).forEach((id) => m.set(id, Object.assign(ficheVide(id), { boite: 1, echeance: "2026-12-30", premiereVue: "2026-11-10" })));
+    return m;
+  };
+  const jouer = (n, mode, duree, options) => {
+    const fiches = fichesAvec(n, options && options.extra);
+    const sn = creerSession(Object.assign({ contenu: complet, fiches, mode, duree, jour: J, genre: "m", aleatoire: aleatoireGraine(7) }, options));
+    const cartes = [];
+    let t = 0;
+    for (let c = sn.prochaineCarte(t); c && cartes.length < 400; c = sn.prochaineCarte(t)) {
+      cartes.push(c); t += c.est;
+      if (c.type !== "dialogue") sn.repondre(c, mode === "voiture" ? "passif" : "reussite");
+    }
+    return { sn, cartes, fiches, decouverts: sn.bilan().decouverts.filter((id) => complet.parId.get(id).univers) };
+  };
+
+  egal(jouer(9, "silence", 15).decouverts, [], "9 éléments de situations introduits : aucun univers (seuil 10)");
+  egal(jouer(10, "silence", 15).decouverts, ["ru-lieux-001"], "10 introduits : ru-lieux-001 entre");
+  egal(jouer(15, "silence", 15).decouverts, ["ru-lieux-001", "ru-maison-001"], "15 introduits : lieux-001 puis maison-001 (ordre des seuils)");
+  egal(jouer(24, "silence", 30).decouverts, ["ru-lieux-001", "ru-maison-001"], "24 introduits en 30 min : plafond de 2 (lieux-002 et nourriture-001 à 20 attendent)");
+  // Le seuil se lit au début de la session : 9 vus + 1 nouveau en cours de session n'ouvre pas l'univers (il entre à la suivante).
+  egal(jouer(9, "silence", 30).decouverts, [], "le seuil compte les éléments introduits avant la session");
+  // Un univers jamais vu ne sert pas de leurre avant son entrée.
+  {
+    const r = jouer(5, "silence", 15);
+    verifier(r.cartes.every((c) => !(c.options || []).some((o) => String(o.id).includes("ru-lieux") || String(o.id).includes("ru-famille"))), "aucun univers en leurre avant son entrée");
+  }
+
+  // Limite par session (R2) : 1 en 5 min, 2 en 15 et 30 min, aucun en 2 min.
+  for (const mode of ["silence", "ecouteurs", "parler", "voiture"]) {
+    egal(jouer(45, mode, 2).decouverts.length, 0, "aucun univers en 2 min (" + mode + ")");
+    egal(jouer(45, mode, 5).decouverts.length, 1, "1 univers en 5 min (" + mode + ")");
+    verifier(jouer(45, mode, 15).decouverts.length === 2 && jouer(45, mode, 30).decouverts.length === 2, "2 univers en 15 et 30 min (" + mode + ")");
+  }
+  // Voiture : le moteur ne l'interdit pas (les moules passent en Boucle) : l'univers entre en Boucle découverte.
+  {
+    const r = jouer(45, "voiture", 15);
+    verifier(r.cartes.filter((c) => c.element && c.element.univers).every((c) => ["boucle-decouverte", "boucle-rappel"].includes(c.type)), "Voiture : univers seulement en Boucle");
+  }
+  // 2 min, premier lancement : rien de changé (le quota de 1 nouveau reste à la survie).
+  egal(jouer(0, "silence", 2).decouverts, [], "premier lancement 2 min : pas d'univers");
+
+  // R3 : un univers prend la place d'une situation, N ne change pas.
+  {
+    const avec = creerSession({ contenu: complet, fiches: fichesAvec(20), mode: "silence", duree: 15, jour: J, genre: "m", aleatoire: aleatoireGraine(3) });
+    const sans = creerSession({ contenu: complet, fiches: fichesAvec(20), mode: "silence", duree: 15, jour: J, genre: "m", aleatoire: aleatoireGraine(3), univers: false });
+    egal(avec.N, sans.N, "N identique avec et sans univers");
+    const r = jouer(20, "silence", 15);
+    const nouveaux = r.sn.bilan().decouverts;
+    verifier(nouveaux.length <= avec.N + REGLES.nouveautesBonusMax["15"], "les univers ne dépassent pas le quota de nouveautés");
+    verifier(nouveaux.filter((id) => !complet.parId.get(id).univers).length < avec.N, "un univers remplace bien une nouveauté de situation");
+  }
+  // Tout le reste vu : N compte les univers (pas de blocage quand il n'y a plus de nouvelle situation).
+  {
+    const tous = new Map(sit.map((e) => [e.id, Object.assign(ficheVide(e.id), { boite: 1, echeance: "2026-12-30", premiereVue: "2026-11-10" })]));
+    const sn = creerSession({ contenu: complet, fiches: tous, mode: "silence", duree: 5, jour: J, genre: "m", aleatoire: aleatoireGraine(2) });
+    egal(sn.N, 1, "plus aucune situation nouvelle : un univers entre encore (limite 5 min)");
+  }
+
+  // Jamais de liste isolée (R9) : toute carte d'univers est une carte Moule ou une Boucle, avec la phrase entière.
+  {
+    const r = jouer(45, "parler", 30);
+    const cu = r.cartes.filter((c) => c.element && c.element.univers);
+    verifier(cu.length > 0 && cu.every((c) => ["decouverte", "moule-sens", "moule-theme"].includes(c.type)), "univers : jamais Sens/Thème/Ordre/Écoute/À voix haute");
+    verifier(cu.every((c) => c.texte.cible === c.element.moule.remplacements[c.remplacement].phrase_cible && c.texte.cible.split(" ").length >= 2), "univers : la phrase complète, jamais un mot seul");
+  }
+
+  // Interrupteur : sans univers, aucun n'est proposé, aucune fiche d'univers n'est touchée.
+  {
+    const r = jouer(45, "silence", 30, { univers: false });
+    verifier(r.cartes.every((c) => !c.element || !c.element.univers), "univers désactivés : aucune carte d'univers");
+    verifier(![...r.fiches.keys()].some((id) => complet.parId.get(id).univers), "univers désactivés : aucune fiche écrite");
+    // Des fiches d'univers existantes restent intactes (aucune pénalité).
+    const f = fichesAvec(45, ["ru-lieux-001"]);
+    f.set("ru-lieux-001", Object.assign(f.get("ru-lieux-001"), { echeance: "2026-11-01" }));
+    const avant = JSON.stringify(f.get("ru-lieux-001"));
+    const sn = creerSession({ contenu: complet, fiches: f, mode: "silence", duree: 5, jour: J, genre: "m", univers: false, aleatoire: aleatoireGraine(1) });
+    for (let c = sn.prochaineCarte(0), t = 0; c && t < 300; c = sn.prochaineCarte(t)) { t += c.est; sn.repondre(c, "reussite"); }
+    egal(JSON.stringify(f.get("ru-lieux-001")), avant, "univers désactivés : la fiche d'un univers dû n'est pas modifiée");
+  }
+
+  // Leitner : mêmes boîtes que les autres phrases. Découverte → boîte 1, échéance J+1 ; dû le lendemain, il se révise et monte.
+  {
+    const r = jouer(10, "silence", 15);
+    const f = r.fiches.get("ru-lieux-001");
+    egal([f.boite, f.echeance], [1, "2026-11-21"], "univers découvert : boîte 1, revu demain (comme une phrase)");
+    const sn2 = creerSession({ contenu: complet, fiches: r.fiches, mode: "silence", duree: 5, jour: "2026-11-21", genre: "m", aleatoire: aleatoireGraine(5) });
+    verifier(sn2.dus.includes("ru-lieux-001"), "l'univers appris est dû le lendemain");
+    for (let c = sn2.prochaineCarte(0), t = 0; c && t < 300; c = sn2.prochaineCarte(t)) { t += c.est; sn2.repondre(c, "reussite"); }
+    egal(r.fiches.get("ru-lieux-001").boite, 2, "révision réussie : boîte 2 (mêmes règles Leitner)");
+    // Il est compté dans « Tu sais dire N phrases » comme les autres (boîte 4 et plus).
+    const acq = new Map(r.fiches); acq.set("ru-lieux-001", Object.assign(ficheVide("ru-lieux-001"), { boite: 4, echeance: "2026-12-30" }));
+    const sn3 = creerSession({ contenu: complet, fiches: acq, mode: "silence", duree: 2, jour: J, genre: "m", aleatoire: aleatoireGraine(5) });
+    verifier(sn3.bilan().totalAcquis >= 1, "un univers acquis compte dans « Tu sais dire »");
+  }
+  // Personnalisation (prénom, métier) : les univers passent intacts.
+  verifier(personnaliser(complet, null).elements.filter((e) => e.univers).length === 10 && personnaliser(complet, null).univers.length === 5, "personnaliser garde les univers");
+
+  // Sauvegarde : l'interrupteur voyage avec le fichier ; une ancienne sauvegarde sans la clé = activé, sans erreur.
+  {
+    const { construireSauvegarde, lireSauvegarde } = await import("../app/js/sauvegarde.js");
+    const fich = new Map();
+    const lu = lireSauvegarde(JSON.stringify(construireSauvegarde(fich, { universInclus: false }, new Date())));
+    egal([lu.ok, lu.reglages.universInclus], [true, false], "sauvegarde : univers décochés restent décochés");
+    const vieux = JSON.stringify({ format: "bagou-sauvegarde", version: 1, fiches: [], reglages: { genre: "f" }, usage: { jours: {} } });
+    const lv = lireSauvegarde(vieux);
+    egal([lv.ok, lv.reglages.universInclus], [true, true], "ancienne sauvegarde sans la clé : univers activés, sans erreur");
+  }
+  // Choix d'accueil (R8) : un seul choix, actif par défaut, décochable.
+  egal([universInclus(undefined), universInclus({}), universInclus({ universInclus: true }), universInclus({ universInclus: false })], [true, true, true, false], "choix d'accueil « Inclure les univers » : oui par défaut");
 }
 
 sortie(reussites + " vérifications réussies, " + echecs + " échec(s).");

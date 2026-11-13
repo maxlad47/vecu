@@ -1,0 +1,141 @@
+{
+  "langue": "ru",
+  "situation": "nourriture",
+  "titre": "Univers : la nourriture et les boissons",
+  "niveau": "A1",
+  "statut": "valide-nadia",
+  "phrases": [
+    {
+      "id": "ru-nourriture-001",
+      "fr": "C'est avec du lait ?",
+      "cible": "Это с молоком?",
+      "accent": "Э́то с молоко́м?",
+      "translit": "éta s malakóm?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "С (avec) fait changer la fin du mot : молоко́ → с молоко́м, лимо́н → с лимо́ном.",
+      "moule": {
+        "modele": "Это ___?",
+        "fr": "C'est avec ___ ?",
+        "remplacements": [
+          {
+            "fr": "du lait",
+            "cible": "с молоком",
+            "accent": "с молоко́м",
+            "translit": "s malakóm",
+            "phrase_fr": "C'est avec du lait ?",
+            "phrase_cible": "Это с молоком?",
+            "phrase_accent": "Э́то с молоко́м?",
+            "phrase_translit": "éta s malakóm?"
+          },
+          {
+            "fr": "du sucre",
+            "cible": "с сахаром",
+            "accent": "с са́харом",
+            "translit": "s sákharam",
+            "phrase_fr": "C'est avec du sucre ?",
+            "phrase_cible": "Это с сахаром?",
+            "phrase_accent": "Э́то с са́харом?",
+            "phrase_translit": "éta s sákharam?"
+          },
+          {
+            "fr": "de la crème",
+            "cible": "со сливками",
+            "accent": "со сли́вками",
+            "translit": "sa slífkami",
+            "phrase_fr": "C'est avec de la crème ?",
+            "phrase_cible": "Это со сливками?",
+            "phrase_accent": "Э́то со сли́вками?",
+            "phrase_translit": "éta sa slífkami?"
+          },
+          {
+            "fr": "du citron",
+            "cible": "с лимоном",
+            "accent": "с лимо́ном",
+            "translit": "s limónam",
+            "phrase_fr": "C'est avec du citron ?",
+            "phrase_cible": "Это с лимоном?",
+            "phrase_accent": "Э́то с лимо́ном?",
+            "phrase_translit": "éta s limónam?"
+          },
+          {
+            "fr": "de la glace",
+            "cible": "с мороженым",
+            "accent": "с моро́женым",
+            "translit": "s marójynym",
+            "phrase_fr": "C'est avec de la glace ?",
+            "phrase_cible": "Это с мороженым?",
+            "phrase_accent": "Э́то с моро́женым?",
+            "phrase_translit": "éta s marójynym?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru-nourriture-002",
+      "fr": "Il y a du porc dans ce plat ?",
+      "cible": "В этом блюде есть свинина?",
+      "accent": "В э́том блю́де есть свини́на?",
+      "translit": "v étam blioúdi iest svinína?",
+      "registre": "vous",
+      "variantes": null,
+      "astuce": "Есть (il y a) est suivi du mot tel quel : есть сыр, есть оре́хи. Rien à changer.",
+      "moule": {
+        "modele": "В этом блюде есть ___?",
+        "fr": "Il y a ___ dans ce plat ?",
+        "remplacements": [
+          {
+            "fr": "du porc",
+            "cible": "свинина",
+            "accent": "свини́на",
+            "translit": "svinína",
+            "phrase_fr": "Il y a du porc dans ce plat ?",
+            "phrase_cible": "В этом блюде есть свинина?",
+            "phrase_accent": "В э́том блю́де есть свини́на?",
+            "phrase_translit": "v étam blioúdi iest svinína?"
+          },
+          {
+            "fr": "de l'alcool",
+            "cible": "алкоголь",
+            "accent": "алкого́ль",
+            "translit": "alkagól",
+            "phrase_fr": "Il y a de l'alcool dans ce plat ?",
+            "phrase_cible": "В этом блюде есть алкоголь?",
+            "phrase_accent": "В э́том блю́де есть алкого́ль?",
+            "phrase_translit": "v étam blioúdi iest alkagól?"
+          },
+          {
+            "fr": "du fromage",
+            "cible": "сыр",
+            "accent": "сыр",
+            "translit": "syr",
+            "phrase_fr": "Il y a du fromage dans ce plat ?",
+            "phrase_cible": "В этом блюде есть сыр?",
+            "phrase_accent": "В э́том блю́де есть сыр?",
+            "phrase_translit": "v étam blioúdi iest syr?"
+          },
+          {
+            "fr": "des oignons",
+            "cible": "лук",
+            "accent": "лук",
+            "translit": "louk",
+            "phrase_fr": "Il y a des oignons dans ce plat ?",
+            "phrase_cible": "В этом блюде есть лук?",
+            "phrase_accent": "В э́том блю́де есть лук?",
+            "phrase_translit": "v étam blioúdi iest louk?"
+          },
+          {
+            "fr": "des noix",
+            "cible": "орехи",
+            "accent": "оре́хи",
+            "translit": "ariékhi",
+            "phrase_fr": "Il y a des noix dans ce plat ?",
+            "phrase_cible": "В этом блюде есть орехи?",
+            "phrase_accent": "В э́том блю́де есть оре́хи?",
+            "phrase_translit": "v étam blioúdi iest ariékhi?"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -13,6 +13,7 @@ import { creerHorloge } from "../horloge.js";
 import { ponctuationFinale, normaliser, texteElement, aLire } from "../contenu.js";
 import { reglageManquant } from "../personnage.js";
 import { comparerSaisie, versCyrillique } from "../exercices.js";
+import { universInclus } from "../parcours.js";
 import { dialoguesProposables } from "../dialogues.js";
 import { carteDialogue } from "./carte-dialogue.js";
 import * as audio from "../audio.js";
@@ -23,7 +24,7 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
   const reglages = () => ctx.reglages();
   const genreReglage = () => reglages().genre; // undefined tant que jamais réglé
   const session = creerSession({
-    contenu: ctx.contenu, fiches: ctx.stockage.fiches, mode, duree, jour: ctx.jour(), themes,
+    contenu: ctx.contenu, fiches: ctx.stockage.fiches, mode, duree, jour: ctx.jour(), themes, univers: universInclus(reglages()),
     genre: genreReglage() || "m",
     persoVus: ctx.personnage().vus,
     persoVu: ctx.persoVu,
@@ -220,7 +221,7 @@ export function afficherSession(racine, ctx, { duree, mode, themes }) {
     const texte = carte.texte;
     const genre = genreReglage();
     const fiche = ctx.stockage.fiches.get(el.id);
-    const theme = ctx.contenu.situations.find((x) => x.id === el.situation);
+    const theme = ctx.contenu.situations.concat(ctx.contenu.univers || []).find((x) => x.id === el.situation); // un univers a sa rangée comme une situation
     const decor = decorSituation(el.situation); // discret, en haut à droite, jamais derrière un texte
     // Genre jamais réglé et phrase qui en dépend (russe ou français) : on montre les deux formes et on pose la question (ecrans-phase0.md, 2.5).
     const deuxFormes = !genre && !!texte.autre;

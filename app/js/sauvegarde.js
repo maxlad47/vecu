@@ -11,7 +11,7 @@ const GARDER_JOURS = 120;   // l'historique d'usage garde 120 jours au plus
 const RAPPEL_JOURS = 7;     // on rappelle d'exporter après 7 jours sans sauvegarde
 
 // Réglages qui voyagent avec la sauvegarde (le reste se refait en 10 secondes).
-const REGLAGES_SAUVEGARDES = ["translitteration", "vitesseVoix", "apparence", "genre", "personnage", "dureeParLieu", "dernierMode", "dernierDuree", "derniersThemes"];
+const REGLAGES_SAUVEGARDES = ["translitteration", "vitesseVoix", "apparence", "genre", "personnage", "dureeParLieu", "dernierMode", "dernierDuree", "derniersThemes", "universInclus"];
 
 /** Construit l'objet à écrire dans le fichier. */
 export function construireSauvegarde(fiches, reglages, maintenant) {
@@ -40,6 +40,8 @@ export function lireSauvegarde(texte) {
   const reglages = {};
   const source = brut.reglages && typeof brut.reglages === "object" ? brut.reglages : {};
   REGLAGES_SAUVEGARDES.forEach((cle) => { if (source[cle] !== undefined) reglages[cle] = source[cle]; });
+  // Ancienne sauvegarde sans cette clé (ou valeur illisible) : valeur par défaut, univers inclus.
+  reglages.universInclus = source.universInclus !== false;
   return { ok: true, fiches, reglages, usage: validerUsage(brut.usage) };
 }
 

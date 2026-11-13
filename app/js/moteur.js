@@ -4,7 +4,7 @@
 // pauses exclues), puis lui transmet le résultat de la carte.
 
 import {
-  REGLES, COUT_NOUVEAU, ECHELLES, REVISION_PAR_BOITE, ROTATION_REMPLISSAGE, DIALOGUE
+  REGLES, COUT_NOUVEAU, ECHELLES, REVISION_PAR_BOITE, ROTATION_REMPLISSAGE, DIALOGUE, UNIVERS
 } from "./config.js";
 import { ficheVide, estDu, estAcquis, appliquerDecouverte, appliquerResultat, validerFiche } from "./leitner.js";
 import { texteElement } from "./contenu.js";
@@ -50,6 +50,8 @@ export function aleatoireGraine(graine) {
  *   (tout le contenu, comportement d'origine). Avec des thèmes, les nouvelles phrases, les
  *   révisions dues et le remplissage ne viennent que de ces thèmes. Les révisions dues
  *   ailleurs attendent : leur fiche n'est pas touchée, donc aucune pénalité.
+ * @param {boolean} [p.univers] inclure les univers de vocabulaire (défaut : oui). Non : leurs éléments ne sont ni
+ *   nouveaux, ni révisés, ni en remplissage ; leurs fiches ne sont pas touchées.
  * @param {function} [p.aleatoire] tirage dans [0, 1[
  * @param {function} [p.ecrire]    appelé avec chaque fiche modifiée (pour l'enregistrer)
  * @param {object}   [p.persoVus]  mots du personnage déjà montrés en Découverte : { cle: true }
@@ -81,9 +83,13 @@ export function creerSession(p) {
   const fiche = (id) => fiches.get(id) || ficheVide(id);
   const el = (id) => contenu.parId.get(id);
   const tousElements = contenu.elements;
+  // Les éléments d'univers (moules de vocabulaire) suivent leurs propres règles d'entrée ; ils ne sont pas des « thèmes ».
+  const elementsSituations = tousElements.filter((e) => !e.univers);
+  const elementsUnivers = p.univers === false ? [] : tousElements.filter((e) => e.univers);
   // Thèmes choisis (ids inconnus ignorés). Si plus rien de valide, on retombe sur « Au hasard ».
-  const themesChoisis = new Set((Array.isArray(p.themes) ? p.themes : []).filter((id) => tousElements.some((e) => e.situation === id)));
-  const elements = themesChoisis.size ? tousElements.filter((e) => themesChoisis.has(e.situation)) : tousElements;
+  const themesChoisis = new Set((Array.isArray(p.themes) ? p.themes : []).filter((id) => elementsSituations.some((e) => e.situation === id)));
+  // Les univers inclus s'ajoutent à ce qui est travaillé, avec ou sans thèmes choisis.
+  const elements = (themesChoisis.size ? elementsSituations.filter((e) => themesChoisis.has(e.situation)) : elementsSituations).concat(elementsUnivers);
 
   // ---- 5.1 Initialisation ----
   const dus = elements
@@ -99,7 +105,14 @@ export function creerSession(p) {
   // non notée d'abord, sans toucher à la boîte. Un moule jamais vu l'obtient par la Découverte normale.
   const cleDe = (e) => e.moule.remplacements[0].cle;
   const persoAVoir = elements.filter((e) => e.moule && e.moule.personnel && !persoVus[cleDe(e)] && fiche(e.id).boite >= 1).map((e) => e.id);
-  const nouveauxPossibles = elements.filter((e) => fiche(e.id).boite === 0).map((e) => e.id);
+  const nouveauxPossibles = elements.filter((e) => !e.univers && fiche(e.id).boite === 0).map((e) => e.id);
+  // Univers : un élément jamais vu entre dans la file des nouveaux quand assez d'éléments de situations ont été
+  // introduits avant la session (R1), dans l'ordre des seuils, puis de l'univers, puis du moule (R4).
+  const situationsIntroduites = elementsSituations.filter((e) => fiche(e.id).boite >= 1).length;
+  const universNouveaux = elementsUnivers.filter((e) => fiche(e.id).boite === 0 && e.seuil <= situationsIntroduites)
+    .sort((a, b) => (a.seuil - b.seuil) || (a.rangSituation - b.rangSituation) || (a.rangPhrase - b.rangPhrase));
+  const limiteUnivers = UNIVERS.parSession[duree] || 0;
+  const universPossibles = Math.min(limiteUnivers, universNouveaux.length);
   // Le démarrage prudent des sessions de 2 min compte les phrases vues partout, pas seulement dans les thèmes.
   const nbVus = tousElements.filter((e) => fiche(e.id).boite >= 1).length;
 
@@ -107,7 +120,8 @@ export function creerSession(p) {
   let nMax = REGLES.nMax[mode][duree];
   if (duree === "2" && nbVus < REGLES.demarrage.seuilVus) nMax = REGLES.demarrage.nMax2min;
   const nMin = REGLES.nMin[duree];
-  let N = Math.min(nMax, nouveauxPossibles.length);
+  // Un univers prend la place d'un nouvel élément de situation (R3) : N ne change pas tant qu'il reste des situations.
+  let N = Math.min(nMax, nouveauxPossibles.length + universPossibles);
   while (N > nMin && N * COUT_NOUVEAU[mode].phrase + dus.length * REGLES.estRevision[mode] > D) N--;
   // Le quota N est pris dans l'ordre de NEW ; le bonus (5.6) continue dans le même ordre.
   const bonusMax = REGLES.nouveautesBonusMax[duree];
@@ -124,6 +138,9 @@ export function creerSession(p) {
     seq: 0,
     actifs: 0,
     introduits: 0,
+    introduitsSituations: 0, // parmi `introduits` : les éléments de situations (pointeur dans nouveauxPossibles)
+    introduitsUnivers: 0,
+    universVus: new Set(),   // univers déjà introduits dans cette session (la fiche est écrite à la Découverte)
     dusPasses: new Set(),
     premiereNoteeFaite: new Set(),
     rattrapages: new Map(),
@@ -281,12 +298,14 @@ export function creerSession(p) {
     const a = plusPetitRdv(echus);
     if (a) return { regle: "A", id: a.id, rdv: a, type: resoudreType(a.type, el(a.id)) };
 
-    // B. Nouvel élément
-    const resteNouveau = etat.introduits < nouveauxPossibles.length;
+    // B. Nouvel élément : un univers d'abord s'il est éligible et sous la limite de la session (R2, R3), sinon la situation suivante
+    const univers = etat.introduitsUnivers < limiteUnivers ? universNouveaux.find((e) => !etat.universVus.has(e.id)) : null;
+    const prochain = univers ? univers.id : nouveauxPossibles[etat.introduitsSituations];
+    const resteNouveau = prochain !== undefined;
     const quota = etat.introduits < N;
     const bonus = !quota && etat.introduits < N + bonusMax && reserve() * REGLES.estRevision[mode] < D - t;
     if (resteNouveau && (quota || bonus) && etat.actifs < REGLES.actifsMax && (dusAuDepart.size === 0 || etat.index >= 1)) {
-      const id = nouveauxPossibles[etat.introduits];
+      const id = prochain;
       const e = el(id);
       if (D - t >= coutNouveau(e) + dusRestants() * REGLES.estRevision[mode]) {
         return { regle: "B", id, etape: 0, type: resoudreType(echelleDe(e)[0], e) };
@@ -336,6 +355,7 @@ export function creerSession(p) {
     if (choix.regle === "B") {
       etape = 0;
       etat.introduits += 1;
+      if (e.univers) { etat.introduitsUnivers += 1; etat.universVus.add(e.id); } else etat.introduitsSituations += 1;
       etat.actifs += 1;
       etat.introduitsSession.push(e.id);
       enJeu.add(e.id);
@@ -407,7 +427,8 @@ export function creerSession(p) {
   // Ajoute les choix du QCM ou les tuiles de l'Ordre.
   function ajouterExercice(carte) {
     const ctx = {
-      elements: tousElements, fiche, genre, aleatoire,
+      // Un univers jamais vu ne sert pas de leurre : il apparaîtrait avant son entrée.
+      elements: tousElements.filter((e) => !e.univers || fiche(e.id).boite >= 1), fiche, genre, aleatoire,
       introduitsSession: new Set(etat.introduitsSession)
     };
     // À voix haute reçoit aussi des choix : ils servent si l'on coupe le son pendant la carte
@@ -530,7 +551,7 @@ export function creerSession(p) {
       cartes: etat.index,
       totalAcquis: acquisMaintenant.length,
       nouveauxAcquis: acquisMaintenant.filter((id) => !acquisAvant.has(id)).length,
-      toutVu: tousElements.every((e) => fiche(e.id).boite >= 1)
+      toutVu: elementsSituations.concat(elementsUnivers).every((e) => fiche(e.id).boite >= 1)
     };
   }
 
