@@ -31,7 +31,7 @@
     }
   },
   "decors": {
-    "accueil": "ambiance/bulbes.svg",
+    "accueil": "ambiance/place-rouge.svg",
     "defaut": "ambiance/rameau.svg",
     "par_situation": {
       "cafe": "ambiance/samovar.svg",

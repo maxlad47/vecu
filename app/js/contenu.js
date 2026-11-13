@@ -32,6 +32,9 @@ export async function chargerContenu(langue, lireJson) {
   // Le test de niveau est facultatif aussi : sans lui, l'app ne le propose pas.
   contenu.test = null;
   if (index.test) { try { contenu.test = await lire(base + index.test); } catch (e) { contenu.test = null; } }
+  // Expression du jour (accueil) : facultative aussi.
+  contenu.expressions = [];
+  if (index.expressions) { try { const d = await lire(base + index.expressions); contenu.expressions = Array.isArray(d.expressions) ? d.expressions : []; } catch (e) { contenu.expressions = []; } }
   return contenu;
 }
 

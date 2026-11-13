@@ -8,9 +8,9 @@
    Aucune couleur en dur hors des jetons. */
 
 /* ===== 0. Police du russe (servie par l'app, hors ligne, licence OFL : app/polices/) =====
-   La police système de l'iPhone décolle l'accent tonique en gras ; Onest le place correctement. */
+   La police système de l'iPhone décolle l'accent tonique en gras ; Geologica le place sur toutes les voyelles. */
 @font-face {
-  font-family: "Onest"; src: url("../polices/Onest.woff") format("woff");
+  font-family: "Geologica"; src: url("../polices/Geologica.woff") format("woff");
   font-weight: 400 800; font-style: normal; font-display: swap;
 }
 
@@ -33,10 +33,10 @@
   --bas: max(env(safe-area-inset-bottom, 0px), 12px);
 
   /* Trois voix : la police de l'appareil (SF Pro sur iPhone), sa version arrondie pour les chiffres,
-     et Onest pour le russe. */
+     et Geologica pour le russe. */
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
   --font-arrondi: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
-  --font-ru: "Onest", var(--font);
+  --font-ru: "Geologica", var(--font);
 
   /* Échelle de l'iPhone : grand titre 34, titres 28/22/20, corps 17, note 15 (plancher). */
   --fs-large: 2.125rem; --fs-t1: 1.75rem; --fs-t2: 1.375rem; --fs-t3: 1.25rem;
@@ -89,7 +89,6 @@ body {
   --sur-scene: var(--on-accent);
   --sur-scene-doux: color-mix(in srgb, var(--on-accent) 84%, var(--accent));
   --gris: color-mix(in srgb, var(--text) 7%, var(--bg));
-  --drapeau-blanc: var(--surface); --sur-drapeau-blanc: var(--text);
   --filet: color-mix(in srgb, var(--text) 12%, transparent);
   --ombre-carte: 0 1px 2px color-mix(in srgb, var(--text) 8%, transparent), 0 8px 24px -12px color-mix(in srgb, var(--text) 22%, transparent);
   --ombre-haute: 0 24px 48px -20px color-mix(in srgb, var(--text) 40%, transparent);
@@ -103,7 +102,6 @@ body {
     --sur-scene: var(--text); --sur-scene-doux: color-mix(in srgb, var(--text) 86%, var(--accent));
 
     --gris: color-mix(in srgb, var(--text) 9%, var(--bg));
-    --drapeau-blanc: var(--text); --sur-drapeau-blanc: var(--bg);
     --ombre-carte: 0 0 0 1px color-mix(in srgb, var(--text) 8%, transparent);
     --ombre-scene: 0 28px 50px -26px rgba(0,0,0,0.7);
   }
@@ -113,7 +111,6 @@ body {
   --scene-b: color-mix(in srgb, var(--deco-bleu-pale) 55%, var(--bg));
   --sur-scene: var(--text); --sur-scene-doux: color-mix(in srgb, var(--text) 86%, var(--accent));
   --gris: color-mix(in srgb, var(--text) 9%, var(--bg));
-    --drapeau-blanc: var(--text); --sur-drapeau-blanc: var(--bg);
   --ombre-carte: 0 0 0 1px color-mix(in srgb, var(--text) 8%, transparent);
   --ombre-scene: 0 28px 50px -26px rgba(0,0,0,0.7);
 }
@@ -141,7 +138,7 @@ a { color: var(--accent); }
 }
 svg.icon { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor;
   stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-/* Russe : Onest, pas de césure, pas de gras synthétique, ё jamais remplacé, aucun espacement forcé. */
+/* Russe : Geologica, pas de césure, pas de gras synthétique, ё jamais remplacé, aucun espacement forcé. */
 [lang="ru"] { font-family: var(--font-ru); hyphens: none; overflow-wrap: break-word; font-synthesis: none; letter-spacing: 0; }
 [lang="ru-Latn"] { font-family: var(--font); }
 .mot-ru { display: inline-block; white-space: nowrap; }
@@ -291,35 +288,64 @@ span.past { cursor: default; }
 
 /* ===== 6. Accueil ===== */
 .contenu-accueil { display: flex; flex-direction: column; }
-/* Étape 1 : la phrase du jour en carte « en lecture », puis les lieux en capsules de couleur pleine. */
-.phrase-jour {
-  margin-top: var(--space-2); padding: 22px; display: flex; flex-direction: column; gap: 6px;
-  background: linear-gradient(165deg, var(--scene-a), var(--scene-b)); color: var(--sur-scene);
-  border-radius: var(--radius-xl); box-shadow: var(--ombre-scene); animation: arrive 560ms var(--ressort) both;
+/* Étape 1 : l'affiche. Une grande scène bleue : l'expression russe du jour en haut, la place Rouge
+   en pleine largeur, et la reprise posée sur les pavés de la place. Puis les lieux en liste de l'iPhone. */
+.affiche {
+  position: relative; overflow: hidden; margin-top: var(--space-2); padding: 22px 22px 0;
+  display: flex; flex-direction: column; align-items: stretch;
+  background: linear-gradient(170deg, var(--scene-a), var(--scene-b)); color: var(--sur-scene);
+  border-radius: var(--radius-xl); box-shadow: var(--ombre-scene);
+  animation: arrive 560ms var(--ressort) both;
+  /* Couleurs du dessin sur le bleu : blanc, bleu clair, et un sol un peu plus clair que la scène. */
+  --deco-bleu: var(--sur-scene);
+  --deco-bleu-pale: color-mix(in srgb, var(--sur-scene) 55%, var(--scene-a));
+  --deco-sol: color-mix(in srgb, var(--sur-scene) 14%, var(--scene-b));
 }
-.phrase-jour-titre { font-size: var(--fs-small); font-weight: 700; color: var(--sur-scene-doux); margin-bottom: 18px; }
-.phrase-jour .ru-hero { font-size: clamp(2rem, 10vw, 2.75rem); line-height: 1.1; }
-.phrase-jour .translit, .phrase-jour .fr-dessus { color: var(--sur-scene-doux); }
-.phrase-jour .fr-dessus { margin-top: 10px; font-size: var(--fs-t3); font-weight: 600; letter-spacing: -0.02em; }
+.affiche-texte { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 4px; }
+.affiche-etiquette { font-size: var(--fs-small); font-weight: 700; color: var(--sur-scene-doux); margin-bottom: 8px; }
+.affiche-ru { font-family: var(--font-ru); font-size: clamp(2.125rem, 11vw, 3rem); font-weight: 700; line-height: 1.05; letter-spacing: 0; }
+.affiche-translit { font-size: var(--fs-translit); font-style: italic; color: var(--sur-scene-doux); }
+.affiche-fr { margin-top: 8px; font-size: var(--fs-t3); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+.affiche-note { font-size: var(--fs-small); color: var(--sur-scene-doux); line-height: 1.35; }
+.affiche .decor-accueil { position: relative; margin: 14px -22px 0; display: block; animation: monte-doux 700ms var(--ressort) 120ms both; }
+.affiche .decor-accueil svg { display: block; width: 100%; height: auto; }
+@keyframes monte-doux { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+/* Sans reprise, la place s'arrête au bord ; avec reprise, le bouton se pose sur les pavés. */
+.btn-affiche {
+  position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 2; min-height: 60px; padding: 8px 18px 8px 16px;
+  display: flex; align-items: center; gap: 12px;
+  background: var(--sur-scene); color: var(--scene-a); border: 0; border-radius: var(--radius-pill); text-align: left; cursor: pointer;
+  box-shadow: 0 14px 26px -14px rgba(0,0,0,0.55); transition: transform 240ms var(--ressort);
+  -webkit-tap-highlight-color: transparent; animation: surgit 480ms var(--ressort) 280ms both;
+}
+.btn-affiche:active { transform: scale(0.97); }
+.btn-affiche svg.icon { width: 22px; height: 22px; flex: none; fill: currentColor; }
+.btn-affiche .textes { display: flex; flex-direction: column; min-width: 0; }
+.btn-affiche .libelle { font-weight: 800; font-size: var(--fs-body); letter-spacing: -0.02em; line-height: 1.15; }
+.btn-affiche .sous { font-size: var(--fs-small); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .contenu-accueil .titre-etape { font-size: var(--fs-t1); margin: var(--space-5) 0 var(--space-3); }
-/* Les lieux en drapeau russe : un seul bloc arrondi, trois bandes (blanc, bleu, rouge), quatre boutons. */
-.lieux.drapeau {
-  display: grid; grid-template-columns: 1fr 1fr; overflow: hidden;
-  border-radius: var(--radius-l); box-shadow: 0 18px 34px -22px color-mix(in srgb, var(--text) 70%, transparent);
-  animation: surgit 560ms var(--ressort) both;
+/* Les lieux : une liste groupée, une pastille de couleur par lieu, un chevron. */
+.lieux {
+  display: flex; flex-direction: column; background: var(--surface); border-radius: var(--radius-l); box-shadow: var(--ombre-carte); overflow: hidden;
 }
 .carte-lieu {
-  position: relative; min-height: 68px; padding: 0 18px; display: flex; align-items: center; gap: 10px; text-align: left;
-  border: 0; border-radius: 0; font-weight: 700; cursor: pointer;
-  -webkit-tap-highlight-color: transparent; transition: filter 160ms;
+  position: relative; display: flex; align-items: center; gap: 14px; min-height: 70px; padding: 10px 14px; text-align: left;
+  background: none; border: 0; color: var(--text); cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: background-color 160ms;
 }
-.carte-lieu:active { filter: brightness(0.9); }
-.carte-lieu svg.icon { width: 24px; height: 24px; stroke-width: 2.2; }
-.carte-lieu .lieu-nom { font-size: var(--fs-body); line-height: 1.15; letter-spacing: -0.02em; }
-#lieu-silence, #lieu-ecouteurs { background: var(--drapeau-blanc); color: var(--sur-drapeau-blanc); }
-#lieu-ecouteurs::before { content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 1px; background: color-mix(in srgb, var(--sur-drapeau-blanc) 14%, transparent); }
-#lieu-parler { grid-column: 1 / -1; background: var(--accent); color: var(--on-accent); }
-#lieu-voiture { grid-column: 1 / -1; background: var(--laque); color: var(--on-laque); }
+.carte-lieu + .carte-lieu::before { content: ""; position: absolute; top: 0; left: 68px; right: 0; height: 1px; background: var(--filet); }
+.carte-lieu:active { background: var(--gris); }
+.pastille-lieu { width: 40px; height: 40px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: 11px; }
+.pastille-lieu svg.icon { width: 22px; height: 22px; stroke-width: 2.2; }
+#lieu-voiture .pastille-lieu { background: var(--accent); color: var(--on-accent); }
+#lieu-silence .pastille-lieu { background: var(--text); color: var(--bg); }
+#lieu-ecouteurs .pastille-lieu { background: var(--laque); color: var(--on-laque); }
+#lieu-parler .pastille-lieu { background: var(--or); color: var(--deco-oeil); } /* encre marine dans les deux thèmes */
+.lieu-textes { flex: 1; min-width: 0; }
+.carte-lieu .lieu-nom { display: block; font-weight: 700; font-size: var(--fs-body); line-height: 1.2; letter-spacing: -0.02em; }
+.carte-lieu .lieu-ex { display: block; margin-top: 2px; font-size: var(--fs-small); color: var(--text-muted); line-height: 1.25; }
+.chevron { color: var(--text-muted); display: flex; }
+.chevron svg.icon { width: 18px; height: 18px; stroke-width: 2.6; }
 .btn-ici-aide { margin-top: var(--space-3); }
 .decor { pointer-events: none; }
 .decor svg { display: block; width: 100%; height: auto; }
@@ -850,8 +876,7 @@ details p { margin: 0 0 var(--space-3); }
   .zone-action { padding-top: var(--space-2); }
   .ligne-choix { min-height: 62px; }
   .ligne-choix .chiffre { font-size: 2.25rem; }
-  .phrase-jour { padding: 18px; }
-  .phrase-jour-titre { margin-bottom: 8px; }
+  .affiche-note { display: none; }
   .ecran-session .carte-phrase .decor-carte { display: none; }
   .ecran-session .bloc-etat small, .ecran-session .retour .reverra { display: none; }
   .ecran-session .bloc-etat .poupee { height: 28px; width: 20px; }

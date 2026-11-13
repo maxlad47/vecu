@@ -284,3 +284,10 @@ Fichiers : `univers-lieux.json`, `univers-maison.json`, `univers-nourriture.json
 10. **famille-001**, У меня́ есть дво́е дете́й : « двое » collectif (genitif pluriel) et son niveau pour un A1 ; sinon У меня́ дво́е дете́й sans есть.
 11. **ordre_libre** mis sur maison-002 et couleurs-002 (Не рабо́тает душ ; Э́то мне велико́) : à confirmer. Absent de famille-002.
 12. **Translittérations** à vérifier : мэ́рией (« mériieï »), музе́ем (« mouziéïm »), пло́щадью (« plóchtchidiou »), больни́цей (« balnítsyï », с devant б → « z »), сли́вками (« slífkami »), моро́женым (« marójynym »), чи́стые (« tchístyïe »), дво́е (« dvóïe »), дете́й (« ditiéï »), рабо́тает (« rabótaït »), цве́те (« tsviéti »), с devant в gardé « s » (ря́дом с вокза́лом).
+
+
+## Expressions du jour (mission 015, 13/11/2026) : à faire valider par le natif
+- « Блин » : euphémisme d'un mot vulgaire, acceptable sur l'accueil ?
+- « Всё пучком » : encore courant ou daté ?
+- « Пока-пока » : perçu comme enfantin ou féminin ?
+- « Спасибки », « Ёлки-палки », « Бывает » : registre et fréquence réels.

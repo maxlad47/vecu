@@ -26,5 +26,6 @@
   ],
   "personnage": "personnage.json",
   "dialogues": "dialogues.json",
-  "test": "test-niveau.json"
+  "test": "test-niveau.json",
+  "expressions": "expressions.json"
 }
