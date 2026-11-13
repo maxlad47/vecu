@@ -324,6 +324,21 @@ span.past { cursor: default; }
 .btn-affiche .libelle { font-weight: 800; font-size: var(--fs-body); letter-spacing: -0.02em; line-height: 1.15; }
 .btn-affiche .sous { font-size: var(--fs-small); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .contenu-accueil .titre-etape { font-size: var(--fs-t1); margin: var(--space-5) 0 var(--space-3); }
+/* Accueil sur un seul écran : la page ne défile pas, la scène bleue prend la hauteur restante (comme la session, section 14). */
+.ecran-accueil { flex: none; height: 100vh; height: 100dvh; min-height: 0; overflow: hidden; }
+.ecran-accueil .contenu-accueil { flex: 1; min-height: 0; padding-bottom: var(--bas); }
+.ecran-accueil .affiche { flex: 1 1 0; min-height: 0; padding: 16px 20px 0; }
+.ecran-accueil .affiche-texte { flex: none; }
+.ecran-accueil .affiche-etiquette { margin-bottom: 4px; }
+.ecran-accueil .affiche-ru { font-size: clamp(1.875rem, min(10vw, 5.2dvh), 2.75rem); }
+.ecran-accueil .affiche-fr { margin-top: 4px; font-size: clamp(1.0625rem, 2.6dvh, 1.25rem); }
+.ecran-accueil .affiche-note { font-size: 0.875rem; line-height: 1.3; }
+.ecran-accueil .affiche .decor-accueil { flex: 1 1 0; min-height: 0; margin: 8px -20px 0; }
+.ecran-accueil .affiche .decor-accueil svg { height: 100%; }
+.ecran-accueil .affiche.avec-reprise .decor-accueil { margin-bottom: 0; }
+.ecran-accueil .titre-etape { font-size: clamp(1.375rem, 3.4dvh, 1.75rem); margin: 14px 0 8px; flex: none; }
+.ecran-accueil .lieux { flex: none; }
+.ecran-accueil .carte-lieu { min-height: clamp(56px, 8dvh, 70px); padding-block: 6px; }
 /* Les lieux : une liste groupée, une pastille de couleur par lieu, un chevron. */
 .lieux {
   display: flex; flex-direction: column; background: var(--surface); border-radius: var(--radius-l); box-shadow: var(--ombre-carte); overflow: hidden;
@@ -986,3 +1001,6 @@ details p { margin: 0 0 var(--space-3); }
   .btn-menu:active, .btn-icone:active, .past:active, .puce:active, .tuile:active, .carte-perso:active, .bouton-pause:active .cercle { transform: none; }
   .contenu.carte { animation: fondu 120ms; animation-duration: 120ms !important; }
 }
+
+/* Petits écrans (iPhone SE…) : la note « Littéralement… » est secondaire, on la retire pour laisser de la place à la scène. */
+@media (max-height: 700px) { .ecran-accueil .affiche-note { display: none; } }

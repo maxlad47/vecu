@@ -107,6 +107,9 @@ export function afficherAccueil(racine, ctx, options) {
       : h("div", { class: "affiche-texte" }, h("p", { class: "affiche-ru" }, t("accueil.slogan")));
     const affiche = h("section", { class: "affiche" + (dernier ? " avec-reprise" : ""), "aria-label": t("accueil.expression") },
       texte, decorAccueil(), dernier ? boutonDerniere() : null);
+    // La scène s'ajuste à la hauteur libre : calée en haut, rognée sur les pavés si besoin, jamais déformée.
+    const svgDecor = affiche.querySelector(".decor-accueil svg");
+    if (svgDecor) svgDecor.setAttribute("preserveAspectRatio", "xMidYMin slice");
     const liste = h("div", { class: "lieux" }, ORDRE_LIEUX.map((m) =>
       h("button", { type: "button", class: "carte-lieu", id: "lieu-" + m, onclick: () => choisirLieu(m) },
         h("span", { class: "pastille-lieu" }, icone(ICONES_LIEU[m])),
@@ -218,7 +221,8 @@ export function afficherAccueil(racine, ctx, options) {
   function dessiner() {
     vider(racine);
     const parties = etape === "test" && lieu ? etapeTest() : etape === 3 ? etape3() : etape === 2 && lieu ? etape2() : (etape = 1, etape1());
-    racine.appendChild(h("div", { class: "ecran" }, entete(), parties));
+    const accueilSeul = parties.length === 1 && parties[0].classList.contains("contenu-accueil"); // étape 1 : tient sur un écran, sans défilement
+    racine.appendChild(h("div", { class: "ecran" + (accueilSeul ? " ecran-accueil" : "") }, entete(), parties));
     focaliser(racine.querySelector(".titre-etape"));
   }
 
