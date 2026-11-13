@@ -112,7 +112,9 @@ export function afficherAccueil(racine, ctx, options) {
           h("label", { class: "choix ligne-choix", for: id },
             h("span", { class: "rond" }, icone("coche")),
             h("span", { class: "texte-ligne" },
-              h("span", { "aria-hidden": "true" }, texteDuree(n)),
+              // Le chiffre en très gros, l'unité à côté : « 15 » puis « min » (le texte lu reste « 15 minutes »).
+              h("span", { class: "duree-vis", "aria-hidden": "true" },
+                h("b", { class: "chiffre" }, String(n)), h("span", { class: "unite" }, texteDuree(n).replace(String(n), "").trim())),
               h("span", { class: "sr-only" }, t("duree.sr", { n })),
               h("small", null, t("duree." + n + ".sous"))),
             n === prerempli ? h("span", { class: "etiquette" }, t("duree.prerempli", { lieu: t("lieu." + lieu + ".court") })) : null)
