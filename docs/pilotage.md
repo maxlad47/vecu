@@ -1,6 +1,6 @@
 # Vécu : document de pilotage
 
-Dernière mise à jour : 12/11/2026 (soir), par le CEO (décisions de Max : périmètre v1, objectif, relecture, voix)
+Dernière mise à jour : 13/11/2026 (midi), par le CEO (refonte design mission 014 sur `main` ; décisions de Max : périmètre v1, objectif, relecture, voix, design D32-D33)
 
 ## Vision
 Apprendre une langue avec des phrases qui servent dans la vraie vie, n'importe où, n'importe quand, au rythme et selon les contraintes de chacun.
@@ -90,6 +90,7 @@ La qualité du russe publié et le retour au 15e jour. Test d'honnêteté : le c
 - Modèle économique (gratuit, freemium, abonnement) : à trancher en phase 2.
 
 ## État d'avancement
+- **13/11/2026 : v1 sur `main` et en ligne pour le test.** Les 4 fonctions (statistiques, cyrillique, univers, test de niveau) sont fusionnées ; la refonte design (mission 014, D32-D33) suit, sur le même lien. Il reste le test sur iPhone réel par Max, puis la décision de passage en phase 1 (critère du tableau).
 - **11/11/2026 : mission 1 livrée** (prototype de la phase 0). Lien de test privé pour Max. Le test de 2 semaines commence.
 - **Backlog de la phase 1, issu de la mission 1** :
   - situations « métro et directions », « pharmacie et santé », « se présenter » (avec son métier et son prénom) ;
