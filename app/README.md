@@ -9,7 +9,7 @@ C'est `dist/` qu'on héberge : `app/` à la racine, `content/` dans `dist/conten
 
 ```sh
 ./scripts/build.sh        # sans Node : bash, cp, find, shasum, awk
-node scripts/build.mjs    # avec Node (Netlify) : même résultat
+node scripts/build.mjs    # avec Node : même résultat
 ```
 
 Après une modification de `app/` ou de `content/`, il faut reconstruire : la version du cache change, et le téléphone récupère la nouvelle version à la visite suivante.
